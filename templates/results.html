@@ -1,155 +1,178 @@
 {% extends "base.html" %}
 
+{% macro destination_card(rec, budget, days, travelers, is_top=False, is_alt=False) %}
+    <div class="glass-card h-100 position-relative {% if is_alt or rec.Total_Cost > budget %}border-warning{% elif is_top %}border-primary shadow-lg{% endif %}">
+        {% if is_alt or rec.Total_Cost > budget %}
+        <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark px-3 py-2 shadow" style="z-index: 1;">
+            {% if is_alt %}Alternative 💡{% else %}Over Budget 💡{% endif %}
+        </div>
+        {% elif is_top %}
+        <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-primary px-3 py-2 shadow" style="z-index: 1;">
+            Top Recommendation 🌟
+        </div>
+        {% endif %}
+        
+        <div class="p-4 pt-5">
+            <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
+            <div class="mb-2">
+                <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
+                {% if rec.Crowd_Level %}
+                <span class="badge bg-{% if rec.Crowd_Level == 'High' %}danger{% elif rec.Crowd_Level == 'Medium' %}warning text-dark{% else %}success{% endif %}">Crowd: {{ rec.Crowd_Level }}</span>
+                {% endif %}
+                {% if rec.Family_Friendly == 'Yes' %}
+                <span class="badge bg-info text-dark">Family Friendly 👨‍👩‍👧</span>
+                {% endif %}
+            </div>
+
+            {# ── Top Attractions ── #}
+            {% if rec.Attractions %}
+            <div class="mt-3 p-3 bg-light rounded-3 border">
+                <h6 class="fw-bold text-primary mb-1"><i class="bi bi-geo-alt-fill"></i> Famous Spots</h6>
+                <p class="mb-0 small text-muted">{{ rec.Attractions }}</p>
+            </div>
+            {% endif %}
+
+            {# ── Score bar ── #}
+            <div class="my-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <small class="text-muted fw-semibold">Match Score</small>
+                    <small class="fw-bold
+                        {% if rec.Score >= 75 %}text-success
+                        {% elif rec.Score >= 50 %}text-warning
+                        {% else %}text-danger{% endif %}">
+                        {{ rec.Score }}/100
+                    </small>
+                </div>
+                <div class="progress" style="height: 6px; border-radius: 4px;">
+                    <div class="progress-bar
+                        {% if rec.Score >= 75 %}bg-success
+                        {% elif rec.Score >= 50 %}bg-warning
+                        {% else %}bg-danger{% endif %}"
+                        role="progressbar"
+                        style="width: {{ rec.Score }}%"
+                        aria-valuenow="{{ rec.Score }}" aria-valuemin="0" aria-valuemax="100">
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-muted small">{{ rec.Reason }}</p>
+
+            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
+            <hr class="opacity-25">
+            <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
+            <ul class="list-unstyled mt-3">
+                <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
+            </ul>
+        </div>
+        <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
+            {% if budget >= rec.Total_Cost %}
+            <span class="text-secondary fw-bold">Budget Remaining: ₹{{ budget - rec.Total_Cost }}</span>
+            {% else %}
+            <span class="text-danger fw-bold">Over Budget by: ₹{{ rec.Total_Cost - budget }}</span>
+            {% endif %}
+        </div>
+    </div>
+{% endmacro %}
+
+
 {% block content %}
 <div class="row mb-5 mt-4">
     <div class="col-md-12 text-center">
+        {% if state_info %}
+        <div class="glass-card p-5 mb-4 rounded-4 position-relative overflow-hidden" style="border-top: 5px solid var(--bs-{{ state_info.color }});">
+            <h1 class="display-4 fw-bold gradient-text">Welcome to {{ recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India') }}</h1>
+            <h4 class="text-{{ state_info.color }} mb-3 fw-semibold">"{{ state_info.title }}"</h4>
+            <p class="lead text-muted mx-auto" style="max-width: 800px;">{{ state_info.description }}</p>
+        </div>
+        {% else %}
         <h2 class="display-5 fw-bold gradient-text">Trip Recommendations</h2>
+        {% endif %}
         <p class="lead text-muted">Based on a budget of <strong>₹{{ budget }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
     </div>
 </div>
 
-{% if recommendations %}
-<div class="row g-4 mb-5">
-    {% for rec in recommendations %}
-    <div class="col-md-4">
-        <div class="glass-card h-100 position-relative {% if loop.index == 1 %}border-primary shadow-lg{% endif %}">
-            {% if loop.index == 1 %}
-            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-primary px-3 py-2 shadow" style="z-index: 1;">
-                Top Recommendation 🌟
-            </div>
-            {% endif %}
-            <div class="p-4 pt-5">
-                <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
-                <div class="mb-2">
-                    <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
-                    {% if rec.Crowd_Level %}
-                    <span class="badge bg-{% if rec.Crowd_Level == 'High' %}danger{% elif rec.Crowd_Level == 'Medium' %}warning text-dark{% else %}success{% endif %}">Crowd: {{ rec.Crowd_Level }}</span>
-                    {% endif %}
-                    {% if rec.Family_Friendly == 'Yes' %}
-                    <span class="badge bg-info text-dark">Family Friendly 👨‍👩‍👧</span>
-                    {% endif %}
-                </div>
+{# If a state is selected, show ALL destinations in that state (both matches and alternatives). Otherwise, only show matches. #}
+{% set display_list = (recommendations + alternatives) if state_info else recommendations %}
 
-                {# ── Score bar ── #}
-                <div class="my-3">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
-                        <small class="text-muted fw-semibold">Match Score</small>
-                        <small class="fw-bold
-                            {% if rec.Score >= 75 %}text-success
-                            {% elif rec.Score >= 50 %}text-warning
-                            {% else %}text-danger{% endif %}">
-                            {{ rec.Score }}/100
-                        </small>
-                    </div>
-                    <div class="progress" style="height: 6px; border-radius: 4px;">
-                        <div class="progress-bar
-                            {% if rec.Score >= 75 %}bg-success
-                            {% elif rec.Score >= 50 %}bg-warning
-                            {% else %}bg-danger{% endif %}"
-                            role="progressbar"
-                            style="width: {{ rec.Score }}%"
-                            aria-valuenow="{{ rec.Score }}" aria-valuemin="0" aria-valuemax="100">
-                        </div>
-                    </div>
-                </div>
-
-                <p class="text-muted small">{{ rec.Reason }}</p>
-
-                <h5 class="text-success mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
-                <hr class="opacity-25">
-                <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
-                <ul class="list-unstyled mt-3">
-                    <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
-                </ul>
-            </div>
-            <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
-                <span class="text-secondary fw-bold">Budget Remaining: ₹{{ budget - rec.Total_Cost }}</span>
+{% if display_list %}
+    {% if trip_type == 'all' %}
+        {# ── Group recommendations by Type ── #}
+        {% for type_name, items in display_list | groupby('Type') %}
+        {% set outer_loop = loop %}
+        <div class="row mb-3 mt-4">
+            <div class="col-12">
+                <h3 class="fw-bold text-secondary border-bottom pb-2">Famous {{ type_name | capitalize }}{% if type_name|lower != 'beach' %}s{% else %}es{% endif %}</h3>
             </div>
         </div>
-    </div>
-    {% endfor %}
-</div>
+        <div class="row g-4 mb-5">
+            {% for rec in items %}
+            <div class="col-md-4">
+                {{ destination_card(rec, budget, days, travelers, is_top=(loop.index == 1 and outer_loop.index == 1)) }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endfor %}
+        
+    {% else %}
+        {# ── Flat list of recommendations ── #}
+        <div class="row g-4 mb-5">
+            {% for rec in display_list %}
+            <div class="col-md-4">
+                {{ destination_card(rec, budget, days, travelers, is_top=(loop.index == 1)) }}
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
 
 {% elif alternatives %}
-<div class="row justify-content-center mb-4">
-    <div class="col-md-8 text-center">
-        <div class="alert alert-warning p-4 shadow-sm border-0 rounded-4">
-            <h3 class="alert-heading fw-bold">No exact matches found under ₹{{ budget }} 😢</h3>
-            <p class="mb-0">We couldn't find destinations within budget for these preferences. Here are the closest alternatives.</p>
-        </div>
-    </div>
-</div>
-
-{# ── Actionable suggestions ── #}
-{% if suggestions %}
-<div class="row justify-content-center mb-4">
-    <div class="col-md-8">
-        <div class="glass-card p-4">
-            <h6 class="fw-bold text-primary mb-3">💡 Suggestions to make it work:</h6>
-            <ul class="mb-0">
-                {% for s in suggestions %}
-                <li class="mb-2 text-muted small">{{ s }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<div class="row g-4 mb-5">
-    {% for rec in alternatives %}
-    <div class="col-md-4">
-        <div class="glass-card h-100 position-relative border-warning">
-            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark px-3 py-2 shadow" style="z-index: 1;">
-                Alternative 💡
+    {# ── This section only runs if state_info is False (India-wide search) AND there are zero matches ── #}
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8 text-center">
+            <div class="alert alert-warning p-4 shadow-sm border-0 rounded-4">
+                <h3 class="alert-heading fw-bold">No exact matches found under ₹{{ budget }} 😢</h3>
+                <p class="mb-0">We couldn't find destinations within budget for these preferences. Here are the closest alternatives.</p>
             </div>
-            <div class="p-4 pt-5">
-                <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
-                <div class="mb-2">
-                    <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
-                    {% if rec.Crowd_Level %}
-                    <span class="badge bg-{% if rec.Crowd_Level == 'High' %}danger{% elif rec.Crowd_Level == 'Medium' %}warning text-dark{% else %}success{% endif %}">Crowd: {{ rec.Crowd_Level }}</span>
-                    {% endif %}
-                    {% if rec.Family_Friendly == 'Yes' %}
-                    <span class="badge bg-info text-dark">Family Friendly 👨‍👩‍👧</span>
-                    {% endif %}
-                </div>
+        </div>
+    </div>
 
-                <p class="text-muted small">{{ rec.Reason }}</p>
-
-                <h5 class="text-danger mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
-                <hr class="opacity-25">
-                <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
-                <ul class="list-unstyled mt-3">
-                    <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
-                    <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
+    {% if suggestions %}
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="glass-card p-4">
+                <h6 class="fw-bold text-primary mb-3">💡 Suggestions to make it work:</h6>
+                <ul class="mb-0">
+                    {% for s in suggestions %}
+                    <li class="mb-2 text-muted small">{{ s }}</li>
+                    {% endfor %}
                 </ul>
             </div>
-            <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
-                <span class="text-danger fw-bold">Over Budget by: ₹{{ rec.Total_Cost - budget }}</span>
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="row g-4 mb-5">
+        {% for rec in alternatives %}
+        <div class="col-md-4">
+            {{ destination_card(rec, budget, days, travelers, is_alt=True) }}
+        </div>
+        {% endfor %}
+    </div>
+
+{% else %}
+    <div class="row justify-content-center mb-5">
+        <div class="col-md-8 text-center">
+            <div class="glass-card p-5 border-0 bg-white">
+                <h3 class="fw-bold text-danger">No destinations found! 😢</h3>
+                <p class="text-muted mt-3">Your budget might be too low, or no destination matches your criteria.</p>
+                <hr class="opacity-25 my-4">
+                <p class="mb-0">Try increasing your budget, reducing the number of days, or selecting "Any" for trip type.</p>
+                <a href="{{ url_for('planner') }}" class="btn btn-outline-danger mt-4 rounded-pill px-4">Adjust Plan</a>
             </div>
         </div>
     </div>
-    {% endfor %}
-</div>
-
-{% else %}
-<div class="row justify-content-center mb-5">
-    <div class="col-md-8 text-center">
-        <div class="glass-card p-5 border-0 bg-white">
-            <h3 class="fw-bold text-danger">No destinations found! 😢</h3>
-            <p class="text-muted mt-3">Your budget might be too low, or no destination matches your criteria.</p>
-            <hr class="opacity-25 my-4">
-            <p class="mb-0">Try increasing your budget, reducing the number of days, or selecting "Any" for trip type.</p>
-            <a href="{{ url_for('planner') }}" class="btn btn-outline-danger mt-4 rounded-pill px-4">Adjust Plan</a>
-        </div>
-    </div>
-</div>
 {% endif %}
 
 <div class="text-center mb-5">

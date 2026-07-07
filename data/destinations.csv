@@ -1,126 +1,126 @@
-Destination,State,Type,Avg_Travel_Cost,Avg_Hotel_Per_Day,Avg_Food_Per_Day_Per_Person,Avg_Local_Travel_Per_Day,Best_Season,Budget_Level,Recommended_Days,Crowd_Level,Family_Friendly
-Araku,Andhra Pradesh,Hill,1534,2317,871,484,Winter,Medium,3,Medium,Yes
-Visakhapatnam,Andhra Pradesh,Beach,1986,1436,342,429,Winter,Low,2,Low,Yes
-Maredumilli,Andhra Pradesh,Nature,1617,1214,340,530,Winter,Low,2,Medium,Yes
-Tirupati,Andhra Pradesh,Temple,830,3263,761,552,All,Medium,1,High,Yes
-Vijayawada,Andhra Pradesh,City,994,1706,877,415,All,Medium,5,Low,Yes
-Horsley Hills,Andhra Pradesh,Hill,2096,5134,1421,890,Winter,High,2,Medium,Yes
-Srisailam,Andhra Pradesh,Temple,1542,1567,954,737,Winter,Medium,1,High,Yes
-Lambasingi,Andhra Pradesh,Nature,1033,800,404,359,Winter,Low,3,Medium,Yes
-Papikondalu,Andhra Pradesh,Nature,1214,1170,421,479,Winter,Low,3,Low,No
-Rajahmundry,Andhra Pradesh,City,2142,2040,581,947,Winter,Medium,2,Medium,Yes
-Kurnool,Andhra Pradesh,City,2472,860,392,481,Winter,Low,4,Low,Yes
-Suryalanka,Andhra Pradesh,Beach,1954,813,394,432,Winter,Low,3,Low,Yes
-Yaganti,Andhra Pradesh,Temple,1195,1413,390,499,Winter,Low,3,High,Yes
-Gandikota,Andhra Pradesh,Nature,614,7339,1438,913,Winter,High,2,Low,No
-Belum Caves,Andhra Pradesh,Nature,2486,1313,410,244,Winter,Low,1,Medium,Yes
-Srikalahasti,Andhra Pradesh,Temple,624,1496,425,389,All,Low,1,High,Yes
-Kakinada,Andhra Pradesh,Beach,1582,3339,526,562,Winter,Medium,4,Low,Yes
-Lepakshi,Andhra Pradesh,Temple,818,1211,420,265,All,Low,2,High,Yes
-Ahobilam,Andhra Pradesh,Temple,518,2371,675,705,Winter,Medium,1,High,Yes
-Mantralayam,Andhra Pradesh,Temple,2398,2457,921,622,All,Medium,1,High,Yes
-Nallamala,Andhra Pradesh,Nature,845,935,370,373,Monsoon,Low,3,Medium,No
-Pulicat Lake,Andhra Pradesh,Nature,2369,3047,822,924,Winter,Medium,3,Medium,No
-Coringa,Andhra Pradesh,Nature,1201,590,372,420,Winter,Low,1,Low,Yes
-Talakona,Andhra Pradesh,Nature,607,4427,1768,408,Monsoon,High,1,Low,No
-Annavaram,Andhra Pradesh,Temple,1007,2257,685,720,All,Medium,2,High,Yes
-Hyderabad,Telangana,City,1147,3161,823,666,Winter,Medium,2,High,Yes
-Ananthagiri Hills,Telangana,Hill,1466,1930,903,872,Monsoon,Medium,3,Low,Yes
-Warangal,Telangana,City,2250,7533,1865,542,Winter,High,4,Medium,Yes
-Nagarjuna Sagar,Telangana,Nature,2435,3325,730,539,Monsoon,Medium,3,Low,No
-Bhadrachalam,Telangana,Temple,746,2939,626,993,Winter,Medium,3,High,Yes
-Khammam,Telangana,City,616,1094,394,330,Winter,Low,3,Medium,Yes
-Adilabad,Telangana,Nature,1496,5762,1261,968,Winter,High,1,Low,Yes
-Nizamabad,Telangana,City,1892,2355,853,740,Winter,Medium,3,Medium,Yes
-Karimnagar,Telangana,City,1989,1403,410,266,Winter,Low,4,Low,Yes
-Kuntala,Telangana,Nature,1056,5377,1942,611,Monsoon,High,3,Low,No
-Laknavaram,Telangana,Nature,2461,904,407,324,Winter,Low,1,Low,Yes
-Medak,Telangana,City,1763,1173,301,238,All,Low,2,Low,Yes
-Nalgonda,Telangana,City,2147,2235,917,742,All,Medium,4,Medium,Yes
-Ramappa,Telangana,Temple,772,1926,525,771,Winter,Medium,3,High,Yes
-Bogatha,Telangana,Nature,1506,4974,1244,480,Monsoon,High,2,Medium,Yes
-Mahabubnagar,Telangana,City,645,6494,1383,879,All,High,4,Low,Yes
-Mallela Theertham,Telangana,Nature,905,1075,466,291,Monsoon,Low,2,Low,No
-Vemulawada,Telangana,Temple,1668,2771,774,515,All,Medium,2,High,Yes
-Basara,Telangana,Temple,506,1164,488,413,All,Low,1,High,Yes
-Pocharam,Telangana,Nature,1286,524,319,392,Winter,Low,1,Low,Yes
-Chennai,Tamil Nadu,City,1763,7151,1718,754,Winter,High,5,High,Yes
-Ooty,Tamil Nadu,Hill,576,5661,1821,864,Summer,High,5,Low,Yes
-Kodaikanal,Tamil Nadu,Hill,2330,1419,473,430,Summer,Low,5,Low,Yes
-Madurai,Tamil Nadu,Temple,1679,1160,342,500,All,Low,1,High,Yes
-Mahabalipuram,Tamil Nadu,Beach,2498,575,440,581,Winter,Low,5,Medium,Yes
-Rameswaram,Tamil Nadu,Temple,1248,810,325,578,All,Low,2,High,Yes
-Kanyakumari,Tamil Nadu,Beach,1746,503,308,331,Winter,Low,2,Low,Yes
-Coimbatore,Tamil Nadu,City,730,6895,1464,481,All,High,3,Low,Yes
-Yercaud,Tamil Nadu,Hill,1780,6734,1327,700,Winter,High,2,Low,Yes
-Thanjavur,Tamil Nadu,Temple,2021,3363,979,900,All,Medium,3,High,Yes
-Trichy,Tamil Nadu,Temple,1510,1747,561,912,All,Medium,2,High,Yes
-Chidambaram,Tamil Nadu,Temple,795,2613,919,775,All,Medium,3,High,Yes
-Vellore,Tamil Nadu,City,1816,7383,1530,779,All,High,2,Medium,Yes
-Coonoor,Tamil Nadu,Hill,731,1324,453,270,Summer,Low,5,Medium,Yes
-Yelagiri,Tamil Nadu,Hill,587,5232,1365,655,Winter,High,2,Low,Yes
-Hogenakkal,Tamil Nadu,Nature,2483,2720,731,516,Monsoon,Medium,2,Low,No
-Valparai,Tamil Nadu,Hill,1396,3791,1655,632,Summer,High,3,Medium,Yes
-Mudumalai,Tamil Nadu,Nature,895,1938,656,680,All,Medium,1,Medium,No
-Kanchipuram,Tamil Nadu,Temple,1611,1669,968,974,All,Medium,1,High,Yes
-Kumbakonam,Tamil Nadu,Temple,2087,1194,309,558,All,Low,2,High,Yes
-Bangalore,Karnataka,City,847,3797,1816,897,All,High,2,High,Yes
-Mysore,Karnataka,City,1014,2666,794,742,All,Medium,5,Medium,Yes
-Coorg,Karnataka,Hill,984,5779,1557,404,Winter,High,3,Low,Yes
-Hampi,Karnataka,City,1487,1384,381,443,Winter,Low,4,Low,Yes
-Gokarna,Karnataka,Beach,1129,2344,546,944,Winter,Medium,3,Medium,Yes
-Chikmagalur,Karnataka,Hill,1020,1301,445,527,Winter,Low,5,Low,Yes
-Murudeshwar,Karnataka,Beach,1753,935,361,425,All,Low,5,Low,Yes
-Udupi,Karnataka,Temple,2148,2456,733,655,All,Medium,3,High,Yes
-Mangalore,Karnataka,City,1891,4413,1830,542,All,High,4,Medium,Yes
-Dandeli,Karnataka,Nature,1489,867,317,294,Winter,Low,2,Low,No
-Bandipur,Karnataka,Nature,690,995,381,203,Winter,Low,2,Medium,No
-Kabini,Karnataka,Nature,1556,2919,840,801,Winter,Medium,3,Low,Yes
-Badami,Karnataka,City,1829,1521,946,847,Winter,Medium,3,Medium,Yes
-Aihole,Karnataka,Temple,2423,688,314,570,Winter,Low,3,High,Yes
-Pattadakal,Karnataka,Temple,2104,1120,383,497,Winter,Low,1,High,Yes
-Belur,Karnataka,Temple,1189,3329,501,855,All,Medium,2,High,Yes
-Halebidu,Karnataka,Temple,1016,3066,686,671,All,Medium,1,High,Yes
-Nandi Hills,Karnataka,Hill,2036,6923,1639,904,All,High,2,Low,Yes
-Sakleshpur,Karnataka,Hill,1837,808,449,228,Winter,Low,5,Low,Yes
-Jog Falls,Karnataka,Nature,802,6134,1483,751,Monsoon,High,3,Medium,No
-Munnar,Kerala,Hill,1800,5438,1845,1000,Winter,High,4,Medium,Yes
-Alleppey,Kerala,Nature,895,7820,1874,866,Winter,High,2,Low,No
-Wayanad,Kerala,Hill,2442,1265,428,231,Winter,Low,5,Medium,Yes
-Kochi,Kerala,City,995,1605,903,564,All,Medium,4,Medium,Yes
-Thekkady,Kerala,Nature,779,631,311,290,Winter,Low,2,Medium,No
-Kovalam,Kerala,Beach,516,2263,786,796,Winter,Medium,4,Medium,Yes
-Varkala,Kerala,Beach,1910,584,463,514,Winter,Low,5,Medium,Yes
-Kumarakom,Kerala,Nature,1464,1198,466,369,Winter,Low,3,Medium,Yes
-Trivandrum,Kerala,City,1415,3200,818,547,All,Medium,3,Medium,Yes
-Vagamon,Kerala,Hill,2063,3087,527,867,Winter,Medium,3,Low,Yes
-Kozhikode,Kerala,City,1042,866,463,369,All,Low,4,Medium,Yes
-Thrissur,Kerala,City,888,1910,529,760,All,Medium,4,Low,Yes
-Bekal,Kerala,Beach,1630,5250,1342,772,Winter,High,2,Low,Yes
-Silent Valley,Kerala,Nature,2384,2288,607,599,Winter,Medium,3,Medium,Yes
-Guruvayur,Kerala,Temple,1674,1532,916,584,All,Medium,1,High,Yes
-Ponmudi,Kerala,Hill,868,5963,1630,766,Winter,High,3,Medium,Yes
-Athirappilly,Kerala,Nature,844,7000,1299,606,Monsoon,High,1,Low,No
-Kannur,Kerala,City,2459,6226,1137,501,All,High,4,Low,Yes
-Kollam,Kerala,Nature,1798,648,347,278,All,Low,2,Low,Yes
-Sabarimala,Kerala,Temple,1527,909,496,529,Winter,Low,2,High,Yes
-Panaji,Goa,City,516,3281,633,918,Winter,Medium,4,High,Yes
-Calangute,Goa,Beach,2083,7325,1314,495,Winter,High,3,High,Yes
-Baga,Goa,Beach,2490,5729,1834,530,Winter,High,4,High,Yes
-Palolem,Goa,Beach,640,869,351,335,Winter,Low,3,Medium,Yes
-Dudhsagar,Goa,Nature,1244,816,495,231,Monsoon,Low,3,Medium,Yes
-Mumbai,Maharashtra,City,1671,1062,340,534,All,Low,4,High,Yes
-Pune,Maharashtra,City,551,5629,1650,690,All,High,2,Low,Yes
-Lonavala,Maharashtra,Hill,1419,5582,1840,732,Monsoon,High,5,Low,Yes
-Mahabaleshwar,Maharashtra,Hill,1673,912,487,460,Winter,Low,2,Low,Yes
-Nashik,Maharashtra,City,524,7353,1396,408,Winter,High,2,Medium,Yes
-Shirdi,Maharashtra,Temple,2355,1030,415,216,All,Low,1,High,Yes
-Ajanta,Maharashtra,City,2374,3129,761,456,Winter,Medium,3,Medium,Yes
-Ellora,Maharashtra,City,1456,2997,711,408,Winter,Medium,5,Low,Yes
-Alibaug,Maharashtra,Beach,1842,6751,1770,489,Winter,High,3,Low,Yes
-Panchgani,Maharashtra,Hill,1150,6600,1498,997,Winter,High,2,Low,Yes
-Matheran,Maharashtra,Hill,2414,1390,354,222,Winter,Low,2,Medium,Yes
-Kolhapur,Maharashtra,City,2476,6571,1618,977,All,High,4,Low,Yes
-Aurangabad,Maharashtra,City,1053,1010,331,564,All,Low,4,Low,Yes
-Khandala,Maharashtra,Hill,1793,6671,1797,817,Monsoon,High,5,Low,Yes
-Tarkarli,Maharashtra,Beach,606,1978,645,525,Winter,Medium,3,Low,Yes
+Destination,State,Type,Avg_Travel_Cost,Avg_Hotel_Per_Day,Avg_Food_Per_Day_Per_Person,Avg_Local_Travel_Per_Day,Best_Season,Budget_Level,Recommended_Days,Crowd_Level,Family_Friendly,Attractions
+Araku,Andhra Pradesh,Hill,1596,7764,1111,796,Winter,High,5,Low,Yes,"Borra Caves, Coffee Museum, Tribal Museum, Chocolate Factory"
+Visakhapatnam,Andhra Pradesh,Beach,1731,1346,361,454,Winter,Low,3,Medium,Yes,"RK Beach, Kailasagiri, Submarine Museum, Rushikonda"
+Maredumilli,Andhra Pradesh,Nature,1904,1420,342,258,Winter,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Tirupati,Andhra Pradesh,Temple,602,1084,384,260,All,Low,3,High,Yes,"Sri Venkateswara Temple, Chandragiri Fort, Silathoranam"
+Vijayawada,Andhra Pradesh,City,1977,2401,629,883,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Horsley Hills,Andhra Pradesh,Hill,2155,4664,1418,913,Winter,High,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Srisailam,Andhra Pradesh,Temple,1589,2461,629,404,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Lambasingi,Andhra Pradesh,Nature,1451,897,471,288,Winter,Low,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Papikondalu,Andhra Pradesh,Nature,898,3319,964,735,Winter,Medium,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Rajahmundry,Andhra Pradesh,City,1519,524,368,550,Winter,Low,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Kurnool,Andhra Pradesh,City,2449,1165,358,510,Winter,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Suryalanka,Andhra Pradesh,Beach,1212,3693,1870,923,Winter,High,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Yaganti,Andhra Pradesh,Temple,2398,1185,495,269,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Gandikota,Andhra Pradesh,Nature,1461,1020,413,354,Winter,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Belum Caves,Andhra Pradesh,Nature,2037,2572,560,875,Winter,Medium,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Srikalahasti,Andhra Pradesh,Temple,1351,711,467,496,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Kakinada,Andhra Pradesh,Beach,1504,4052,1053,571,Winter,High,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Lepakshi,Andhra Pradesh,Temple,2352,2741,759,786,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Ahobilam,Andhra Pradesh,Temple,2328,1032,429,512,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Mantralayam,Andhra Pradesh,Temple,2165,1321,445,506,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Nallamala,Andhra Pradesh,Nature,2474,1132,436,294,Monsoon,Low,1,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Pulicat Lake,Andhra Pradesh,Nature,2200,2661,708,634,Winter,Medium,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Coringa,Andhra Pradesh,Nature,1777,1879,962,612,Winter,Medium,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Talakona,Andhra Pradesh,Nature,2461,821,455,341,Monsoon,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Annavaram,Andhra Pradesh,Temple,1390,763,302,503,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Hyderabad,Telangana,City,609,6110,1225,935,Winter,High,4,High,Yes,"Charminar, Golconda Fort, Ramoji Film City, Hussain Sagar"
+Ananthagiri Hills,Telangana,Hill,882,7858,1322,634,Monsoon,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Warangal,Telangana,City,1004,2804,971,973,Winter,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Nagarjuna Sagar,Telangana,Nature,2218,574,424,576,Monsoon,Low,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Bhadrachalam,Telangana,Temple,717,704,346,455,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Khammam,Telangana,City,597,4049,1165,818,Winter,High,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Adilabad,Telangana,Nature,2227,613,489,366,Winter,Low,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Nizamabad,Telangana,City,1899,1129,456,458,Winter,Low,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Karimnagar,Telangana,City,1719,3133,698,708,Winter,Medium,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Kuntala,Telangana,Nature,529,1263,388,321,Monsoon,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Laknavaram,Telangana,Nature,1115,779,493,555,Winter,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Medak,Telangana,City,1691,3578,1636,909,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Nalgonda,Telangana,City,1791,693,368,380,All,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Ramappa,Telangana,Temple,1780,2937,848,978,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Bogatha,Telangana,Nature,1730,2802,871,707,Monsoon,Medium,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Mahabubnagar,Telangana,City,831,3124,817,865,All,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Mallela Theertham,Telangana,Nature,656,2439,549,912,Monsoon,Medium,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Vemulawada,Telangana,Temple,2157,1030,327,366,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Basara,Telangana,Temple,1884,916,404,424,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Pocharam,Telangana,Nature,2151,1055,323,209,Winter,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Chennai,Tamil Nadu,City,1752,2011,997,429,Winter,Medium,3,High,Yes,"Marina Beach, Kapaleeshwarar Temple, Fort St. George"
+Ooty,Tamil Nadu,Hill,2003,6605,1864,580,Summer,High,5,Low,Yes,"Ooty Lake, Botanical Garden, Nilgiri Mountain Railway"
+Kodaikanal,Tamil Nadu,Hill,1956,3380,669,862,Summer,Medium,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Madurai,Tamil Nadu,Temple,1153,2357,695,506,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Mahabalipuram,Tamil Nadu,Beach,1021,4903,1205,857,Winter,High,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Rameswaram,Tamil Nadu,Temple,2141,1357,340,520,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Kanyakumari,Tamil Nadu,Beach,622,1412,391,251,Winter,Low,5,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Coimbatore,Tamil Nadu,City,1443,1666,719,958,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Yercaud,Tamil Nadu,Hill,2132,3683,1436,547,Winter,High,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Thanjavur,Tamil Nadu,Temple,1310,1613,555,749,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Trichy,Tamil Nadu,Temple,2162,2034,638,815,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Chidambaram,Tamil Nadu,Temple,1695,2834,880,430,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Vellore,Tamil Nadu,City,870,2658,937,608,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Coonoor,Tamil Nadu,Hill,1936,6333,1296,696,Summer,High,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Yelagiri,Tamil Nadu,Hill,2345,2590,604,831,Winter,Medium,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Hogenakkal,Tamil Nadu,Nature,1603,2892,770,766,Monsoon,Medium,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Valparai,Tamil Nadu,Hill,840,1734,877,983,Summer,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Mudumalai,Tamil Nadu,Nature,2357,649,465,522,All,Low,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Kanchipuram,Tamil Nadu,Temple,2294,2655,577,812,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Kumbakonam,Tamil Nadu,Temple,2180,1259,431,309,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Bangalore,Karnataka,City,544,2616,974,867,All,Medium,2,High,Yes,"Lalbagh, Cubbon Park, Bangalore Palace, MG Road"
+Mysore,Karnataka,City,1356,1081,499,428,All,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Coorg,Karnataka,Hill,605,7006,1543,871,Winter,High,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Hampi,Karnataka,City,737,838,320,482,Winter,Low,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Gokarna,Karnataka,Beach,1351,6181,1070,481,Winter,High,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Chikmagalur,Karnataka,Hill,1847,1401,336,588,Winter,Low,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Murudeshwar,Karnataka,Beach,2329,7284,1320,866,All,High,5,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Udupi,Karnataka,Temple,2303,2245,847,433,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Mangalore,Karnataka,City,1316,787,342,513,All,Low,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Dandeli,Karnataka,Nature,2083,2229,748,900,Winter,Medium,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Bandipur,Karnataka,Nature,2285,1295,377,213,Winter,Low,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Kabini,Karnataka,Nature,1256,690,349,547,Winter,Low,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Badami,Karnataka,City,2326,2086,933,522,Winter,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Aihole,Karnataka,Temple,2029,1452,475,467,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Pattadakal,Karnataka,Temple,555,962,379,555,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Belur,Karnataka,Temple,1083,710,345,432,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Halebidu,Karnataka,Temple,2259,739,372,400,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Nandi Hills,Karnataka,Hill,2264,2703,768,990,All,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Sakleshpur,Karnataka,Hill,680,6197,1110,758,Winter,High,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Jog Falls,Karnataka,Nature,539,1177,313,451,Monsoon,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Munnar,Kerala,Hill,2293,920,378,434,Winter,Low,4,Medium,Yes,"Echo Point, Tea Gardens, Mattupetty Dam, Eravikulam National Park"
+Alleppey,Kerala,Nature,1019,5202,1184,472,Winter,High,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Wayanad,Kerala,Hill,733,6254,1405,893,Winter,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Kochi,Kerala,City,1381,968,436,383,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Thekkady,Kerala,Nature,1179,2551,556,735,Winter,Medium,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Kovalam,Kerala,Beach,2256,721,335,494,Winter,Low,3,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Varkala,Kerala,Beach,966,983,359,516,Winter,Low,3,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Kumarakom,Kerala,Nature,2478,4110,1386,658,Winter,High,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Trivandrum,Kerala,City,1297,2003,682,664,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Vagamon,Kerala,Hill,623,3740,1276,724,Winter,High,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Kozhikode,Kerala,City,591,2116,960,492,All,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Thrissur,Kerala,City,1106,5489,1367,641,All,High,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Bekal,Kerala,Beach,1571,822,334,434,Winter,Low,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Silent Valley,Kerala,Nature,2457,1341,463,385,Winter,Low,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Guruvayur,Kerala,Temple,1647,1133,417,349,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Ponmudi,Kerala,Hill,1600,2021,552,820,Winter,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Athirappilly,Kerala,Nature,883,706,490,278,Monsoon,Low,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Kannur,Kerala,City,1070,1589,518,412,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Kollam,Kerala,Nature,1405,1056,392,239,All,Low,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Sabarimala,Kerala,Temple,1755,615,428,273,Winter,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Panaji,Goa,City,613,5076,1456,592,Winter,High,2,High,Yes,"Immaculate Conception Church, Miramar Beach, Fontainhas"
+Calangute,Goa,Beach,2349,4338,1872,649,Winter,High,3,High,Yes,"Calangute Beach, Parasailing, Night Market"
+Baga,Goa,Beach,1505,999,400,366,Winter,Low,2,High,Yes,"Baga Beach, Tito's Lane, Water Sports, Shacks"
+Palolem,Goa,Beach,1988,1049,339,209,Winter,Low,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Dudhsagar,Goa,Nature,989,885,486,597,Monsoon,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
+Mumbai,Maharashtra,City,1991,1804,938,924,All,Medium,3,High,Yes,"Gateway of India, Marine Drive, Elephanta Caves, Juhu Beach"
+Pune,Maharashtra,City,2239,1481,428,417,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Lonavala,Maharashtra,Hill,2247,3021,952,653,Monsoon,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Mahabaleshwar,Maharashtra,Hill,2050,5622,1244,967,Winter,High,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Nashik,Maharashtra,City,2290,636,485,527,Winter,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Shirdi,Maharashtra,Temple,2261,3044,941,802,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
+Ajanta,Maharashtra,City,2078,1804,906,669,Winter,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Ellora,Maharashtra,City,1528,6715,1337,955,Winter,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Alibaug,Maharashtra,Beach,2300,899,373,598,Winter,Low,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Panchgani,Maharashtra,Hill,1921,2954,930,816,Winter,Medium,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Matheran,Maharashtra,Hill,580,3238,827,742,Winter,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Kolhapur,Maharashtra,City,2230,3671,1391,714,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Aurangabad,Maharashtra,City,2211,1507,516,616,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
+Khandala,Maharashtra,Hill,1951,3306,662,910,Monsoon,Medium,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
+Tarkarli,Maharashtra,Beach,529,3395,814,513,Winter,Medium,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"

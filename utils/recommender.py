@@ -181,21 +181,30 @@ def build_suggestions(alternatives, budget, days, travelers):
     return suggestions
 
 
-def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all'):
+def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all', target_state='all'):
     """
     Main recommendation function.
 
     Workflow:
-      1. For every destination, calculate exact trip cost.
-      2. Score it using the 100-point rule-based engine.
-      3. Separate into 'matches' (within budget) and 'alternatives' (over budget).
-      4. Return the top 3 scored matches.
+      1. Filter by target state if selected.
+      2. For every destination, calculate exact trip cost.
+      3. Score it using the 100-point rule-based engine.
+      4. Separate into 'matches' (within budget) and 'alternatives' (over budget).
+      5. Return all matching destinations.
          If no matches, return top 3 cheapest alternatives + helpful suggestions.
 
     Returns a dict with keys: 'matches', 'alternatives', 'suggestions'.
     """
     if df.empty:
         return {'matches': [], 'alternatives': [], 'suggestions': []}
+
+    # Filter by state if requested
+    if target_state.lower() != 'all':
+        df = df[df['State'].str.lower() == target_state.lower()]
+        
+        if df.empty:
+            # Return empty early if state has no destinations
+            return {'matches': [], 'alternatives': [], 'suggestions': ["No destinations available in the selected state."]}
 
     scored = []
 
@@ -227,7 +236,8 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
     matches      = sorted(matches,      key=lambda x: x['Score'], reverse=True)
     alternatives = sorted(alternatives, key=lambda x: x['Total_Cost'])
 
-    top_matches = matches[:3]
+    # Return all matches, and top 3 alternatives if no matches
+    top_matches = matches
     top_alts    = alternatives[:3] if not top_matches else []
 
     suggestions = build_suggestions(top_alts, budget, days, travelers) if top_alts else []

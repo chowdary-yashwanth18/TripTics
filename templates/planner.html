@@ -19,25 +19,33 @@
 
                 <div class="row mb-4">
                     <div class="col-md-6 mb-3 mb-md-0">
-                        <label for="budget" class="form-label fw-bold">Total Budget (₹)</label>
-                        <input type="number" class="form-control" id="budget" name="budget"
-                               required min="500" step="100" placeholder="e.g. 15000">
-                        <div class="form-text">Minimum ₹500</div>
+                        <label for="starting_city" class="form-label fw-bold">Starting Location <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" class="form-control" id="starting_city" name="starting_city"
+                               placeholder="e.g. Visakhapatnam">
                     </div>
                     <div class="col-md-6">
-                        <label for="starting_city" class="form-label fw-bold">Starting City <span class="text-muted fw-normal">(optional)</span></label>
-                        <input type="text" class="form-control" id="starting_city" name="starting_city"
-                               placeholder="e.g. Hyderabad">
+                        <label for="target_state" class="form-label fw-bold">Destination State <span class="text-muted fw-normal">(optional)</span></label>
+                        <select class="form-select" id="target_state" name="target_state">
+                            <option value="all">Anywhere in India</option>
+                            {% for state in states %}
+                            <option value="{{ state }}">{{ state }}</option>
+                            {% endfor %}
+                        </select>
                     </div>
                 </div>
 
                 <div class="row mb-4">
-                    <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="budget" class="form-label fw-bold">Total Budget (₹)</label>
+                        <input type="number" class="form-control" id="budget" name="budget"
+                               required min="500" step="100" placeholder="e.g. 15000">
+                    </div>
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <label for="days" class="form-label fw-bold">Number of Days</label>
                         <input type="number" class="form-control" id="days" name="days"
                                required min="1" max="30" value="2">
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <label for="travelers" class="form-label fw-bold">Number of Travelers</label>
                         <input type="number" class="form-control" id="travelers" name="travelers"
                                required min="1" max="100" value="2">
