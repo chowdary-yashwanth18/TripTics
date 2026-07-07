@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-lg-8 col-md-10">
+        <div class="glass-card p-5">
+            <h2 class="text-center mb-2 gradient-text fw-bold">Plan Your Trip</h2>
+            <p class="text-center text-muted mb-4">Enter your trip details and we'll find the best destinations for your budget.</p>
+
+            {# Server-side validation error message #}
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+                ⚠️ {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('planner') }}" method="POST">
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="budget" class="form-label fw-bold">Total Budget (₹)</label>
+                        <input type="number" class="form-control" id="budget" name="budget"
+                               required min="500" step="100" placeholder="e.g. 15000">
+                        <div class="form-text">Minimum ₹500</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="starting_city" class="form-label fw-bold">Starting City <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" class="form-control" id="starting_city" name="starting_city"
+                               placeholder="e.g. Hyderabad">
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="days" class="form-label fw-bold">Number of Days</label>
+                        <input type="number" class="form-control" id="days" name="days"
+                               required min="1" max="30" value="2">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="travelers" class="form-label fw-bold">Number of Travelers</label>
+                        <input type="number" class="form-control" id="travelers" name="travelers"
+                               required min="1" max="100" value="2">
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="trip_type" class="form-label fw-bold">Trip Type / Interest</label>
+                        <select class="form-select" id="trip_type" name="trip_type">
+                            <option value="all">Any Type</option>
+                            <option value="beach">🏖️ Beach</option>
+                            <option value="hill">🏔️ Hill Station</option>
+                            <option value="nature">🌿 Nature / Wildlife</option>
+                            <option value="temple">🛕 Temple / Pilgrimage</option>
+                            <option value="city">🏙️ City / Heritage</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="budget_style" class="form-label fw-bold">Budget Style</label>
+                        <select class="form-select" id="budget_style" name="budget_style">
+                            <option value="all">Any Style</option>
+                            <option value="low">💸 Low Budget</option>
+                            <option value="medium">💳 Medium Budget</option>
+                            <option value="high">💎 High Budget</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow">
+                        Find Destinations ✈️
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

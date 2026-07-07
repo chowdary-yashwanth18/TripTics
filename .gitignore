@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# Virtual Environments
+venv/
+env/
+.env
+.venv/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flask session / instance
+instance/
+*.sqlite
+
+# Test artifacts
+smoke_test.py
+generate_data.py
+
+# Screenshots (add manually after taking them)
+screenshots/

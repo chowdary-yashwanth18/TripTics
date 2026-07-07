@@ -1,0 +1,243 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 1 · Dashboard Hero
+   ══════════════════════════════════════════════════════════ #}
+<div class="dashboard-hero row align-items-center mb-4 mt-1">
+    <div class="col-md-8">
+        <span class="dashboard-badge">📊 Analytics Dashboard</span>
+        <h1 class="display-6 fw-bold gradient-text mb-1">Travel Cost Insights</h1>
+        <p class="mb-0">
+            Explore destination costs, budget patterns, and category trends across
+            the TripTics dataset of <strong>{{ kpis.total_destinations }}</strong> Indian travel destinations.
+        </p>
+    </div>
+    <div class="col-md-4 text-md-end mt-3 mt-md-0">
+        <a href="{{ url_for('planner') }}" class="btn btn-primary rounded-pill px-4 py-2">
+            Plan a Trip ✈️
+        </a>
+    </div>
+</div>
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 2 · KPI Summary Cards
+   ══════════════════════════════════════════════════════════ #}
+<div class="row g-3 mb-2">
+    <div class="col-6 col-lg-3">
+        <div class="kpi-card h-100">
+            <div class="kpi-icon" style="background:#EEF2FF; color:#4F46E5;">🗺️</div>
+            <div class="kpi-value">{{ kpis.total_destinations }}</div>
+            <div class="kpi-label">Total Destinations</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="kpi-card h-100">
+            <div class="kpi-icon" style="background:#ECFDF5; color:#059669;">💸</div>
+            <div class="kpi-value">₹{{ kpis.cheapest_daily }}</div>
+            <div class="kpi-label">Cheapest Daily Cost</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="kpi-card h-100">
+            <div class="kpi-icon" style="background:#FFF7ED; color:#D97706;">🏨</div>
+            <div class="kpi-value">₹{{ kpis.avg_hotel }}</div>
+            <div class="kpi-label">Avg Hotel / Night</div>
+        </div>
+    </div>
+    <div class="col-6 col-lg-3">
+        <div class="kpi-card h-100">
+            <div class="kpi-icon" style="background:#FDF4FF; color:#9333EA;">🏆</div>
+            <div class="kpi-value">{{ kpis.best_type }}</div>
+            <div class="kpi-label">Most Affordable Type</div>
+        </div>
+    </div>
+</div>
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 3 · Cost Rankings
+   ══════════════════════════════════════════════════════════ #}
+<div class="dash-section-divider">
+    <div class="dash-section-divider-line"></div>
+    <span class="section-heading">🏅 Cost Rankings</span>
+    <div class="dash-section-divider-line"></div>
+</div>
+
+<div class="row g-4 mb-2">
+    <div class="col-lg-7">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Cheapest Destinations by Daily Cost</span>
+                <span class="dash-chart-sub">Hotel + Food + Local Transport per day — excludes one-time travel cost</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.cheapest_destinations %}
+                    {{ charts.cheapest_destinations | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 Horizontal bars let you instantly compare exact daily costs side by side.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Destinations by Trip Type</span>
+                <span class="dash-chart-sub">Dataset distribution across Beach, Hill, Nature, Temple & City</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.type_distribution %}
+                    {{ charts.type_distribution | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 A balanced spread ensures the recommendation engine has options across all trip types.
+            </div>
+        </div>
+    </div>
+</div>
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 4 · Cost Breakdown
+   ══════════════════════════════════════════════════════════ #}
+<div class="dash-section-divider">
+    <div class="dash-section-divider-line"></div>
+    <span class="section-heading">💳 Cost Breakdown by Category</span>
+    <div class="dash-section-divider-line"></div>
+</div>
+
+<div class="row g-4 mb-2">
+    <div class="col-lg-6">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Hotel vs Food Cost by Type</span>
+                <span class="dash-chart-sub">Average nightly hotel and per-person food cost grouped by trip type</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.hotel_vs_food %}
+                    {{ charts.hotel_vs_food | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 Grouped bars make it easy to spot where hotel vs food spending diverges per category.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Avg Full Trip Cost by Budget Level</span>
+                <span class="dash-chart-sub">Calculated using Recommended_Days × per-day rates (2 travelers assumed)</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.cost_by_budget_level %}
+                    {{ charts.cost_by_budget_level | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 Shows the real cost gap between Low, Medium, and High budget categories.
+            </div>
+        </div>
+    </div>
+</div>
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 5 · Geography & Duration
+   ══════════════════════════════════════════════════════════ #}
+<div class="dash-section-divider">
+    <div class="dash-section-divider-line"></div>
+    <span class="section-heading">📍 Geography &amp; Duration</span>
+    <div class="dash-section-divider-line"></div>
+</div>
+
+<div class="row g-4 mb-2">
+    <div class="col-lg-5">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Top States by Destination Count</span>
+                <span class="dash-chart-sub">States with the most travel options in the dataset</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.state_distribution %}
+                    {{ charts.state_distribution | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 More destinations per state = greater flexibility for budget planning.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Avg Recommended Trip Duration</span>
+                <span class="dash-chart-sub">Suggested trip length (days) by destination type</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.avg_trip_duration %}
+                    {{ charts.avg_trip_duration | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 Helps users plan optimal trip length to stay within budget.
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3">
+        <div class="dash-chart-card">
+            <div class="dash-chart-header">
+                <span class="dash-chart-title">Budget Level Mix</span>
+                <span class="dash-chart-sub">Low / Medium / High split across all destinations</span>
+            </div>
+            <div class="dash-chart-body">
+                {% if charts.budget_distribution %}
+                    {{ charts.budget_distribution | safe }}
+                {% else %}
+                    <p class="text-muted text-center p-5">Chart unavailable.</p>
+                {% endif %}
+            </div>
+            <div class="dash-chart-insight">
+                💡 Dataset skews toward Low/Medium for student budget relevance.
+            </div>
+        </div>
+    </div>
+</div>
+
+{# ══════════════════════════════════════════════════════════
+   SECTION 6 · Key Insights
+   ══════════════════════════════════════════════════════════ #}
+<div class="dash-section-divider">
+    <div class="dash-section-divider-line"></div>
+    <span class="section-heading">🔍 Key Insights from the Data</span>
+    <div class="dash-section-divider-line"></div>
+</div>
+
+<div class="row g-3 mb-5">
+    {% for insight in insights %}
+    <div class="col-md-6 col-lg-4">
+        <div class="insight-card">
+            <div class="insight-icon">{{ insight.icon }}</div>
+            <div>
+                <div class="insight-title">{{ insight.title }}</div>
+                <div class="insight-text">{{ insight.text }}</div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

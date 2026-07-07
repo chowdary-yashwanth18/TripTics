@@ -1,0 +1,126 @@
+Destination,State,Type,Avg_Travel_Cost,Avg_Hotel_Per_Day,Avg_Food_Per_Day_Per_Person,Avg_Local_Travel_Per_Day,Best_Season,Budget_Level,Recommended_Days,Crowd_Level,Family_Friendly
+Araku,Andhra Pradesh,Hill,1534,2317,871,484,Winter,Medium,3,Medium,Yes
+Visakhapatnam,Andhra Pradesh,Beach,1986,1436,342,429,Winter,Low,2,Low,Yes
+Maredumilli,Andhra Pradesh,Nature,1617,1214,340,530,Winter,Low,2,Medium,Yes
+Tirupati,Andhra Pradesh,Temple,830,3263,761,552,All,Medium,1,High,Yes
+Vijayawada,Andhra Pradesh,City,994,1706,877,415,All,Medium,5,Low,Yes
+Horsley Hills,Andhra Pradesh,Hill,2096,5134,1421,890,Winter,High,2,Medium,Yes
+Srisailam,Andhra Pradesh,Temple,1542,1567,954,737,Winter,Medium,1,High,Yes
+Lambasingi,Andhra Pradesh,Nature,1033,800,404,359,Winter,Low,3,Medium,Yes
+Papikondalu,Andhra Pradesh,Nature,1214,1170,421,479,Winter,Low,3,Low,No
+Rajahmundry,Andhra Pradesh,City,2142,2040,581,947,Winter,Medium,2,Medium,Yes
+Kurnool,Andhra Pradesh,City,2472,860,392,481,Winter,Low,4,Low,Yes
+Suryalanka,Andhra Pradesh,Beach,1954,813,394,432,Winter,Low,3,Low,Yes
+Yaganti,Andhra Pradesh,Temple,1195,1413,390,499,Winter,Low,3,High,Yes
+Gandikota,Andhra Pradesh,Nature,614,7339,1438,913,Winter,High,2,Low,No
+Belum Caves,Andhra Pradesh,Nature,2486,1313,410,244,Winter,Low,1,Medium,Yes
+Srikalahasti,Andhra Pradesh,Temple,624,1496,425,389,All,Low,1,High,Yes
+Kakinada,Andhra Pradesh,Beach,1582,3339,526,562,Winter,Medium,4,Low,Yes
+Lepakshi,Andhra Pradesh,Temple,818,1211,420,265,All,Low,2,High,Yes
+Ahobilam,Andhra Pradesh,Temple,518,2371,675,705,Winter,Medium,1,High,Yes
+Mantralayam,Andhra Pradesh,Temple,2398,2457,921,622,All,Medium,1,High,Yes
+Nallamala,Andhra Pradesh,Nature,845,935,370,373,Monsoon,Low,3,Medium,No
+Pulicat Lake,Andhra Pradesh,Nature,2369,3047,822,924,Winter,Medium,3,Medium,No
+Coringa,Andhra Pradesh,Nature,1201,590,372,420,Winter,Low,1,Low,Yes
+Talakona,Andhra Pradesh,Nature,607,4427,1768,408,Monsoon,High,1,Low,No
+Annavaram,Andhra Pradesh,Temple,1007,2257,685,720,All,Medium,2,High,Yes
+Hyderabad,Telangana,City,1147,3161,823,666,Winter,Medium,2,High,Yes
+Ananthagiri Hills,Telangana,Hill,1466,1930,903,872,Monsoon,Medium,3,Low,Yes
+Warangal,Telangana,City,2250,7533,1865,542,Winter,High,4,Medium,Yes
+Nagarjuna Sagar,Telangana,Nature,2435,3325,730,539,Monsoon,Medium,3,Low,No
+Bhadrachalam,Telangana,Temple,746,2939,626,993,Winter,Medium,3,High,Yes
+Khammam,Telangana,City,616,1094,394,330,Winter,Low,3,Medium,Yes
+Adilabad,Telangana,Nature,1496,5762,1261,968,Winter,High,1,Low,Yes
+Nizamabad,Telangana,City,1892,2355,853,740,Winter,Medium,3,Medium,Yes
+Karimnagar,Telangana,City,1989,1403,410,266,Winter,Low,4,Low,Yes
+Kuntala,Telangana,Nature,1056,5377,1942,611,Monsoon,High,3,Low,No
+Laknavaram,Telangana,Nature,2461,904,407,324,Winter,Low,1,Low,Yes
+Medak,Telangana,City,1763,1173,301,238,All,Low,2,Low,Yes
+Nalgonda,Telangana,City,2147,2235,917,742,All,Medium,4,Medium,Yes
+Ramappa,Telangana,Temple,772,1926,525,771,Winter,Medium,3,High,Yes
+Bogatha,Telangana,Nature,1506,4974,1244,480,Monsoon,High,2,Medium,Yes
+Mahabubnagar,Telangana,City,645,6494,1383,879,All,High,4,Low,Yes
+Mallela Theertham,Telangana,Nature,905,1075,466,291,Monsoon,Low,2,Low,No
+Vemulawada,Telangana,Temple,1668,2771,774,515,All,Medium,2,High,Yes
+Basara,Telangana,Temple,506,1164,488,413,All,Low,1,High,Yes
+Pocharam,Telangana,Nature,1286,524,319,392,Winter,Low,1,Low,Yes
+Chennai,Tamil Nadu,City,1763,7151,1718,754,Winter,High,5,High,Yes
+Ooty,Tamil Nadu,Hill,576,5661,1821,864,Summer,High,5,Low,Yes
+Kodaikanal,Tamil Nadu,Hill,2330,1419,473,430,Summer,Low,5,Low,Yes
+Madurai,Tamil Nadu,Temple,1679,1160,342,500,All,Low,1,High,Yes
+Mahabalipuram,Tamil Nadu,Beach,2498,575,440,581,Winter,Low,5,Medium,Yes
+Rameswaram,Tamil Nadu,Temple,1248,810,325,578,All,Low,2,High,Yes
+Kanyakumari,Tamil Nadu,Beach,1746,503,308,331,Winter,Low,2,Low,Yes
+Coimbatore,Tamil Nadu,City,730,6895,1464,481,All,High,3,Low,Yes
+Yercaud,Tamil Nadu,Hill,1780,6734,1327,700,Winter,High,2,Low,Yes
+Thanjavur,Tamil Nadu,Temple,2021,3363,979,900,All,Medium,3,High,Yes
+Trichy,Tamil Nadu,Temple,1510,1747,561,912,All,Medium,2,High,Yes
+Chidambaram,Tamil Nadu,Temple,795,2613,919,775,All,Medium,3,High,Yes
+Vellore,Tamil Nadu,City,1816,7383,1530,779,All,High,2,Medium,Yes
+Coonoor,Tamil Nadu,Hill,731,1324,453,270,Summer,Low,5,Medium,Yes
+Yelagiri,Tamil Nadu,Hill,587,5232,1365,655,Winter,High,2,Low,Yes
+Hogenakkal,Tamil Nadu,Nature,2483,2720,731,516,Monsoon,Medium,2,Low,No
+Valparai,Tamil Nadu,Hill,1396,3791,1655,632,Summer,High,3,Medium,Yes
+Mudumalai,Tamil Nadu,Nature,895,1938,656,680,All,Medium,1,Medium,No
+Kanchipuram,Tamil Nadu,Temple,1611,1669,968,974,All,Medium,1,High,Yes
+Kumbakonam,Tamil Nadu,Temple,2087,1194,309,558,All,Low,2,High,Yes
+Bangalore,Karnataka,City,847,3797,1816,897,All,High,2,High,Yes
+Mysore,Karnataka,City,1014,2666,794,742,All,Medium,5,Medium,Yes
+Coorg,Karnataka,Hill,984,5779,1557,404,Winter,High,3,Low,Yes
+Hampi,Karnataka,City,1487,1384,381,443,Winter,Low,4,Low,Yes
+Gokarna,Karnataka,Beach,1129,2344,546,944,Winter,Medium,3,Medium,Yes
+Chikmagalur,Karnataka,Hill,1020,1301,445,527,Winter,Low,5,Low,Yes
+Murudeshwar,Karnataka,Beach,1753,935,361,425,All,Low,5,Low,Yes
+Udupi,Karnataka,Temple,2148,2456,733,655,All,Medium,3,High,Yes
+Mangalore,Karnataka,City,1891,4413,1830,542,All,High,4,Medium,Yes
+Dandeli,Karnataka,Nature,1489,867,317,294,Winter,Low,2,Low,No
+Bandipur,Karnataka,Nature,690,995,381,203,Winter,Low,2,Medium,No
+Kabini,Karnataka,Nature,1556,2919,840,801,Winter,Medium,3,Low,Yes
+Badami,Karnataka,City,1829,1521,946,847,Winter,Medium,3,Medium,Yes
+Aihole,Karnataka,Temple,2423,688,314,570,Winter,Low,3,High,Yes
+Pattadakal,Karnataka,Temple,2104,1120,383,497,Winter,Low,1,High,Yes
+Belur,Karnataka,Temple,1189,3329,501,855,All,Medium,2,High,Yes
+Halebidu,Karnataka,Temple,1016,3066,686,671,All,Medium,1,High,Yes
+Nandi Hills,Karnataka,Hill,2036,6923,1639,904,All,High,2,Low,Yes
+Sakleshpur,Karnataka,Hill,1837,808,449,228,Winter,Low,5,Low,Yes
+Jog Falls,Karnataka,Nature,802,6134,1483,751,Monsoon,High,3,Medium,No
+Munnar,Kerala,Hill,1800,5438,1845,1000,Winter,High,4,Medium,Yes
+Alleppey,Kerala,Nature,895,7820,1874,866,Winter,High,2,Low,No
+Wayanad,Kerala,Hill,2442,1265,428,231,Winter,Low,5,Medium,Yes
+Kochi,Kerala,City,995,1605,903,564,All,Medium,4,Medium,Yes
+Thekkady,Kerala,Nature,779,631,311,290,Winter,Low,2,Medium,No
+Kovalam,Kerala,Beach,516,2263,786,796,Winter,Medium,4,Medium,Yes
+Varkala,Kerala,Beach,1910,584,463,514,Winter,Low,5,Medium,Yes
+Kumarakom,Kerala,Nature,1464,1198,466,369,Winter,Low,3,Medium,Yes
+Trivandrum,Kerala,City,1415,3200,818,547,All,Medium,3,Medium,Yes
+Vagamon,Kerala,Hill,2063,3087,527,867,Winter,Medium,3,Low,Yes
+Kozhikode,Kerala,City,1042,866,463,369,All,Low,4,Medium,Yes
+Thrissur,Kerala,City,888,1910,529,760,All,Medium,4,Low,Yes
+Bekal,Kerala,Beach,1630,5250,1342,772,Winter,High,2,Low,Yes
+Silent Valley,Kerala,Nature,2384,2288,607,599,Winter,Medium,3,Medium,Yes
+Guruvayur,Kerala,Temple,1674,1532,916,584,All,Medium,1,High,Yes
+Ponmudi,Kerala,Hill,868,5963,1630,766,Winter,High,3,Medium,Yes
+Athirappilly,Kerala,Nature,844,7000,1299,606,Monsoon,High,1,Low,No
+Kannur,Kerala,City,2459,6226,1137,501,All,High,4,Low,Yes
+Kollam,Kerala,Nature,1798,648,347,278,All,Low,2,Low,Yes
+Sabarimala,Kerala,Temple,1527,909,496,529,Winter,Low,2,High,Yes
+Panaji,Goa,City,516,3281,633,918,Winter,Medium,4,High,Yes
+Calangute,Goa,Beach,2083,7325,1314,495,Winter,High,3,High,Yes
+Baga,Goa,Beach,2490,5729,1834,530,Winter,High,4,High,Yes
+Palolem,Goa,Beach,640,869,351,335,Winter,Low,3,Medium,Yes
+Dudhsagar,Goa,Nature,1244,816,495,231,Monsoon,Low,3,Medium,Yes
+Mumbai,Maharashtra,City,1671,1062,340,534,All,Low,4,High,Yes
+Pune,Maharashtra,City,551,5629,1650,690,All,High,2,Low,Yes
+Lonavala,Maharashtra,Hill,1419,5582,1840,732,Monsoon,High,5,Low,Yes
+Mahabaleshwar,Maharashtra,Hill,1673,912,487,460,Winter,Low,2,Low,Yes
+Nashik,Maharashtra,City,524,7353,1396,408,Winter,High,2,Medium,Yes
+Shirdi,Maharashtra,Temple,2355,1030,415,216,All,Low,1,High,Yes
+Ajanta,Maharashtra,City,2374,3129,761,456,Winter,Medium,3,Medium,Yes
+Ellora,Maharashtra,City,1456,2997,711,408,Winter,Medium,5,Low,Yes
+Alibaug,Maharashtra,Beach,1842,6751,1770,489,Winter,High,3,Low,Yes
+Panchgani,Maharashtra,Hill,1150,6600,1498,997,Winter,High,2,Low,Yes
+Matheran,Maharashtra,Hill,2414,1390,354,222,Winter,Low,2,Medium,Yes
+Kolhapur,Maharashtra,City,2476,6571,1618,977,All,High,4,Low,Yes
+Aurangabad,Maharashtra,City,1053,1010,331,564,All,Low,4,Low,Yes
+Khandala,Maharashtra,Hill,1793,6671,1797,817,Monsoon,High,5,Low,Yes
+Tarkarli,Maharashtra,Beach,606,1978,645,525,Winter,Medium,3,Low,Yes

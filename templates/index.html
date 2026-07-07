@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row text-center hero-section mx-2 mx-md-0">
+    <div class="col-md-9 mx-auto">
+        <h1 class="display-3 fw-bold gradient-text mb-3">TripTics</h1>
+        <p class="lead fw-light text-secondary mb-4">A Data-Driven Budget Trip Planner for Smart Travelers</p>
+        <p class="mb-4">Planning a trip on a strict budget? We use data analytics to instantly recommend the best destinations based on your preferences, group size, and total spending limit.</p>
+        <a class="btn btn-primary btn-lg mt-3 px-5 py-3 rounded-pill" href="{{ url_for('planner') }}" role="button">Start Planning Now ✨</a>
+    </div>
+</div>
+
+<div class="row mt-5 text-center g-4">
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100">
+            <h3 class="mb-3 text-primary">📊 Data-Driven</h3>
+            <p class="text-muted">Recommendations are backed by estimated cost data for travel, food, and stays.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100">
+            <h3 class="mb-3 text-info">💰 Budget-Friendly</h3>
+            <p class="text-muted">Tell us your budget and we'll find destinations where you won't overspend.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="glass-card p-4 h-100">
+            <h3 class="mb-3 text-success">📈 Visual Insights</h3>
+            <p class="text-muted">Explore our analytics dashboard to see cost breakdowns across destinations.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

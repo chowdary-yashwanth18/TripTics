@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row mb-5 mt-4">
+    <div class="col-md-12 text-center">
+        <h2 class="display-5 fw-bold gradient-text">Trip Recommendations</h2>
+        <p class="lead text-muted">Based on a budget of <strong>₹{{ budget }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
+    </div>
+</div>
+
+{% if recommendations %}
+<div class="row g-4 mb-5">
+    {% for rec in recommendations %}
+    <div class="col-md-4">
+        <div class="glass-card h-100 position-relative {% if loop.index == 1 %}border-primary shadow-lg{% endif %}">
+            {% if loop.index == 1 %}
+            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-primary px-3 py-2 shadow" style="z-index: 1;">
+                Top Recommendation 🌟
+            </div>
+            {% endif %}
+            <div class="p-4 pt-5">
+                <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
+                <div class="mb-2">
+                    <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
+                    {% if rec.Crowd_Level %}
+                    <span class="badge bg-{% if rec.Crowd_Level == 'High' %}danger{% elif rec.Crowd_Level == 'Medium' %}warning text-dark{% else %}success{% endif %}">Crowd: {{ rec.Crowd_Level }}</span>
+                    {% endif %}
+                    {% if rec.Family_Friendly == 'Yes' %}
+                    <span class="badge bg-info text-dark">Family Friendly 👨‍👩‍👧</span>
+                    {% endif %}
+                </div>
+
+                {# ── Score bar ── #}
+                <div class="my-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <small class="text-muted fw-semibold">Match Score</small>
+                        <small class="fw-bold
+                            {% if rec.Score >= 75 %}text-success
+                            {% elif rec.Score >= 50 %}text-warning
+                            {% else %}text-danger{% endif %}">
+                            {{ rec.Score }}/100
+                        </small>
+                    </div>
+                    <div class="progress" style="height: 6px; border-radius: 4px;">
+                        <div class="progress-bar
+                            {% if rec.Score >= 75 %}bg-success
+                            {% elif rec.Score >= 50 %}bg-warning
+                            {% else %}bg-danger{% endif %}"
+                            role="progressbar"
+                            style="width: {{ rec.Score }}%"
+                            aria-valuenow="{{ rec.Score }}" aria-valuemin="0" aria-valuemax="100">
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-muted small">{{ rec.Reason }}</p>
+
+                <h5 class="text-success mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
+                <hr class="opacity-25">
+                <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
+                </ul>
+            </div>
+            <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
+                <span class="text-secondary fw-bold">Budget Remaining: ₹{{ budget - rec.Total_Cost }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% elif alternatives %}
+<div class="row justify-content-center mb-4">
+    <div class="col-md-8 text-center">
+        <div class="alert alert-warning p-4 shadow-sm border-0 rounded-4">
+            <h3 class="alert-heading fw-bold">No exact matches found under ₹{{ budget }} 😢</h3>
+            <p class="mb-0">We couldn't find destinations within budget for these preferences. Here are the closest alternatives.</p>
+        </div>
+    </div>
+</div>
+
+{# ── Actionable suggestions ── #}
+{% if suggestions %}
+<div class="row justify-content-center mb-4">
+    <div class="col-md-8">
+        <div class="glass-card p-4">
+            <h6 class="fw-bold text-primary mb-3">💡 Suggestions to make it work:</h6>
+            <ul class="mb-0">
+                {% for s in suggestions %}
+                <li class="mb-2 text-muted small">{{ s }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="row g-4 mb-5">
+    {% for rec in alternatives %}
+    <div class="col-md-4">
+        <div class="glass-card h-100 position-relative border-warning">
+            <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark px-3 py-2 shadow" style="z-index: 1;">
+                Alternative 💡
+            </div>
+            <div class="p-4 pt-5">
+                <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
+                <div class="mb-2">
+                    <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
+                    {% if rec.Crowd_Level %}
+                    <span class="badge bg-{% if rec.Crowd_Level == 'High' %}danger{% elif rec.Crowd_Level == 'Medium' %}warning text-dark{% else %}success{% endif %}">Crowd: {{ rec.Crowd_Level }}</span>
+                    {% endif %}
+                    {% if rec.Family_Friendly == 'Yes' %}
+                    <span class="badge bg-info text-dark">Family Friendly 👨‍👩‍👧</span>
+                    {% endif %}
+                </div>
+
+                <p class="text-muted small">{{ rec.Reason }}</p>
+
+                <h5 class="text-danger mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
+                <hr class="opacity-25">
+                <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
+                <ul class="list-unstyled mt-3">
+                    <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
+                    <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
+                </ul>
+            </div>
+            <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
+                <span class="text-danger fw-bold">Over Budget by: ₹{{ rec.Total_Cost - budget }}</span>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+{% else %}
+<div class="row justify-content-center mb-5">
+    <div class="col-md-8 text-center">
+        <div class="glass-card p-5 border-0 bg-white">
+            <h3 class="fw-bold text-danger">No destinations found! 😢</h3>
+            <p class="text-muted mt-3">Your budget might be too low, or no destination matches your criteria.</p>
+            <hr class="opacity-25 my-4">
+            <p class="mb-0">Try increasing your budget, reducing the number of days, or selecting "Any" for trip type.</p>
+            <a href="{{ url_for('planner') }}" class="btn btn-outline-danger mt-4 rounded-pill px-4">Adjust Plan</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="text-center mb-5">
+    <a href="{{ url_for('planner') }}" class="btn btn-secondary btn-lg rounded-pill px-5 shadow-sm">Plan Another Trip</a>
+</div>
+{% endblock %}
