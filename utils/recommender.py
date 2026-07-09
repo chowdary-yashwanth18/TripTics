@@ -1,6 +1,9 @@
 # ============================================================
 # utils/recommender.py  –  TripTics Recommendation Engine
 # ============================================================
+import pandas as pd
+from datetime import datetime
+from utils.universal_generator import generate_universal_destination
 
 
 def _safe_get(row, col, default=''):
@@ -29,15 +32,17 @@ def calculate_trip_cost(row, days, travelers):
     hotel_cost      = float(row['Avg_Hotel_Per_Day'])     * days
     food_cost       = float(row['Avg_Food_Per_Day_Per_Person']) * travelers * days
     local_transport = float(row['Avg_Local_Travel_Per_Day'])    * days
+    shopping_cost   = float(row.get('Avg_Shopping_Cost', 0)) * travelers
 
-    total_cost = int(travel_cost + hotel_cost + food_cost + local_transport)
+    total_cost = int(travel_cost + hotel_cost + food_cost + local_transport + shopping_cost)
 
     return {
         'total':           total_cost,
         'travel':          int(travel_cost),
         'hotel':           int(hotel_cost),
         'food':            int(food_cost),
-        'local_transport': int(local_transport)
+        'local_transport': int(local_transport),
+        'shopping':        int(shopping_cost)
     }
 
 
@@ -198,13 +203,35 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
     if df.empty:
         return {'matches': [], 'alternatives': [], 'suggestions': []}
 
-    # Filter by state if requested
-    if target_state.lower() != 'all':
-        df = df[df['State'].str.lower() == target_state.lower()]
+    # Filter by search string if requested
+    if target_state and target_state.lower() != 'all' and target_state.lower() != 'anywhere in the world':
+        search_term = target_state.lower()
+        
+        # First attempt an exact match to prevent 'Bali' from matching 'Mahabalipuram'
+        exact_match_df = df[(df['State'].str.lower() == search_term) | 
+                            (df['Destination'].str.lower() == search_term)]
+        
+        if not exact_match_df.empty:
+            df = exact_match_df
+        else:
+            # Fallback to partial match if no exact match exists
+            df = df[df['State'].str.lower().str.contains(search_term, na=False) | 
+                    df['Destination'].str.lower().str.contains(search_term, na=False)]
         
         if df.empty:
-            # Return empty early if state has no destinations
-            return {'matches': [], 'alternatives': [], 'suggestions': ["No destinations available in the selected state."]}
+            # Fallback to Universal Generator
+            univ_data = generate_universal_destination(target_state)
+            if univ_data:
+                # We have dynamically generated rows for this location!
+                df = pd.DataFrame(univ_data['rows'])
+                # We must attach the dynamic state_info somehow so app.py can grab it.
+                # A simple hack: add a hidden column or store it globally.
+                # Actually, app.py can just call generate_universal_destination itself if needed,
+                # or we can attach it to the dataframe's attrs (supported in Pandas 1.0+)
+                df.attrs['dynamic_state_info'] = univ_data['state_info']
+            else:
+                # Return empty early if search has no results and isn't a valid Wikipedia location
+                return {'matches': [], 'alternatives': [], 'suggestions': ["No destinations available in the selected state."]}
 
     scored = []
 
@@ -222,10 +249,13 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             'Hotel_Cost':       costs['hotel'],
             'Food_Cost':        costs['food'],
             'Local_Transport':  costs['local_transport'],
+            'Shopping_Cost':    costs['shopping'],
             'Score':            score,
             'Reason':           reason,
             'Crowd_Level':      _safe_get(row, 'Crowd_Level', ''),
             'Family_Friendly':  _safe_get(row, 'Family_Friendly', ''),
+            'Attractions':      _safe_get(row, 'Attractions', ''),
+            'Shopping_Items':   _safe_get(row, 'Shopping_Items', 'Local souvenirs'),
         })
 
     # Split by budget
@@ -245,5 +275,6 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
     return {
         'matches':      top_matches,
         'alternatives': top_alts,
-        'suggestions':  suggestions
+        'suggestions':  suggestions,
+        'dynamic_state_info': df.attrs.get('dynamic_state_info') if hasattr(df, 'attrs') else None
     }

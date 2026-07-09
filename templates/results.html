@@ -32,6 +32,17 @@
             </div>
             {% endif %}
 
+            {% if rec.Accommodation_Type %}
+            <div class="mt-3 rounded-3 shadow-sm overflow-hidden d-flex" style="background-color: var(--bs-light); border: 1px solid rgba(13, 202, 240, 0.3); border-left: 4px solid var(--bs-info);">
+                <!-- Load dynamic image related to the destination and hotels -->
+                <img src="https://loremflickr.com/200/200/{{ rec.Destination|urlencode }},hotel/all" alt="Hotel in {{ rec.Destination }}" style="width: 90px; object-fit: cover;">
+                <div class="p-3 d-flex flex-column justify-content-center">
+                    <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">🏨 Recommended Stay</h6>
+                    <p class="mb-0 small fw-semibold text-dark">{{ rec.Accommodation_Type }}</p>
+                </div>
+            </div>
+            {% endif %}
+
             {# ── Score bar ── #}
             <div class="my-3">
                 <div class="d-flex justify-content-between align-items-center mb-1">
@@ -65,7 +76,15 @@
                 <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🛍️ Shopping</span> <span class="fw-semibold">₹{{ rec.Shopping_Cost }}</span></li>
             </ul>
+
+            {% if rec.Shopping_Items %}
+            <div class="mt-3 p-3 rounded-3" style="background-color: var(--primary-light); border: 1px solid rgba(79,70,229,0.2);">
+                <h6 class="fw-bold text-primary mb-1">🛍️ What to Buy</h6>
+                <p class="mb-0 small text-muted">{{ rec.Shopping_Items }}</p>
+            </div>
+            {% endif %}
         </div>
         <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
             {% if budget >= rec.Total_Cost %}
@@ -82,10 +101,28 @@
 <div class="row mb-5 mt-4">
     <div class="col-md-12 text-center">
         {% if state_info %}
-        <div class="glass-card p-5 mb-4 rounded-4 position-relative overflow-hidden" style="border-top: 5px solid var(--bs-{{ state_info.color }});">
-            <h1 class="display-4 fw-bold gradient-text">Welcome to {{ recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India') }}</h1>
-            <h4 class="text-{{ state_info.color }} mb-3 fw-semibold">"{{ state_info.title }}"</h4>
-            <p class="lead text-muted mx-auto" style="max-width: 800px;">{{ state_info.description }}</p>
+        <div class="glass-card mb-4 rounded-4 position-relative overflow-hidden shadow-sm" style="border-top: 5px solid var(--bs-{{ state_info.color }});">
+            <div class="row g-0">
+                <div class="col-md-7 p-4 p-lg-5 text-start d-flex flex-column justify-content-center">
+                    <h1 class="display-4 fw-bold gradient-text">Welcome to {{ recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India') }}</h1>
+                    <h4 class="text-{{ state_info.color }} mb-3 fw-semibold">"{{ state_info.title }}"</h4>
+                    <p class="lead text-muted">{{ state_info.description }}</p>
+                    
+                    <h5 class="fw-bold text-dark mt-4 mb-3">📍 Must Visit Places</h5>
+                    <div class="d-flex flex-wrap gap-2">
+                        {% for place in state_info.must_visit %}
+                        <button type="button" class="btn btn-light text-dark border px-3 py-2 fw-semibold place-btn shadow-sm" 
+                                data-bs-toggle="modal" data-bs-target="#imageModal" data-place="{{ place }}" 
+                                style="font-size: 0.9rem; border-radius: 20px; transition: all 0.2s;">
+                            🌟 {{ place }}
+                        </button>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <img src="{{ state_info.image_url }}" alt="State Image" class="img-fluid h-100 w-100" style="object-fit: cover; min-height: 100%;" onerror="this.onerror=null; this.src='https://picsum.photos/1200/400?random={{ state_info.title|urlencode }}';">
+                </div>
+            </div>
         </div>
         {% else %}
         <h2 class="display-5 fw-bold gradient-text">Trip Recommendations</h2>
@@ -178,4 +215,74 @@
 <div class="text-center mb-5">
     <a href="{{ url_for('planner') }}" class="btn btn-secondary btn-lg rounded-pill px-5 shadow-sm">Plan Another Trip</a>
 </div>
+
+<!-- Image Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content rounded-4 border-0 shadow-lg bg-dark">
+      <div class="modal-header border-0 position-absolute top-0 end-0 z-3 p-3">
+        <button type="button" class="btn-close btn-close-white" style="background-color: rgba(0,0,0,0.6); border-radius: 50%; padding: 0.6rem;" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0 text-center position-relative rounded-4 overflow-hidden" style="min-height: 400px; background-color: #1a1a1a;">
+        <div id="modalLoading" class="position-absolute top-50 start-50 translate-middle text-white">
+            <div class="spinner-border text-light" role="status"></div>
+            <p class="mt-2 small">Finding the best views...</p>
+        </div>
+        <img id="modalImage" src="" class="img-fluid w-100" style="object-fit: cover; max-height: 80vh; opacity: 0;" alt="Place Image">
+        <div class="position-absolute bottom-0 start-0 w-100 p-4" style="background: linear-gradient(transparent, rgba(0,0,0,0.9));">
+            <h3 id="modalTitle" class="text-white fw-bold mb-0 text-start">Place Name</h3>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var imageModal = document.getElementById('imageModal')
+    if(imageModal) {
+        imageModal.addEventListener('show.bs.modal', function (event) {
+            var button = event.relatedTarget
+            var place = button.getAttribute('data-place')
+            var modalTitle = imageModal.querySelector('#modalTitle')
+            var modalImage = imageModal.querySelector('#modalImage')
+            var modalLoading = imageModal.querySelector('#modalLoading')
+            
+            modalTitle.textContent = place
+            modalImage.style.opacity = '0';
+            modalLoading.style.display = 'block';
+            
+            // Fetch real, highly-accurate image from Wikipedia API
+            var wikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(place);
+            
+            fetch(wikiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.originalimage && data.originalimage.source) {
+                        modalImage.src = data.originalimage.source;
+                    } else if (data.thumbnail && data.thumbnail.source) {
+                        modalImage.src = data.thumbnail.source;
+                    } else {
+                        // Fallback if Wikipedia has no image
+                        modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
+                    }
+                })
+                .catch(error => {
+                    // Fallback on network error
+                    modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
+                });
+            
+            modalImage.onload = function() {
+                modalLoading.style.display = 'none';
+                modalImage.style.transition = 'opacity 0.4s ease-in';
+                modalImage.style.opacity = '1';
+            };
+            
+            modalImage.onerror = function() {
+                modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
+            };
+        })
+    }
+})
+</script>
 {% endblock %}

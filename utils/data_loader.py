@@ -15,7 +15,7 @@ def load_destinations():
         numeric_cols = [
             'Avg_Travel_Cost', 'Avg_Hotel_Per_Day',
             'Avg_Food_Per_Day_Per_Person', 'Avg_Local_Travel_Per_Day',
-            'Recommended_Days'
+            'Avg_Shopping_Cost', 'Recommended_Days'
         ]
         for col in numeric_cols:
             if col in df.columns:

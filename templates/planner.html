@@ -24,13 +24,15 @@
                                placeholder="e.g. Visakhapatnam">
                     </div>
                     <div class="col-md-6">
-                        <label for="target_state" class="form-label fw-bold">Destination State <span class="text-muted fw-normal">(optional)</span></label>
-                        <select class="form-select" id="target_state" name="target_state">
-                            <option value="all">Anywhere in India</option>
-                            {% for state in states %}
-                            <option value="{{ state }}">{{ state }}</option>
+                        <label for="target_state" class="form-label fw-bold">Destination Search <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" class="form-control" id="target_state" name="target_state" 
+                               list="locationsList" placeholder="e.g. Vietnam, Bali, or anywhere on Earth!">
+                        <datalist id="locationsList">
+                            <option value="all">Anywhere in the World</option>
+                            {% for loc in locations %}
+                            <option value="{{ loc }}"></option>
                             {% endfor %}
-                        </select>
+                        </datalist>
                     </div>
                 </div>
 

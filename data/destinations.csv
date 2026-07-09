@@ -1,126 +1,192 @@
-Destination,State,Type,Avg_Travel_Cost,Avg_Hotel_Per_Day,Avg_Food_Per_Day_Per_Person,Avg_Local_Travel_Per_Day,Best_Season,Budget_Level,Recommended_Days,Crowd_Level,Family_Friendly,Attractions
-Araku,Andhra Pradesh,Hill,1596,7764,1111,796,Winter,High,5,Low,Yes,"Borra Caves, Coffee Museum, Tribal Museum, Chocolate Factory"
-Visakhapatnam,Andhra Pradesh,Beach,1731,1346,361,454,Winter,Low,3,Medium,Yes,"RK Beach, Kailasagiri, Submarine Museum, Rushikonda"
-Maredumilli,Andhra Pradesh,Nature,1904,1420,342,258,Winter,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Tirupati,Andhra Pradesh,Temple,602,1084,384,260,All,Low,3,High,Yes,"Sri Venkateswara Temple, Chandragiri Fort, Silathoranam"
-Vijayawada,Andhra Pradesh,City,1977,2401,629,883,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Horsley Hills,Andhra Pradesh,Hill,2155,4664,1418,913,Winter,High,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Srisailam,Andhra Pradesh,Temple,1589,2461,629,404,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Lambasingi,Andhra Pradesh,Nature,1451,897,471,288,Winter,Low,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Papikondalu,Andhra Pradesh,Nature,898,3319,964,735,Winter,Medium,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Rajahmundry,Andhra Pradesh,City,1519,524,368,550,Winter,Low,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Kurnool,Andhra Pradesh,City,2449,1165,358,510,Winter,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Suryalanka,Andhra Pradesh,Beach,1212,3693,1870,923,Winter,High,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Yaganti,Andhra Pradesh,Temple,2398,1185,495,269,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Gandikota,Andhra Pradesh,Nature,1461,1020,413,354,Winter,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Belum Caves,Andhra Pradesh,Nature,2037,2572,560,875,Winter,Medium,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Srikalahasti,Andhra Pradesh,Temple,1351,711,467,496,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Kakinada,Andhra Pradesh,Beach,1504,4052,1053,571,Winter,High,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Lepakshi,Andhra Pradesh,Temple,2352,2741,759,786,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Ahobilam,Andhra Pradesh,Temple,2328,1032,429,512,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Mantralayam,Andhra Pradesh,Temple,2165,1321,445,506,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Nallamala,Andhra Pradesh,Nature,2474,1132,436,294,Monsoon,Low,1,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Pulicat Lake,Andhra Pradesh,Nature,2200,2661,708,634,Winter,Medium,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Coringa,Andhra Pradesh,Nature,1777,1879,962,612,Winter,Medium,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Talakona,Andhra Pradesh,Nature,2461,821,455,341,Monsoon,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Annavaram,Andhra Pradesh,Temple,1390,763,302,503,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Hyderabad,Telangana,City,609,6110,1225,935,Winter,High,4,High,Yes,"Charminar, Golconda Fort, Ramoji Film City, Hussain Sagar"
-Ananthagiri Hills,Telangana,Hill,882,7858,1322,634,Monsoon,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Warangal,Telangana,City,1004,2804,971,973,Winter,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Nagarjuna Sagar,Telangana,Nature,2218,574,424,576,Monsoon,Low,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Bhadrachalam,Telangana,Temple,717,704,346,455,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Khammam,Telangana,City,597,4049,1165,818,Winter,High,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Adilabad,Telangana,Nature,2227,613,489,366,Winter,Low,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Nizamabad,Telangana,City,1899,1129,456,458,Winter,Low,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Karimnagar,Telangana,City,1719,3133,698,708,Winter,Medium,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Kuntala,Telangana,Nature,529,1263,388,321,Monsoon,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Laknavaram,Telangana,Nature,1115,779,493,555,Winter,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Medak,Telangana,City,1691,3578,1636,909,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Nalgonda,Telangana,City,1791,693,368,380,All,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Ramappa,Telangana,Temple,1780,2937,848,978,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Bogatha,Telangana,Nature,1730,2802,871,707,Monsoon,Medium,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Mahabubnagar,Telangana,City,831,3124,817,865,All,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Mallela Theertham,Telangana,Nature,656,2439,549,912,Monsoon,Medium,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Vemulawada,Telangana,Temple,2157,1030,327,366,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Basara,Telangana,Temple,1884,916,404,424,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Pocharam,Telangana,Nature,2151,1055,323,209,Winter,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Chennai,Tamil Nadu,City,1752,2011,997,429,Winter,Medium,3,High,Yes,"Marina Beach, Kapaleeshwarar Temple, Fort St. George"
-Ooty,Tamil Nadu,Hill,2003,6605,1864,580,Summer,High,5,Low,Yes,"Ooty Lake, Botanical Garden, Nilgiri Mountain Railway"
-Kodaikanal,Tamil Nadu,Hill,1956,3380,669,862,Summer,Medium,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Madurai,Tamil Nadu,Temple,1153,2357,695,506,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Mahabalipuram,Tamil Nadu,Beach,1021,4903,1205,857,Winter,High,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Rameswaram,Tamil Nadu,Temple,2141,1357,340,520,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Kanyakumari,Tamil Nadu,Beach,622,1412,391,251,Winter,Low,5,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Coimbatore,Tamil Nadu,City,1443,1666,719,958,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Yercaud,Tamil Nadu,Hill,2132,3683,1436,547,Winter,High,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Thanjavur,Tamil Nadu,Temple,1310,1613,555,749,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Trichy,Tamil Nadu,Temple,2162,2034,638,815,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Chidambaram,Tamil Nadu,Temple,1695,2834,880,430,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Vellore,Tamil Nadu,City,870,2658,937,608,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Coonoor,Tamil Nadu,Hill,1936,6333,1296,696,Summer,High,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Yelagiri,Tamil Nadu,Hill,2345,2590,604,831,Winter,Medium,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Hogenakkal,Tamil Nadu,Nature,1603,2892,770,766,Monsoon,Medium,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Valparai,Tamil Nadu,Hill,840,1734,877,983,Summer,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Mudumalai,Tamil Nadu,Nature,2357,649,465,522,All,Low,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Kanchipuram,Tamil Nadu,Temple,2294,2655,577,812,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Kumbakonam,Tamil Nadu,Temple,2180,1259,431,309,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Bangalore,Karnataka,City,544,2616,974,867,All,Medium,2,High,Yes,"Lalbagh, Cubbon Park, Bangalore Palace, MG Road"
-Mysore,Karnataka,City,1356,1081,499,428,All,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Coorg,Karnataka,Hill,605,7006,1543,871,Winter,High,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Hampi,Karnataka,City,737,838,320,482,Winter,Low,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Gokarna,Karnataka,Beach,1351,6181,1070,481,Winter,High,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Chikmagalur,Karnataka,Hill,1847,1401,336,588,Winter,Low,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Murudeshwar,Karnataka,Beach,2329,7284,1320,866,All,High,5,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Udupi,Karnataka,Temple,2303,2245,847,433,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Mangalore,Karnataka,City,1316,787,342,513,All,Low,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Dandeli,Karnataka,Nature,2083,2229,748,900,Winter,Medium,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Bandipur,Karnataka,Nature,2285,1295,377,213,Winter,Low,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Kabini,Karnataka,Nature,1256,690,349,547,Winter,Low,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Badami,Karnataka,City,2326,2086,933,522,Winter,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Aihole,Karnataka,Temple,2029,1452,475,467,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Pattadakal,Karnataka,Temple,555,962,379,555,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Belur,Karnataka,Temple,1083,710,345,432,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Halebidu,Karnataka,Temple,2259,739,372,400,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Nandi Hills,Karnataka,Hill,2264,2703,768,990,All,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Sakleshpur,Karnataka,Hill,680,6197,1110,758,Winter,High,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Jog Falls,Karnataka,Nature,539,1177,313,451,Monsoon,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Munnar,Kerala,Hill,2293,920,378,434,Winter,Low,4,Medium,Yes,"Echo Point, Tea Gardens, Mattupetty Dam, Eravikulam National Park"
-Alleppey,Kerala,Nature,1019,5202,1184,472,Winter,High,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Wayanad,Kerala,Hill,733,6254,1405,893,Winter,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Kochi,Kerala,City,1381,968,436,383,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Thekkady,Kerala,Nature,1179,2551,556,735,Winter,Medium,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Kovalam,Kerala,Beach,2256,721,335,494,Winter,Low,3,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Varkala,Kerala,Beach,966,983,359,516,Winter,Low,3,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Kumarakom,Kerala,Nature,2478,4110,1386,658,Winter,High,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Trivandrum,Kerala,City,1297,2003,682,664,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Vagamon,Kerala,Hill,623,3740,1276,724,Winter,High,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Kozhikode,Kerala,City,591,2116,960,492,All,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Thrissur,Kerala,City,1106,5489,1367,641,All,High,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Bekal,Kerala,Beach,1571,822,334,434,Winter,Low,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Silent Valley,Kerala,Nature,2457,1341,463,385,Winter,Low,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Guruvayur,Kerala,Temple,1647,1133,417,349,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Ponmudi,Kerala,Hill,1600,2021,552,820,Winter,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Athirappilly,Kerala,Nature,883,706,490,278,Monsoon,Low,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Kannur,Kerala,City,1070,1589,518,412,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Kollam,Kerala,Nature,1405,1056,392,239,All,Low,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Sabarimala,Kerala,Temple,1755,615,428,273,Winter,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Panaji,Goa,City,613,5076,1456,592,Winter,High,2,High,Yes,"Immaculate Conception Church, Miramar Beach, Fontainhas"
-Calangute,Goa,Beach,2349,4338,1872,649,Winter,High,3,High,Yes,"Calangute Beach, Parasailing, Night Market"
-Baga,Goa,Beach,1505,999,400,366,Winter,Low,2,High,Yes,"Baga Beach, Tito's Lane, Water Sports, Shacks"
-Palolem,Goa,Beach,1988,1049,339,209,Winter,Low,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Dudhsagar,Goa,Nature,989,885,486,597,Monsoon,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park"
-Mumbai,Maharashtra,City,1991,1804,938,924,All,Medium,3,High,Yes,"Gateway of India, Marine Drive, Elephanta Caves, Juhu Beach"
-Pune,Maharashtra,City,2239,1481,428,417,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Lonavala,Maharashtra,Hill,2247,3021,952,653,Monsoon,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Mahabaleshwar,Maharashtra,Hill,2050,5622,1244,967,Winter,High,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Nashik,Maharashtra,City,2290,636,485,527,Winter,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Shirdi,Maharashtra,Temple,2261,3044,941,802,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar"
-Ajanta,Maharashtra,City,2078,1804,906,669,Winter,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Ellora,Maharashtra,City,1528,6715,1337,955,Winter,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Alibaug,Maharashtra,Beach,2300,899,373,598,Winter,Low,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
-Panchgani,Maharashtra,Hill,1921,2954,930,816,Winter,Medium,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Matheran,Maharashtra,Hill,580,3238,827,742,Winter,Medium,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Kolhapur,Maharashtra,City,2230,3671,1391,714,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Aurangabad,Maharashtra,City,2211,1507,516,616,All,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets"
-Khandala,Maharashtra,Hill,1951,3306,662,910,Monsoon,Medium,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails"
-Tarkarli,Maharashtra,Beach,529,3395,814,513,Winter,Medium,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone"
+Destination,State,Type,Avg_Travel_Cost,Avg_Hotel_Per_Day,Avg_Food_Per_Day_Per_Person,Avg_Local_Travel_Per_Day,Avg_Shopping_Cost,Best_Season,Budget_Level,Recommended_Days,Crowd_Level,Family_Friendly,Attractions,Shopping_Items,Accommodation_Type
+Araku,Andhra Pradesh,Hill,689,7563,1273,727,6887,Winter,High,4,Low,Yes,"Borra Caves, Coffee Museum, Tribal Museum, Chocolate Factory","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",5-Star Luxury Hotel
+Visakhapatnam,Andhra Pradesh,Beach,1421,6392,1844,871,6879,Winter,High,3,Low,Yes,"RK Beach, Kailasagiri, Submarine Museum, Rushikonda","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Luxury Beachfront Resort
+Maredumilli,Andhra Pradesh,Nature,2218,3574,1987,746,7355,Winter,High,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Premium Eco-Lodge
+Tirupati,Andhra Pradesh,Temple,1565,2202,807,419,3489,All,Medium,3,High,Yes,"Sri Venkateswara Temple, Chandragiri Fort, Silathoranam","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Boutique Hotel / 4-Star Stay
+Vijayawada,Andhra Pradesh,City,1076,1275,479,412,635,All,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Horsley Hills,Andhra Pradesh,Hill,1982,2747,653,633,2892,Winter,Medium,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Boutique Hotel / 4-Star Stay
+Srisailam,Andhra Pradesh,Temple,843,1454,336,214,804,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Lambasingi,Andhra Pradesh,Nature,1686,2199,789,931,1722,Winter,Medium,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Comfortable Safari Tent
+Papikondalu,Andhra Pradesh,Nature,1700,788,354,500,995,Winter,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Backpacker Hostel / Campsite
+Rajahmundry,Andhra Pradesh,City,2088,4958,1024,737,7057,Winter,High,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",5-Star Luxury Hotel
+Kurnool,Andhra Pradesh,City,1836,4844,1441,626,5423,Winter,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",5-Star Luxury Hotel
+Suryalanka,Andhra Pradesh,Beach,1580,910,474,338,762,Winter,Low,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Yaganti,Andhra Pradesh,Temple,1864,2865,754,873,3028,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Boutique Hotel / 4-Star Stay
+Gandikota,Andhra Pradesh,Nature,2436,3818,1259,989,4171,Winter,High,1,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Premium Eco-Lodge
+Belum Caves,Andhra Pradesh,Nature,873,1500,366,528,1478,Winter,Low,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Backpacker Hostel / Campsite
+Srikalahasti,Andhra Pradesh,Temple,1625,961,410,215,1004,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Kakinada,Andhra Pradesh,Beach,1651,1982,747,868,1572,Winter,Medium,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Boutique Hotel / 4-Star Stay
+Lepakshi,Andhra Pradesh,Temple,1215,3132,666,432,2470,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Boutique Hotel / 4-Star Stay
+Ahobilam,Andhra Pradesh,Temple,2417,1046,442,347,677,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Mantralayam,Andhra Pradesh,Temple,873,1148,484,356,724,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Nallamala,Andhra Pradesh,Nature,2372,5434,1686,589,3943,Monsoon,High,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Premium Eco-Lodge
+Pulicat Lake,Andhra Pradesh,Nature,880,7249,1166,819,6227,Winter,High,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Premium Eco-Lodge
+Coringa,Andhra Pradesh,Nature,963,1067,451,316,527,Winter,Low,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Backpacker Hostel / Campsite
+Talakona,Andhra Pradesh,Nature,1060,1285,404,406,1224,Monsoon,Low,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Backpacker Hostel / Campsite
+Annavaram,Andhra Pradesh,Temple,1449,1248,484,371,717,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kalamkari Fabric, Kondapalli Toys, Pootharekulu, Spices",Budget Hotel / Guesthouse
+Hyderabad,Telangana,City,2423,2475,975,879,1684,Winter,Medium,2,High,Yes,"Charminar, Golconda Fort, Ramoji Film City, Hussain Sagar","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Boutique Hotel / 4-Star Stay
+Ananthagiri Hills,Telangana,Hill,1810,5060,1875,906,6920,Monsoon,High,3,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",5-Star Luxury Hotel
+Warangal,Telangana,City,1661,825,408,563,636,Winter,Low,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Nagarjuna Sagar,Telangana,Nature,726,1135,497,361,1451,Monsoon,Low,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Backpacker Hostel / Campsite
+Bhadrachalam,Telangana,Temple,2124,3437,853,929,1733,Winter,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Boutique Hotel / 4-Star Stay
+Khammam,Telangana,City,569,1494,402,384,1495,Winter,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Adilabad,Telangana,Nature,2121,2315,556,806,1867,Winter,Medium,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Comfortable Safari Tent
+Nizamabad,Telangana,City,2431,1982,574,783,2915,Winter,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Boutique Hotel / 4-Star Stay
+Karimnagar,Telangana,City,790,6755,1140,909,4911,Winter,High,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",5-Star Luxury Hotel
+Kuntala,Telangana,Nature,1579,1400,488,523,1487,Monsoon,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Backpacker Hostel / Campsite
+Laknavaram,Telangana,Nature,1530,2020,750,730,2980,Winter,Medium,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Comfortable Safari Tent
+Medak,Telangana,City,1351,3880,1444,667,4517,All,High,2,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",5-Star Luxury Hotel
+Nalgonda,Telangana,City,1565,1455,499,501,566,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Ramappa,Telangana,Temple,1453,613,435,584,1316,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Bogatha,Telangana,Nature,2288,6010,1085,899,5038,Monsoon,High,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Premium Eco-Lodge
+Mahabubnagar,Telangana,City,2471,4537,1227,621,3643,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",5-Star Luxury Hotel
+Mallela Theertham,Telangana,Nature,522,6650,1059,829,4806,Monsoon,High,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Premium Eco-Lodge
+Vemulawada,Telangana,Temple,1983,873,370,583,952,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Basara,Telangana,Temple,805,657,391,388,788,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Budget Hotel / Guesthouse
+Pocharam,Telangana,Nature,1184,6052,1741,572,5312,Winter,High,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Bidriware, Pearls from Hyderabad, Pochampally Sarees, Banjara Embroidery",Premium Eco-Lodge
+Chennai,Tamil Nadu,City,779,952,374,326,531,Winter,Low,5,High,Yes,"Marina Beach, Kapaleeshwarar Temple, Fort St. George","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Ooty,Tamil Nadu,Hill,894,6182,1257,987,6572,Summer,High,2,Medium,Yes,"Ooty Lake, Botanical Garden, Nilgiri Mountain Railway","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",5-Star Luxury Hotel
+Kodaikanal,Tamil Nadu,Hill,1181,1367,445,332,710,Summer,Low,3,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Madurai,Tamil Nadu,Temple,860,1817,979,522,1583,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Mahabalipuram,Tamil Nadu,Beach,647,3120,533,488,1750,Winter,Medium,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Rameswaram,Tamil Nadu,Temple,1784,1951,502,773,2593,All,Medium,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Kanyakumari,Tamil Nadu,Beach,2163,1500,377,345,1372,Winter,Low,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Coimbatore,Tamil Nadu,City,1342,686,375,234,941,All,Low,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Yercaud,Tamil Nadu,Hill,2189,3061,564,841,2188,Winter,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Thanjavur,Tamil Nadu,Temple,1551,1398,353,274,1194,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Trichy,Tamil Nadu,Temple,1447,590,459,502,1112,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Chidambaram,Tamil Nadu,Temple,2071,1197,340,301,700,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Vellore,Tamil Nadu,City,1184,679,413,395,1103,All,Low,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Coonoor,Tamil Nadu,Hill,2124,1522,623,791,1986,Summer,Medium,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Yelagiri,Tamil Nadu,Hill,1637,548,429,571,594,Winter,Low,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Hogenakkal,Tamil Nadu,Nature,630,647,492,236,597,Monsoon,Low,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Backpacker Hostel / Campsite
+Valparai,Tamil Nadu,Hill,547,7690,1269,609,6549,Summer,High,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",5-Star Luxury Hotel
+Mudumalai,Tamil Nadu,Nature,2011,4975,1332,415,4286,All,High,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Premium Eco-Lodge
+Kanchipuram,Tamil Nadu,Temple,630,1836,764,442,3180,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Boutique Hotel / 4-Star Stay
+Kumbakonam,Tamil Nadu,Temple,870,858,412,524,623,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kanchipuram Sarees, Tanjore Paintings, Bronze Idols, Filter Coffee",Budget Hotel / Guesthouse
+Bangalore,Karnataka,City,2458,5764,1260,670,6744,All,High,3,High,Yes,"Lalbagh, Cubbon Park, Bangalore Palace, MG Road","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",5-Star Luxury Hotel
+Mysore,Karnataka,City,929,2719,853,861,2682,All,Medium,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Coorg,Karnataka,Hill,1165,2167,600,440,3115,Winter,Medium,3,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Hampi,Karnataka,City,872,2385,926,747,1824,Winter,Medium,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Gokarna,Karnataka,Beach,1978,3199,603,420,2658,Winter,Medium,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Chikmagalur,Karnataka,Hill,2101,7317,1241,570,5406,Winter,High,3,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",5-Star Luxury Hotel
+Murudeshwar,Karnataka,Beach,1327,5227,1839,543,4658,All,High,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Luxury Beachfront Resort
+Udupi,Karnataka,Temple,1791,813,451,533,1149,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Budget Hotel / Guesthouse
+Mangalore,Karnataka,City,1318,4181,1302,573,5779,All,High,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",5-Star Luxury Hotel
+Dandeli,Karnataka,Nature,741,620,403,298,1361,Winter,Low,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Backpacker Hostel / Campsite
+Bandipur,Karnataka,Nature,1669,1308,453,576,603,Winter,Low,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Backpacker Hostel / Campsite
+Kabini,Karnataka,Nature,680,1368,370,419,1500,Winter,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Backpacker Hostel / Campsite
+Badami,Karnataka,City,2059,6803,1135,737,5342,Winter,High,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",5-Star Luxury Hotel
+Aihole,Karnataka,Temple,1895,1086,446,507,728,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Budget Hotel / Guesthouse
+Pattadakal,Karnataka,Temple,993,882,488,511,900,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Budget Hotel / Guesthouse
+Belur,Karnataka,Temple,739,523,474,463,1343,All,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Budget Hotel / Guesthouse
+Halebidu,Karnataka,Temple,1185,1854,582,991,3486,All,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Nandi Hills,Karnataka,Hill,2311,1557,871,985,1583,All,Medium,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Boutique Hotel / 4-Star Stay
+Sakleshpur,Karnataka,Hill,1066,1087,386,364,555,Winter,Low,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Budget Hotel / Guesthouse
+Jog Falls,Karnataka,Nature,1718,4997,1848,762,7727,Monsoon,High,2,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Mysore Silk, Sandalwood Carvings, Channapatna Toys, Coorg Spices",Premium Eco-Lodge
+Munnar,Kerala,Hill,1778,2627,766,506,2745,Winter,Medium,4,Low,Yes,"Echo Point, Tea Gardens, Mattupetty Dam, Eravikulam National Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Alleppey,Kerala,Nature,1345,1056,456,303,610,Winter,Low,3,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Backpacker Hostel / Campsite
+Wayanad,Kerala,Hill,1572,3029,535,687,2626,Winter,Medium,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Kochi,Kerala,City,2473,2557,897,792,2832,All,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Thekkady,Kerala,Nature,769,1095,374,560,672,Winter,Low,1,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Backpacker Hostel / Campsite
+Kovalam,Kerala,Beach,2428,1883,556,482,2217,Winter,Medium,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Varkala,Kerala,Beach,1287,1294,388,378,565,Winter,Low,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Spices, Coir Products, Kasavu Sarees, Handicrafts",Budget Hotel / Guesthouse
+Kumarakom,Kerala,Nature,1509,2923,615,734,2418,Winter,Medium,3,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Comfortable Safari Tent
+Trivandrum,Kerala,City,2483,1483,406,454,697,All,Low,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Spices, Coir Products, Kasavu Sarees, Handicrafts",Budget Hotel / Guesthouse
+Vagamon,Kerala,Hill,691,2987,936,963,3239,Winter,Medium,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Kozhikode,Kerala,City,2052,1782,907,713,1527,All,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Thrissur,Kerala,City,1652,875,460,535,815,All,Low,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Spices, Coir Products, Kasavu Sarees, Handicrafts",Budget Hotel / Guesthouse
+Bekal,Kerala,Beach,622,860,495,546,1404,Winter,Low,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Spices, Coir Products, Kasavu Sarees, Handicrafts",Budget Hotel / Guesthouse
+Silent Valley,Kerala,Nature,2066,6083,1347,751,6015,Winter,High,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Premium Eco-Lodge
+Guruvayur,Kerala,Temple,1278,617,491,588,610,All,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Spices, Coir Products, Kasavu Sarees, Handicrafts",Budget Hotel / Guesthouse
+Ponmudi,Kerala,Hill,1945,6446,1368,935,7755,Winter,High,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Spices, Coir Products, Kasavu Sarees, Handicrafts",5-Star Luxury Hotel
+Athirappilly,Kerala,Nature,2379,1476,418,259,1333,Monsoon,Low,1,Medium,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Backpacker Hostel / Campsite
+Kannur,Kerala,City,2379,2666,780,450,2685,All,Medium,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Kollam,Kerala,Nature,1259,521,458,526,616,All,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Spices, Coir Products, Kasavu Sarees, Handicrafts",Backpacker Hostel / Campsite
+Sabarimala,Kerala,Temple,683,2722,673,987,2297,Winter,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Spices, Coir Products, Kasavu Sarees, Handicrafts",Boutique Hotel / 4-Star Stay
+Panaji,Goa,City,1292,1072,406,502,732,Winter,Low,4,High,Yes,"Immaculate Conception Church, Miramar Beach, Fontainhas","Cashews, Feni, Handicrafts, Beachwear",Budget Hotel / Guesthouse
+Calangute,Goa,Beach,1448,2901,829,889,1929,Winter,Medium,5,High,Yes,"Calangute Beach, Parasailing, Night Market","Cashews, Feni, Handicrafts, Beachwear",Boutique Hotel / 4-Star Stay
+Baga,Goa,Beach,833,1898,876,555,3360,Winter,Medium,5,High,Yes,"Baga Beach, Tito's Lane, Water Sports, Shacks","Cashews, Feni, Handicrafts, Beachwear",Boutique Hotel / 4-Star Stay
+Palolem,Goa,Beach,1676,1429,426,566,1051,Winter,Low,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Cashews, Feni, Handicrafts, Beachwear",Budget Hotel / Guesthouse
+Dudhsagar,Goa,Nature,2075,1093,316,350,1207,Monsoon,Low,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Cashews, Feni, Handicrafts, Beachwear",Backpacker Hostel / Campsite
+Mumbai,Maharashtra,City,2083,1042,446,516,592,All,Low,5,High,Yes,"Gateway of India, Marine Drive, Elephanta Caves, Juhu Beach","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+Pune,Maharashtra,City,1211,569,316,568,783,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+Lonavala,Maharashtra,Hill,2489,2702,572,532,1772,Monsoon,Medium,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Boutique Hotel / 4-Star Stay
+Mahabaleshwar,Maharashtra,Hill,2140,5565,1589,451,7883,Winter,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",5-Star Luxury Hotel
+Nashik,Maharashtra,City,1278,1490,341,514,1013,Winter,Low,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+Shirdi,Maharashtra,Temple,581,613,381,349,1083,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+Ajanta,Maharashtra,City,823,1517,972,979,1501,Winter,Medium,2,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Boutique Hotel / 4-Star Stay
+Ellora,Maharashtra,City,2493,7163,1330,886,4985,Winter,High,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",5-Star Luxury Hotel
+Alibaug,Maharashtra,Beach,1808,5693,1122,880,5330,Winter,High,3,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Luxury Beachfront Resort
+Panchgani,Maharashtra,Hill,1693,5739,1050,695,7260,Winter,High,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",5-Star Luxury Hotel
+Matheran,Maharashtra,Hill,1505,3921,1021,679,4230,Winter,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",5-Star Luxury Hotel
+Kolhapur,Maharashtra,City,650,1370,440,271,617,All,Low,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+Aurangabad,Maharashtra,City,1217,2753,969,527,2369,All,Medium,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Boutique Hotel / 4-Star Stay
+Khandala,Maharashtra,Hill,2102,6048,1081,925,5207,Monsoon,High,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",5-Star Luxury Hotel
+Tarkarli,Maharashtra,Beach,2154,1182,404,301,652,Winter,Low,5,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Kolhapuri Chappals, Paithani Sarees, Warli Paintings",Budget Hotel / Guesthouse
+New Delhi,Delhi,City,1442,866,486,585,768,Winter,Low,4,Medium,Yes,"Red Fort, India Gate, Qutub Minar, Lotus Temple","Chandni Chowk Spices, Junk Jewelry, Janpath Kurtas, Zari work",Budget Hotel / Guesthouse
+Jaipur,Rajasthan,City,2199,2171,854,601,2048,Winter,Medium,5,Medium,Yes,"Amber Fort, Hawa Mahal, City Palace, Jantar Mantar","Bandhani Sarees, Blue Pottery, Leather Mojaris, Minakari Jewelry",Boutique Hotel / 4-Star Stay
+Udaipur,Rajasthan,City,694,2280,874,716,2425,Winter,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bandhani Sarees, Blue Pottery, Leather Mojaris, Minakari Jewelry",Boutique Hotel / 4-Star Stay
+Jaisalmer,Rajasthan,City,1609,628,415,394,555,Winter,Low,2,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Bandhani Sarees, Blue Pottery, Leather Mojaris, Minakari Jewelry",Budget Hotel / Guesthouse
+Agra,Uttar Pradesh,City,1845,1423,464,353,625,Winter,Low,3,Medium,Yes,"Taj Mahal, Agra Fort, Fatehpur Sikri","Chikankari Kurtas, Banarasi Sarees, Brassware, Marble Inlay",Budget Hotel / Guesthouse
+Varanasi,Uttar Pradesh,Temple,848,1159,429,439,569,Winter,Low,2,High,Yes,"Kashi Vishwanath Temple, Dashashwamedh Ghat, Sarnath","Chikankari Kurtas, Banarasi Sarees, Brassware, Marble Inlay",Budget Hotel / Guesthouse
+Rishikesh,Uttarakhand,Temple,613,2847,913,763,2790,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Woolen Shawls, Organic Honey, Wood Carvings, Kumaoni Art",Boutique Hotel / 4-Star Stay
+Mussoorie,Uttarakhand,Hill,2178,871,461,434,521,Summer,Low,4,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Woolen Shawls, Organic Honey, Wood Carvings, Kumaoni Art",Budget Hotel / Guesthouse
+Nainital,Uttarakhand,Hill,1464,2596,747,469,3417,Summer,Medium,2,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Woolen Shawls, Organic Honey, Wood Carvings, Kumaoni Art",Boutique Hotel / 4-Star Stay
+Shimla,Himachal Pradesh,Hill,2067,2432,852,499,3058,Summer,Medium,2,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kullu Shawls, Kangra Tea, Tibetan Carpets, Himachali Caps",Boutique Hotel / 4-Star Stay
+Manali,Himachal Pradesh,Hill,2288,4327,1364,870,7332,Summer,High,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kullu Shawls, Kangra Tea, Tibetan Carpets, Himachali Caps",5-Star Luxury Hotel
+Dharamshala,Himachal Pradesh,Hill,673,1252,445,404,899,Summer,Low,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Kullu Shawls, Kangra Tea, Tibetan Carpets, Himachali Caps",Budget Hotel / Guesthouse
+Srinagar,Jammu & Kashmir,Hill,1296,5463,1060,515,4065,Summer,High,5,Low,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Pashmina Shawls, Saffron, Walnut Woodwork, Papier Mache",5-Star Luxury Hotel
+Gulmarg,Jammu & Kashmir,Nature,2156,1094,352,278,881,Winter,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Pashmina Shawls, Saffron, Walnut Woodwork, Papier Mache",Backpacker Hostel / Campsite
+Amritsar,Punjab,Temple,2133,793,324,321,1143,Winter,Low,3,High,Yes,"Golden Temple, Jallianwala Bagh, Wagah Border","Phulkari Embroidery, Juttis, Parandis, Brass Items",Budget Hotel / Guesthouse
+Ahmedabad,Gujarat,City,1581,710,450,513,1356,Winter,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Patola Sarees, Kutchi Embroidery, Silver Jewelry, Bandhani",Budget Hotel / Guesthouse
+Kutch,Gujarat,Nature,1792,881,461,221,522,Winter,Low,2,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Patola Sarees, Kutchi Embroidery, Silver Jewelry, Bandhani",Backpacker Hostel / Campsite
+Gir National Park,Gujarat,Nature,1404,1304,392,562,1348,Winter,Low,2,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Patola Sarees, Kutchi Embroidery, Silver Jewelry, Bandhani",Backpacker Hostel / Campsite
+Bhopal,Madhya Pradesh,City,847,922,468,274,1446,Winter,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Chanderi Sarees, Bagh Prints, Bamboo Crafts, Dhokra Metal",Budget Hotel / Guesthouse
+Khajuraho,Madhya Pradesh,Temple,2392,1107,351,479,1274,Winter,Low,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Chanderi Sarees, Bagh Prints, Bamboo Crafts, Dhokra Metal",Budget Hotel / Guesthouse
+Pachmarhi,Madhya Pradesh,Hill,1617,3500,734,967,1680,Winter,Medium,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Chanderi Sarees, Bagh Prints, Bamboo Crafts, Dhokra Metal",Boutique Hotel / 4-Star Stay
+Ujjain,Madhya Pradesh,Temple,2018,1294,448,504,950,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Chanderi Sarees, Bagh Prints, Bamboo Crafts, Dhokra Metal",Budget Hotel / Guesthouse
+Kolkata,West Bengal,City,1819,727,346,396,505,Winter,Low,4,Medium,Yes,"Victoria Memorial, Howrah Bridge, Dakshineswar Kali Temple","Baluchari Sarees, Terracotta Crafts, Darjeeling Tea, Shola Pith",Budget Hotel / Guesthouse
+Darjeeling,West Bengal,Hill,1937,969,380,436,728,Summer,Low,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Baluchari Sarees, Terracotta Crafts, Darjeeling Tea, Shola Pith",Budget Hotel / Guesthouse
+Sundarbans,West Bengal,Nature,2196,7045,1051,548,3830,Winter,High,3,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Baluchari Sarees, Terracotta Crafts, Darjeeling Tea, Shola Pith",Premium Eco-Lodge
+Bhubaneswar,Odisha,City,992,589,385,409,1098,Winter,Low,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Ikat Fabric, Pipili Applique, Silver Filigree, Pattachitra",Budget Hotel / Guesthouse
+Puri,Odisha,Temple,2455,772,341,428,847,All,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Ikat Fabric, Pipili Applique, Silver Filigree, Pattachitra",Budget Hotel / Guesthouse
+Konark,Odisha,Temple,1099,515,405,488,1400,Winter,Low,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Ikat Fabric, Pipili Applique, Silver Filigree, Pattachitra",Budget Hotel / Guesthouse
+Gangtok,Sikkim,Hill,752,7311,1002,845,5093,Summer,High,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Thangka Paintings, Temi Tea, Tibetan Handicrafts, Carpets",5-Star Luxury Hotel
+Guwahati,Assam,City,1215,5825,1984,549,4581,Winter,High,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Muga Silk, Bamboo Crafts, Assam Tea, Traditional Mekhela Chador",5-Star Luxury Hotel
+Kaziranga,Assam,Nature,1645,977,303,595,692,Winter,Low,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Muga Silk, Bamboo Crafts, Assam Tea, Traditional Mekhela Chador",Backpacker Hostel / Campsite
+Shillong,Meghalaya,Hill,577,5473,1213,736,5909,Summer,High,4,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Cane Mats, Khasi Bamboo Crafts, Black Clay Pottery, Organic Honey",5-Star Luxury Hotel
+Cherrapunji,Meghalaya,Nature,1777,1018,332,383,752,Monsoon,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Cane Mats, Khasi Bamboo Crafts, Black Clay Pottery, Organic Honey",Backpacker Hostel / Campsite
+Hanoi,Vietnam,City,1348,1759,968,733,3464,All,Medium,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Silk, Coffee, Conical Hats, Lacquerware, Lanterns",Boutique Hotel / 4-Star Stay
+Ha Long Bay,Vietnam,Nature,1033,1456,473,554,704,Winter,Low,3,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Silk, Coffee, Conical Hats, Lacquerware, Lanterns",Backpacker Hostel / Campsite
+Hoi An,Vietnam,City,1446,5242,1208,954,5173,All,High,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Silk, Coffee, Conical Hats, Lacquerware, Lanterns",5-Star Luxury Hotel
+Phu Quoc,Vietnam,Beach,735,1144,460,579,1134,Winter,Low,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Silk, Coffee, Conical Hats, Lacquerware, Lanterns",Budget Hotel / Guesthouse
+Bangkok,Thailand,City,1634,2203,832,629,2457,Winter,Medium,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Thai Silk, Spa Products, Spices, Handicrafts",Boutique Hotel / 4-Star Stay
+Phuket,Thailand,Beach,2449,1389,491,537,908,Winter,Low,3,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Thai Silk, Spa Products, Spices, Handicrafts",Budget Hotel / Guesthouse
+Chiang Mai,Thailand,Hill,1721,884,475,530,874,Winter,Low,3,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Thai Silk, Spa Products, Spices, Handicrafts",Budget Hotel / Guesthouse
+Bali,Indonesia,Beach,1171,3325,712,780,1571,Summer,Medium,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Batik Fabric, Luwak Coffee, Silver Jewelry, Wood Carvings",Boutique Hotel / 4-Star Stay
+Ubud,Indonesia,Nature,1490,998,373,245,555,Summer,Low,1,Low,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Batik Fabric, Luwak Coffee, Silver Jewelry, Wood Carvings",Backpacker Hostel / Campsite
+Tokyo,Japan,City,868,1819,525,401,1707,All,Medium,5,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Matcha, Ceramics, Electronics, Kimonos, Anime Merch",Boutique Hotel / 4-Star Stay
+Kyoto,Japan,Temple,2170,3291,639,650,2114,All,Medium,3,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Matcha, Ceramics, Electronics, Kimonos, Anime Merch",Boutique Hotel / 4-Star Stay
+Seoul,South Korea,City,1077,3170,881,857,2571,All,Medium,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Skincare, Hanbok, K-pop Merch, Ginseng",Boutique Hotel / 4-Star Stay
+Dubai,UAE,City,1844,1480,348,490,531,Winter,Low,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Dates, Gold, Perfumes, Camel Milk Chocolates",Budget Hotel / Guesthouse
+Paris,France,City,632,4136,1771,913,4421,All,High,3,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Wine, Cheese, Perfume, Haute Couture",5-Star Luxury Hotel
+Nice,France,Beach,1816,2255,631,584,3422,Summer,Medium,4,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Wine, Cheese, Perfume, Haute Couture",Boutique Hotel / 4-Star Stay
+Rome,Italy,City,1786,799,305,222,777,All,Low,2,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Leather Goods, Murano Glass, Olive Oil, Truffles",Budget Hotel / Guesthouse
+Venice,Italy,City,697,1770,785,839,2111,Summer,Medium,4,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Leather Goods, Murano Glass, Olive Oil, Truffles",Boutique Hotel / 4-Star Stay
+Amalfi Coast,Italy,Beach,1976,5282,1844,729,5247,Summer,High,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Leather Goods, Murano Glass, Olive Oil, Truffles",Luxury Beachfront Resort
+London,UK,City,2237,661,445,342,842,All,Low,4,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Tea, Shortbread, Woolen Scarves, Vintage Books",Budget Hotel / Guesthouse
+Barcelona,Spain,City,1654,4644,1557,934,4843,Summer,High,2,Low,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Olive Oil, Saffron, Ceramics, Leather",5-Star Luxury Hotel
+Ibiza,Spain,Beach,1655,965,419,474,1476,Summer,Low,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Olive Oil, Saffron, Ceramics, Leather",Budget Hotel / Guesthouse
+Santorini,Greece,Beach,1640,6510,1271,484,4139,Summer,High,5,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Olive Oil, Evil Eye Jewelry, Ouzo, Ceramics",Luxury Beachfront Resort
+Athens,Greece,Temple,587,1025,354,516,1006,Summer,Low,2,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Olive Oil, Evil Eye Jewelry, Ouzo, Ceramics",Budget Hotel / Guesthouse
+Swiss Alps,Switzerland,Hill,1946,1452,300,579,1240,Winter,Low,5,Medium,Yes,"Sunset Viewpoint, Local Market, Hidden Waterfalls, Nature Trails","Chocolates, Watches, Cheese, Army Knives",Budget Hotel / Guesthouse
+New York,USA,City,1586,1452,417,219,1386,All,Low,3,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Designer Brands, Electronics, Local Souvenirs",Budget Hotel / Guesthouse
+Los Angeles,USA,Beach,2357,3119,651,763,2966,All,Medium,4,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Designer Brands, Electronics, Local Souvenirs",Boutique Hotel / 4-Star Stay
+Las Vegas,USA,City,2199,529,421,463,1117,All,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Designer Brands, Electronics, Local Souvenirs",Budget Hotel / Guesthouse
+Grand Canyon,USA,Nature,1523,1295,383,304,650,All,Low,2,Low,Yes,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Designer Brands, Electronics, Local Souvenirs",Backpacker Hostel / Campsite
+Cancun,Mexico,Beach,614,2505,820,479,3110,Winter,Medium,2,Low,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Tequila, Talavera Pottery, Silver Jewelry",Boutique Hotel / 4-Star Stay
+Rio de Janeiro,Brazil,Beach,1674,1468,337,530,968,Summer,Low,2,Medium,Yes,"Main Beach, Sunset Point, Seafood Shacks, Water Sports Zone","Havaianas, Coffee, Cachaça, Gemstones",Budget Hotel / Guesthouse
+Cape Town,South Africa,City,787,1101,469,313,840,Summer,Low,5,Medium,Yes,"City Center Mall, Local Museums, Heritage Monuments, Shopping Streets","Rooibos Tea, Beadwork, Wine, Diamonds",Budget Hotel / Guesthouse
+Serengeti,Tanzania,Nature,1296,3474,705,492,2420,Summer,Medium,1,Medium,No,"Wildlife Safari, Bird Watching Spots, Forest Trails, Eco Park","Tanzanite, Coffee, Wood Carvings, Maasai Beadwork",Comfortable Safari Tent
+Cairo,Egypt,Temple,1362,2718,724,758,1660,Winter,Medium,1,High,Yes,"Main Shrine, Holy Pond, Historic Corridors, Local Bazaar","Papyrus Art, Spices, Cotton, Alabaster",Boutique Hotel / 4-Star Stay

@@ -61,7 +61,19 @@ def planner():
         )
 
         # ── State Information ─────────────────────────────────────────────
-        state_info = STATE_INFO.get(target_state, None) if target_state != 'all' else None
+        # Get the actual state/country from the top result to handle city searches
+        actual_state = None
+        if target_state and target_state.lower() not in ['all', 'anywhere in the world']:
+            if recommendation_data['matches']:
+                actual_state = recommendation_data['matches'][0]['State']
+            elif recommendation_data['alternatives']:
+                actual_state = recommendation_data['alternatives'][0]['State']
+                
+        # If the recommendation engine dynamically generated this location, use its dynamic state info!
+        if recommendation_data.get('dynamic_state_info'):
+            state_info = recommendation_data['dynamic_state_info']
+        else:
+            state_info = STATE_INFO.get(actual_state) if actual_state else None
 
         return render_template('results.html',
                                recommendations=recommendation_data['matches'],
@@ -74,7 +86,9 @@ def planner():
                                trip_type=trip_type)
 
     states = sorted(destinations_df['State'].unique().tolist())
-    return render_template('planner.html', error=None, states=states)
+    destinations = sorted(destinations_df['Destination'].unique().tolist())
+    all_locations = sorted(list(set(states + destinations)))
+    return render_template('planner.html', error=None, locations=all_locations)
 
 
 @app.route('/dashboard')
