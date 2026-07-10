@@ -34,8 +34,8 @@
 
             {% if rec.Accommodation_Type %}
             <div class="mt-3 rounded-3 shadow-sm overflow-hidden d-flex" style="background-color: var(--bs-light); border: 1px solid rgba(13, 202, 240, 0.3); border-left: 4px solid var(--bs-info);">
-                <!-- Load dynamic image related to the destination and hotels -->
-                <img src="https://loremflickr.com/200/200/{{ rec.Destination|urlencode }},hotel/all" alt="Hotel in {{ rec.Destination }}" style="width: 90px; object-fit: cover;">
+                <!-- Load a beautiful generic hotel image -->
+                <img src="https://picsum.photos/200/200?random={{ loop.index }}" alt="Hotel in {{ rec.Destination }}" style="width: 90px; object-fit: cover;">
                 <div class="p-3 d-flex flex-column justify-content-center">
                     <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">🏨 Recommended Stay</h6>
                     <p class="mb-0 small fw-semibold text-dark">{{ rec.Accommodation_Type }}</p>
@@ -113,6 +113,7 @@
                         {% for place in state_info.must_visit %}
                         <button type="button" class="btn btn-light text-dark border px-3 py-2 fw-semibold place-btn shadow-sm" 
                                 data-bs-toggle="modal" data-bs-target="#imageModal" data-place="{{ place }}" 
+                                data-state="{{ recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India') }}"
                                 style="font-size: 0.9rem; border-radius: 20px; transition: all 0.2s;">
                             🌟 {{ place }}
                         </button>
@@ -243,32 +244,41 @@ document.addEventListener('DOMContentLoaded', function() {
     if(imageModal) {
         imageModal.addEventListener('show.bs.modal', function (event) {
             var button = event.relatedTarget
-            var place = button.getAttribute('data-place')
+            var place = button.getAttribute('data-place');
+            var state = button.getAttribute('data-state');
             var modalTitle = imageModal.querySelector('#modalTitle')
             var modalImage = imageModal.querySelector('#modalImage')
             var modalLoading = imageModal.querySelector('#modalLoading')
             
             modalTitle.textContent = place
+            
             modalImage.style.opacity = '0';
             modalLoading.style.display = 'block';
             
-            // Fetch real, highly-accurate image from Wikipedia API
-            var wikiUrl = 'https://en.wikipedia.org/api/rest_v1/page/summary/' + encodeURIComponent(place);
+            // 1. Search Google Images via our backend API for the exact place photograph
+            // Adding "travel photography landscape" ensures high-quality real-world photos
+            var fetchUrl = '/api/image?q=' + encodeURIComponent(place + ' travel photography landscape');
             
-            fetch(wikiUrl)
+            fetch(fetchUrl)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.originalimage && data.originalimage.source) {
-                        modalImage.src = data.originalimage.source;
-                    } else if (data.thumbnail && data.thumbnail.source) {
-                        modalImage.src = data.thumbnail.source;
-                    } else {
-                        // Fallback if Wikipedia has no image
-                        modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
+                    if (data.url) {
+                        modalImage.src = data.url;
+                        return;
                     }
+                    // 2. Fallback: Search for the State/Country landscape if specific place fails
+                    var stateUrl = '/api/image?q=' + encodeURIComponent(state + ' travel photography landscape');
+                    return fetch(stateUrl).then(r => r.json()).then(stateData => {
+                        if (stateData.url) {
+                            modalImage.src = stateData.url;
+                            return;
+                        }
+                        throw new Error("No image found for state either");
+                    });
                 })
                 .catch(error => {
-                    // Fallback on network error
+                    console.log("Google image fetch failed for", place, error);
+                    // Absolute worst case fallback
                     modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
                 });
             
@@ -279,6 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
             };
             
             modalImage.onerror = function() {
+                // In case the direct image URL from web search has hotlinking protection, fallback gracefully
                 modalImage.src = 'https://picsum.photos/1000/700?random=' + Math.floor(Math.random() * 1000);
             };
         })

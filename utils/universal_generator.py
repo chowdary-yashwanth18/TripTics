@@ -76,13 +76,38 @@ def generate_universal_destination(place_name):
             dest_row_3['Attractions'] = f"Museums, old town architecture, and cultural heritage sites of {title}."
             dest_row_3['Accommodation_Type'] = 'Heritage Hotel'
             
+            # Fetch exact location banner image using DuckDuckGo Images Search
+            image_url = ""
+            try:
+                import re, json
+                ddg_query = urllib.parse.quote(f"{title} landscape travel photography")
+                
+                req = urllib.request.Request(
+                    f"https://duckduckgo.com/?q={ddg_query}&ia=images",
+                    headers={'User-Agent': 'Mozilla/5.0'}
+                )
+                html = urllib.request.urlopen(req, timeout=5).read().decode('utf-8')
+                vqd_match = re.search(r'vqd=([\d-]+)', html)
+                if vqd_match:
+                    vqd = vqd_match.group(1)
+                    req2 = urllib.request.Request(
+                        f"https://duckduckgo.com/i.js?q={ddg_query}&o=json&vqd={vqd}",
+                        headers={'User-Agent': 'Mozilla/5.0'}
+                    )
+                    res = urllib.request.urlopen(req2, timeout=5).read().decode('utf-8')
+                    data = json.loads(res)
+                    if data.get('results'):
+                        image_url = data['results'][0]['image']
+            except Exception as e:
+                print("DDG image fetch error in generator:", e)
+
             # Dynamic State Info
             dynamic_state_info = {
                 "title": f"Discover {title}",
                 "description": extract,
                 "color": random.choice(["primary", "success", "info", "warning", "dark"]),
-                "must_visit": [f"{title} Central Plaza", "Local Museum", "Scenic Viewpoint", "Historic Quarter"],
-                "image_url": f"https://loremflickr.com/1200/400/{urllib.parse.quote(title)},landmark/all"
+                "must_visit": [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"],
+                "image_url": image_url
             }
             
             return {

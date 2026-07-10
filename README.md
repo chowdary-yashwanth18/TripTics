@@ -45,6 +45,7 @@ Planning a budget trip in India is difficult. Travelers often:
 - 🎯 **Smart Recommendation Engine** – Scores destinations using 4 factors: trip type match, budget fit comfort, days relevance, and budget level preference
 - 💰 **Accurate Cost Calculation** – Formula: `Travel + (Hotel × days) + (Food × travelers × days) + (Local Transport × days)`
 - 📊 **Analytics Dashboard** – 7 interactive Plotly charts with KPI cards and auto-generated insights
+- 🖼️ **Dynamic Image Crawler** – Built-in DuckDuckGo Image API crawler that fetches high-resolution, contextually accurate landscape photos for every destination on the fly
 - 🔍 **No-match Handling** – When budget is too low, shows nearest alternatives and actionable suggestions
 - 🏷️ **Crowd Level & Family Tags** – Optional metadata on each recommendation card
 - 📱 **Responsive Design** – Works on desktop, tablet, and mobile
@@ -55,7 +56,7 @@ Planning a budget trip in India is difficult. Travelers often:
 
 | Layer | Technology |
 |---|---|
-| Backend | Python 3.x, Flask |
+| Backend | Python 3.x, Flask, urllib (DuckDuckGo Image Crawler) |
 | Data Processing | Pandas, NumPy |
 | Visualization | Plotly (interactive), Plotly Express |
 | Frontend | HTML5, Bootstrap 5, Vanilla CSS |

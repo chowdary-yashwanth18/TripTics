@@ -240,6 +240,34 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         score  = score_destination(row, costs, budget, days, trip_type, budget_style)
         reason = generate_reason(row, costs, budget, days)
 
+        # Generate the precise image query based on user specifications
+        destination = str(row['Destination']).strip()
+        state = str(row['State']).strip()
+        dest_type = str(row['Type']).strip().lower()
+        
+        # Keyword mapping to get 2-4 travel-visual keywords
+        keywords_map = {
+            'beach': 'ocean coastal relaxing',
+            'hill': 'mountain scenic view',
+            'nature': 'forest landscape greenery',
+            'temple': 'spiritual architecture heritage',
+            'city': 'urban street skyline',
+            'historical': 'heritage monument ancient',
+            'adventure': 'outdoor action extreme'
+        }
+        keywords = keywords_map.get(dest_type, f"{dest_type} sightseeing")
+        
+        # Most data is Indian, but handle global properly
+        country = "India"
+        if state and state.lower() not in ["andhra pradesh", "arunachal pradesh", "assam", "bihar", "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh", "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra", "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab", "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura", "uttar pradesh", "uttarakhand", "west bengal", "delhi", "jammu and kashmir", "ladakh", "puducherry", "andaman and nicobar islands", "chandigarh", "dadra and nagar haveli and daman and diu", "lakshadweep"]:
+            # If the state isn't a known Indian state/UT, it might be an international location from universal generator
+            # We omit "India" to be safe, the universal generator often sets State to the Country/Region name
+            country = ""
+
+        # Construct the final query
+        query_parts = [destination, state, country, keywords, "travel photography"]
+        image_query = " ".join([p for p in query_parts if p])
+
         scored.append({
             'Destination':      row['Destination'],
             'State':            row['State'],
@@ -256,6 +284,7 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             'Family_Friendly':  _safe_get(row, 'Family_Friendly', ''),
             'Attractions':      _safe_get(row, 'Attractions', ''),
             'Shopping_Items':   _safe_get(row, 'Shopping_Items', 'Local souvenirs'),
+            'Image_Query':      image_query
         })
 
     # Split by budget

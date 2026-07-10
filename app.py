@@ -100,5 +100,33 @@ def dashboard():
     return render_template('dashboard.html', charts=charts, kpis=kpis, insights=insights)
 
 
+@app.route('/api/image')
+def api_image():
+    """Internal API to reliably fetch a single high-resolution image URL via DuckDuckGo."""
+    import urllib.request, urllib.parse, re, json
+    query = request.args.get('q', '')
+    if not query:
+        return {'url': ''}, 400
+        
+    try:
+        req = urllib.request.Request(
+            f"https://duckduckgo.com/?q={urllib.parse.quote(query)}&ia=images",
+            headers={'User-Agent': 'Mozilla/5.0'}
+        )
+        html = urllib.request.urlopen(req, timeout=5).read().decode('utf-8')
+        vqd_match = re.search(r'vqd=([\d-]+)', html)
+        if vqd_match:
+            vqd = vqd_match.group(1)
+            url = f"https://duckduckgo.com/i.js?q={urllib.parse.quote(query)}&o=json&vqd={vqd}"
+            req2 = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+            res = urllib.request.urlopen(req2, timeout=5).read().decode('utf-8')
+            data = json.loads(res)
+            if data.get('results'):
+                return {'url': data['results'][0]['image']}
+    except Exception as e:
+        print("DDG image fetch error:", e)
+        
+    return {'url': ''}, 404
+
 if __name__ == '__main__':
     app.run(debug=True)
