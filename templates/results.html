@@ -28,7 +28,15 @@
             {% if rec.Attractions %}
             <div class="mt-3 p-3 bg-light rounded-3 border">
                 <h6 class="fw-bold text-primary mb-1"><i class="bi bi-geo-alt-fill"></i> Famous Spots</h6>
-                <p class="mb-0 small text-muted">{{ rec.Attractions }}</p>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    {% for place in rec.Attractions.split(',') %}
+                    <button type="button" class="btn btn-sm btn-outline-primary shadow-sm" 
+                            data-bs-toggle="modal" data-bs-target="#imageModal" data-place="{{ place.strip() }}" 
+                            data-state="{{ rec.Destination }}, {{ rec.State }}">
+                        🌟 {{ place.strip() }}
+                    </button>
+                    {% endfor %}
+                </div>
             </div>
             {% endif %}
 
@@ -104,7 +112,7 @@
         <div class="glass-card mb-4 rounded-4 position-relative overflow-hidden shadow-sm" style="border-top: 5px solid var(--bs-{{ state_info.color }});">
             <div class="row g-0">
                 <div class="col-md-7 p-4 p-lg-5 text-start d-flex flex-column justify-content-center">
-                    <h1 class="display-4 fw-bold gradient-text">Welcome to {{ recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India') }}</h1>
+                    <h1 class="display-4 fw-bold gradient-text">Welcome to {{ target_location.title() if target_location else (recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India')) }}</h1>
                     <h4 class="text-{{ state_info.color }} mb-3 fw-semibold">"{{ state_info.title }}"</h4>
                     <p class="lead text-muted">{{ state_info.description }}</p>
                     
@@ -256,8 +264,7 @@ document.addEventListener('DOMContentLoaded', function() {
             modalLoading.style.display = 'block';
             
             // 1. Search Google Images via our backend API for the exact place photograph
-            // Adding "travel photography landscape" ensures high-quality real-world photos
-            var fetchUrl = '/api/image?q=' + encodeURIComponent(place + ' travel photography landscape');
+            var fetchUrl = '/api/image?q=' + encodeURIComponent(place + ' ' + state);
             
             fetch(fetchUrl)
                 .then(response => response.json())

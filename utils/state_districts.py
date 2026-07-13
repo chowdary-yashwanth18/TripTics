@@ -1,0 +1,23 @@
+STATE_DISTRICTS = {
+    "Andhra Pradesh": ["Visakhapatnam", "Srikakulam", "Kakinada", "Rayalaseema", "Tirupati", "Vijayawada", "Kurnool", "Rajahmundry", "Guntur", "Nellore", "Araku"],
+    "Telangana": ["Hyderabad", "Warangal", "Nizamabad", "Karimnagar", "Khammam", "Mahbubnagar", "Adilabad", "Nalgonda"],
+    "Maharashtra": ["Mumbai", "Pune", "Nagpur", "Nashik", "Aurangabad", "Kolhapur", "Solapur", "Thane", "Amravati"],
+    "Karnataka": ["Bengaluru", "Mysore", "Mangaluru", "Hubli", "Belagavi", "Udupi", "Ballari", "Tumakuru"],
+    "Tamil Nadu": ["Chennai", "Coimbatore", "Madurai", "Tiruchirappalli", "Salem", "Tirunelveli", "Vellore", "Erode", "Thanjavur"],
+    "Kerala": ["Thiruvananthapuram", "Kochi", "Kozhikode", "Thrissur", "Kollam", "Kannur", "Alappuzha", "Kottayam"],
+    "Goa": ["North Goa", "South Goa", "Panaji", "Margao", "Vasco da Gama"],
+    "Gujarat": ["Ahmedabad", "Surat", "Vadodara", "Rajkot", "Bhavnagar", "Jamnagar", "Junagadh", "Gandhinagar"],
+    "Rajasthan": ["Jaipur", "Jodhpur", "Udaipur", "Kota", "Bikaner", "Ajmer", "Jaisalmer", "Alwar"],
+    "Uttar Pradesh": ["Lucknow", "Kanpur", "Agra", "Varanasi", "Prayagraj", "Meerut", "Gorakhpur", "Noida", "Mathura"],
+    "Delhi": ["New Delhi", "North Delhi", "South Delhi", "East Delhi", "West Delhi", "Central Delhi"],
+    "West Bengal": ["Kolkata", "Darjeeling", "Howrah", "Siliguri", "Asansol", "Durgapur", "Malda", "Kharagpur"],
+    "Odisha": ["Bhubaneswar", "Cuttack", "Puri", "Rourkela", "Berhampur", "Sambalpur", "Balasore"],
+    "Punjab": ["Amritsar", "Ludhiana", "Jalandhar", "Patiala", "Bathinda", "Mohali", "Pathankot"],
+    "Madhya Pradesh": ["Bhopal", "Indore", "Gwalior", "Jabalpur", "Ujjain", "Sagar", "Rewa"],
+    "Uttarakhand": ["Dehradun", "Haridwar", "Rishikesh", "Nainital", "Mussoorie", "Almora", "Roorkee"],
+    "Himachal Pradesh": ["Shimla", "Manali", "Dharamshala", "Kullu", "Mandi", "Solan", "Dalhousie"],
+    "Jammu & Kashmir": ["Srinagar", "Jammu", "Anantnag", "Baramulla", "Gulmarg", "Pahalgam"],
+    "Assam": ["Guwahati", "Dibrugarh", "Silchar", "Jorhat", "Nagaon", "Tezpur"],
+    "Sikkim": ["Gangtok", "Namchi", "Geyzing", "Mangan", "Pelling"],
+    "Meghalaya": ["Shillong", "Cherrapunji", "Tura", "Jowai"]
+}

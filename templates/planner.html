@@ -18,16 +18,25 @@
             <form action="{{ url_for('planner') }}" method="POST">
 
                 <div class="row mb-4">
-                    <div class="col-md-6 mb-3 mb-md-0">
+                    <div class="col-md-4 mb-3 mb-md-0">
                         <label for="starting_city" class="form-label fw-bold">Starting Location <span class="text-muted fw-normal">(optional)</span></label>
                         <input type="text" class="form-control" id="starting_city" name="starting_city"
-                               placeholder="e.g. Visakhapatnam">
+                               placeholder="e.g. Hyderabad">
                     </div>
-                    <div class="col-md-6">
-                        <label for="target_state" class="form-label fw-bold">Destination Search <span class="text-muted fw-normal">(optional)</span></label>
+                    <div class="col-md-4 mb-3 mb-md-0">
+                        <label for="state_select" class="form-label fw-bold">Select State <span class="text-muted fw-normal">(optional)</span></label>
+                        <select class="form-select" id="state_select" name="state_select" onchange="updateDistricts()">
+                            <option value="all">Anywhere / All States</option>
+                            {% for state in states_list %}
+                            <option value="{{ state }}">{{ state }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="target_state" class="form-label fw-bold">District / Destination <span class="text-muted fw-normal">(optional)</span></label>
                         <input type="text" class="form-control" id="target_state" name="target_state" 
-                               list="locationsList" placeholder="e.g. Vietnam, Bali, or anywhere on Earth!">
-                        <datalist id="locationsList">
+                               list="districtsList" placeholder="Select state first, or type directly">
+                        <datalist id="districtsList">
                             <option value="all">Anywhere in the World</option>
                             {% for loc in locations %}
                             <option value="{{ loc }}"></option>
@@ -86,4 +95,49 @@
         </div>
     </div>
 </div>
+<script>
+    const stateDistricts = {{ state_districts | tojson | safe if state_districts else '{}' }};
+    const allLocations = {{ locations | tojson | safe if locations else '[]' }};
+    
+    function updateDistricts() {
+        const stateSelect = document.getElementById('state_select');
+        const districtsList = document.getElementById('districtsList');
+        const targetStateInput = document.getElementById('target_state');
+        
+        const selectedState = stateSelect.value;
+        
+        // Clear current datalist
+        districtsList.innerHTML = '';
+        
+        if (selectedState === 'all') {
+            const option = document.createElement('option');
+            option.value = 'all';
+            option.textContent = 'Anywhere in the World';
+            districtsList.appendChild(option);
+            
+            allLocations.forEach(loc => {
+                const opt = document.createElement('option');
+                opt.value = loc;
+                districtsList.appendChild(opt);
+            });
+            targetStateInput.value = '';
+        } else {
+            targetStateInput.value = selectedState; 
+            
+            const districts = stateDistricts[selectedState] || [];
+            
+            if (districts.length > 0) {
+                districts.forEach(dist => {
+                    const opt = document.createElement('option');
+                    opt.value = dist;
+                    districtsList.appendChild(opt);
+                });
+            } else {
+                const option = document.createElement('option');
+                option.value = selectedState;
+                districtsList.appendChild(option);
+            }
+        }
+    }
+</script>
 {% endblock %}
