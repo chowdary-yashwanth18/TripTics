@@ -63,7 +63,7 @@
                     </div>
                 </div>
 
-                <div class="row mb-5">
+                <div class="row mb-4">
                     <div class="col-md-6 mb-3 mb-md-0">
                         <label for="trip_type" class="form-label fw-bold">Trip Type / Interest</label>
                         <select class="form-select" id="trip_type" name="trip_type">
@@ -82,6 +82,27 @@
                             <option value="low">💸 Low Budget</option>
                             <option value="medium">💳 Medium Budget</option>
                             <option value="high">💎 High Budget</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-5">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <label for="outbound_transport" class="form-label fw-bold">Outbound Journey (To) 🛫</label>
+                        <select class="form-select" id="outbound_transport" name="outbound_transport">
+                            <option value="any">Any Mode</option>
+                            <option value="flight">Flight</option>
+                            <option value="train">Train</option>
+                            <option value="bus">Bus</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="return_transport" class="form-label fw-bold">Return Journey (Fro) 🛬</label>
+                        <select class="form-select" id="return_transport" name="return_transport">
+                            <option value="any">Any Mode</option>
+                            <option value="flight">Flight</option>
+                            <option value="train">Train</option>
+                            <option value="bus">Bus</option>
                         </select>
                     </div>
                 </div>

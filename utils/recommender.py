@@ -186,7 +186,7 @@ def build_suggestions(alternatives, budget, days, travelers):
     return suggestions
 
 
-def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all', target_state='all'):
+def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all', target_state='all', starting_city='', outbound_transport='any', return_transport='any'):
     """
     Main recommendation function.
 
@@ -268,6 +268,40 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         query_parts = [destination, state, country, keywords, "travel photography"]
         image_query = " ".join([p for p in query_parts if p])
 
+        # Generate kids activities if family friendly
+        kids_activities = []
+        family_friendly = _safe_get(row, 'Family_Friendly', '')
+        if family_friendly == 'Yes':
+            import random
+            random.seed(hash(row['Destination']))
+            all_activities = [
+                {'name': 'Go-Karting 🏎️', 'image': 'https://images.unsplash.com/photo-1541257710737-06d667133a53?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Fun Gun Games 🔫', 'image': 'https://images.unsplash.com/photo-1590845947376-2638caa89309?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Cricket Nets 🏏', 'image': 'https://images.unsplash.com/photo-1531415074968-036ba1b575da?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Amusement Park 🎢', 'image': 'https://images.unsplash.com/photo-1513885045260-6b3086b24c17?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Arcade 🕹️', 'image': 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Water Park 🌊', 'image': 'https://images.unsplash.com/photo-1582216503923-b1d44eb683c3?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'Trampoline Park 🤸', 'image': 'https://images.unsplash.com/photo-1519865885898-a54a6f2c7eea?auto=format&fit=crop&w=300&q=80'},
+                {'name': 'VR Gaming 👓', 'image': 'https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?auto=format&fit=crop&w=300&q=80'}
+            ]
+            chosen = random.sample(all_activities, k=random.randint(2, 4))
+            for act in chosen:
+                prefixes = ['Central', 'Downtown', 'North', 'South', 'City Center']
+                kids_activities.append({
+                    'name': act['name'],
+                    'image': act['image'],
+                    'location': f"{random.choice(prefixes)} {str(row['Destination']).split(',')[0]} Zone",
+                    'rating': round(random.uniform(4.0, 4.9), 1)
+                })
+
+        from utils.transport_generator import generate_transport
+        
+        outbound_options = []
+        return_options = []
+        if starting_city:
+            outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False)
+            return_options = generate_transport(destination, starting_city, return_transport, is_return=True)
+
         scored.append({
             'Destination':      row['Destination'],
             'State':            row['State'],
@@ -281,10 +315,13 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             'Score':            score,
             'Reason':           reason,
             'Crowd_Level':      _safe_get(row, 'Crowd_Level', ''),
-            'Family_Friendly':  _safe_get(row, 'Family_Friendly', ''),
+            'Family_Friendly':  family_friendly,
+            'Kids_Activities':  kids_activities,
             'Attractions':      _safe_get(row, 'Attractions', ''),
             'Shopping_Items':   _safe_get(row, 'Shopping_Items', 'Local souvenirs'),
-            'Image_Query':      image_query
+            'Image_Query':      image_query,
+            'Outbound_Options': outbound_options,
+            'Return_Options':   return_options
         })
 
     # Split by budget

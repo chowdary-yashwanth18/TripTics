@@ -43,6 +43,11 @@ def generate_universal_destination(place_name):
             family = random.choice(['Yes', 'No'])
             accom_type = random.choice(['Boutique Hotel', 'Standard Hotel', 'Resort', 'Guesthouse', 'Homestay'])
             
+            # Base attractions
+            attractions = f"The central hub of {title}, vibrant local markets, and historic landmarks."
+            if 'araku' in title.lower() or 'aruku' in title.lower():
+                attractions = "Chaparai Waterfalls, Borra Caves, Araku Tribal Museum, Padmapuram Gardens"
+                
             # Base DataFrame row
             dest_row = {
                 'Destination': f"Downtown {title}",
@@ -53,7 +58,7 @@ def generate_universal_destination(place_name):
                 'Avg_Food_Per_Day_Per_Person': food,
                 'Avg_Local_Travel_Per_Day': local_transport,
                 'Avg_Shopping_Cost': shopping,
-                'Attractions': f"The central hub of {title}, vibrant local markets, and historic landmarks.",
+                'Attractions': attractions,
                 'Crowd_Level': crowd,
                 'Family_Friendly': family,
                 'Accommodation_Type': accom_type,
@@ -101,12 +106,16 @@ def generate_universal_destination(place_name):
             except Exception as e:
                 print("DDG image fetch error in generator:", e)
 
+            must_visit = [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"]
+            if 'araku' in title.lower() or 'aruku' in title.lower():
+                must_visit = ["Chaparai Waterfalls", "Borra Caves", "Araku Tribal Museum", "Padmapuram Gardens", "Coffee Museum"]
+                
             # Dynamic State Info
             dynamic_state_info = {
                 "title": f"Discover {title}",
                 "description": extract,
                 "color": random.choice(["primary", "success", "info", "warning", "dark"]),
-                "must_visit": [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"],
+                "must_visit": must_visit,
                 "image_url": image_url
             }
             

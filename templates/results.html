@@ -40,6 +40,25 @@
             </div>
             {% endif %}
 
+            {# ── Kids Activities ── #}
+            {% if rec.Kids_Activities %}
+            <div class="mt-3 p-3 bg-light rounded-3 border" style="border-left: 4px solid var(--bs-warning) !important;">
+                <h6 class="fw-bold mb-3" style="color: #d97706;"><i class="bi bi-controller"></i> Fun & Games</h6>
+                <div class="d-flex overflow-auto gap-3" style="white-space: nowrap; padding-bottom: 0.5rem; scrollbar-width: thin;">
+                    {% for act in rec.Kids_Activities %}
+                    <div class="card shadow-sm border-0 d-inline-block flex-shrink-0" style="width: 160px; white-space: normal;">
+                        <img src="{{ act.image }}" class="card-img-top" alt="{{ act.name }}" style="height: 100px; object-fit: cover;">
+                        <div class="card-body p-2 text-center">
+                            <h6 class="card-title fw-bold text-dark mb-1" style="font-size: 0.85rem;">{{ act.name }}</h6>
+                            <div class="text-warning small mb-1 fw-bold">⭐ {{ act.rating }}</div>
+                            <div class="text-muted small" style="font-size: 0.75rem; line-height: 1.2;"><i class="bi bi-geo-alt-fill text-danger"></i> {{ act.location }}</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             {# ── Famous Stays & Dining ── #}
             {% set local_stays = generate_hotels(rec.Destination ~ ', ' ~ rec.State)[:4] %}
             {% if local_stays %}
@@ -62,6 +81,87 @@
                 <div class="p-3 d-flex flex-column justify-content-center">
                     <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">🏨 Recommended Stay</h6>
                     <p class="mb-0 small fw-semibold text-dark">{{ rec.Accommodation_Type }}</p>
+                </div>
+            </div>
+            {% endif %}
+
+            {# ── Travel Options ── #}
+            {% if rec.Outbound_Options or rec.Return_Options %}
+            {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') %}
+            <div class="mt-4">
+                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-ticket-detailed-fill text-primary"></i> Travel Options</h6>
+                <div class="accordion" id="travelAccordion{{ dest_id }}">
+                    {% if rec.Outbound_Options %}
+                    <div class="accordion-item border-0 shadow-sm mb-2 rounded-3 overflow-hidden">
+                        <h2 class="accordion-header" id="headingOutbound{{ dest_id }}">
+                            <button class="accordion-button collapsed py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
+                                Outbound (To {{ rec.Destination }})
+                            </button>
+                        </h2>
+                        <div id="collapseOutbound{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                            <div class="accordion-body p-2 bg-light">
+                                <div class="list-group list-group-flush rounded">
+                                    {% for opt in rec.Outbound_Options %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
+                                        <div class="d-flex align-items-center">
+                                            <div class="fs-4 me-2">{{ opt.icon }}</div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold small text-primary">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
+                                                <div class="text-muted" style="font-size: 0.75rem;">
+                                                    <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
+                                                </div>
+                                                <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">
+                                                    {{ opt.vacancy.text }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">₹{{ opt.price }}</h6>
+                                            <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    {% if rec.Return_Options %}
+                    <div class="accordion-item border-0 shadow-sm rounded-3 overflow-hidden">
+                        <h2 class="accordion-header" id="headingReturn{{ dest_id }}">
+                            <button class="accordion-button collapsed py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
+                                Return (Fro {{ rec.Destination }})
+                            </button>
+                        </h2>
+                        <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                            <div class="accordion-body p-2 bg-light">
+                                <div class="list-group list-group-flush rounded">
+                                    {% for opt in rec.Return_Options %}
+                                    <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
+                                        <div class="d-flex align-items-center">
+                                            <div class="fs-4 me-2">{{ opt.icon }}</div>
+                                            <div>
+                                                <h6 class="mb-0 fw-bold small text-danger">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
+                                                <div class="text-muted" style="font-size: 0.75rem;">
+                                                    <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
+                                                </div>
+                                                <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">
+                                                    {{ opt.vacancy.text }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="text-end">
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">₹{{ opt.price }}</h6>
+                                            <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
             {% endif %}

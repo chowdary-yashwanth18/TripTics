@@ -45,6 +45,9 @@ def planner():
         trip_type    = request.form.get('trip_type', 'all').strip()
         budget_style = request.form.get('budget_style', 'all').strip()
         target_state = request.form.get('target_state', 'all').strip()
+        starting_city = request.form.get('starting_city', '').strip()
+        outbound_transport = request.form.get('outbound_transport', 'any').strip()
+        return_transport = request.form.get('return_transport', 'any').strip()
 
         # ── Server-side guard against impossible inputs ───────────────────
         if budget < 500:
@@ -62,7 +65,7 @@ def planner():
 
         # ── Run recommendation engine ─────────────────────────────────────
         recommendation_data = recommend_destinations(
-            destinations_df, budget, days, travelers, trip_type, budget_style, target_state
+            destinations_df, budget, days, travelers, trip_type, budget_style, target_state, starting_city, outbound_transport, return_transport
         )
 
         # ── State Information ─────────────────────────────────────────────
@@ -100,6 +103,8 @@ def planner():
                     if base_state_info:
                         state_info = base_state_info.copy()
                         state_info['title'] = f"Explore {target_state.title()}"
+                        state_info['description'] = f"Discover the unique culture, heritage, and scenic beauty of {target_state.title()}, a wonderful destination located in {actual_state}."
+                        state_info['must_visit'] = [f"{target_state.title()} City Center", f"Local Markets of {target_state.title()}", f"Historic Sites of {target_state.title()}"]
                         # Try to get an image for the city at least!
                         import urllib.request, urllib.parse, re, json
                         try:
