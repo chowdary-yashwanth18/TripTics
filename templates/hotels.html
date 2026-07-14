@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-4 mb-5">
+    <div class="col-lg-8 col-md-10">
+        <div class="glass-card p-5">
+            <h2 class="text-center mb-2 gradient-text fw-bold">Find a Place to Stay 🏨</h2>
+            <p class="text-center text-muted mb-4">Enter a location to discover nearby hotels, lodges, and resorts with prices from low to high.</p>
+
+            {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
+                ⚠️ {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+            {% endif %}
+
+            <form action="{{ url_for('hotels') }}" method="POST">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control form-control-lg" name="location" placeholder="e.g. Arasavilli, Srikakulam" required value="{{ location if location else '' }}">
+                    <button class="btn btn-primary btn-lg px-4 fw-bold shadow-sm" type="submit">Search Hotels</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% if hotels %}
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h3 class="fw-bold gradient-text">Recommended Stays in {{ location }}</h3>
+        <p class="text-muted">Prices ranging from lowest to highest</p>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    {% for hotel in hotels %}
+    <div class="col-md-6 col-lg-4">
+        <div class="glass-card h-100 overflow-hidden shadow-sm" style="transition: transform 0.2s; cursor: pointer;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+            <img src="{{ hotel.image_url }}" class="card-img-top w-100" alt="{{ hotel.name }}" style="height: 220px; object-fit: cover; border-radius: 1rem 1rem 0 0;">
+            <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
+                <div class="d-flex justify-content-between align-items-start mb-2">
+                    <h5 class="fw-bold text-primary mb-0 pe-2">{{ hotel.name }}</h5>
+                    <span class="badge bg-warning text-dark shadow-sm">⭐ {{ hotel.rating }}</span>
+                </div>
+                
+                <h4 class="fw-bold text-success mt-2 mb-3">₹{{ hotel.price }} <span class="text-muted fs-6 fw-normal">/ night</span></h4>
+                
+                <div class="mb-4">
+                    {% for amenity in hotel.amenities %}
+                    <span class="badge bg-light text-secondary border me-1 mb-1">{{ amenity }}</span>
+                    {% endfor %}
+                </div>
+                
+                <button class="btn btn-outline-primary w-100 rounded-pill mt-auto fw-bold shadow-sm">Book Now</button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}

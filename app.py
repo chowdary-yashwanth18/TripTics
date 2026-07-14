@@ -5,8 +5,12 @@ from utils.recommender import recommend_destinations
 from utils.analytics import generate_analytics_charts, get_kpi_metrics, get_key_insights
 from utils.state_info import STATE_INFO
 from utils.state_districts import STATE_DISTRICTS
+from utils.hotel_generator import generate_hotels
 
 app = Flask(__name__)
+
+# Register generate_hotels for use inside Jinja templates
+app.jinja_env.globals.update(generate_hotels=generate_hotels)
 
 # ── Load dataset once at startup ─────────────────────────────────────────────
 destinations_df = load_destinations()
@@ -155,6 +159,20 @@ def dashboard():
     kpis     = get_kpi_metrics(destinations_df)
     insights = get_key_insights(destinations_df)
     return render_template('dashboard.html', charts=charts, kpis=kpis, insights=insights)
+
+
+@app.route('/hotels', methods=['GET', 'POST'])
+def hotels():
+    """Route to search and recommend hotels for a specific location."""
+    if request.method == 'POST':
+        location = request.form.get('location', '').strip()
+        if not location:
+            return render_template('hotels.html', error="Please enter a valid location.")
+        
+        hotel_results = generate_hotels(location)
+        return render_template('hotels.html', location=location.title(), hotels=hotel_results)
+        
+    return render_template('hotels.html', location=None, hotels=None)
 
 
 @app.route('/api/image')

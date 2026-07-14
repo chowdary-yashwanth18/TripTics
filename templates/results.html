@@ -40,6 +40,21 @@
             </div>
             {% endif %}
 
+            {# ── Famous Stays & Dining ── #}
+            {% set local_stays = generate_hotels(rec.Destination ~ ', ' ~ rec.State)[:4] %}
+            {% if local_stays %}
+            <div class="mt-3 p-3 bg-light rounded-3 border">
+                <h6 class="fw-bold text-success mb-1"><i class="bi bi-shop"></i> Famous Stays & Dining</h6>
+                <div class="d-flex flex-wrap gap-2 mt-2">
+                    {% for stay in local_stays %}
+                    <a href="{{ url_for('hotels') }}?location={{ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success shadow-sm" style="text-decoration: none;">
+                        🏨 {{ stay.name }} - ₹{{ stay.price }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
             {% if rec.Accommodation_Type %}
             <div class="mt-3 rounded-3 shadow-sm overflow-hidden d-flex" style="background-color: var(--bs-light); border: 1px solid rgba(13, 202, 240, 0.3); border-left: 4px solid var(--bs-info);">
                 <!-- Load a beautiful generic hotel image -->
