@@ -295,12 +295,19 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
                 })
 
         from utils.transport_generator import generate_transport
+        from utils.currency import get_currency_info
+        
+        is_international = get_currency_info(state)['code'] != 'INR'
         
         outbound_options = []
         return_options = []
         if starting_city:
-            outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False)
-            return_options = generate_transport(destination, starting_city, return_transport, is_return=True)
+            outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False, is_international=is_international)
+            return_options = generate_transport(destination, starting_city, return_transport, is_return=True, is_international=is_international)
+
+        attractions_val = _safe_get(row, 'Attractions', '')
+        if 'araku' in destination.lower() or 'aruku' in destination.lower():
+            attractions_val = "Araku Pinery, Coffee Museum, Borra Caves, Padmapuram Gardens, Galikonda View Point, Cheparai Waterfalls, Madagada Sunrise View Point, Kothapalli Waterfalls, Tribal Museum, Katiki Waterfalls"
 
         scored.append({
             'Destination':      row['Destination'],
@@ -317,7 +324,7 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             'Crowd_Level':      _safe_get(row, 'Crowd_Level', ''),
             'Family_Friendly':  family_friendly,
             'Kids_Activities':  kids_activities,
-            'Attractions':      _safe_get(row, 'Attractions', ''),
+            'Attractions':      attractions_val,
             'Shopping_Items':   _safe_get(row, 'Shopping_Items', 'Local souvenirs'),
             'Image_Query':      image_query,
             'Outbound_Options': outbound_options,

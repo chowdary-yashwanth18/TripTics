@@ -89,10 +89,12 @@ def generate_hotels(location):
     else:
         base_names = [
             f"{loc_title} Grand", f"The {loc_title} Resort", f"{loc_title} Inn",
-            "Royal Palace Lodge", "Comfort Stay", "Budget Inn", "Luxury Suites"
+            "Royal Palace Lodge", "Comfort Stay", "Budget Inn", "Luxury Suites",
+            f"{loc_title} Heritage Palace", f"{loc_title} Sunrise Retreat", f"{loc_title} Premium Stay",
+            f"{loc_title} Eco-Camp", "Backpackers Hostel", f"{loc_title} Boutique Hotel"
         ]
-        # Max 4 to keep image fetching fast
-        selected_names = random.sample(base_names, k=random.randint(3, 4))
+        # Provide an exhaustive list of generated hotels
+        selected_names = random.sample(base_names, k=random.randint(7, 10))
         selected_hotels = [{"name": name, "address": f"Central Area, {loc_title}"} for name in selected_names]
             
     hotels = []

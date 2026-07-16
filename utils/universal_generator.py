@@ -46,7 +46,7 @@ def generate_universal_destination(place_name):
             # Base attractions
             attractions = f"The central hub of {title}, vibrant local markets, and historic landmarks."
             if 'araku' in title.lower() or 'aruku' in title.lower():
-                attractions = "Chaparai Waterfalls, Borra Caves, Araku Tribal Museum, Padmapuram Gardens"
+                attractions = "Araku Pinery, Coffee Museum, Borra Caves, Padmapuram Gardens, Galikonda View Point, Cheparai Waterfalls, Madagada Sunrise View Point, Kothapalli Waterfalls, Tribal Museum, Katiki Waterfalls"
                 
             # Base DataFrame row
             dest_row = {
@@ -81,34 +81,17 @@ def generate_universal_destination(place_name):
             dest_row_3['Attractions'] = f"Museums, old town architecture, and cultural heritage sites of {title}."
             dest_row_3['Accommodation_Type'] = 'Heritage Hotel'
             
-            # Fetch exact location banner image using DuckDuckGo Images Search
-            image_url = ""
-            try:
-                import re, json
-                ddg_query = urllib.parse.quote(f"{title} landscape travel photography")
-                
-                req = urllib.request.Request(
-                    f"https://duckduckgo.com/?q={ddg_query}&ia=images",
-                    headers={'User-Agent': 'Mozilla/5.0'}
-                )
-                html = urllib.request.urlopen(req, timeout=5).read().decode('utf-8')
-                vqd_match = re.search(r'vqd=([\d-]+)', html)
-                if vqd_match:
-                    vqd = vqd_match.group(1)
-                    req2 = urllib.request.Request(
-                        f"https://duckduckgo.com/i.js?q={ddg_query}&o=json&vqd={vqd}",
-                        headers={'User-Agent': 'Mozilla/5.0'}
-                    )
-                    res = urllib.request.urlopen(req2, timeout=5).read().decode('utf-8')
-                    data = json.loads(res)
-                    if data.get('results'):
-                        image_url = data['results'][0]['image']
-            except Exception as e:
-                print("DDG image fetch error in generator:", e)
+            # Fetch exact location banner image using Wikipedia API
+            from utils.image_fetcher import fetch_image
+            image_url = fetch_image(title)
 
             must_visit = [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"]
             if 'araku' in title.lower() or 'aruku' in title.lower():
-                must_visit = ["Chaparai Waterfalls", "Borra Caves", "Araku Tribal Museum", "Padmapuram Gardens", "Coffee Museum"]
+                must_visit = [
+                    "Araku Pinery", "Coffee Museum", "Borra Caves", "Padmapuram Gardens", 
+                    "Galikonda View Point", "Cheparai Waterfalls", "Madagada Sunrise View Point", 
+                    "Kothapalli Waterfalls", "Tribal Museum", "Katiki Waterfalls"
+                ]
                 
             # Dynamic State Info
             dynamic_state_info = {

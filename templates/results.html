@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-{% macro destination_card(rec, budget, days, travelers, is_top=False, is_alt=False) %}
+{% macro display_price(amount, currency_info) -%}
+₹{{ amount }}{% if currency_info and currency_info.code != 'INR' %} ({{ currency_info.symbol }}{{ (amount * currency_info.rate)|int }}){% endif %}
+{%- endmacro %}
+
+{% macro destination_card(rec, budget, days, travelers, currency_info, is_top=False, is_alt=False) %}
     <div class="glass-card h-100 position-relative {% if is_alt or rec.Total_Cost > budget %}border-warning{% elif is_top %}border-primary shadow-lg{% endif %}">
         {% if is_alt or rec.Total_Cost > budget %}
         <div class="position-absolute top-0 start-50 translate-middle badge rounded-pill bg-warning text-dark px-3 py-2 shadow" style="z-index: 1;">
@@ -60,14 +64,14 @@
             {% endif %}
 
             {# ── Famous Stays & Dining ── #}
-            {% set local_stays = generate_hotels(rec.Destination ~ ', ' ~ rec.State)[:4] %}
+            {% set local_stays = generate_hotels(rec.Destination ~ ', ' ~ rec.State) %}
             {% if local_stays %}
             <div class="mt-3 p-3 bg-light rounded-3 border">
                 <h6 class="fw-bold text-success mb-1"><i class="bi bi-shop"></i> Famous Stays & Dining</h6>
                 <div class="d-flex flex-wrap gap-2 mt-2">
                     {% for stay in local_stays %}
                     <a href="{{ url_for('hotels') }}?location={{ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success shadow-sm" style="text-decoration: none;">
-                        🏨 {{ stay.name }} - ₹{{ stay.price }}
+                        🏨 {{ stay.name }} - {{ display_price(stay.price, currency_info) }}
                     </a>
                     {% endfor %}
                 </div>
@@ -86,12 +90,18 @@
             {% endif %}
 
             {# ── Travel Options ── #}
-            {% if rec.Outbound_Options or rec.Return_Options %}
-            {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') %}
-            <div class="mt-4">
-                <h6 class="fw-bold text-dark mb-2"><i class="bi bi-ticket-detailed-fill text-primary"></i> Travel Options</h6>
-                <div class="accordion" id="travelAccordion{{ dest_id }}">
-                    {% if rec.Outbound_Options %}
+            {% if starting_city %}
+                {% if not rec.Outbound_Options and not rec.Return_Options %}
+                <div class="mt-4 p-3 bg-danger bg-opacity-10 rounded-3 border border-danger">
+                    <h6 class="fw-bold text-danger mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Transport Not Available</h6>
+                    <p class="mb-0 small text-dark">We're sorry, there are no direct flights, trains, or buses available for this route currently. Please check nearby major transit hubs or consider an alternative mode of transportation.</p>
+                </div>
+                {% else %}
+                {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') %}
+                <div class="mt-4">
+                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-ticket-detailed-fill text-primary"></i> Travel Options</h6>
+                    <div class="accordion" id="travelAccordion{{ dest_id }}">
+                        {% if rec.Outbound_Options %}
                     <div class="accordion-item border-0 shadow-sm mb-2 rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="headingOutbound{{ dest_id }}">
                             <button class="accordion-button collapsed py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
@@ -116,7 +126,7 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">₹{{ opt.price }}</h6>
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }}</h6>
                                             <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
                                         </div>
                                     </div>
@@ -152,7 +162,7 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">₹{{ opt.price }}</h6>
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }}</h6>
                                             <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
                                         </div>
                                     </div>
@@ -163,7 +173,8 @@
                     </div>
                     {% endif %}
                 </div>
-            </div>
+                </div>
+                {% endif %}
             {% endif %}
 
             {# ── Score bar ── #}
@@ -191,15 +202,15 @@
 
             <p class="text-muted small">{{ rec.Reason }}</p>
 
-            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: ₹{{ rec.Total_Cost }}</h5>
+            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: {{ display_price(rec.Total_Cost, currency_info) }}</h5>
             <hr class="opacity-25">
             <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
             <ul class="list-unstyled mt-3">
-                <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">₹{{ rec.Travel_Cost }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">₹{{ rec.Hotel_Cost }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">₹{{ rec.Food_Cost }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">₹{{ rec.Local_Transport }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🛍️ Shopping</span> <span class="fw-semibold">₹{{ rec.Shopping_Cost }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">{{ display_price(rec.Travel_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">{{ display_price(rec.Hotel_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">{{ display_price(rec.Food_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">{{ display_price(rec.Local_Transport, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🛍️ Shopping</span> <span class="fw-semibold">{{ display_price(rec.Shopping_Cost, currency_info) }}</span></li>
             </ul>
 
             {% if rec.Shopping_Items %}
@@ -211,9 +222,9 @@
         </div>
         <div class="p-3 text-center bg-light rounded-bottom mx-1 mb-1 border-top" style="border-radius: 0 0 1rem 1rem;">
             {% if budget >= rec.Total_Cost %}
-            <span class="text-secondary fw-bold">Budget Remaining: ₹{{ budget - rec.Total_Cost }}</span>
+            <span class="text-secondary fw-bold">Budget Remaining: {{ display_price(budget - rec.Total_Cost, currency_info) }}</span>
             {% else %}
-            <span class="text-danger fw-bold">Over Budget by: ₹{{ rec.Total_Cost - budget }}</span>
+            <span class="text-danger fw-bold">Over Budget by: {{ display_price(rec.Total_Cost - budget, currency_info) }}</span>
             {% endif %}
         </div>
     </div>
@@ -251,7 +262,7 @@
         {% else %}
         <h2 class="display-5 fw-bold gradient-text">Trip Recommendations</h2>
         {% endif %}
-        <p class="lead text-muted">Based on a budget of <strong>₹{{ budget }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
+        <p class="lead text-muted">Based on a budget of <strong>{{ display_price(budget, currency_info) }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
     </div>
 </div>
 
@@ -271,7 +282,7 @@
         <div class="row g-4 mb-5">
             {% for rec in items %}
             <div class="col-md-4">
-                {{ destination_card(rec, budget, days, travelers, is_top=(loop.index == 1 and outer_loop.index == 1)) }}
+                {{ destination_card(rec, budget, days, travelers, currency_info, is_top=(loop.index == 1 and outer_loop.index == 1)) }}
             </div>
             {% endfor %}
         </div>
@@ -282,7 +293,7 @@
         <div class="row g-4 mb-5">
             {% for rec in display_list %}
             <div class="col-md-4">
-                {{ destination_card(rec, budget, days, travelers, is_top=(loop.index == 1)) }}
+                {{ destination_card(rec, budget, days, travelers, currency_info, is_top=(loop.index == 1)) }}
             </div>
             {% endfor %}
         </div>
@@ -293,7 +304,7 @@
     <div class="row justify-content-center mb-4">
         <div class="col-md-8 text-center">
             <div class="alert alert-warning p-4 shadow-sm border-0 rounded-4">
-                <h3 class="alert-heading fw-bold">No exact matches found under ₹{{ budget }} 😢</h3>
+                <h3 class="alert-heading fw-bold">No exact matches found under {{ display_price(budget, currency_info) }} 😢</h3>
                 <p class="mb-0">We couldn't find destinations within budget for these preferences. Here are the closest alternatives.</p>
             </div>
         </div>
@@ -317,7 +328,7 @@
     <div class="row g-4 mb-5">
         {% for rec in alternatives %}
         <div class="col-md-4">
-            {{ destination_card(rec, budget, days, travelers, is_alt=True) }}
+            {{ destination_card(rec, budget, days, travelers, currency_info, is_alt=True) }}
         </div>
         {% endfor %}
     </div>

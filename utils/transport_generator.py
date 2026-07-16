@@ -58,7 +58,7 @@ def generate_vacancy(mode):
         
     return {"status": status, "text": text_gen(), "color": color}
 
-def generate_transport(origin, destination, mode, is_return=False):
+def generate_transport(origin, destination, mode, is_return=False, is_international=False):
     """
     Generates mock realistic travel options for a given route and mode.
     Mode can be 'flight', 'train', 'bus', or 'any'.
@@ -70,8 +70,22 @@ def generate_transport(origin, destination, mode, is_return=False):
     hash_val = int(hashlib.md5(loc_str.encode('utf-8')).hexdigest(), 16)
     random.seed(hash_val)
     
-    if mode == 'any':
+    if is_international:
+        mode = 'flight'
+    elif mode == 'any':
         mode = random.choice(['flight', 'train', 'bus'])
+        
+    # Simulate lack of transport to certain places
+    dest_lower = destination.lower()
+    if mode == 'flight' and any(place in dest_lower for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
+        return []
+    
+    if mode == 'train' and any(place in dest_lower for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
+        return []
+        
+    # 10% chance for random unavailability in remote-sounding places (just an arbitrary deterministic check)
+    if hash_val % 100 < 5:
+        return []
         
     options = []
     num_options = random.randint(2, 4)
@@ -84,12 +98,19 @@ def generate_transport(origin, destination, mode, is_return=False):
         start_time, end_time, base_duration = generate_time(opt_seed, is_return)
         
         if mode == 'flight':
-            operator = random.choice(get_airlines())
-            name = f"{operator} {random.choice(['6E', 'AI', 'SG', 'UK'])}-{random.randint(100, 999)}"
-            price = random.randint(3500, 12000)
+            if is_international:
+                airlines = ["Emirates", "Lufthansa", "Qatar Airways", "British Airways", "Air France", "Singapore Airlines", "Etihad"]
+                operator = random.choice(airlines)
+                name = f"{operator} {random.choice(['EK', 'LH', 'QR', 'BA', 'AF', 'SQ'])}-{random.randint(100, 999)}"
+                price = random.randint(350, 1500) * 100 + random.choice([0, 50, 99])
+                duration_hours = random.randint(6, 24)
+            else:
+                operator = random.choice(get_airlines())
+                name = f"{operator} {random.choice(['6E', 'AI', 'SG', 'UK'])}-{random.randint(100, 999)}"
+                price = random.randint(35, 120) * 100 + random.choice([15, 25, 50, 75, 99])
+                duration_hours = random.randint(1, 3)
+                
             icon = "✈️"
-            # Flights are faster
-            duration_hours = random.randint(1, 3)
             duration_minutes = random.choice([15, 30, 45, 0])
             start_hour = int(start_time.split(':')[0])
             end_hour = (start_hour + duration_hours) % 24
@@ -100,14 +121,14 @@ def generate_transport(origin, destination, mode, is_return=False):
             name = random.choice(get_train_names())
             train_no = random.randint(11000, 22999)
             name = f"{train_no} {name}"
-            price = random.randint(800, 3500)
+            price = random.randint(8, 35) * 100 + random.choice([5, 25, 45, 65, 85])
             icon = "🚆"
             duration = base_duration
             class_type = random.choice(["3A", "2A", "1A", "CC", "EC", "SL"])
         else: # bus
             operator = random.choice(get_bus_operators())
             name = f"{operator} {random.choice(['Volvo A/C Sleeper', 'Scania Multi-Axle', 'Non A/C Seater'])}"
-            price = random.randint(500, 2500)
+            price = random.randint(5, 25) * 100 + random.choice([0, 49, 99])
             icon = "🚌"
             duration = base_duration
             class_type = "Sleeper/Seater"

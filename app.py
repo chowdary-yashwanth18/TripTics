@@ -6,6 +6,7 @@ from utils.analytics import generate_analytics_charts, get_kpi_metrics, get_key_
 from utils.state_info import STATE_INFO
 from utils.state_districts import STATE_DISTRICTS
 from utils.hotel_generator import generate_hotels
+from utils.currency import get_currency_info
 
 app = Flask(__name__)
 
@@ -106,27 +107,10 @@ def planner():
                         state_info['description'] = f"Discover the unique culture, heritage, and scenic beauty of {target_state.title()}, a wonderful destination located in {actual_state}."
                         state_info['must_visit'] = [f"{target_state.title()} City Center", f"Local Markets of {target_state.title()}", f"Historic Sites of {target_state.title()}"]
                         # Try to get an image for the city at least!
-                        import urllib.request, urllib.parse, re, json
-                        try:
-                            ddg_query = urllib.parse.quote(f"{target_state} {actual_state}")
-                            req = urllib.request.Request(
-                                f"https://duckduckgo.com/?q={ddg_query}&ia=images",
-                                headers={'User-Agent': 'Mozilla/5.0'}
-                            )
-                            html = urllib.request.urlopen(req, timeout=5).read().decode('utf-8')
-                            vqd_match = re.search(r'vqd=([\d-]+)', html)
-                            if vqd_match:
-                                vqd = vqd_match.group(1)
-                                req2 = urllib.request.Request(
-                                    f"https://duckduckgo.com/i.js?q={ddg_query}&o=json&vqd={vqd}",
-                                    headers={'User-Agent': 'Mozilla/5.0'}
-                                )
-                                res = urllib.request.urlopen(req2, timeout=5).read().decode('utf-8')
-                                data = json.loads(res)
-                                if data.get('results'):
-                                    state_info['image_url'] = data['results'][0]['image']
-                        except:
-                            pass
+                        from utils.image_fetcher import fetch_image
+                        img_url = fetch_image(f"{target_state} {actual_state}")
+                        if img_url:
+                            state_info['image_url'] = img_url
                             
                         # Use actual attractions from DB if available!
                         if recommendation_data['matches']:
@@ -149,7 +133,9 @@ def planner():
                                travelers=travelers,
                                state_info=state_info,
                                trip_type=trip_type,
-                               target_location=display_location)
+                               target_location=display_location,
+                               starting_city=starting_city,
+                               currency_info=get_currency_info(actual_state))
 
     states = sorted(destinations_df['State'].unique().tolist())
     destinations = sorted(destinations_df['Destination'].unique().tolist())
@@ -182,29 +168,15 @@ def hotels():
 
 @app.route('/api/image')
 def api_image():
-    """Internal API to reliably fetch a single high-resolution image URL via DuckDuckGo."""
-    import urllib.request, urllib.parse, re, json
+    """Internal API to reliably fetch a single high-resolution image URL."""
+    from utils.image_fetcher import fetch_image
     query = request.args.get('q', '')
     if not query:
         return {'url': ''}, 400
         
-    try:
-        req = urllib.request.Request(
-            f"https://duckduckgo.com/?q={urllib.parse.quote(query)}&ia=images",
-            headers={'User-Agent': 'Mozilla/5.0'}
-        )
-        html = urllib.request.urlopen(req, timeout=5).read().decode('utf-8')
-        vqd_match = re.search(r'vqd=([\d-]+)', html)
-        if vqd_match:
-            vqd = vqd_match.group(1)
-            url = f"https://duckduckgo.com/i.js?q={urllib.parse.quote(query)}&o=json&vqd={vqd}"
-            req2 = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-            res = urllib.request.urlopen(req2, timeout=5).read().decode('utf-8')
-            data = json.loads(res)
-            if data.get('results'):
-                return {'url': data['results'][0]['image']}
-    except Exception as e:
-        print("DDG image fetch error:", e)
+    img_url = fetch_image(query)
+    if img_url:
+        return {'url': img_url}
         
     return {'url': ''}, 404
 
