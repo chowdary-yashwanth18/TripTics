@@ -236,10 +236,6 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
     scored = []
 
     for _, row in df.iterrows():
-        costs  = calculate_trip_cost(row, days, travelers)
-        score  = score_destination(row, costs, budget, days, trip_type, budget_style)
-        reason = generate_reason(row, costs, budget, days)
-
         # Generate the precise image query based on user specifications
         destination = str(row['Destination']).strip()
         state = str(row['State']).strip()
@@ -301,18 +297,41 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         
         outbound_options = []
         return_options = []
+        has_dynamic_travel = False
+        dynamic_travel_cost = 0
+        
         if starting_city:
             outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False, is_international=is_international)
             return_options = generate_transport(destination, starting_city, return_transport, is_return=True, is_international=is_international)
+            
+            if outbound_options or return_options:
+                out_price = outbound_options[0]['price'] if outbound_options else 0
+                ret_price = return_options[0]['price'] if return_options else 0
+                dynamic_travel_cost = (out_price + ret_price) * travelers
+                has_dynamic_travel = True
+
+        costs  = calculate_trip_cost(row, days, travelers)
+        if has_dynamic_travel:
+            costs['travel'] = dynamic_travel_cost
+            costs['total'] = costs['hotel'] + costs['food'] + costs['local_transport'] + costs['shopping'] + costs['travel']
+            
+        score  = score_destination(row, costs, budget, days, trip_type, budget_style)
+        reason = generate_reason(row, costs, budget, days)
 
         attractions_val = _safe_get(row, 'Attractions', '')
         if 'araku' in destination.lower() or 'aruku' in destination.lower():
             attractions_val = "Araku Pinery, Coffee Museum, Borra Caves, Padmapuram Gardens, Galikonda View Point, Cheparai Waterfalls, Madagada Sunrise View Point, Kothapalli Waterfalls, Tribal Museum, Katiki Waterfalls"
 
+        from utils.geography import get_distance
+        distance_km = 0
+        if starting_city:
+            distance_km = get_distance(starting_city, destination)
+
         scored.append({
             'Destination':      row['Destination'],
             'State':            row['State'],
             'Type':             row['Type'],
+            'Distance_km':      distance_km,
             'Total_Cost':       costs['total'],
             'Travel_Cost':      costs['travel'],
             'Hotel_Cost':       costs['hotel'],

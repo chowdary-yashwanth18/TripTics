@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center mt-5 mb-5">
+    <div class="col-md-8 col-lg-6">
+        <div class="glass-card p-5 shadow-lg">
+            <h2 class="fw-bold gradient-text text-center mb-4">Complete Your Booking</h2>
+            
+            <div class="card bg-light border-0 mb-4 p-3 shadow-sm rounded-4">
+                <h5 class="fw-bold text-primary mb-3">Booking Details</h5>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted fw-semibold">Type:</span>
+                    <span class="fw-bold">{{ item_type | capitalize }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted fw-semibold">Item:</span>
+                    <span class="fw-bold">{{ item_name }}</span>
+                </div>
+                {% if location %}
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted fw-semibold">Location:</span>
+                    <span class="fw-bold">{{ location }}</span>
+                </div>
+                {% endif %}
+                <hr>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted fw-bold">Total Amount:</span>
+                    <span class="fw-bold text-success fs-5">₹{{ price }}</span>
+                </div>
+            </div>
+
+            <form action="{{ url_for('confirm_booking') }}" method="POST">
+                <input type="hidden" name="item_name" value="{{ item_name }}">
+                <input type="hidden" name="item_type" value="{{ item_type }}">
+                <input type="hidden" name="price" value="{{ price }}">
+                
+                <h5 class="fw-bold mb-3">Guest Details</h5>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Full Name</label>
+                    <input type="text" class="form-control" name="name" required placeholder="John Doe">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label fw-semibold">Email Address</label>
+                    <input type="email" class="form-control" name="email" required placeholder="john@example.com">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    <input type="tel" class="form-control" name="phone" required placeholder="+91 9876543210">
+                </div>
+                
+                <button type="submit" class="btn btn-primary w-100 btn-lg rounded-pill fw-bold shadow-sm">Confirm & Pay</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

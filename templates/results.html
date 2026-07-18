@@ -18,6 +18,9 @@
         
         <div class="p-4 pt-5">
             <h4 class="card-title text-primary fw-bold">{{ rec.Destination }}, {{ rec.State }}</h4>
+            {% if rec.Distance_km > 0 %}
+            <p class="text-muted small mb-2"><i class="bi bi-pin-map-fill text-danger"></i> Distance from {{ starting_city }}: <strong class="text-dark">{{ rec.Distance_km }} km</strong></p>
+            {% endif %}
             <div class="mb-2">
                 <span class="badge bg-secondary">{{ rec.Type | capitalize }}</span>
                 {% if rec.Crowd_Level %}
@@ -126,10 +129,29 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }}</h6>
-                                            <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
+                                            <div class="text-warning small mb-1" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                            {% set book_url = "https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-primary shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Now</a>
                                         </div>
                                     </div>
+                                    {% if opt.legs and opt.legs|length > 1 %}
+                                    <div class="list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded">
+                                        <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
+                                        <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                            {% for leg in opt.legs %}
+                                            <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
+                                                <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                <div>
+                                                    <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                    <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                </div>
+                                                <div class="fw-bold text-success small">{{ display_price(leg.price, currency_info) }}</div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -141,7 +163,7 @@
                     <div class="accordion-item border-0 shadow-sm rounded-3 overflow-hidden">
                         <h2 class="accordion-header" id="headingReturn{{ dest_id }}">
                             <button class="accordion-button collapsed py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
-                                Return (Fro {{ rec.Destination }})
+                                Return (From {{ rec.Destination }})
                             </button>
                         </h2>
                         <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
@@ -162,10 +184,29 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }}</h6>
-                                            <div class="text-warning small" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
+                                            <div class="text-warning small mb-1" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
+                                            {% set book_url = "https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-danger shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Now</a>
                                         </div>
                                     </div>
+                                    {% if opt.legs and opt.legs|length > 1 %}
+                                    <div class="list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded">
+                                        <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
+                                        <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                            {% for leg in opt.legs %}
+                                            <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
+                                                <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                <div>
+                                                    <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                    <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                </div>
+                                                <div class="fw-bold text-success small">{{ display_price(leg.price, currency_info) }}</div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% endif %}
                                     {% endfor %}
                                 </div>
                             </div>
@@ -202,12 +243,12 @@
 
             <p class="text-muted small">{{ rec.Reason }}</p>
 
-            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: {{ display_price(rec.Total_Cost, currency_info) }}</h5>
+            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: {{ display_price(rec.Total_Cost, currency_info) }} <span class="text-muted fs-6 fw-normal">(for {{ travelers }} traveler{{ 's' if travelers > 1 else '' }})</span></h5>
             <hr class="opacity-25">
-            <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown</h6>
+            <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown (for {{ travelers }} traveler{{ 's' if travelers > 1 else '' }})</h6>
             <ul class="list-unstyled mt-3">
                 <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">{{ display_price(rec.Travel_Cost, currency_info) }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights)</span> <span class="fw-semibold">{{ display_price(rec.Hotel_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights, per room)</span> <span class="fw-semibold">{{ display_price(rec.Hotel_Cost, currency_info) }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">{{ display_price(rec.Food_Cost, currency_info) }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">{{ display_price(rec.Local_Transport, currency_info) }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🛍️ Shopping</span> <span class="fw-semibold">{{ display_price(rec.Shopping_Cost, currency_info) }}</span></li>

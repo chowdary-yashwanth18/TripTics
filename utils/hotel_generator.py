@@ -4,6 +4,7 @@ import urllib.request
 import urllib.parse
 import re
 import json
+from utils.currency import get_currency_info
 
 def fetch_exact_image(query):
     """Fetches an exact image URL from the web based on the query."""
@@ -98,21 +99,44 @@ def generate_hotels(location):
         selected_hotels = [{"name": name, "address": f"Central Area, {loc_title}"} for name in selected_names]
             
     hotels = []
+    
+    currency = get_currency_info(loc_clean)
+    
     for h in selected_hotels:
         name = h['name']
         address = h['address']
-        price = random.randint(1500, 8000)
+        
+        if currency['code'] in ['USD', 'EUR', 'GBP', 'CHF']:
+            price = random.randint(8000, 35000)
+        elif currency['code'] in ['AED', 'SGD', 'AUD', 'CAD', 'JPY']:
+            price = random.randint(6000, 25000)
+        elif currency['code'] != 'INR':
+            price = random.randint(4000, 15000)
+        else:
+            price = random.randint(1500, 8000)
+            
         rating = round(random.uniform(3.8, 4.9), 1)
         amenities = random.sample(['Free WiFi', 'Breakfast Included', 'AC', 'Pool', 'Gym', 'Restaurant', 'Parking', 'Room Service'], k=random.randint(4, 6))
         
-        # Try to fetch the EXACT image for this hotel, fallback to loremflickr
-        exact_img = fetch_exact_image(f"{name} {loc_title} hotel exterior")
-        outer_img = exact_img if exact_img else f"https://loremflickr.com/400/300/hotel,exterior/all?lock={random.randint(1, 1000)}"
+        # Curated high-quality fallbacks to ensure relevance
+        fallback_exteriors = [
+            "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1551882547-ff40c0d129df?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1542314831-c6a4d27ece50?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=600&q=80"
+        ]
+        fallback_interiors = [
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=600&q=80",
+            "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=80"
+        ]
         
-        # Room image can be generic or exact if we want to risk it, generic is usually fine for interiors
-        # but let's try exact for room too
-        exact_room = fetch_exact_image(f"{name} {loc_title} hotel room interior")
-        inner_img = exact_room if exact_room else f"https://loremflickr.com/400/300/hotel,room/all?lock={random.randint(1001, 2000)}"
+        # Use curated images exclusively to prevent broken hotlinked images
+        outer_img = random.choice(fallback_exteriors)
+        inner_img = random.choice(fallback_interiors)
         
         if "Nagavali" in name:
             price = random.randint(800, 2500)

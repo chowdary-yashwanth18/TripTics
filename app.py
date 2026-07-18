@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for
+from flask import Flask, render_template, request, url_for, flash, redirect
 import os
 from utils.data_loader import load_destinations
 from utils.recommender import recommend_destinations
@@ -9,6 +9,7 @@ from utils.hotel_generator import generate_hotels
 from utils.currency import get_currency_info
 
 app = Flask(__name__)
+app.secret_key = 'triptics_secret_key_123'
 
 # Register generate_hotels for use inside Jinja templates
 app.jinja_env.globals.update(generate_hotels=generate_hotels)
@@ -34,7 +35,7 @@ def planner():
 
         # ── Read and sanitize form values ─────────────────────────────────
         try:
-            budget    = int(float(request.form.get('budget', 0)))
+            raw_budget    = int(float(request.form.get('budget', 0)))
             days      = int(request.form.get('days', 1))
             travelers = int(request.form.get('travelers', 1))
         except (ValueError, TypeError):
@@ -43,8 +44,13 @@ def planner():
                                    error="Please enter valid numbers for budget, days, and travelers.",
                                    states=states, state_districts=STATE_DISTRICTS)
 
-        trip_type    = request.form.get('trip_type', 'all').strip()
-        budget_style = request.form.get('budget_style', 'all').strip()
+        budget_currency = request.form.get('budget_currency', 'INR').strip()
+        from utils.currency import get_rate_for_currency
+        rate = get_rate_for_currency(budget_currency)
+        budget = int(raw_budget / rate) # Convert input budget to INR for the engine
+
+        trip_type    = 'all'
+        budget_style = 'all'
         target_state = request.form.get('target_state', 'all').strip()
         starting_city = request.form.get('starting_city', '').strip()
         outbound_transport = request.form.get('outbound_transport', 'any').strip()
@@ -53,7 +59,7 @@ def planner():
         # ── Server-side guard against impossible inputs ───────────────────
         if budget < 500:
             return render_template('planner.html',
-                                   error="Budget must be at least ₹500 to get useful recommendations.",
+                                   error="Converted budget must be at least ₹500 to get useful recommendations.",
                                    states=states, state_districts=STATE_DISTRICTS)
         if days < 1 or days > 30:
             return render_template('planner.html',
@@ -155,13 +161,16 @@ def dashboard():
 @app.route('/hotels', methods=['GET', 'POST'])
 def hotels():
     """Route to search and recommend hotels for a specific location."""
-    if request.method == 'POST':
-        location = request.form.get('location', '').strip()
-        if not location:
-            return render_template('hotels.html', error="Please enter a valid location.")
-        
+    location = request.form.get('location', '').strip() if request.method == 'POST' else request.args.get('location', '').strip()
+    
+    if location:
         hotel_results = generate_hotels(location)
-        return render_template('hotels.html', location=location.title(), hotels=hotel_results)
+        from utils.currency import get_currency_info
+        currency_info = get_currency_info(location)
+        return render_template('hotels.html', location=location.title(), hotels=hotel_results, currency_info=currency_info)
+        
+    if request.method == 'POST' and not location:
+        return render_template('hotels.html', error="Please enter a valid location.")
         
     return render_template('hotels.html', location=None, hotels=None)
 
@@ -179,6 +188,24 @@ def api_image():
         return {'url': img_url}
         
     return {'url': ''}, 404
+
+@app.route('/book')
+def book():
+    """Route to show the booking page for hotels and travel."""
+    item_type = request.args.get('type', 'Unknown')
+    item_name = request.args.get('name', 'Unknown')
+    price = request.args.get('price', '0')
+    location = request.args.get('location', '')
+    return render_template('booking.html', item_type=item_type, item_name=item_name, price=price, location=location)
+
+
+@app.route('/confirm_booking', methods=['POST'])
+def confirm_booking():
+    """Endpoint to process booking confirmation."""
+    item_name = request.form.get('item_name', '')
+    flash(f'Successfully booked {item_name}! Check your email for confirmation.', 'success')
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)

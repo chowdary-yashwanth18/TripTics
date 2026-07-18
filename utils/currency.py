@@ -64,3 +64,32 @@ def get_currency_info(state_or_country):
             
     # Default to INR for Indian states or unknown locations
     return {'code': 'INR', 'symbol': '₹', 'rate': 1.0}
+
+def get_rate_for_currency(currency_code):
+    """
+    Returns the conversion rate from INR to the given currency code.
+    If the currency is USD, rate = ~0.012 (meaning 1 INR = 0.012 USD).
+    To convert USD to INR, do: usd_amount / rate
+    """
+    if currency_code == 'INR':
+        return 1.0
+        
+    currencies = [
+        {'code': 'EUR', 'rate': 0.011},
+        {'code': 'GBP', 'rate': 0.0094},
+        {'code': 'USD', 'rate': 0.012},
+        {'code': 'AED', 'rate': 0.044},
+        {'code': 'SGD', 'rate': 0.016},
+        {'code': 'THB', 'rate': 0.43},
+        {'code': 'JPY', 'rate': 1.75},
+        {'code': 'AUD', 'rate': 0.018},
+        {'code': 'CAD', 'rate': 0.016},
+        {'code': 'MYR', 'rate': 0.057},
+        {'code': 'CHF', 'rate': 0.011},
+    ]
+    
+    for info in currencies:
+        if info['code'] == currency_code:
+            return info['rate']
+            
+    return 1.0

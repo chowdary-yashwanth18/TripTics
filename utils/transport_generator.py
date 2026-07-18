@@ -58,10 +58,86 @@ def generate_vacancy(mode):
         
     return {"status": status, "text": text_gen(), "color": color}
 
+def generate_complex_route(origin, destination, is_return, hash_val, nearest_airport_info=None):
+    random.seed(hash_val)
+    
+    origin_lower = origin.lower().strip()
+    dest_lower = destination.lower().strip()
+    
+    # Specific mock for Kakinada -> London
+    if (origin_lower == 'kakinada' and dest_lower == 'london') or (origin_lower == 'london' and dest_lower == 'kakinada'):
+        legs = []
+        if origin_lower == 'kakinada':
+            legs_data = [
+                {'orig': 'Kakinada', 'dest': 'Rajahmundry', 'mode': 'bus', 'icon': '🚌', 'price': 150, 'dur': '1h 30m', 'name': 'APSRTC Garuda'},
+                {'orig': 'Rajahmundry', 'dest': 'Hyderabad', 'mode': 'flight', 'icon': '✈️', 'price': 3500, 'dur': '1h 10m', 'name': 'IndiGo 6E-241'},
+                {'orig': 'Hyderabad', 'dest': 'Delhi', 'mode': 'flight', 'icon': '✈️', 'price': 5200, 'dur': '2h 15m', 'name': 'Vistara UK-832'},
+                {'orig': 'Delhi', 'dest': 'Abu Dhabi', 'mode': 'flight', 'icon': '✈️', 'price': 15000, 'dur': '4h 00m', 'name': 'Etihad EY-211'},
+                {'orig': 'Abu Dhabi', 'dest': 'London', 'mode': 'flight', 'icon': '✈️', 'price': 32000, 'dur': '7h 30m', 'name': 'British Airways BA-104'}
+            ]
+        else:
+            legs_data = [
+                {'orig': 'London', 'dest': 'Abu Dhabi', 'mode': 'flight', 'icon': '✈️', 'price': 31000, 'dur': '7h 15m', 'name': 'British Airways BA-105'},
+                {'orig': 'Abu Dhabi', 'dest': 'Delhi', 'mode': 'flight', 'icon': '✈️', 'price': 14500, 'dur': '3h 45m', 'name': 'Etihad EY-212'},
+                {'orig': 'Delhi', 'dest': 'Hyderabad', 'mode': 'flight', 'icon': '✈️', 'price': 5100, 'dur': '2h 10m', 'name': 'Vistara UK-833'},
+                {'orig': 'Hyderabad', 'dest': 'Rajahmundry', 'mode': 'flight', 'icon': '✈️', 'price': 3400, 'dur': '1h 05m', 'name': 'IndiGo 6E-242'},
+                {'orig': 'Rajahmundry', 'dest': 'Kakinada', 'mode': 'bus', 'icon': '🚌', 'price': 150, 'dur': '1h 30m', 'name': 'APSRTC Garuda'}
+            ]
+            
+        current_hour = random.randint(5, 10) if not is_return else random.randint(12, 18)
+        current_minute = random.choice([0, 15, 30, 45])
+        
+        total_price = 0
+        built_legs = []
+        for l in legs_data:
+            start_time_str = f"{current_hour:02d}:{current_minute:02d}"
+            dur_h, dur_m = int(l['dur'].split('h')[0]), int(l['dur'].split('h')[1].strip('m '))
+            
+            end_hour = (current_hour + dur_h) % 24
+            end_minute = (current_minute + dur_m) % 60
+            if end_minute >= 60:
+                end_hour = (end_hour + 1) % 24
+                end_minute %= 60
+                
+            end_time_str = f"{end_hour:02d}:{end_minute:02d}"
+            
+            built_legs.append({
+                "origin": l['orig'],
+                "destination": l['dest'],
+                "mode": l['mode'],
+                "icon": l['icon'],
+                "name": l['name'],
+                "class_type": "Economy" if l['mode'] == 'flight' else "A/C Seater",
+                "start_time": start_time_str,
+                "end_time": end_time_str,
+                "duration": l['dur'],
+                "price": l['price']
+            })
+            total_price += l['price']
+            
+            layover_h = random.randint(2, 4)
+            current_hour = (end_hour + layover_h) % 24
+            current_minute = end_minute
+            
+        return [{
+            "mode": "multi",
+            "icon": "🗺️",
+            "name": f"Multi-Leg via {built_legs[1]['origin'] if origin_lower == 'kakinada' else built_legs[-2]['destination']}",
+            "class_type": "Mixed",
+            "start_time": built_legs[0]['start_time'],
+            "end_time": built_legs[-1]['end_time'],
+            "duration": "24h+",
+            "price": total_price,
+            "rating": 4.5,
+            "vacancy": {"status": "AVAILABLE", "text": "Available", "color": "success"},
+            "legs": built_legs
+        }]
+    return []
+
 def generate_transport(origin, destination, mode, is_return=False, is_international=False):
     """
     Generates mock realistic travel options for a given route and mode.
-    Mode can be 'flight', 'train', 'bus', or 'any'.
+    Mode can be 'flight', 'train', 'bus', 'multi', or 'any'.
     """
     if not origin:
         origin = "Current Location"
@@ -70,28 +146,44 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
     hash_val = int(hashlib.md5(loc_str.encode('utf-8')).hexdigest(), 16)
     random.seed(hash_val)
     
+    # ── Multi-leg Intercept ──
+    from utils.geography import get_nearest_airport
+    origin_lower = origin.lower().strip()
+    dest_lower = destination.lower().strip()
+    
+    if (origin_lower == 'kakinada' and dest_lower == 'london') or (origin_lower == 'london' and dest_lower == 'kakinada'):
+        return generate_complex_route(origin, destination, is_return, hash_val)
+        
+    # Check if origin has no airport, but we need a flight
+    nearest_airport_info = get_nearest_airport(origin)
+    if nearest_airport_info and (is_international or mode in ['flight', 'any']):
+        # If destination is london, generate a complex route
+        if dest_lower == 'london':
+             return generate_complex_route(origin, destination, is_return, hash_val)
+    
     if is_international:
         mode = 'flight'
     elif mode == 'any':
-        mode = random.choice(['flight', 'train', 'bus'])
+        route_places = origin.lower() + " " + destination.lower()
+        available_modes = ['flight', 'train', 'bus']
+        if any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
+            if 'flight' in available_modes: available_modes.remove('flight')
+        if any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
+            if 'train' in available_modes: available_modes.remove('train')
+        mode = random.choice(available_modes) if available_modes else 'bus'
         
     # Simulate lack of transport to certain places
-    dest_lower = destination.lower()
-    if mode == 'flight' and any(place in dest_lower for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
+    route_places = origin.lower() + " " + destination.lower()
+    if mode == 'flight' and any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
         return []
     
-    if mode == 'train' and any(place in dest_lower for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
-        return []
-        
-    # 10% chance for random unavailability in remote-sounding places (just an arbitrary deterministic check)
-    if hash_val % 100 < 5:
+    if mode == 'train' and any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
         return []
         
     options = []
     num_options = random.randint(2, 4)
     
     for i in range(num_options):
-        # Unique seed for each option
         opt_seed = hash_val + i
         random.seed(opt_seed)
         
@@ -136,6 +228,7 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
         rating = round(random.uniform(3.5, 4.9), 1)
         vacancy = generate_vacancy(mode)
         
+        # Convert standard single-leg option into the new structure
         options.append({
             "mode": mode,
             "icon": icon,
@@ -146,9 +239,20 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
             "duration": duration,
             "price": price,
             "rating": rating,
-            "vacancy": vacancy
+            "vacancy": vacancy,
+            "legs": [{
+                "origin": origin,
+                "destination": destination,
+                "mode": mode,
+                "icon": icon,
+                "name": name,
+                "class_type": class_type,
+                "start_time": start_time,
+                "end_time": end_time,
+                "duration": duration,
+                "price": price
+            }]
         })
         
-    # Sort by price
     options.sort(key=lambda x: x['price'])
     return options

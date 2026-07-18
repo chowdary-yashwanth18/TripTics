@@ -31,12 +31,34 @@ def generate_universal_destination(place_name):
             hash_val = int(hashlib.md5(title.encode('utf-8')).hexdigest(), 16)
             random.seed(hash_val)
             
-            # Generate costs (realistic ranges)
-            travel = random.randint(1500, 15000)
-            hotel = random.randint(1000, 10000)
-            food = random.randint(500, 3000)
-            local_transport = random.randint(200, 2000)
-            shopping = random.randint(500, 5000)
+            # Generate costs (realistic ranges based on currency)
+            from utils.currency import get_currency_info
+            currency = get_currency_info(title)
+            
+            if currency['code'] in ['USD', 'EUR', 'GBP', 'CHF']:
+                travel = random.randint(40000, 100000)
+                hotel = random.randint(8000, 35000)
+                food = random.randint(3000, 10000)
+                local_transport = random.randint(1000, 5000)
+                shopping = random.randint(5000, 25000)
+            elif currency['code'] in ['AED', 'SGD', 'AUD', 'CAD', 'JPY']:
+                travel = random.randint(15000, 50000)
+                hotel = random.randint(6000, 25000)
+                food = random.randint(2000, 8000)
+                local_transport = random.randint(800, 4000)
+                shopping = random.randint(3000, 20000)
+            elif currency['code'] != 'INR':
+                travel = random.randint(10000, 40000)
+                hotel = random.randint(4000, 15000)
+                food = random.randint(1500, 6000)
+                local_transport = random.randint(500, 3000)
+                shopping = random.randint(2000, 15000)
+            else:
+                travel = random.randint(1500, 15000)
+                hotel = random.randint(1000, 10000)
+                food = random.randint(500, 3000)
+                local_transport = random.randint(200, 2000)
+                shopping = random.randint(500, 5000)
             
             dest_type = random.choice(['City', 'Nature', 'Historical', 'Beach', 'Adventure'])
             crowd = random.choice(['Low', 'Medium', 'High'])
