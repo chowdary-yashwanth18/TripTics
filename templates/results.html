@@ -115,12 +115,19 @@
                             <div class="accordion-body p-2 bg-light">
                                 <div class="list-group list-group-flush rounded">
                                     {% for opt in rec.Outbound_Options %}
+                                    {% if opt.route_message %}
+                                    <div class="alert alert-warning p-3 mb-2 shadow-sm rounded-3" style="border-left: 4px solid var(--bs-warning);">
+                                        <h6 class="fw-bold text-danger mb-1"><i class="bi bi-info-circle-fill"></i> No Direct Flights</h6>
+                                        <p class="mb-0 small text-dark fw-medium">{{ opt.route_message }}</p>
+                                    </div>
+                                    {% endif %}
                                     <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
                                         <div class="d-flex align-items-center">
                                             <div class="fs-4 me-2">{{ opt.icon }}</div>
                                             <div>
                                                 <h6 class="mb-0 fw-bold small text-primary">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
                                                 <div class="text-muted" style="font-size: 0.75rem;">
+                                                    <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
                                                     <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
                                                 </div>
                                                 <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">
@@ -170,12 +177,19 @@
                             <div class="accordion-body p-2 bg-light">
                                 <div class="list-group list-group-flush rounded">
                                     {% for opt in rec.Return_Options %}
+                                    {% if opt.route_message %}
+                                    <div class="alert alert-warning p-3 mb-2 shadow-sm rounded-3" style="border-left: 4px solid var(--bs-warning);">
+                                        <h6 class="fw-bold text-danger mb-1"><i class="bi bi-info-circle-fill"></i> No Direct Flights</h6>
+                                        <p class="mb-0 small text-dark fw-medium">{{ opt.route_message }}</p>
+                                    </div>
+                                    {% endif %}
                                     <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
                                         <div class="d-flex align-items-center">
                                             <div class="fs-4 me-2">{{ opt.icon }}</div>
                                             <div>
                                                 <h6 class="mb-0 fw-bold small text-danger">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
                                                 <div class="text-muted" style="font-size: 0.75rem;">
+                                                    <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
                                                     <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
                                                 </div>
                                                 <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">

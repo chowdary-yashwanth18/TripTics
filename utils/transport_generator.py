@@ -134,6 +134,256 @@ def generate_complex_route(origin, destination, is_return, hash_val, nearest_air
         }]
     return []
 
+def generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val):
+    random.seed(hash_val)
+    origin_title = origin.strip().title()
+    dest_title = destination.strip().title()
+    
+    nearest_airport = nearest_airport_info['airport']
+    dist = nearest_airport_info['distance']
+    local_mode = nearest_airport_info['mode']
+    local_price = nearest_airport_info['price']
+    
+    hubs = ['Hyderabad', 'Bengaluru', 'Mumbai', 'Delhi']
+    
+    # Generate 3 distinct options
+    options = []
+    
+    # We will pick 3 distinct hubs for variety
+    selected_hubs = random.sample(hubs, 3)
+    
+    for i in range(3):
+        hub = selected_hubs[i]
+        
+        # Destination Airport Logic
+        dest_airport = dest_title
+        if 'florida' in dest_title.lower():
+            dest_airports_list = ['Miami International (MIA)', 'Orlando International (MCO)', 'Tampa International (TPA)', 'Fort Lauderdale (FLL)']
+            dest_airport = dest_airports_list[i % len(dest_airports_list)]
+            
+        built_legs = []
+        total_price = 0
+        current_hour = random.randint(5, 10) if not is_return else random.randint(12, 18)
+        current_minute = random.choice([0, 15, 30, 45])
+        
+        def add_leg(orig, dest, mode, price_base, dur_h, dur_m, is_intl=False):
+            nonlocal current_hour, current_minute, total_price
+            start_time_str = f"{current_hour:02d}:{current_minute:02d}"
+            
+            end_hour = (current_hour + dur_h) % 24
+            end_minute = (current_minute + dur_m) % 60
+            if end_minute >= 60:
+                end_hour = (end_hour + 1) % 24
+                end_minute %= 60
+                
+            end_time_str = f"{end_hour:02d}:{end_minute:02d}"
+            
+            if mode == 'bus':
+                name = f"{random.choice(get_bus_operators())} A/C Seater"
+                icon = '🚌'
+            elif mode == 'train':
+                name = f"{random.randint(11000, 22999)} {random.choice(get_train_names())}"
+                icon = '🚆'
+            else:
+                if is_intl:
+                    name = f"{random.choice(['Emirates', 'Qatar Airways', 'British Airways', 'Air France'])} {random.choice(['EK', 'QR', 'BA', 'AF'])}-{random.randint(100, 999)}"
+                else:
+                    name = f"{random.choice(get_airlines())} {random.choice(['6E', 'AI', 'SG', 'UK'])}-{random.randint(100, 999)}"
+                icon = '✈️'
+                
+            leg_price = price_base + random.randint(0, price_base // 10)
+            
+            built_legs.append({
+                "origin": orig,
+                "destination": dest,
+                "mode": mode,
+                "icon": icon,
+                "name": name,
+                "class_type": "Economy" if mode == 'flight' else "A/C Seater",
+                "start_time": start_time_str,
+                "end_time": end_time_str,
+                "duration": f"{dur_h}h {dur_m}m",
+                "price": leg_price
+            })
+            total_price += leg_price
+            
+            layover_h = random.randint(2, 5)
+            current_hour = (end_hour + layover_h) % 24
+            current_minute = end_minute
+
+        if not is_return:
+            add_leg(origin_title, nearest_airport, local_mode, local_price, dist // 50, dist % 50)
+            add_leg(nearest_airport, hub, 'flight', random.randint(3500, 6000), random.randint(1, 2), random.choice([0, 15, 30, 45]))
+            add_leg(hub, dest_airport, 'flight', random.randint(45000, 80000), random.randint(14, 22), random.choice([0, 15, 30, 45]), True)
+        else:
+            add_leg(dest_airport, hub, 'flight', random.randint(45000, 80000), random.randint(14, 22), random.choice([0, 15, 30, 45]), True)
+            add_leg(hub, nearest_airport, 'flight', random.randint(3500, 6000), random.randint(1, 2), random.choice([0, 15, 30, 45]))
+            add_leg(nearest_airport, origin_title, local_mode, local_price, dist // 50, dist % 50)
+
+        options.append({
+            "mode": "multi",
+            "icon": "🗺️",
+            "name": f"Multi-Leg via {hub}",
+            "class_type": "Mixed",
+            "start_time": built_legs[0]['start_time'],
+            "end_time": built_legs[-1]['end_time'],
+            "duration": "24h+",
+            "price": total_price,
+            "rating": round(random.uniform(4.0, 4.8), 1),
+            "vacancy": {"status": "AVAILABLE", "text": "Available", "color": "success"},
+            "legs": built_legs,
+            "hub": hub,
+            "dest_airport": dest_airport
+        })
+        
+    # Sort options by price
+    options.sort(key=lambda x: x['price'])
+    
+    # Generate the single combined message the user requested, placed only in the first option
+    hubs_str = " or ".join([opt['hub'] for opt in options])
+    dests_str = " or ".join([opt['dest_airport'] for opt in options])
+    
+    if not is_return:
+        combined_msg = f"Sorry, there are no direct flights to your destination. First go to {nearest_airport} airport, then fly to {hubs_str}, and finally take an international flight to {dests_str}."
+    else:
+        combined_msg = f"Sorry, there are no direct flights back. Fly from {dests_str} to {hubs_str}, then to {nearest_airport} airport, and finally travel by {local_mode} to {origin_title}."
+        
+    if options:
+        options[0]['route_message'] = combined_msg
+        
+    return options
+
+def generate_domestic_multi_leg(origin, destination, origin_airport_info, dest_airport_info, is_return, hash_val):
+    random.seed(hash_val)
+    origin_title = origin.strip().title()
+    dest_title = destination.strip().title()
+    
+    # We will generate 2 options (direct between airports vs 1 layover) to give choice
+    options = []
+    
+    hubs = ['Delhi', 'Mumbai', 'Bengaluru', 'Hyderabad', 'Chennai', 'Kolkata']
+    orig_ap_name = origin_airport_info['airport'] if origin_airport_info else origin_title
+    dest_ap_name = dest_airport_info['airport'] if dest_airport_info else dest_title
+    
+    valid_hubs = [h for h in hubs if h.lower() not in orig_ap_name.lower() and h.lower() not in dest_ap_name.lower()]
+    selected_hub = random.choice(valid_hubs) if valid_hubs else 'Mumbai'
+    
+    for opt_idx, route_type in enumerate(['direct', 'connecting']):
+        built_legs = []
+        total_price = 0
+        current_hour = random.randint(5, 10) if not is_return else random.randint(12, 18)
+        current_minute = random.choice([0, 15, 30, 45])
+        
+        def add_leg(orig, dest, mode, price_base, dur_h, dur_m):
+            nonlocal current_hour, current_minute, total_price
+            start_time_str = f"{current_hour:02d}:{current_minute:02d}"
+            
+            end_hour = (current_hour + dur_h) % 24
+            end_minute = (current_minute + dur_m) % 60
+            if end_minute >= 60:
+                end_hour = (end_hour + 1) % 24
+                end_minute %= 60
+                
+            end_time_str = f"{end_hour:02d}:{end_minute:02d}"
+            
+            if mode == 'bus':
+                name = f"{random.choice(get_bus_operators())} A/C Seater"
+                icon = '🚌'
+            elif mode == 'train':
+                name = f"{random.randint(11000, 22999)} {random.choice(get_train_names())}"
+                icon = '🚆'
+            else:
+                name = f"{random.choice(get_airlines())} {random.choice(['6E', 'AI', 'SG', 'UK'])}-{random.randint(100, 999)}"
+                icon = '✈️'
+                
+            leg_price = price_base + random.randint(0, price_base // 10)
+            
+            built_legs.append({
+                "origin": orig,
+                "destination": dest,
+                "mode": mode,
+                "icon": icon,
+                "name": name,
+                "class_type": "Economy" if mode == 'flight' else "A/C Seater",
+                "start_time": start_time_str,
+                "end_time": end_time_str,
+                "duration": f"{dur_h}h {dur_m}m",
+                "price": leg_price
+            })
+            total_price += leg_price
+            
+            layover_h = random.randint(2, 5)
+            current_hour = (end_hour + layover_h) % 24
+            current_minute = end_minute
+            
+        def generate_sequence(start_city, end_city, start_ap_info, end_ap_info):
+            # 1. Start City to Start Airport
+            if start_ap_info:
+                add_leg(start_city, start_ap_info['airport'], start_ap_info['mode'], start_ap_info['price'], start_ap_info['distance'] // 50, start_ap_info['distance'] % 50)
+                flight_start = start_ap_info['airport']
+            else:
+                flight_start = start_city
+                
+            # 2. Flight to End Airport
+            if end_ap_info:
+                flight_end = end_ap_info['airport']
+            else:
+                flight_end = end_city
+                
+            if route_type == 'direct':
+                add_leg(flight_start, flight_end, 'flight', random.randint(3500, 7000), random.randint(1, 2), random.choice([0, 15, 30, 45]))
+                bypassed = 0
+            else:
+                add_leg(flight_start, selected_hub, 'flight', random.randint(2500, 4500), random.randint(1, 2), random.choice([0, 15, 30, 45]))
+                add_leg(selected_hub, flight_end, 'flight', random.randint(2500, 4500), random.randint(1, 2), random.choice([0, 15, 30, 45]))
+                bypassed = 1
+                
+            # 3. End Airport to End City
+            if end_ap_info:
+                add_leg(flight_end, end_city, end_ap_info['mode'], end_ap_info['price'], end_ap_info['distance'] // 50, end_ap_info['distance'] % 50)
+                
+            return bypassed
+
+        if not is_return:
+            bypassed = generate_sequence(origin_title, dest_title, origin_airport_info, dest_airport_info)
+        else:
+            bypassed = generate_sequence(dest_title, origin_title, dest_airport_info, origin_airport_info)
+
+        options.append({
+            "mode": "multi",
+            "icon": "🗺️",
+            "name": f"Multi-Leg ({route_type.title()} Flight)",
+            "class_type": "Mixed",
+            "start_time": built_legs[0]['start_time'],
+            "end_time": built_legs[-1]['end_time'],
+            "duration": "24h+",
+            "price": total_price,
+            "rating": round(random.uniform(3.8, 4.6), 1),
+            "vacancy": {"status": "AVAILABLE", "text": "Available", "color": "success"},
+            "legs": built_legs,
+            "bypassed": bypassed,
+            "origin_airport": origin_airport_info['airport'] if origin_airport_info else origin_title,
+            "dest_airport": dest_airport_info['airport'] if dest_airport_info else dest_title
+        })
+
+    options.sort(key=lambda x: x['price'])
+    
+    # Combined message for the first option
+    orig_ap = options[0]['origin_airport']
+    dest_ap = options[0]['dest_airport']
+    
+    if not is_return:
+        combined_msg = f"Sorry, direct flights to your destination are not available. First go to {orig_ap} airport, then take a flight (bypassing {options[0]['bypassed']} connecting airport) to {dest_ap} airport."
+    else:
+        combined_msg = f"Sorry, direct flights back are not available. First go to {orig_ap} airport, then take a flight (bypassing {options[0]['bypassed']} connecting airport) to {dest_ap} airport."
+        
+    if options:
+        options[0]['route_message'] = combined_msg
+        
+    return options
+
+
+
 def generate_transport(origin, destination, mode, is_return=False, is_international=False):
     """
     Generates mock realistic travel options for a given route and mode.
@@ -156,26 +406,29 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
         
     # Check if origin has no airport, but we need a flight
     nearest_airport_info = get_nearest_airport(origin)
-    if nearest_airport_info and (is_international or mode in ['flight', 'any']):
-        # If destination is london, generate a complex route
-        if dest_lower == 'london':
-             return generate_complex_route(origin, destination, is_return, hash_val)
+    dest_nearest_airport_info = get_nearest_airport(destination)
     
+    if is_international and nearest_airport_info:
+        return generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val)
+        
+    if mode in ['flight', 'any'] and not is_international:
+        # Check if direct flights are not possible due to missing airports
+        route_places = origin_lower + " " + dest_lower
+        missing_airport = any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad'])
+        
+        if missing_airport:
+            # We don't have a direct flight, so use domestic multi-leg logic
+            # This handles origin lacking airport, dest lacking airport, or both
+            return generate_domestic_multi_leg(origin, destination, nearest_airport_info, dest_nearest_airport_info, is_return, hash_val)
+            
     if is_international:
         mode = 'flight'
     elif mode == 'any':
-        route_places = origin.lower() + " " + destination.lower()
         available_modes = ['flight', 'train', 'bus']
-        if any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
-            if 'flight' in available_modes: available_modes.remove('flight')
-        if any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
-            if 'train' in available_modes: available_modes.remove('train')
         mode = random.choice(available_modes) if available_modes else 'bus'
         
     # Simulate lack of transport to certain places
     route_places = origin.lower() + " " + destination.lower()
-    if mode == 'flight' and any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad']):
-        return []
     
     if mode == 'train' and any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
         return []
