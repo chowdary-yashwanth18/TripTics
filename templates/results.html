@@ -153,7 +153,11 @@
                                                     <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
                                                     <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                 </div>
-                                                <div class="fw-bold text-success small">{{ display_price(leg.price, currency_info) }}</div>
+                                                <div class="text-end">
+                                                    <div class="fw-bold text-success small mb-1">{{ display_price(leg.price, currency_info) }}</div>
+                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book</a>
+                                                </div>
                                             </div>
                                             {% endfor %}
                                         </div>
@@ -215,7 +219,11 @@
                                                     <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
                                                     <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                 </div>
-                                                <div class="fw-bold text-success small">{{ display_price(leg.price, currency_info) }}</div>
+                                                <div class="text-end">
+                                                    <div class="fw-bold text-success small mb-1">{{ display_price(leg.price, currency_info) }}</div>
+                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book</a>
+                                                </div>
                                             </div>
                                             {% endfor %}
                                         </div>

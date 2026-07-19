@@ -139,10 +139,18 @@ def generate_international_multi_leg(origin, destination, nearest_airport_info, 
     origin_title = origin.strip().title()
     dest_title = destination.strip().title()
     
-    nearest_airport = nearest_airport_info['airport']
-    dist = nearest_airport_info['distance']
-    local_mode = nearest_airport_info['mode']
-    local_price = nearest_airport_info['price']
+    if nearest_airport_info:
+        nearest_airport = nearest_airport_info['airport']
+        dist = nearest_airport_info['distance']
+        local_mode = nearest_airport_info['mode']
+        local_price = nearest_airport_info['price']
+        has_local_leg = True
+    else:
+        nearest_airport = origin_title
+        has_local_leg = False
+        dist = 0
+        local_mode = None
+        local_price = 0
     
     hubs = ['Hyderabad', 'Bengaluru', 'Mumbai', 'Delhi']
     
@@ -212,13 +220,15 @@ def generate_international_multi_leg(origin, destination, nearest_airport_info, 
             current_minute = end_minute
 
         if not is_return:
-            add_leg(origin_title, nearest_airport, local_mode, local_price, dist // 50, dist % 50)
+            if has_local_leg:
+                add_leg(origin_title, nearest_airport, local_mode, local_price, dist // 50, dist % 50)
             add_leg(nearest_airport, hub, 'flight', random.randint(3500, 6000), random.randint(1, 2), random.choice([0, 15, 30, 45]))
             add_leg(hub, dest_airport, 'flight', random.randint(45000, 80000), random.randint(14, 22), random.choice([0, 15, 30, 45]), True)
         else:
             add_leg(dest_airport, hub, 'flight', random.randint(45000, 80000), random.randint(14, 22), random.choice([0, 15, 30, 45]), True)
             add_leg(hub, nearest_airport, 'flight', random.randint(3500, 6000), random.randint(1, 2), random.choice([0, 15, 30, 45]))
-            add_leg(nearest_airport, origin_title, local_mode, local_price, dist // 50, dist % 50)
+            if has_local_leg:
+                add_leg(nearest_airport, origin_title, local_mode, local_price, dist // 50, dist % 50)
 
         options.append({
             "mode": "multi",
@@ -241,12 +251,19 @@ def generate_international_multi_leg(origin, destination, nearest_airport_info, 
     
     # Generate the single combined message the user requested, placed only in the first option
     hubs_str = " or ".join([opt['hub'] for opt in options])
-    dests_str = " or ".join([opt['dest_airport'] for opt in options])
+    unique_dests = list(dict.fromkeys([opt['dest_airport'] for opt in options]))
+    dests_str = " or ".join(unique_dests)
     
     if not is_return:
-        combined_msg = f"Sorry, there are no direct flights to your destination. First go to {nearest_airport} airport, then fly to {hubs_str}, and finally take an international flight to {dests_str}."
+        if has_local_leg:
+            combined_msg = f"Sorry, there are no direct flights to your destination. First go to {nearest_airport} airport, then fly to {hubs_str}, and finally take an international flight to {dests_str}."
+        else:
+            combined_msg = f"Sorry, there are no direct flights to your destination. First fly from {nearest_airport} to a major hub ({hubs_str}), and then take an international flight to {dests_str}."
     else:
-        combined_msg = f"Sorry, there are no direct flights back. Fly from {dests_str} to {hubs_str}, then to {nearest_airport} airport, and finally travel by {local_mode} to {origin_title}."
+        if has_local_leg:
+            combined_msg = f"Sorry, there are no direct flights back. Fly from {dests_str} to {hubs_str}, then to {nearest_airport} airport, and finally travel by {local_mode} to {origin_title}."
+        else:
+            combined_msg = f"Sorry, there are no direct flights back. Fly from {dests_str} to a major hub ({hubs_str}), and then take a domestic flight to {nearest_airport}."
         
     if options:
         options[0]['route_message'] = combined_msg
@@ -408,8 +425,11 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
     nearest_airport_info = get_nearest_airport(origin)
     dest_nearest_airport_info = get_nearest_airport(destination)
     
-    if is_international and nearest_airport_info:
-        return generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val)
+    if is_international:
+        major_hubs = ['delhi', 'mumbai', 'bengaluru', 'hyderabad', 'chennai', 'kolkata']
+        # If the origin is NOT a major hub, force multi-leg international travel
+        if nearest_airport_info or origin_lower not in major_hubs:
+            return generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val)
         
     if mode in ['flight', 'any'] and not is_international:
         # Check if direct flights are not possible due to missing airports

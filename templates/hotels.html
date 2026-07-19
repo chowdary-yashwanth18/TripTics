@@ -82,7 +82,7 @@
                     {% endfor %}
                 </div>
                 
-                <a href="https://www.goibibo.com/hotels/" target="_blank" class="btn btn-outline-primary w-100 rounded-pill mt-auto fw-bold shadow-sm">Book Now</a>            </div>
+                <a href="https://www.booking.com/searchresults.html?ss={{ hotel.name | urlencode }}%20{{ hotel.address | urlencode }}" target="_blank" class="btn btn-outline-primary w-100 rounded-pill mt-auto fw-bold shadow-sm">Book Now</a>            </div>
         </div>
     </div>
     {% endfor %}

@@ -293,8 +293,14 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         from utils.transport_generator import generate_transport
         from utils.currency import get_currency_info
         
-        is_international = get_currency_info(state)['code'] != 'INR'
+        # Check if the state is outside India to definitively flag as international
+        indian_states = ["andhra pradesh", "arunachal pradesh", "assam", "bihar", "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh", "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra", "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab", "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura", "uttar pradesh", "uttarakhand", "west bengal", "delhi", "jammu and kashmir", "ladakh", "puducherry", "andaman and nicobar islands", "chandigarh", "dadra and nagar haveli and daman and diu", "lakshadweep"]
+        is_international = state and state.lower() not in indian_states
         
+        # If the currency is explicitly mapped to something else, also treat it as international
+        if get_currency_info(state)['code'] != 'INR':
+            is_international = True
+            
         outbound_options = []
         return_options = []
         has_dynamic_travel = False
