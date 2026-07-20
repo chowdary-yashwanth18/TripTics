@@ -67,9 +67,36 @@ REAL_HOTELS = {
         {"name": "Bheemili Resort", "address": "Bheemili Beach, Visakhapatnam, Andhra Pradesh"}
     ],
     'srikakulam': [
-        {"name": "Hotel Nagavali (Famous Lodge & Restaurant)", "address": "Seven Roads Junction, Srikakulam, Andhra Pradesh"},
-        {"name": "Varam Residency", "address": "Day and Night Junction, Srikakulam, Andhra Pradesh"},
-        {"name": "Hotel Blue Earth", "address": "GT Road, Srikakulam, Andhra Pradesh"}
+        {
+            "name": "Hotel Nagavali", 
+            "address": "Seven Roads Junction, Srikakulam, Andhra Pradesh",
+            "outer_img": "https://upload.wikimedia.org/wikipedia/commons/1/16/27_-_Rajavihar_Hotel%2C_A_landmark_by_itself.JPG",
+            "inner_img": "https://upload.wikimedia.org/wikipedia/commons/2/21/Chandigarh%2C_India_starred_hotel_room_01.jpg"
+        },
+        {
+            "name": "Varam Residency", 
+            "address": "Day and Night Junction, Srikakulam, Andhra Pradesh",
+            "outer_img": "https://upload.wikimedia.org/wikipedia/commons/0/09/Hotel_ilapuram%2C_vijayawada.JPG",
+            "inner_img": "https://upload.wikimedia.org/wikipedia/commons/1/19/Hotel_room_in_Mumbai_%28238516872%29.jpg"
+        },
+        {
+            "name": "Hotel Blue Earth", 
+            "address": "GT Road, Srikakulam, Andhra Pradesh",
+            "outer_img": "https://upload.wikimedia.org/wikipedia/commons/6/61/Triguna-hotel-knl.jpg",
+            "inner_img": "https://upload.wikimedia.org/wikipedia/commons/d/d9/Hotel_room_in_Gurgaon%2C_India.jpg"
+        },
+        {
+            "name": "Hotel Sunrise", 
+            "address": "Palakonda Road, Srikakulam, Andhra Pradesh",
+            "outer_img": "https://upload.wikimedia.org/wikipedia/commons/0/04/Taj_Group_of_Hotel_Tirupati.jpg",
+            "inner_img": "https://upload.wikimedia.org/wikipedia/commons/3/36/Hotel_Room_Toranmal.jpg"
+        },
+        {
+            "name": "Grand Srikakulam", 
+            "address": "Navabharath Junction, Srikakulam",
+            "outer_img": "https://upload.wikimedia.org/wikipedia/commons/5/5d/Beautiful_exterior_building_design.jpg",
+            "inner_img": "https://upload.wikimedia.org/wikipedia/commons/2/20/India_-_Delhi_-_001_-_my_room_in_Paharganj_%282086441460%29.jpg"
+        }
     ]
 }
 
@@ -85,9 +112,13 @@ def generate_hotels(location):
     random.seed(hash_val)
     
     # Use real hotels if we have them, else generate mock ones
-    if loc_clean in REAL_HOTELS:
-        selected_hotels = REAL_HOTELS[loc_clean]
-    else:
+    selected_hotels = None
+    for key, hotels_list in REAL_HOTELS.items():
+        if key in loc_clean:
+            selected_hotels = hotels_list
+            break
+            
+    if not selected_hotels:
         base_names = [
             f"{loc_title} Grand", f"The {loc_title} Resort", f"{loc_title} Inn",
             "Royal Palace Lodge", "Comfort Stay", "Budget Inn", "Luxury Suites",
@@ -134,9 +165,18 @@ def generate_hotels(location):
             "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=600&q=80"
         ]
         
-        # Use curated images exclusively to prevent broken hotlinked images
-        outer_img = random.choice(fallback_exteriors)
-        inner_img = random.choice(fallback_interiors)
+        # Try to use explicitly provided image URLs if available (prevents international luxury fallbacks for local Indian hotels)
+        outer_img = h.get('outer_img')
+        if not outer_img:
+            outer_img = fetch_exact_image(f"{name} hotel exterior {loc_title}")
+            if not outer_img:
+                outer_img = random.choice(fallback_exteriors)
+                
+        inner_img = h.get('inner_img')
+        if not inner_img:
+            inner_img = fetch_exact_image(f"{name} hotel room interior {loc_title}")
+            if not inner_img:
+                inner_img = random.choice(fallback_interiors)
         
         if "Nagavali" in name:
             price = random.randint(800, 2500)

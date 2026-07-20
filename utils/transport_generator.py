@@ -2,8 +2,13 @@ import random
 import hashlib
 from datetime import datetime, timedelta
 
-def get_train_names():
-    return ["Vande Bharat Express", "Rajdhani Express", "Shatabdi Express", "Duronto Express", "Garib Rath Express", "Sampark Kranti Express", "Intercity Express", "Superfast Express"]
+def get_train_names(distance=500):
+    if distance < 600:
+        return ["Vande Bharat Express", "Shatabdi Express", "Intercity Express", "Superfast Express", "Jan Shatabdi Express"]
+    elif distance < 1200:
+        return ["Rajdhani Express", "Duronto Express", "Garib Rath Express", "Superfast Express", "Mail/Express"]
+    else:
+        return ["Rajdhani Express", "Duronto Express", "Sampark Kranti Express", "Humsafar Express", "Superfast Express", "Mail/Express"]
 
 def get_airlines():
     return ["IndiGo", "Air India", "SpiceJet", "Vistara", "Akasa Air"]
@@ -11,22 +16,42 @@ def get_airlines():
 def get_bus_operators():
     return ["Orange Travels", "Kaveri Travels", "SRS Travels", "VRL Travels", "IntrCity SmartBus", "APSRTC Garuda", "TSRTC Rajadhani"]
 
-def generate_time(seed_val, is_return=False):
+def generate_time(seed_val, is_return=False, mode='bus', distance=500):
     random.seed(seed_val)
     # Outbound usually leaves morning/afternoon, return usually leaves afternoon/evening
     start_hour = random.randint(5, 14) if not is_return else random.randint(14, 22)
     start_minute = random.choice([0, 15, 30, 45])
-    duration_hours = random.randint(1, 14) # Depends on mode, but we keep it simple here. Later adjusted.
-    duration_minutes = random.choice([0, 10, 20, 30, 40, 50])
     
+    if mode == 'flight':
+        speed = random.uniform(450, 550)
+    elif mode == 'train':
+        speed = random.uniform(55, 75)
+    else: # bus
+        speed = random.uniform(35, 50)
+        
+    total_hours = max(1, distance / speed)
+    duration_hours = int(total_hours)
+    
+    duration_minutes = int((total_hours - duration_hours) * 60)
+    duration_minutes = 5 * round(duration_minutes / 5)
+    if duration_minutes == 60:
+        duration_hours += 1
+        duration_minutes = 0
+        
     start_time = f"{start_hour:02d}:{start_minute:02d}"
     
     end_hour = (start_hour + duration_hours) % 24
     end_minute = (start_minute + duration_minutes) % 60
+    
+    if end_minute >= 60:
+        end_hour = (end_hour + 1) % 24
+        end_minute %= 60
+        
     end_time = f"{end_hour:02d}:{end_minute:02d}"
     
     duration = f"{duration_hours}h {duration_minutes}m"
     return start_time, end_time, duration
+
 
 def generate_vacancy(mode):
     if mode == 'train':
@@ -107,7 +132,7 @@ def generate_complex_route(origin, destination, is_return, hash_val, nearest_air
                 "mode": l['mode'],
                 "icon": l['icon'],
                 "name": l['name'],
-                "class_type": "Economy" if l['mode'] == 'flight' else "A/C Seater",
+                "class_type": "Economy" if l['mode'] == 'flight' else "Sleeper/Seater",
                 "start_time": start_time_str,
                 "end_time": end_time_str,
                 "duration": l['dur'],
@@ -132,6 +157,69 @@ def generate_complex_route(origin, destination, is_return, hash_val, nearest_air
             "vacancy": {"status": "AVAILABLE", "text": "Available", "color": "success"},
             "legs": built_legs
         }]
+
+    if ('srikakulam' in origin_lower and 'bengaluru' in dest_lower) or ('bengaluru' in origin_lower and 'srikakulam' in dest_lower):
+        if 'srikakulam' in origin_lower:
+            legs_data = [
+                {'orig': 'Srikakulam', 'dest': 'Visakhapatnam', 'mode': 'train', 'icon': '🚆', 'price': 150, 'dur': '2h 15m', 'name': '12727 Godavari Express'},
+                {'orig': 'Visakhapatnam', 'dest': 'Bengaluru', 'mode': 'train', 'icon': '🚆', 'price': 1850, 'dur': '19h 30m', 'name': '12510 Guwahati Bengaluru Express'}
+            ]
+        else:
+            legs_data = [
+                {'orig': 'Bengaluru', 'dest': 'Visakhapatnam', 'mode': 'train', 'icon': '🚆', 'price': 1850, 'dur': '19h 30m', 'name': '12509 Bengaluru Guwahati Express'},
+                {'orig': 'Visakhapatnam', 'dest': 'Srikakulam', 'mode': 'train', 'icon': '🚆', 'price': 150, 'dur': '2h 15m', 'name': '12728 Godavari Express'}
+            ]
+            
+        current_hour = random.randint(5, 10) if not is_return else random.randint(12, 18)
+        current_minute = random.choice([0, 15, 30, 45])
+        
+        total_price = 0
+        built_legs = []
+        for l in legs_data:
+            start_time_str = f"{current_hour:02d}:{current_minute:02d}"
+            dur_h, dur_m = int(l['dur'].split('h')[0]), int(l['dur'].split('h')[1].strip('m '))
+            
+            end_hour = (current_hour + dur_h) % 24
+            end_minute = (current_minute + dur_m) % 60
+            if end_minute >= 60:
+                end_hour = (end_hour + 1) % 24
+                end_minute %= 60
+                
+            end_time_str = f"{end_hour:02d}:{end_minute:02d}"
+            
+            built_legs.append({
+                "origin": l['orig'],
+                "destination": l['dest'],
+                "mode": l['mode'],
+                "icon": l['icon'],
+                "name": l['name'],
+                "class_type": "3A",
+                "start_time": start_time_str,
+                "end_time": end_time_str,
+                "duration": l['dur'],
+                "price": l['price']
+            })
+            total_price += l['price']
+            
+            layover_h = random.randint(2, 4)
+            current_hour = (end_hour + layover_h) % 24
+            current_minute = end_minute
+            
+        return [{
+            "mode": "multi",
+            "icon": "🗺️",
+            "name": f"Multi-Leg Train via Visakhapatnam",
+            "class_type": "Mixed",
+            "start_time": built_legs[0]['start_time'],
+            "end_time": built_legs[-1]['end_time'],
+            "duration": "24h+",
+            "price": total_price,
+            "rating": 4.1,
+            "vacancy": {"status": "AVAILABLE", "text": "Available", "color": "success"},
+            "legs": built_legs,
+            "route_message": "Sorry, there is no direct train available for this route. Generating a realistic multi-leg train route via Visakhapatnam instead."
+        }]
+
     return []
 
 def generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val):
@@ -406,6 +494,7 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
     Generates mock realistic travel options for a given route and mode.
     Mode can be 'flight', 'train', 'bus', 'multi', or 'any'.
     """
+    fallback_message = None
     if not origin:
         origin = "Current Location"
         
@@ -421,6 +510,9 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
     if (origin_lower == 'kakinada' and dest_lower == 'london') or (origin_lower == 'london' and dest_lower == 'kakinada'):
         return generate_complex_route(origin, destination, is_return, hash_val)
         
+    if mode in ['train', 'any', 'mixed_ground'] and (('srikakulam' in origin_lower and 'bengaluru' in dest_lower) or ('bengaluru' in origin_lower and 'srikakulam' in dest_lower)):
+        return generate_complex_route(origin, destination, is_return, hash_val)
+        
     # Check if origin has no airport, but we need a flight
     nearest_airport_info = get_nearest_airport(origin)
     dest_nearest_airport_info = get_nearest_airport(destination)
@@ -432,64 +524,87 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
             return generate_international_multi_leg(origin, destination, nearest_airport_info, is_return, hash_val)
         
     if mode in ['flight', 'any'] and not is_international:
-        # Check if direct flights are not possible due to missing airports
-        route_places = origin_lower + " " + dest_lower
-        missing_airport = any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad'])
+        orig_ap = nearest_airport_info['airport'].lower() if nearest_airport_info else origin_lower
+        dest_ap = dest_nearest_airport_info['airport'].lower() if dest_nearest_airport_info else dest_lower
         
-        if missing_airport:
-            # We don't have a direct flight, so use domestic multi-leg logic
-            # This handles origin lacking airport, dest lacking airport, or both
-            return generate_domestic_multi_leg(origin, destination, nearest_airport_info, dest_nearest_airport_info, is_return, hash_val)
+        # If the origin and destination share the same nearest airport, it's too close for a flight
+        is_short_distance = (orig_ap == dest_ap)
+        
+        if is_short_distance and mode == 'flight':
+            # Force fallback to mixed ground transport
+            mode = 'mixed_ground'
+            fallback_message = f"Flights are not applicable for this short distance ({origin.title()} to {destination.title()}). Showing Bus and Train routes instead."
+        else:
+            fallback_message = None
             
+            # Check if direct flights are not possible due to missing airports
+            route_places = origin_lower + " " + dest_lower
+            missing_airport = any(place in route_places for place in ['araku', 'aruku', 'srikakulam', 'munnar', 'coorg', 'wayanad'])
+            
+            if missing_airport:
+                # We don't have a direct flight, so use domestic multi-leg logic
+                return generate_domestic_multi_leg(origin, destination, nearest_airport_info, dest_nearest_airport_info, is_return, hash_val)
+                
     if is_international:
         mode = 'flight'
     elif mode == 'any':
         available_modes = ['flight', 'train', 'bus']
         mode = random.choice(available_modes) if available_modes else 'bus'
+        fallback_message = None
         
     # Simulate lack of transport to certain places
     route_places = origin.lower() + " " + destination.lower()
     
     if mode == 'train' and any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
         return []
+
         
+    from utils.geography import get_distance
+    dist = get_distance(origin, destination)
+    
     options = []
-    num_options = random.randint(2, 4)
+    num_options = random.randint(3, 5) if mode == 'mixed_ground' else random.randint(2, 4)
     
     for i in range(num_options):
         opt_seed = hash_val + i
         random.seed(opt_seed)
         
-        start_time, end_time, base_duration = generate_time(opt_seed, is_return)
+        current_mode = mode
+        if mode == 'mixed_ground':
+            # Ensure we get at least one of each by using modulo, then random
+            if i == 0: current_mode = 'train'
+            elif i == 1: current_mode = 'bus'
+            else: current_mode = random.choice(['bus', 'train'])
+            
+            # Re-check train restrictions for mixed mode
+            if current_mode == 'train' and any(place in route_places for place in ['munnar', 'wayanad', 'coorg', 'andaman']):
+                current_mode = 'bus'
         
-        if mode == 'flight':
+        start_time, end_time, base_duration = generate_time(opt_seed, is_return, current_mode, dist)
+        
+        if current_mode == 'flight':
             if is_international:
                 airlines = ["Emirates", "Lufthansa", "Qatar Airways", "British Airways", "Air France", "Singapore Airlines", "Etihad"]
                 operator = random.choice(airlines)
                 name = f"{operator} {random.choice(['EK', 'LH', 'QR', 'BA', 'AF', 'SQ'])}-{random.randint(100, 999)}"
                 price = random.randint(350, 1500) * 100 + random.choice([0, 50, 99])
-                duration_hours = random.randint(6, 24)
             else:
                 operator = random.choice(get_airlines())
                 name = f"{operator} {random.choice(['6E', 'AI', 'SG', 'UK'])}-{random.randint(100, 999)}"
                 price = random.randint(35, 120) * 100 + random.choice([15, 25, 50, 75, 99])
-                duration_hours = random.randint(1, 3)
                 
             icon = "✈️"
-            duration_minutes = random.choice([15, 30, 45, 0])
-            start_hour = int(start_time.split(':')[0])
-            end_hour = (start_hour + duration_hours) % 24
-            end_time = f"{end_hour:02d}:{duration_minutes:02d}"
-            duration = f"{duration_hours}h {duration_minutes}m"
+            duration = base_duration
             class_type = random.choice(["Economy", "Premium Economy"])
-        elif mode == 'train':
-            name = random.choice(get_train_names())
+        elif current_mode == 'train':
+            name = random.choice(get_train_names(dist))
             train_no = random.randint(11000, 22999)
             name = f"{train_no} {name}"
             price = random.randint(8, 35) * 100 + random.choice([5, 25, 45, 65, 85])
             icon = "🚆"
             duration = base_duration
             class_type = random.choice(["3A", "2A", "1A", "CC", "EC", "SL"])
+
         else: # bus
             operator = random.choice(get_bus_operators())
             name = f"{operator} {random.choice(['Volvo A/C Sleeper', 'Scania Multi-Axle', 'Non A/C Seater'])}"
@@ -499,11 +614,11 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
             class_type = "Sleeper/Seater"
             
         rating = round(random.uniform(3.5, 4.9), 1)
-        vacancy = generate_vacancy(mode)
+        vacancy = generate_vacancy(current_mode)
         
         # Convert standard single-leg option into the new structure
         options.append({
-            "mode": mode,
+            "mode": current_mode,
             "icon": icon,
             "name": name,
             "class_type": class_type,
@@ -516,7 +631,8 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
             "legs": [{
                 "origin": origin,
                 "destination": destination,
-                "mode": mode,
+                "mode": current_mode,
+
                 "icon": icon,
                 "name": name,
                 "class_type": class_type,
@@ -528,4 +644,10 @@ def generate_transport(origin, destination, mode, is_return=False, is_internatio
         })
         
     options.sort(key=lambda x: x['price'])
+    
+    if fallback_message and options:
+        options[0]['route_message'] = fallback_message
+        
     return options
+
+
