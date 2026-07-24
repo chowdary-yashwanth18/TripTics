@@ -103,7 +103,8 @@ def planner():
                     if recommendation_data['matches']:
                         att = recommendation_data['matches'][0].get('Attractions')
                         if att:
-                            state_info['must_visit'] = [a.strip() for a in att.split(',') if a.strip()]
+                            from utils.universal_generator import categorize_places
+                            state_info['must_visit'] = categorize_places([a.strip() for a in att.split(',') if a.strip()])
                 else:
                     # Fallback to state info if city fetch fails, BUT customize it for the city!
                     base_state_info = STATE_INFO.get(actual_state)
@@ -122,7 +123,8 @@ def planner():
                         if recommendation_data['matches']:
                             att = recommendation_data['matches'][0].get('Attractions')
                             if att:
-                                state_info['must_visit'] = [a.strip() for a in att.split(',') if a.strip()]
+                                from utils.universal_generator import categorize_places
+                                state_info['must_visit'] = categorize_places([a.strip() for a in att.split(',') if a.strip()])
                     else:
                         state_info = None
         else:
@@ -177,17 +179,19 @@ def hotels():
 
 @app.route('/api/image')
 def api_image():
-    """Internal API to reliably fetch a single high-resolution image URL."""
+    """Fetches an image URL from Wikimedia/Wikipedia based on a search query."""
     from utils.image_fetcher import fetch_image
-    query = request.args.get('q', '')
+    query = request.args.get('q')
     if not query:
-        return {'url': ''}, 400
+        return {'urls': []}, 400
         
-    img_url = fetch_image(query)
-    if img_url:
-        return {'url': img_url}
+    img_urls = fetch_image(query)
+    if img_urls:
+        if isinstance(img_urls, str):
+            img_urls = [img_urls]
+        return {'urls': img_urls}
         
-    return {'url': ''}, 404
+    return {'urls': []}, 404
 
 @app.route('/book')
 def book():
@@ -206,6 +210,43 @@ def confirm_booking():
     flash(f'Successfully booked {item_name}! Check your email for confirmation.', 'success')
     return redirect(url_for('index'))
 
+@app.route('/api/attractions')
+def api_attractions():
+    """Fetches real-world attractions using Google Places API."""
+    from utils.places_api import get_tourist_attractions
+    location = request.args.get('location', '')
+    if not location:
+        return {'attractions': [], 'error': 'No location provided'}, 400
+        
+    attractions, diagnostics = get_tourist_attractions(location, limit=20)
+    if diagnostics.get('error'):
+        app.logger.error(f"Google Places API Error for {location}: {diagnostics['error']}")
+    return {'attractions': attractions, 'diagnostics': diagnostics}
+
+@app.route('/api/photo')
+def api_photo():
+    """Proxies the Google Places Photo API to bypass frontend CORS and API restrictions."""
+    import urllib.request
+    from flask import Response
+    from utils.places_api import get_google_api_key
+    
+    photo_reference = request.args.get('photoreference')
+    max_width = request.args.get('maxwidth', '400')
+    api_key = get_google_api_key()
+    
+    if not photo_reference or not api_key:
+        return "Missing parameters", 400
+        
+    url = f"https://maps.googleapis.com/maps/api/place/photo?maxwidth={max_width}&photoreference={photo_reference}&key={api_key}"
+    try:
+        req = urllib.request.Request(url, headers={'User-Agent': 'TripTics Backend'})
+        resp = urllib.request.urlopen(req, timeout=10)
+        # Read the binary image data and stream it back
+        image_data = resp.read()
+        return Response(image_data, mimetype=resp.headers.get('Content-Type', 'image/jpeg'))
+    except Exception as e:
+        app.logger.error(f"Failed to proxy photo: {str(e)}")
+        return "Error fetching photo", 500
 
 if __name__ == '__main__':
     app.run(debug=True)

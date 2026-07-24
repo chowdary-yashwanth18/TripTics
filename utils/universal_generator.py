@@ -4,6 +4,33 @@ import json
 import hashlib
 import random
 
+def categorize_places(places_list):
+    from collections import defaultdict
+    categorized = defaultdict(list)
+    
+    for place in places_list:
+        lower_place = place.lower()
+        if any(w in lower_place for w in ['beach', 'coast', 'shore', 'ocean']):
+            categorized["Beaches"].append(place)
+        elif any(w in lower_place for w in ['mall', 'market', 'bazaar', 'shopping', 'plaza']):
+            categorized["Shopping & Markets"].append(place)
+        elif any(w in lower_place for w in ['temple', 'church', 'mosque', 'shrine', 'ashram']):
+            categorized["Temples & Religion"].append(place)
+        elif any(w in lower_place for w in ['park', 'zoo', 'garden', 'sanctuary']):
+            categorized["Parks & Zoos"].append(place)
+        elif any(w in lower_place for w in ['view', 'hill', 'peak', 'point', 'valley', 'kailasagiri', 'nose', 'mountain']):
+            categorized["Scenic & View Points"].append(place)
+        elif any(w in lower_place for w in ['hotel', 'restaurant', 'cafe', 'resort', 'novotel', 'dine']):
+            categorized["Hotels & Restaurants"].append(place)
+        elif any(w in lower_place for w in ['food', 'street', 'eat', 'chat', 'bites', 'dhaba']):
+            categorized["Street Food & Local Eats"].append(place)
+        elif any(w in lower_place for w in ['fun', 'zone', 'water', 'world', 'amusement', 'studio']):
+            categorized["Fun Zones & Entertainment"].append(place)
+        else:
+            categorized["Famous Landmarks"].append(place)
+            
+    return {k: v for k, v in categorized.items() if v}
+
 def generate_universal_destination(place_name):
     """
     Attempts to generate a realistic destination profile for ANY place on Earth 
@@ -111,22 +138,40 @@ def generate_universal_destination(place_name):
         
         # Fetch exact location banner image using Wikipedia API
         from utils.image_fetcher import fetch_image
-        image_url = fetch_image(title)
+        image_urls = fetch_image(title)
+        image_url = image_urls[0] if isinstance(image_urls, list) and len(image_urls) > 0 else (image_urls if isinstance(image_urls, str) else "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1200&q=80")
 
-        must_visit = [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"]
-        if 'araku' in title.lower() or 'aruku' in title.lower():
-            must_visit = [
-                "Araku Pinery", "Coffee Museum", "Borra Caves", "Padmapuram Gardens", 
-                "Galikonda View Point", "Cheparai Waterfalls", "Madagada Sunrise View Point", 
-                "Kothapalli Waterfalls", "Tribal Museum", "Katiki Waterfalls"
-            ]
+        # Use real attractions for Must Visit Places if available
+        from utils.places_api import get_tourist_attractions
+        attractions_list, _ = get_tourist_attractions(title, limit=20)
+        must_visit = []
+        if attractions_list and "mock_id" not in attractions_list[0].get("place_id", ""):
+            must_visit = [attr["name"] for attr in attractions_list]
+            
+        if not must_visit:
+            must_visit = [f"{title} Central Plaza", f"{title} Museum", f"Scenic Viewpoint of {title}", f"Historic {title} Quarter"]
+            if 'araku' in title.lower() or 'aruku' in title.lower():
+                must_visit = [
+                    "Araku Pinery", "Coffee Museum", "Borra Caves", "Padmapuram Gardens", 
+                    "Galikonda View Point", "Cheparai Waterfalls", "Madagada Sunrise View Point", 
+                    "Kothapalli Waterfalls", "Tribal Museum", "Katiki Waterfalls"
+                ]
+            elif 'visakhapatnam' in title.lower() or 'vizag' in title.lower():
+                must_visit = [
+                    "Rushikonda Beach", "Visakhapatnam Steel Plant", "R.K Beach", 
+                    "Kailasagiri", "Glass Bridge", "Indira Gandhi Zoological Park", 
+                    "Yarada Beach", "Dabbilepalem Beach", "Novotel Visakhapatnam", 
+                    "Dolphin Hotel", "CMR Shopping Mall", "Tenneti Park", 
+                    "Submarine Museum", "Simhachalam Temple", "Dolphin's Nose",
+                    "MVP Colony Street Food", "YMCA Night Food Court", "RTC Complex Food Street"
+                ]
             
         # Dynamic State Info
         dynamic_state_info = {
             "title": f"Discover {title}",
             "description": extract,
             "color": random.choice(["primary", "success", "info", "warning", "dark"]),
-            "must_visit": must_visit,
+            "must_visit": categorize_places(must_visit),
             "image_url": image_url
         }
         
