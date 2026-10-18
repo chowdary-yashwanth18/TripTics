@@ -1,30 +1,32 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center mt-4 mb-5">
-    <div class="col-lg-8 col-md-10">
-        <div class="glass-card p-5">
-            <h2 class="text-center mb-2 gradient-text fw-bold">Plan Your Trip</h2>
-            <p class="text-center text-muted mb-4">Enter your trip details and we'll find the best destinations for your budget.</p>
+<div class="row justify-content-center my-4">
+    <div class="col-lg-9 col-xl-8">
+        <div class="glass-card p-4 p-md-5 border-0 shadow-lg position-relative overflow-hidden">
+            <div class="text-center mb-4">
+                <span class="dashboard-badge mb-2"><i class="bi bi-compass-fill text-primary me-1"></i> Interactive Planner</span>
+                <h2 class="display-5 gradient-text fw-extrabold mb-2">Plan Your Dream Trip</h2>
+                <p class="text-muted">Enter your trip parameters and we'll instantly rank perfect destinations within your budget.</p>
+            </div>
 
             {# Server-side validation error message #}
             {% if error %}
-            <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
-                ⚠️ {{ error }}
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             {% endif %}
 
             <form action="{{ url_for('planner') }}" method="POST">
 
-                <div class="row mb-4">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <label for="starting_city" class="form-label fw-bold">Starting Location <span class="text-muted fw-normal">(optional)</span></label>
-                        <input type="text" class="form-control" id="starting_city" name="starting_city"
-                               placeholder="e.g. Hyderabad">
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <label for="starting_city" class="form-label fw-bold text-dark"><i class="bi bi-geo-alt-fill text-danger me-1"></i> Starting City <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" class="form-control" id="starting_city" name="starting_city" placeholder="e.g. Hyderabad">
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <label for="state_select" class="form-label fw-bold">Select State <span class="text-muted fw-normal">(optional)</span></label>
+                    <div class="col-md-4">
+                        <label for="state_select" class="form-label fw-bold text-dark"><i class="bi bi-map-fill text-primary me-1"></i> Select State <span class="text-muted fw-normal">(optional)</span></label>
                         <select class="form-select" id="state_select" name="state_select" onchange="updateDistricts()">
                             <option value="all">Anywhere / All States</option>
                             {% for state in states_list %}
@@ -33,9 +35,8 @@
                         </select>
                     </div>
                     <div class="col-md-4">
-                        <label for="target_state" class="form-label fw-bold">District / Destination <span class="text-muted fw-normal">(optional)</span></label>
-                        <input type="text" class="form-control" id="target_state" name="target_state" 
-                               list="districtsList" placeholder="Select state first, or type directly">
+                        <label for="target_state" class="form-label fw-bold text-dark"><i class="bi bi-search text-info me-1"></i> Destination <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="text" class="form-control" id="target_state" name="target_state" list="districtsList" placeholder="Select state or type city">
                         <datalist id="districtsList">
                             <option value="all">Anywhere in the World</option>
                             {% for loc in locations %}
@@ -45,11 +46,11 @@
                     </div>
                 </div>
 
-                <div class="row mb-4">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <label for="budget" class="form-label fw-bold">Total Budget</label>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3">
+                        <label for="budget" class="form-label fw-bold text-dark"><i class="bi bi-wallet2 text-success me-1"></i> Total Budget</label>
                         <div class="input-group">
-                            <select class="form-select" id="budget_currency" name="budget_currency" style="max-width: 100px;">
+                            <select class="form-select" id="budget_currency" name="budget_currency" style="max-width: 95px;">
                                 <option value="INR">INR (₹)</option>
                                 <option value="USD">USD ($)</option>
                                 <option value="EUR">EUR (€)</option>
@@ -59,54 +60,54 @@
                                 <option value="AUD">AUD (A$)</option>
                                 <option value="CAD">CAD (C$)</option>
                             </select>
-                            <input type="number" class="form-control" id="budget" name="budget"
-                                   required min="10" step="10" placeholder="e.g. 15000">
+                            <input type="number" class="form-control" id="budget" name="budget" required min="10" step="10" placeholder="15000">
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <label for="days" class="form-label fw-bold">Number of Days</label>
-                        <input type="number" class="form-control" id="days" name="days"
-                               required min="1" max="30" value="2">
+                    <div class="col-md-3">
+                        <label for="travel_date" class="form-label fw-bold text-dark"><i class="bi bi-calendar-event-fill text-info me-1"></i> Travel Date <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="date" class="form-control" id="travel_date" name="travel_date">
                     </div>
-                    <div class="col-md-4">
-                        <label for="travelers" class="form-label fw-bold">Number of Travelers</label>
-                        <input type="number" class="form-control" id="travelers" name="travelers"
-                               required min="1" max="100" value="2">
+                    <div class="col-md-3">
+                        <label for="days" class="form-label fw-bold text-dark"><i class="bi bi-calendar-week-fill text-warning me-1"></i> Duration (Days)</label>
+                        <input type="number" class="form-control" id="days" name="days" required min="1" max="30" value="2">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="travelers" class="form-label fw-bold text-dark"><i class="bi bi-people-fill text-accent me-1"></i> Travelers</label>
+                        <input type="number" class="form-control" id="travelers" name="travelers" required min="1" max="100" value="2">
                     </div>
                 </div>
 
-
-
-                <div class="row mb-5">
-                    <div class="col-md-6 mb-3 mb-md-0">
-                        <label for="outbound_transport" class="form-label fw-bold">Outbound Journey (To) 🛫</label>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label for="outbound_transport" class="form-label fw-bold text-dark"><i class="bi bi-airplane-engines-fill text-primary me-1"></i> Outbound Travel Mode</label>
                         <select class="form-select" id="outbound_transport" name="outbound_transport">
-                            <option value="any">Any Mode</option>
-                            <option value="flight">Flight</option>
-                            <option value="train">Train</option>
-                            <option value="bus">Bus</option>
+                            <option value="any">Any Mode (Flight, Train, Bus)</option>
+                            <option value="flight">Flight Only</option>
+                            <option value="train">Train Only</option>
+                            <option value="bus">Bus Only</option>
                         </select>
                     </div>
                     <div class="col-md-6">
-                        <label for="return_transport" class="form-label fw-bold">Return Journey (Fro) 🛬</label>
+                        <label for="return_transport" class="form-label fw-bold text-dark"><i class="bi bi-airplane-landing-fill text-danger me-1"></i> Return Travel Mode</label>
                         <select class="form-select" id="return_transport" name="return_transport">
-                            <option value="any">Any Mode</option>
-                            <option value="flight">Flight</option>
-                            <option value="train">Train</option>
-                            <option value="bus">Bus</option>
+                            <option value="any">Any Mode (Flight, Train, Bus)</option>
+                            <option value="flight">Flight Only</option>
+                            <option value="train">Train Only</option>
+                            <option value="bus">Bus Only</option>
                         </select>
                     </div>
                 </div>
 
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow">
-                        Find Destinations ✈️
+                <div class="d-grid mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-lg py-3 fw-bold">
+                        Find Best Destinations <i class="bi bi-rocket-takeoff-fill ms-2"></i>
                     </button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
 <script>
     const stateDistricts = {{ state_districts | tojson | safe if state_districts else '{}' }};
     const allLocations = {{ locations | tojson | safe if locations else '[]' }};
@@ -117,8 +118,6 @@
         const targetStateInput = document.getElementById('target_state');
         
         const selectedState = stateSelect.value;
-        
-        // Clear current datalist
         districtsList.innerHTML = '';
         
         if (selectedState === 'all') {
@@ -135,7 +134,6 @@
             targetStateInput.value = '';
         } else {
             targetStateInput.value = selectedState; 
-            
             const districts = stateDistricts[selectedState] || [];
             
             if (districts.length > 0) {

@@ -5,18 +5,18 @@
 {# ══════════════════════════════════════════════════════════
    SECTION 1 · Dashboard Hero
    ══════════════════════════════════════════════════════════ #}
-<div class="dashboard-hero row align-items-center mb-4 mt-1">
+<div class="dashboard-hero row align-items-center mb-4 mt-2 border-0 shadow-lg">
     <div class="col-md-8">
-        <span class="dashboard-badge">📊 Analytics Dashboard</span>
-        <h1 class="display-6 fw-bold gradient-text mb-1">Travel Cost Insights</h1>
-        <p class="mb-0">
+        <span class="dashboard-badge mb-2"><i class="bi bi-pie-chart-fill me-1"></i> Data Analytics Dashboard</span>
+        <h1 class="display-6 fw-extrabold gradient-text mb-1">Travel Cost Insights</h1>
+        <p class="mb-0 text-muted">
             Explore destination costs, budget patterns, and category trends across
-            the TripTics dataset of <strong>{{ kpis.total_destinations }}</strong> Indian travel destinations.
+            the TripTics dataset of <strong>{{ kpis.total_destinations }}</strong> travel destinations.
         </p>
     </div>
     <div class="col-md-4 text-md-end mt-3 mt-md-0">
-        <a href="{{ url_for('planner') }}" class="btn btn-primary rounded-pill px-4 py-2">
-            Plan a Trip ✈️
+        <a href="{{ url_for('planner') }}" class="btn btn-primary rounded-pill px-4 py-2 shadow-md">
+            Plan a Trip <i class="bi bi-airplane-fill ms-1"></i>
         </a>
     </div>
 </div>
@@ -26,29 +26,29 @@
    ══════════════════════════════════════════════════════════ #}
 <div class="row g-3 mb-2">
     <div class="col-6 col-lg-3">
-        <div class="kpi-card h-100">
-            <div class="kpi-icon" style="background:#EEF2FF; color:#4F46E5;">🗺️</div>
+        <div class="kpi-card h-100 border-0">
+            <div class="kpi-icon" style="background:#EEF2FF; color:#4F46E5;"><i class="bi bi-globe-americas"></i></div>
             <div class="kpi-value">{{ kpis.total_destinations }}</div>
             <div class="kpi-label">Total Destinations</div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
-        <div class="kpi-card h-100">
-            <div class="kpi-icon" style="background:#ECFDF5; color:#059669;">💸</div>
+        <div class="kpi-card h-100 border-0">
+            <div class="kpi-icon" style="background:#ECFDF5; color:#059669;"><i class="bi bi-cash-coin"></i></div>
             <div class="kpi-value">₹{{ kpis.cheapest_daily }}</div>
             <div class="kpi-label">Cheapest Daily Cost</div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
-        <div class="kpi-card h-100">
-            <div class="kpi-icon" style="background:#FFF7ED; color:#D97706;">🏨</div>
+        <div class="kpi-card h-100 border-0">
+            <div class="kpi-icon" style="background:#FFF7ED; color:#D97706;"><i class="bi bi-buildings-fill"></i></div>
             <div class="kpi-value">₹{{ kpis.avg_hotel }}</div>
             <div class="kpi-label">Avg Hotel / Night</div>
         </div>
     </div>
     <div class="col-6 col-lg-3">
-        <div class="kpi-card h-100">
-            <div class="kpi-icon" style="background:#FDF4FF; color:#9333EA;">🏆</div>
+        <div class="kpi-card h-100 border-0">
+            <div class="kpi-icon" style="background:#FDF4FF; color:#9333EA;"><i class="bi bi-trophy-fill"></i></div>
             <div class="kpi-value">{{ kpis.best_type }}</div>
             <div class="kpi-label">Most Affordable Type</div>
         </div>
@@ -60,13 +60,13 @@
    ══════════════════════════════════════════════════════════ #}
 <div class="dash-section-divider">
     <div class="dash-section-divider-line"></div>
-    <span class="section-heading">🏅 Cost Rankings</span>
+    <span class="section-heading"><i class="bi bi-bar-chart-line-fill text-primary"></i> Cost Rankings</span>
     <div class="dash-section-divider-line"></div>
 </div>
 
 <div class="row g-4 mb-2">
     <div class="col-lg-7">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Cheapest Destinations by Daily Cost</span>
                 <span class="dash-chart-sub">Hotel + Food + Local Transport per day — excludes one-time travel cost</span>
@@ -84,7 +84,7 @@
         </div>
     </div>
     <div class="col-lg-5">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Destinations by Trip Type</span>
                 <span class="dash-chart-sub">Dataset distribution across Beach, Hill, Nature, Temple & City</span>
@@ -108,13 +108,13 @@
    ══════════════════════════════════════════════════════════ #}
 <div class="dash-section-divider">
     <div class="dash-section-divider-line"></div>
-    <span class="section-heading">💳 Cost Breakdown by Category</span>
+    <span class="section-heading"><i class="bi bi-credit-card-2-front-fill text-success"></i> Cost Breakdown by Category</span>
     <div class="dash-section-divider-line"></div>
 </div>
 
 <div class="row g-4 mb-2">
     <div class="col-lg-6">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Hotel vs Food Cost by Type</span>
                 <span class="dash-chart-sub">Average nightly hotel and per-person food cost grouped by trip type</span>
@@ -132,7 +132,7 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Avg Full Trip Cost by Budget Level</span>
                 <span class="dash-chart-sub">Calculated using Recommended_Days × per-day rates (2 travelers assumed)</span>
@@ -156,13 +156,13 @@
    ══════════════════════════════════════════════════════════ #}
 <div class="dash-section-divider">
     <div class="dash-section-divider-line"></div>
-    <span class="section-heading">📍 Geography &amp; Duration</span>
+    <span class="section-heading"><i class="bi bi-geo-alt-fill text-danger"></i> Geography &amp; Duration</span>
     <div class="dash-section-divider-line"></div>
 </div>
 
 <div class="row g-4 mb-2">
     <div class="col-lg-5">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Top States by Destination Count</span>
                 <span class="dash-chart-sub">States with the most travel options in the dataset</span>
@@ -180,7 +180,7 @@
         </div>
     </div>
     <div class="col-lg-4">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Avg Recommended Trip Duration</span>
                 <span class="dash-chart-sub">Suggested trip length (days) by destination type</span>
@@ -198,7 +198,7 @@
         </div>
     </div>
     <div class="col-lg-3">
-        <div class="dash-chart-card">
+        <div class="dash-chart-card border-0">
             <div class="dash-chart-header">
                 <span class="dash-chart-title">Budget Level Mix</span>
                 <span class="dash-chart-sub">Low / Medium / High split across all destinations</span>
@@ -222,15 +222,15 @@
    ══════════════════════════════════════════════════════════ #}
 <div class="dash-section-divider">
     <div class="dash-section-divider-line"></div>
-    <span class="section-heading">🔍 Key Insights from the Data</span>
+    <span class="section-heading"><i class="bi bi-lightbulb-fill text-warning"></i> Key Insights from the Data</span>
     <div class="dash-section-divider-line"></div>
 </div>
 
 <div class="row g-3 mb-5">
     {% for insight in insights %}
     <div class="col-md-6 col-lg-4">
-        <div class="insight-card">
-            <div class="insight-icon">{{ insight.icon }}</div>
+        <div class="insight-card border-0">
+            <div class="insight-icon me-2">{{ insight.icon }}</div>
             <div>
                 <div class="insight-title">{{ insight.title }}</div>
                 <div class="insight-text">{{ insight.text }}</div>

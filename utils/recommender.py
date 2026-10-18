@@ -186,7 +186,7 @@ def build_suggestions(alternatives, budget, days, travelers):
     return suggestions
 
 
-def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all', target_state='all', starting_city='', outbound_transport='any', return_transport='any'):
+def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_style='all', target_state='all', starting_city='', outbound_transport='any', return_transport='any', travel_date=None):
     """
     Main recommendation function.
 
@@ -224,10 +224,6 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             if univ_data:
                 # We have dynamically generated rows for this location!
                 df = pd.DataFrame(univ_data['rows'])
-                # We must attach the dynamic state_info somehow so app.py can grab it.
-                # A simple hack: add a hidden column or store it globally.
-                # Actually, app.py can just call generate_universal_destination itself if needed,
-                # or we can attach it to the dataframe's attrs (supported in Pandas 1.0+)
                 df.attrs['dynamic_state_info'] = univ_data['state_info']
             else:
                 # Return empty early if search has no results and isn't a valid Wikipedia location
@@ -256,8 +252,6 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         # Most data is Indian, but handle global properly
         country = "India"
         if state and state.lower() not in ["andhra pradesh", "arunachal pradesh", "assam", "bihar", "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh", "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra", "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab", "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura", "uttar pradesh", "uttarakhand", "west bengal", "delhi", "jammu and kashmir", "ladakh", "puducherry", "andaman and nicobar islands", "chandigarh", "dadra and nagar haveli and daman and diu", "lakshadweep"]:
-            # If the state isn't a known Indian state/UT, it might be an international location from universal generator
-            # We omit "India" to be safe, the universal generator often sets State to the Country/Region name
             country = ""
 
         # Construct the final query
@@ -292,36 +286,62 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
 
         from utils.transport_generator import generate_transport
         from utils.currency import get_currency_info
+        from utils.budget_engine import calculate_comprehensive_budget
+        from utils.weather_service import get_weather_forecast
         
         # Check if the state is outside India to definitively flag as international
         indian_states = ["andhra pradesh", "arunachal pradesh", "assam", "bihar", "chhattisgarh", "goa", "gujarat", "haryana", "himachal pradesh", "jharkhand", "karnataka", "kerala", "madhya pradesh", "maharashtra", "manipur", "meghalaya", "mizoram", "nagaland", "odisha", "punjab", "rajasthan", "sikkim", "tamil nadu", "telangana", "tripura", "uttar pradesh", "uttarakhand", "west bengal", "delhi", "jammu and kashmir", "ladakh", "puducherry", "andaman and nicobar islands", "chandigarh", "dadra and nagar haveli and daman and diu", "lakshadweep"]
         is_international = state and state.lower() not in indian_states
         
-        # If the currency is explicitly mapped to something else, also treat it as international
         if get_currency_info(state)['code'] != 'INR':
             is_international = True
             
         outbound_options = []
         return_options = []
-        has_dynamic_travel = False
-        dynamic_travel_cost = 0
         
         if starting_city:
-            outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False, is_international=is_international)
-            return_options = generate_transport(destination, starting_city, return_transport, is_return=True, is_international=is_international)
-            
-            if outbound_options or return_options:
-                out_price = outbound_options[0]['price'] if outbound_options else 0
-                ret_price = return_options[0]['price'] if return_options else 0
-                dynamic_travel_cost = (out_price + ret_price) * travelers
-                has_dynamic_travel = True
+            outbound_options = generate_transport(starting_city, destination, outbound_transport, is_return=False, is_international=is_international, travel_date=travel_date)
+            return_options = generate_transport(destination, starting_city, return_transport, is_return=True, is_international=is_international, travel_date=travel_date)
 
-        costs  = calculate_trip_cost(row, days, travelers)
-        if has_dynamic_travel:
-            costs['travel'] = dynamic_travel_cost
-            costs['total'] = costs['hotel'] + costs['food'] + costs['local_transport'] + costs['shopping'] + costs['travel']
+        # Instant seasonal climate normals during ranking
+        best_season_val = _safe_get(row, 'Best_Season', 'Winter')
+        from utils.weather_service import SEASONAL_NORMALS
+        s_norm = SEASONAL_NORMALS.get(best_season_val.title(), SEASONAL_NORMALS['Winter'])
+        weather_info = {
+            'destination': destination,
+            'summary': f"{s_norm['icon']} {s_norm['condition']} (Typical {best_season_val}: {s_norm['temp_high']}°C / {s_norm['temp_low']}°C)",
+            'is_live_forecast': False,
+            'temp_max': s_norm['temp_high'],
+            'temp_min': s_norm['temp_low'],
+            'condition': s_norm['condition'],
+            'icon': s_norm['icon'],
+            'best_season': best_season_val
+        }
+
+        # Smart Budget Engine
+        budget_report = calculate_comprehensive_budget(
+            days=days,
+            travelers=travelers,
+            user_budget=budget,
+            avg_hotel_per_day=float(row.get('Avg_Hotel_Per_Day', 2000)),
+            avg_food_per_day_per_person=float(row.get('Avg_Food_Per_Day_Per_Person', 600)),
+            avg_local_travel_per_day=float(row.get('Avg_Local_Travel_Per_Day', 400)),
+            avg_shopping_per_person=float(row.get('Avg_Shopping_Cost', 1000)),
+            outbound_option=outbound_options[0] if outbound_options else None,
+            return_option=return_options[0] if return_options else None,
+            currency="INR"
+        )
+
+        costs = {
+            'total': budget_report['total_cost'],
+            'travel': budget_report['breakdown'][0]['amount'] + budget_report['breakdown'][1]['amount'],
+            'hotel': budget_report['breakdown'][2]['amount'],
+            'food': budget_report['breakdown'][3]['amount'],
+            'local_transport': budget_report['breakdown'][4]['amount'],
+            'shopping': budget_report['breakdown'][6]['amount']
+        }
             
-        score  = score_destination(row, costs, budget, days, trip_type, budget_style)
+        score = score_destination(row, costs, budget, days, trip_type, budget_style)
         reason = generate_reason(row, costs, budget, days)
 
         attractions_val = _safe_get(row, 'Attractions', '')
@@ -353,7 +373,9 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
             'Shopping_Items':   _safe_get(row, 'Shopping_Items', 'Local souvenirs'),
             'Image_Query':      image_query,
             'Outbound_Options': outbound_options,
-            'Return_Options':   return_options
+            'Return_Options':   return_options,
+            'Budget_Report':    budget_report,
+            'Weather':          weather_info
         })
 
     # Split by budget
@@ -367,6 +389,18 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
     # Return all matches, and top 3 alternatives if no matches
     top_matches = matches
     top_alts    = alternatives[:3] if not top_matches else []
+
+    # Enrich the top displayed recommendations with live Open-Meteo forecasts
+    targets_to_enrich = (top_matches[:5] if top_matches else []) + top_alts
+    for item in targets_to_enrich:
+        try:
+            item['Weather'] = get_weather_forecast(
+                item['Destination'],
+                target_date_str=travel_date,
+                best_season=item.get('Weather', {}).get('best_season', 'Winter')
+            )
+        except Exception:
+            pass
 
     suggestions = build_suggestions(top_alts, budget, days, travelers) if top_alts else []
 

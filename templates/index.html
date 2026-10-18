@@ -1,32 +1,51 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row text-center hero-section mx-2 mx-md-0">
-    <div class="col-md-9 mx-auto">
-        <h1 class="display-3 fw-bold gradient-text mb-3">TripTics</h1>
-        <p class="lead fw-light text-secondary mb-4">A Data-Driven Budget Trip Planner for Smart Travelers</p>
-        <p class="mb-4">Planning a trip on a strict budget? We use data analytics to instantly recommend the best destinations based on your preferences, group size, and total spending limit.</p>
-        <a class="btn btn-primary btn-lg mt-3 px-5 py-3 rounded-pill" href="{{ url_for('planner') }}" role="button">Start Planning Now ✨</a>
+<div class="row text-center hero-section mx-2 mx-md-0 my-4 shadow-lg border-0 position-relative">
+    <div class="col-lg-9 mx-auto py-3">
+        <span class="dashboard-badge mb-3"><i class="bi bi-stars text-warning"></i> Smart Travel Recommendation Engine</span>
+        <h1 class="display-3 fw-extrabold gradient-text mb-3 tracking-tight">TripTics</h1>
+        <p class="fs-4 text-muted mb-4 font-normal">A Data-Driven Budget Trip Planner for Smart Travelers</p>
+        <p class="lead text-secondary mb-4 mx-auto" style="max-width: 680px; line-height: 1.7;">
+            Planning a trip on a strict budget? We combine real-time cost data for transport, food, stays, and attractions to dynamically find your perfect destination.
+        </p>
+        <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+            <a class="btn btn-primary btn-lg px-5 py-3 rounded-pill shadow-lg" href="{{ url_for('planner') }}" role="button">
+                Start Planning Now <i class="bi bi-arrow-right-short ms-1 fs-5"></i>
+            </a>
+            <a class="btn btn-outline-primary btn-lg px-4 py-3 rounded-pill" href="{{ url_for('hotels') }}" role="button">
+                <i class="bi bi-buildings me-1"></i> Search Hotels
+            </a>
+        </div>
     </div>
 </div>
 
-<div class="row mt-5 text-center g-4">
+<div class="row mt-5 g-4">
     <div class="col-md-4">
-        <div class="glass-card p-4 h-100">
-            <h3 class="mb-3 text-primary">📊 Data-Driven</h3>
-            <p class="text-muted">Recommendations are backed by estimated cost data for travel, food, and stays.</p>
+        <div class="glass-card p-4 h-100 border-0 shadow-sm">
+            <div class="d-inline-flex align-items-center justify-content-center bg-primary bg-opacity-10 text-primary rounded-4 p-3 mb-3" style="width: 54px; height: 54px;">
+                <i class="bi bi-graph-up-arrow fs-3"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Data-Driven Precision</h4>
+            <p class="text-muted mb-0">Every trip recommendation is calculated using multi-variable cost data for travel, stays, food, and local transit.</p>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="glass-card p-4 h-100">
-            <h3 class="mb-3 text-info">💰 Budget-Friendly</h3>
-            <p class="text-muted">Tell us your budget and we'll find destinations where you won't overspend.</p>
+        <div class="glass-card p-4 h-100 border-0 shadow-sm">
+            <div class="d-inline-flex align-items-center justify-content-center bg-info bg-opacity-10 text-info rounded-4 p-3 mb-3" style="width: 54px; height: 54px;">
+                <i class="bi bi-piggy-bank-fill fs-3"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Smart Budgeting</h4>
+            <p class="text-muted mb-0">Specify your budget in INR, USD, EUR, or AED. We automatically calculate budget utilization so you never overspend.</p>
         </div>
     </div>
     <div class="col-md-4">
-        <div class="glass-card p-4 h-100">
-            <h3 class="mb-3 text-success">📈 Visual Insights</h3>
-            <p class="text-muted">Explore our analytics dashboard to see cost breakdowns across destinations.</p>
+        <div class="glass-card p-4 h-100 border-0 shadow-sm">
+            <div class="d-inline-flex align-items-center justify-content-center bg-success bg-opacity-10 text-success rounded-4 p-3 mb-3" style="width: 54px; height: 54px;">
+                <i class="bi bi-camera-reels-fill fs-3"></i>
+            </div>
+            <h4 class="fw-bold text-dark mb-2">Live Photo Search</h4>
+            <p class="text-muted mb-0">Discover live real-time photographs for places, famous attractions, and specific hotels via live web APIs.</p>
         </div>
     </div>
 </div>

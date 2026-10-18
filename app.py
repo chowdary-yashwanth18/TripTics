@@ -32,6 +32,8 @@ def planner():
     """
     if request.method == 'POST':
         states = sorted(destinations_df['State'].unique().tolist())
+        destinations = sorted(destinations_df['Destination'].unique().tolist())
+        all_locations = sorted(list(set(states + destinations)))
 
         # ── Read and sanitize form values ─────────────────────────────────
         try:
@@ -39,10 +41,9 @@ def planner():
             days      = int(request.form.get('days', 1))
             travelers = int(request.form.get('travelers', 1))
         except (ValueError, TypeError):
-            # If the user somehow bypasses HTML validation, show a friendly error
             return render_template('planner.html',
                                    error="Please enter valid numbers for budget, days, and travelers.",
-                                   states=states, state_districts=STATE_DISTRICTS)
+                                   locations=all_locations, states_list=states, state_districts=STATE_DISTRICTS)
 
         budget_currency = request.form.get('budget_currency', 'INR').strip()
         from utils.currency import get_rate_for_currency
@@ -53,6 +54,7 @@ def planner():
         budget_style = 'all'
         target_state = request.form.get('target_state', 'all').strip()
         starting_city = request.form.get('starting_city', '').strip()
+        travel_date = request.form.get('travel_date', '').strip()
         outbound_transport = request.form.get('outbound_transport', 'any').strip()
         return_transport = request.form.get('return_transport', 'any').strip()
 
@@ -60,19 +62,19 @@ def planner():
         if budget < 500:
             return render_template('planner.html',
                                    error="Converted budget must be at least ₹500 to get useful recommendations.",
-                                   states=states, state_districts=STATE_DISTRICTS)
+                                   locations=all_locations, states_list=states, state_districts=STATE_DISTRICTS)
         if days < 1 or days > 30:
             return render_template('planner.html',
                                    error="Number of days must be between 1 and 30.",
-                                   states=states, state_districts=STATE_DISTRICTS)
+                                   locations=all_locations, states_list=states, state_districts=STATE_DISTRICTS)
         if travelers < 1 or travelers > 100:
             return render_template('planner.html',
                                    error="Number of travelers must be between 1 and 100.",
-                                   states=states, state_districts=STATE_DISTRICTS)
+                                   locations=all_locations, states_list=states, state_districts=STATE_DISTRICTS)
 
         # ── Run recommendation engine ─────────────────────────────────────
         recommendation_data = recommend_destinations(
-            destinations_df, budget, days, travelers, trip_type, budget_style, target_state, starting_city, outbound_transport, return_transport
+            destinations_df, budget, days, travelers, trip_type, budget_style, target_state, starting_city, outbound_transport, return_transport, travel_date=travel_date
         )
 
         # ── State Information ─────────────────────────────────────────────
@@ -115,9 +117,9 @@ def planner():
                         state_info['must_visit'] = [f"{target_state.title()} City Center", f"Local Markets of {target_state.title()}", f"Historic Sites of {target_state.title()}"]
                         # Try to get an image for the city at least!
                         from utils.image_fetcher import fetch_image
-                        img_url = fetch_image(f"{target_state} {actual_state}")
-                        if img_url:
-                            state_info['image_url'] = img_url
+                        img_urls = fetch_image(f"{target_state} {actual_state}")
+                        if img_urls:
+                            state_info['image_url'] = img_urls[0] if isinstance(img_urls, list) else img_urls
                             
                         # Use actual attractions from DB if available!
                         if recommendation_data['matches']:
@@ -143,6 +145,7 @@ def planner():
                                trip_type=trip_type,
                                target_location=display_location,
                                starting_city=starting_city,
+                               travel_date=travel_date,
                                currency_info=get_currency_info(actual_state))
 
     states = sorted(destinations_df['State'].unique().tolist())
@@ -168,8 +171,10 @@ def hotels():
     if location:
         hotel_results = generate_hotels(location)
         from utils.currency import get_currency_info
+        from utils.hotel_apps import get_country_hotel_info
         currency_info = get_currency_info(location)
-        return render_template('hotels.html', location=location.title(), hotels=hotel_results, currency_info=currency_info)
+        country_info = get_country_hotel_info(location)
+        return render_template('hotels.html', location=location.title(), hotels=hotel_results, currency_info=currency_info, country_info=country_info)
         
     if request.method == 'POST' and not location:
         return render_template('hotels.html', error="Please enter a valid location.")
@@ -247,6 +252,49 @@ def api_photo():
     except Exception as e:
         app.logger.error(f"Failed to proxy photo: {str(e)}")
         return "Error fetching photo", 500
+
+
+@app.route('/api/rides')
+def api_rides():
+    """Generates localized ride options and distance-based prices for a location."""
+    from utils.rides import generate_ride_options
+    location = request.args.get('location', '')
+    pickup = request.args.get('pickup', 'Current Location / Hotel')
+    dropoff = request.args.get('dropoff', '')
+    distance_km = request.args.get('distance_km', None)
+    
+    if not location:
+        return {'rides': [], 'error': 'No location provided'}, 400
+    
+    result = generate_ride_options(location, pickup=pickup, dropoff=dropoff, distance_km=distance_km)
+    return result
+
+
+@app.route('/api/weather')
+def api_weather():
+    """Fetches genuine weather forecast or historical seasonal climate normals."""
+    from utils.weather_service import get_weather_forecast
+    location = request.args.get('location', '').strip()
+    target_date = request.args.get('date', '').strip()
+    if not location:
+        return {'error': 'Location is required'}, 400
+    res = get_weather_forecast(location, target_date_str=target_date)
+    return res
+
+
+@app.route('/api/currency')
+def api_currency():
+    """Returns verified ISO 4217 exchange rates and provenance timestamp."""
+    from utils.currency import get_all_exchange_rates, CURRENCY_REGISTRY
+    rates, timestamp, is_live = get_all_exchange_rates()
+    return {
+        'base': 'INR',
+        'rates': rates,
+        'currencies': CURRENCY_REGISTRY,
+        'timestamp': timestamp,
+        'is_live': is_live
+    }
+
 
 if __name__ == '__main__':
     app.run(debug=True)

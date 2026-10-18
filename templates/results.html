@@ -31,6 +31,22 @@
                 {% endif %}
             </div>
 
+            {# ── Verified Weather & Seasonal Climate ── #}
+            {% if rec.Weather %}
+            <div class="mb-3 p-2 rounded-3 bg-light border d-flex align-items-center justify-content-between" style="font-size: 0.78rem;">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-5">{{ rec.Weather.icon }}</span>
+                    <div>
+                        <strong class="text-dark">{{ rec.Weather.condition }}</strong>
+                        <span class="text-muted ms-1">({{ rec.Weather.temp_max }}°C / {{ rec.Weather.temp_min }}°C)</span>
+                    </div>
+                </div>
+                <span class="badge {% if rec.Weather.is_live_forecast %}bg-success-subtle text-success border border-success-subtle{% else %}bg-secondary-subtle text-secondary border border-secondary-subtle{% endif %} rounded-pill" style="font-size: 0.65rem;">
+                    {% if rec.Weather.is_live_forecast %}<i class="bi bi-broadcast"></i> Live Forecast{% else %}<i class="bi bi-cloud-sun"></i> Seasonal Climate{% endif %}
+                </span>
+            </div>
+            {% endif %}
+
             {# ── Top Attractions (Dynamic Google Places) ── #}
             {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') | replace("'", "") %}
             <div class="mt-3 p-3 bg-light rounded-3 border">
@@ -52,7 +68,7 @@
                 <div class="d-flex overflow-auto gap-3" style="white-space: nowrap; padding-bottom: 0.5rem; scrollbar-width: thin;">
                     {% for act in rec.Kids_Activities %}
                     <div class="card shadow-sm border-0 d-inline-block flex-shrink-0" style="width: 160px; white-space: normal;">
-                        <img src="{{ act.image }}" class="card-img-top" alt="{{ act.name }}" style="height: 100px; object-fit: cover;">
+                        <img src="{{ act.image }}" class="card-img-top" alt="{{ act.name }}" style="height: 100px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1513885045260-6b3086b24c17?auto=format&fit=crop&w=300&q=80';">
                         <div class="card-body p-2 text-center">
                             <h6 class="card-title fw-bold text-dark mb-1" style="font-size: 0.85rem;">{{ act.name }}</h6>
                             <div class="text-warning small mb-1 fw-bold">⭐ {{ act.rating }}</div>
@@ -68,27 +84,93 @@
             {% set local_stays = generate_hotels(rec.Destination ~ ', ' ~ rec.State) %}
             {% if local_stays %}
             <div class="mt-3 p-3 bg-light rounded-3 border">
-                <h6 class="fw-bold text-success mb-1"><i class="bi bi-shop"></i> Famous Stays & Dining</h6>
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <h6 class="fw-bold text-success mb-0"><i class="bi bi-shop"></i> Famous Stays & Facilities</h6>
+                    <a href="{{ url_for('hotels') }}?location={{ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="badge bg-primary text-white text-decoration-none py-1 px-2 rounded-pill shadow-xs" style="font-size: 0.7rem;">
+                        View Apps & Stays <i class="bi bi-arrow-up-right"></i>
+                    </a>
+                </div>
+                {% if local_stays[0].primary_app %}
+                <small class="text-muted d-block mb-2" style="font-size: 0.72rem;">
+                    <i class="bi bi-phone-fill text-primary"></i> Bookable via <strong>{{ local_stays[0].primary_app.app_name }}</strong> & regional apps
+                </small>
+                {% endif %}
                 <div class="d-flex flex-wrap gap-2 mt-2">
-                    {% for stay in local_stays %}
-                    <a href="{{ url_for('hotels') }}?location={{ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success shadow-sm" style="text-decoration: none;">
-                        🏨 {{ stay.name }} - {{ display_price(stay.price, currency_info) }}
+                    {% for stay in local_stays[:4] %}
+                    <a href="{{ stay.primary_app.url if stay.primary_app else url_for('hotels') ~ '?location=' ~ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success shadow-sm d-inline-flex align-items-center gap-1" style="text-decoration: none; font-size: 0.75rem;">
+                        <span>🏨 {{ stay.name }}</span>
+                        <strong class="text-dark">{{ display_price(stay.price, currency_info) }}</strong>
+                        {% if stay.primary_app %}
+                        <span class="badge bg-white text-secondary border font-normal py-0 px-1" style="font-size: 0.65rem;">{{ stay.primary_app.app_name.split(' ')[0] }}</span>
+                        {% endif %}
                     </a>
                     {% endfor %}
                 </div>
             </div>
             {% endif %}
 
-            {% if rec.Accommodation_Type %}
+            {% set stay_img = local_stays[0].outer_image_url if local_stays else 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=200&q=80' %}
             <div class="mt-3 rounded-3 shadow-sm overflow-hidden d-flex" style="background-color: var(--bs-light); border: 1px solid rgba(13, 202, 240, 0.3); border-left: 4px solid var(--bs-info);">
-                <!-- Load a beautiful generic hotel image -->
-                <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=200&q=80" alt="Hotel in {{ rec.Destination }}" style="width: 90px; object-fit: cover;">
+                <img src="{{ stay_img }}" alt="Hotel in {{ rec.Destination }}" style="width: 90px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=200&q=80';">
                 <div class="p-3 d-flex flex-column justify-content-center">
                     <h6 class="fw-bold text-info mb-1" style="font-size: 0.9rem;">🏨 Recommended Stay</h6>
                     <p class="mb-0 small fw-semibold text-dark">{{ rec.Accommodation_Type }}</p>
                 </div>
             </div>
-            {% endif %}
+
+            {# ── Local Rides (Country-Specific & Attraction-Based) ── #}
+            {% set dest_attractions = rec.Attractions.split(',') if rec.Attractions else [] %}
+            <div class="mt-3 p-3 bg-light rounded-3 border" id="ride-card-{{ dest_id }}">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                        <h6 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-car-front-fill text-warning me-1"></i> Local Rides & Cabs
+                        </h6>
+                        <small class="text-muted" style="font-size: 0.7rem;" id="ride-subtitle-{{ dest_id }}">
+                            Country-specific ride services & distance fares
+                        </small>
+                    </div>
+                    <button class="btn btn-sm btn-outline-dark rounded-pill py-0 px-2" type="button" onclick="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" id="btn-rides-{{ dest_id }}" style="font-size: 0.75rem;">
+                        Check Prices
+                    </button>
+                </div>
+
+                {# ── Route Selector (Pickup & Famous Spot Dropoff) ── #}
+                <div id="ride-controls-{{ dest_id }}" class="p-2 mb-2 bg-white rounded-3 border shadow-xs d-none">
+                    <div class="row g-2 align-items-center">
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-muted small mb-1 fw-bold" style="font-size: 0.7rem;">
+                                <i class="bi bi-geo-alt-fill text-success"></i> Pickup (Current Location):
+                            </label>
+                            <select class="form-select form-select-sm py-1" id="pickup-select-{{ dest_id }}" onchange="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" style="font-size: 0.75rem;">
+                                <option value="Current Location / Hotel" selected>📍 Current Location / My Hotel</option>
+                                <option value="Central Railway Station / Bus Stand">🚉 Transit Hub / Station</option>
+                                <option value="Airport / City Center">✈️ Airport / City Center</option>
+                            </select>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label class="form-label text-muted small mb-1 fw-bold" style="font-size: 0.7rem;">
+                                <i class="bi bi-pin-map-fill text-danger"></i> Famous Spot to Visit:
+                            </label>
+                            <select class="form-select form-select-sm py-1" id="dropoff-select-{{ dest_id }}" onchange="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" style="font-size: 0.75rem;">
+                                {% for attr in dest_attractions %}
+                                <option value="{{ attr.strip() }}" {% if loop.first %}selected{% endif %}>🎯 {{ attr.strip() }}</option>
+                                {% endfor %}
+                                {% if not dest_attractions %}
+                                <option value="Central Sightseeing Point" selected>🎯 Central Famous Landmark</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-2 pt-2 border-top d-flex flex-wrap justify-content-between align-items-center gap-1" id="route-info-{{ dest_id }}">
+                        <!-- Route summary badge and country app tag will render here -->
+                    </div>
+                </div>
+
+                <div id="rides-{{ dest_id }}" class="list-group list-group-flush rounded d-none mt-2">
+                    <!-- Rides will load here -->
+                </div>
+            </div>
 
             {# ── Travel Options ── #}
             {% if starting_city %}
@@ -128,16 +210,25 @@
                                                     <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
                                                     <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
                                                 </div>
-                                                <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">
-                                                    {{ opt.vacancy.text }}
+                                                <div class="d-flex align-items-center gap-1 mt-1">
+                                                    <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
+                                                        {{ opt.vacancy.text }}
+                                                    </span>
+                                                    {% if opt.provenance and opt.provenance.is_verified %}
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
+                                                        <i class="bi bi-shield-check"></i> Verified
+                                                    </span>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-end">
                                             <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
-                                            <div class="text-warning small mb-1" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
-                                            {% set book_url = "https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-primary shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Now</a>
+                                            {% if opt.provenance %}
+                                            <div class="text-muted small mb-1 text-truncate" style="font-size: 0.68rem; max-width: 140px;" title="{{ opt.provenance.source_provider }}">{{ opt.provenance.source_provider }}</div>
+                                            {% endif %}
+                                            {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
+                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-primary shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Ticket <i class="bi bi-box-arrow-up-right"></i></a>
                                         </div>
                                     </div>
                                     {% if opt.legs and opt.legs|length > 1 %}
@@ -194,16 +285,25 @@
                                                     <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
                                                     <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
                                                 </div>
-                                                <div class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }} mt-1" style="font-size: 0.65rem;">
-                                                    {{ opt.vacancy.text }}
+                                                <div class="d-flex align-items-center gap-1 mt-1">
+                                                    <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
+                                                        {{ opt.vacancy.text }}
+                                                    </span>
+                                                    {% if opt.provenance and opt.provenance.is_verified %}
+                                                    <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
+                                                        <i class="bi bi-shield-check"></i> Verified
+                                                    </span>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="text-end">
                                             <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
-                                            <div class="text-warning small mb-1" style="font-size: 0.75rem;">⭐ {{ opt.rating }}</div>
-                                            {% set book_url = "https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-danger shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Now</a>
+                                            {% if opt.provenance %}
+                                            <div class="text-muted small mb-1 text-truncate" style="font-size: 0.68rem; max-width: 140px;" title="{{ opt.provenance.source_provider }}">{{ opt.provenance.source_provider }}</div>
+                                            {% endif %}
+                                            {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
+                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-danger shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Ticket <i class="bi bi-box-arrow-up-right"></i></a>
                                         </div>
                                     </div>
                                     {% if opt.legs and opt.legs|length > 1 %}
@@ -263,15 +363,36 @@
 
             <p class="text-muted small">{{ rec.Reason }}</p>
 
-            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Est: {{ display_price(rec.Total_Cost, currency_info) }} <span class="text-muted fs-6 fw-normal">(for {{ travelers }} traveler{{ 's' if travelers > 1 else '' }})</span></h5>
+            <h5 class="{% if rec.Total_Cost > budget %}text-danger{% else %}text-success{% endif %} mt-3 fw-bold">Total Cost: {{ display_price(rec.Total_Cost, currency_info) }} <span class="text-muted fs-6 fw-normal">(for {{ travelers }} traveler{{ 's' if travelers > 1 else '' }})</span></h5>
+            {% if rec.Budget_Report %}
+            <div class="mb-3 p-2 rounded-3 bg-light border" style="font-size: 0.75rem;">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span class="text-success fw-bold"><i class="bi bi-shield-check"></i> Verified Fares: {{ display_price(rec.Budget_Report.verified_amount, currency_info) }}</span>
+                    <span class="text-muted">Indicative: {{ display_price(rec.Budget_Report.estimated_amount, currency_info) }}</span>
+                </div>
+                <div class="progress" style="height: 5px;">
+                    <div class="progress-bar bg-success" style="width: {{ rec.Budget_Report.verified_percentage }}%;"></div>
+                    <div class="progress-bar bg-secondary" style="width: {{ 100 - rec.Budget_Report.verified_percentage }}%;"></div>
+                </div>
+                <div class="d-flex justify-content-between align-items-center mt-1 text-muted" style="font-size: 0.7rem;">
+                    <span>Budget Used: {{ rec.Budget_Report.utilization_pct }}%</span>
+                    {% if rec.Budget_Report.emergency_reserve > 0 %}
+                    <span class="text-info font-medium">Reserve (10%): {{ display_price(rec.Budget_Report.emergency_reserve, currency_info) }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endif %}
             <hr class="opacity-25">
             <h6 class="text-muted text-uppercase small fw-bold">Cost Breakdown (for {{ travelers }} traveler{{ 's' if travelers > 1 else '' }})</h6>
             <ul class="list-unstyled mt-3">
-                <li class="mb-2 d-flex justify-content-between"><span>🚌 Travel</span> <span class="fw-semibold">{{ display_price(rec.Travel_Cost, currency_info) }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({{ days }} nights, per room)</span> <span class="fw-semibold">{{ display_price(rec.Hotel_Cost, currency_info) }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax)</span> <span class="fw-semibold">{{ display_price(rec.Food_Cost, currency_info) }}</span></li>
-                <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport</span> <span class="fw-semibold">{{ display_price(rec.Local_Transport, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🚌 Transit (Outbound + Return)</span> <span class="fw-semibold">{{ display_price(rec.Travel_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🏨 Hotel ({% if rec.Budget_Report %}{{ rec.Budget_Report.nights }}{% else %}{{ [0, days - 1]|max }}{% endif %} nights, {% if rec.Budget_Report %}{{ rec.Budget_Report.rooms }}{% else %}1{% endif %} room)</span> <span class="fw-semibold">{{ display_price(rec.Hotel_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🍔 Food ({{ travelers }} pax × {{ days }} days)</span> <span class="fw-semibold">{{ display_price(rec.Food_Cost, currency_info) }}</span></li>
+                <li class="mb-2 d-flex justify-content-between"><span>🚕 Local Transport ({{ days }} days)</span> <span class="fw-semibold">{{ display_price(rec.Local_Transport, currency_info) }}</span></li>
                 <li class="mb-2 d-flex justify-content-between"><span>🛍️ Shopping</span> <span class="fw-semibold">{{ display_price(rec.Shopping_Cost, currency_info) }}</span></li>
+                {% if rec.Budget_Report and rec.Budget_Report.emergency_reserve > 0 %}
+                <li class="mb-2 d-flex justify-content-between text-muted" style="font-size: 0.85rem;"><span>🛡️ Emergency Buffer (10%)</span> <span class="fw-semibold text-info">{{ display_price(rec.Budget_Report.emergency_reserve, currency_info) }}</span></li>
+                {% endif %}
             </ul>
 
             {% if rec.Shopping_Items %}
@@ -335,8 +456,25 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Google Map Section -->
+        <div class="glass-card mb-4 rounded-4 overflow-hidden shadow-sm p-2 bg-white">
+            {% set map_location = target_location if target_location else (recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India')) %}
+            <h5 class="fw-bold text-start px-3 pt-2 text-primary"><i class="bi bi-map-fill"></i> Map of {{ map_location.title() }}</h5>
+            <div class="w-100" style="height: 350px;">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0; border-radius: 0.5rem;" src="https://maps.google.com/maps?q={{ map_location|urlencode }}&t=&z=10&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
         {% else %}
         <h2 class="display-5 fw-bold gradient-text">Trip Recommendations</h2>
+        <!-- Google Map Section (No exact state info) -->
+        <div class="glass-card mb-4 mt-3 rounded-4 overflow-hidden shadow-sm p-2 bg-white mx-auto" style="max-width: 800px;">
+            {% set map_location = target_location if target_location else (recommendations[0].State if recommendations else (alternatives[0].State if alternatives else 'India')) %}
+            <h5 class="fw-bold text-start px-3 pt-2 text-primary"><i class="bi bi-map-fill"></i> Destination Area</h5>
+            <div class="w-100" style="height: 300px;">
+                <iframe width="100%" height="100%" frameborder="0" style="border:0; border-radius: 0.5rem;" src="https://maps.google.com/maps?q={{ map_location|urlencode }}&t=&z=10&ie=UTF8&iwloc=&output=embed" allowfullscreen loading="lazy"></iframe>
+            </div>
+        </div>
         {% endif %}
         <p class="lead text-muted">Based on a budget of <strong>{{ display_price(budget, currency_info) }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
     </div>
@@ -561,27 +699,55 @@ function loadAttractions(locationQuery, idSuffix, containerIdOverride=null) {
             container.innerHTML = ''; // clear loading
             
             data.attractions.forEach(attr => {
-                const imgHtml = attr.photo_url 
-                    ? `<img src="${attr.photo_url}" class="card-img-top" alt="${attr.name}" style="height: 120px; object-fit: cover;">`
-                    : `<div class="card-img-top bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" style="height: 120px;"><span class="text-muted small text-center px-2"><i class="bi bi-camera-video-off"></i> No official image available</span></div>`;
+                let photoSrc = Array.isArray(attr.photo_url) ? attr.photo_url[0] : attr.photo_url;
+                const imgHtml = photoSrc 
+                    ? `<img src="${photoSrc}" class="card-img-top" alt="${attr.name}" style="height: 120px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80';">`
+                    : `<div class="card-img-top bg-secondary bg-opacity-25 d-flex align-items-center justify-content-center" style="height: 120px;"><span class="text-muted small text-center px-2"><i class="bi bi-camera"></i> ${attr.name}</span></div>`;
                 
+                // Dynamically append newly discovered attraction to ride drop-off selector
+                const dropSelect = document.getElementById(`dropoff-select-${idSuffix}`);
+                if (dropSelect) {
+                    let alreadyThere = false;
+                    for (let i = 0; i < dropSelect.options.length; i++) {
+                        if (dropSelect.options[i].value.toLowerCase() === attr.name.toLowerCase()) {
+                            alreadyThere = true;
+                            break;
+                        }
+                    }
+                    if (!alreadyThere) {
+                        const opt = document.createElement('option');
+                        opt.value = attr.name;
+                        opt.text = '🎯 ' + attr.name;
+                        dropSelect.appendChild(opt);
+                    }
+                }
+
                 const card = document.createElement('div');
                 card.className = 'card shadow-sm border-0 d-inline-block flex-shrink-0';
                 card.style.width = '240px';
                 card.style.whiteSpace = 'normal';
                 
+                const ratingBadge = (typeof attr.rating === 'number')
+                    ? `<span class="text-warning small fw-bold">⭐ ${attr.rating}</span>`
+                    : `<span class="badge bg-primary-subtle text-primary border" style="font-size: 0.65rem;"><i class="bi bi-shield-check"></i> Verified Spot</span>`;
+                const provSource = (attr.provenance && attr.provenance.source_provider) ? attr.provenance.source_provider : 'Tourism Directory';
+
                 card.innerHTML = `
                     ${imgHtml}
-                    <div class="card-body p-3">
+                    <div class="card-body p-3 d-flex flex-column" style="min-height: 225px;">
                         <h6 class="card-title fw-bold text-dark mb-1" style="font-size: 0.95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${attr.name}">${attr.name}</h6>
-                        <div class="d-flex justify-content-between align-items-center mb-2">
-                            <span class="text-warning small fw-bold">⭐ ${attr.rating}</span>
-                            <span class="badge bg-light text-dark border">${attr.entry_fee}</span>
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            ${ratingBadge}
+                            <span class="badge bg-light text-dark border" style="font-size: 0.72rem;">${attr.entry_fee}</span>
                         </div>
-                        <p class="text-muted small mb-2" style="font-size: 0.75rem; line-height: 1.3; height: 32px; overflow: hidden;"><i class="bi bi-geo-alt-fill text-danger"></i> ${attr.address}</p>
-                        <p class="text-dark small mb-2" style="font-size: 0.8rem; height: 38px; overflow: hidden;">${attr.description}</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="text-muted" style="font-size: 0.7rem;"><i class="bi bi-clock"></i> ${attr.duration}</span>
+                        <small class="text-muted d-block mb-2 text-truncate" style="font-size: 0.66rem;" title="${provSource}"><i class="bi bi-bank"></i> ${provSource}</small>
+                        <p class="text-muted small mb-1" style="font-size: 0.73rem; line-height: 1.3; height: 32px; overflow: hidden;"><i class="bi bi-geo-alt-fill text-danger"></i> ${attr.address}</p>
+                        <p class="text-dark small mb-2" style="font-size: 0.78rem; height: 38px; overflow: hidden;">${attr.description}</p>
+                        
+                        <div class="mt-auto pt-2 border-top">
+                            <button class="btn btn-sm btn-outline-warning text-dark fw-bold rounded-pill w-100 py-1" onclick="rideToAttraction('${attr.name.replace(/'/g, "\\'")}', '${idSuffix}', '${locationQuery.replace(/'/g, "\\'")}')" style="font-size: 0.72rem;">
+                                <i class="bi bi-car-front-fill me-1"></i> Ride to this Spot
+                            </button>
                         </div>
                     </div>
                 `;
@@ -594,6 +760,135 @@ function loadAttractions(locationQuery, idSuffix, containerIdOverride=null) {
                 btn.disabled = false;
             }
             container.innerHTML = '<p class="text-danger small w-100 mb-0">Error loading attractions.</p>';
+        });
+}
+
+// ── Quick Shortcut: Ride directly to a famous attraction ──
+function rideToAttraction(attrName, idSuffix, locationQuery) {
+    const dropSelect = document.getElementById(`dropoff-select-${idSuffix}`);
+    if (dropSelect) {
+        let matched = false;
+        for (let i = 0; i < dropSelect.options.length; i++) {
+            if (dropSelect.options[i].value.toLowerCase() === attrName.toLowerCase()) {
+                dropSelect.selectedIndex = i;
+                matched = true;
+                break;
+            }
+        }
+        if (!matched) {
+            const opt = document.createElement('option');
+            opt.value = attrName;
+            opt.text = '🎯 ' + attrName;
+            dropSelect.appendChild(opt);
+            dropSelect.value = attrName;
+        }
+    }
+
+    const rideCard = document.getElementById(`ride-card-${idSuffix}`);
+    if (rideCard) {
+        rideCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    loadRides(locationQuery, idSuffix);
+}
+
+// ── Country-Specific & Distance-Based Dynamic Ride Loading ──
+function loadRides(locationQuery, idSuffix) {
+    const container = document.getElementById(`rides-${idSuffix}`);
+    const btn = document.getElementById(`btn-rides-${idSuffix}`);
+    const controls = document.getElementById(`ride-controls-${idSuffix}`);
+    const subtitle = document.getElementById(`ride-subtitle-${idSuffix}`);
+    const routeInfo = document.getElementById(`route-info-${idSuffix}`);
+    
+    // Read user selected pickup and dropoff spots
+    const pickupSelect = document.getElementById(`pickup-select-${idSuffix}`);
+    const dropoffSelect = document.getElementById(`dropoff-select-${idSuffix}`);
+    const pickup = pickupSelect ? pickupSelect.value : 'Current Location / Hotel';
+    const dropoff = dropoffSelect ? dropoffSelect.value : '';
+
+    if (btn) {
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+        btn.disabled = true;
+    }
+    
+    // Display controls if not visible
+    if (controls) {
+        controls.classList.remove('d-none');
+    }
+
+    container.classList.remove('d-none');
+    container.innerHTML = '<div class="text-center w-100 py-3"><div class="spinner-border spinner-border-sm text-primary" role="status"></div><p class="small text-muted mt-1 mb-0">Calculating route & local fares...</p></div>';
+
+    const apiUrl = `/api/rides?location=${encodeURIComponent(locationQuery)}&pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (btn) {
+                btn.classList.add('d-none');
+            }
+            if (data.error || !data.rides || data.rides.length === 0) {
+                container.innerHTML = '<p class="text-muted small w-100 mb-0">No rides available right now.</p>';
+                return;
+            }
+            
+            // Update country & route badge header
+            if (subtitle && data.country_name) {
+                subtitle.innerHTML = `<span class="badge bg-white text-dark border me-1"><span class="fs-6">${data.flag}</span> ${data.country_name} Local Rides</span> <span class="text-muted">Estimated distance: <strong>${data.distance_km} km</strong></span>`;
+            }
+
+            if (routeInfo) {
+                routeInfo.innerHTML = `
+                    <div class="d-flex align-items-center gap-1">
+                        <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold" style="font-size: 0.72rem;">
+                            <i class="bi bi-signpost-2-fill me-1"></i> ${data.distance_km} km
+                        </span>
+                        <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill" style="font-size: 0.72rem;">
+                            <i class="bi bi-clock-history me-1"></i> ~${data.duration_mins} mins
+                        </span>
+                    </div>
+                    <small class="text-muted text-truncate" style="font-size: 0.7rem; max-width: 260px;" title="To ${data.dropoff}">
+                        To: <strong class="text-dark">${data.dropoff}</strong>
+                    </small>
+                `;
+            }
+
+            container.innerHTML = ''; 
+            
+            data.rides.forEach(ride => {
+                const item = document.createElement('div');
+                item.className = 'list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-xs';
+                item.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <div class="fs-3 me-2">${ride.icon}</div>
+                        <div>
+                            <div class="d-flex align-items-center gap-1">
+                                <h6 class="mb-0 fw-bold small text-dark">${ride.provider}</h6>
+                                <span class="badge bg-light text-dark border" style="font-size: 0.65rem;">${ride.type}</span>
+                            </div>
+                            <div class="text-muted" style="font-size: 0.72rem;">
+                                <span class="badge bg-success-subtle text-success py-0 px-1 me-1">${ride.eta}</span>
+                                <span>${ride.features}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <h6 class="mb-0 fw-bold text-success" style="font-size: 0.95rem;">${ride.price_display}</h6>
+                        <a href="${ride.book_url}" target="_blank" class="btn btn-sm btn-dark rounded-pill py-0 px-2 mt-1 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;">
+                            <span>Open ${ride.app_name}</span>
+                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.6rem;"></i>
+                        </a>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        })
+        .catch(err => {
+            if (btn) {
+                btn.innerHTML = 'Retry';
+                btn.disabled = false;
+            }
+            container.innerHTML = '<p class="text-danger small w-100 mb-0">Error calculating rides.</p>';
         });
 }
 </script>

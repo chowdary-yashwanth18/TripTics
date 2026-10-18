@@ -1,53 +1,150 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row justify-content-center mt-4 mb-5">
-    <div class="col-lg-8 col-md-10">
-        <div class="glass-card p-5">
-            <h2 class="text-center mb-2 gradient-text fw-bold">Find a Place to Stay 🏨</h2>
-            <p class="text-center text-muted mb-4">Enter a location to discover nearby hotels, lodges, and resorts with prices from low to high.</p>
+<div class="row justify-content-center my-4">
+    <div class="col-lg-10 col-xl-9">
+        <div class="glass-card p-4 p-md-5 border-0 shadow-lg position-relative overflow-hidden text-center">
+            <span class="dashboard-badge mb-2"><i class="bi bi-buildings-fill text-primary me-1"></i> Global & Regional Accommodation Finder</span>
+            <h2 class="display-5 gradient-text fw-extrabold mb-2">Find a Place to Stay</h2>
+            <p class="text-muted mb-4 fs-6" style="max-width: 680px; margin: 0 auto;">
+                Search any destination to discover verified hotels, resorts, and homestays with complete facilities, paired directly with that country's leading hotel booking apps (e.g. <strong>MakeMyTrip & Goibibo</strong> for India, <strong>Rakuten Travel & Jalan</strong> for Japan, <strong>Agoda</strong> for Southeast Asia, <strong>Expedia</strong> for North America).
+            </p>
 
             {% if error %}
-            <div class="alert alert-danger alert-dismissible fade show rounded-3" role="alert">
-                ⚠️ {{ error }}
+            <div class="alert alert-danger alert-dismissible fade show rounded-4 shadow-sm text-start mx-auto mb-4" style="max-width: 650px;" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ error }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
             </div>
             {% endif %}
 
-            <form action="{{ url_for('hotels') }}" method="POST">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control form-control-lg" name="location" placeholder="e.g. Arasavilli, Srikakulam" required value="{{ location if location else '' }}">
-                    <button class="btn btn-primary btn-lg px-4 fw-bold shadow-sm" type="submit">Search Hotels</button>
+            <form action="{{ url_for('hotels') }}" method="POST" class="mx-auto" style="max-width: 680px;" id="hotelSearchForm">
+                <div class="input-group input-group-lg shadow-md rounded-pill overflow-hidden border bg-white p-1">
+                    <span class="input-group-text bg-white border-0 ps-3 text-muted"><i class="bi bi-search fs-5 text-primary"></i></span>
+                    <input type="text" class="form-control border-0 py-3 ps-2 fs-6" name="location" id="locationInput" placeholder="Enter country or city (e.g. Japan, Goa, Araku, Tokyo, New York, Phuket)" required value="{{ location if location else '' }}">
+                    <button class="btn btn-primary px-4 py-2 font-semibold rounded-pill shadow-sm" type="submit">
+                        <i class="bi bi-search me-1"></i> Search Hotels
+                    </button>
                 </div>
             </form>
+
+            {# ── Quick Suggestion Destination Pills ── #}
+            <div class="mt-4 pt-2 d-flex flex-wrap justify-content-center align-items-center gap-2">
+                <small class="text-muted fw-bold me-1"><i class="bi bi-lightning-charge-fill text-warning"></i> Popular Searches:</small>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Japan')">🇯🇵 Japan</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Goa')">🇮🇳 Goa, India</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Araku')">🇮🇳 Araku Valley</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Tokyo')">🇯🇵 Tokyo</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Phuket')">🇹🇭 Phuket, Thailand</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('New York')">🇺🇸 New York, USA</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Dubai')">🇦🇪 Dubai, UAE</button>
+                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1 bg-white shadow-xs" onclick="quickSearch('Paris')">🇫🇷 Paris, France</button>
+            </div>
         </div>
     </div>
 </div>
 
 {% if hotels %}
-<div class="row mb-4">
-    <div class="col-12 text-center">
-        <h3 class="fw-bold gradient-text">Recommended Stays in {{ location }}</h3>
-        <p class="text-muted">Prices ranging from lowest to highest</p>
+{# ── Country Apps & Regional Booking Showcase Banner ── #}
+<div class="row justify-content-center mb-4">
+    <div class="col-12">
+        <div class="glass-card p-4 p-md-4 border-0 shadow-sm rounded-4" style="border-left: 5px solid var(--primary) !important; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,244,255,0.9) 100%);">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-3">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-2">{{ country_info.flag }}</span>
+                    <div>
+                        <h4 class="fw-extrabold text-dark mb-0">
+                            Stays in {{ location }} via {{ country_info.country_name }}'s Hotel Finding Apps
+                        </h4>
+                        <p class="text-muted small mb-0">{{ country_info.description }}</p>
+                    </div>
+                </div>
+                <div>
+                    <span class="badge bg-success-subtle text-success fs-6 px-3 py-2 rounded-pill border border-success-subtle shadow-xs">
+                        <i class="bi bi-shield-check me-1"></i> {{ hotels|length }} Verified Stays Found
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-3 bg-white rounded-3 border shadow-xs">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <small class="text-uppercase fw-bold text-muted" style="letter-spacing: 0.05em; font-size: 0.75rem;">
+                        <i class="bi bi-phone-fill text-primary me-1"></i> Official & Popular Hotel Apps for {{ country_info.country_name }}:
+                    </small>
+                    <small class="text-muted">Click any app to search all {{ location }} properties:</small>
+                </div>
+                <div class="row g-2">
+                    {% for app in country_info.apps %}
+                    <div class="col-6 col-md-4 col-lg">
+                        <a href="{{ app.city_search_url }}" target="_blank" class="card h-100 border p-2 text-decoration-none shadow-xs d-flex flex-column justify-content-between" style="border-radius: 0.85rem; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 15px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                                <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 28px; height: 28px; background: {{ app.color }}; flex-shrink: 0;">
+                                    <i class="bi {{ app.icon_class }} small"></i>
+                                </div>
+                                <span class="fw-bold text-dark small text-truncate">{{ app.name }}</span>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center mt-1">
+                                <span class="badge bg-light text-secondary border font-normal" style="font-size: 0.65rem;">{{ app.badge }}</span>
+                                <i class="bi bi-arrow-up-right text-primary small"></i>
+                            </div>
+                        </a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="row g-4 mb-5">
+{# ── Filter & Search Sub-bar ── #}
+<div class="row align-items-center mb-4">
+    <div class="col-md-6 mb-2 mb-md-0">
+        <h4 class="fw-bold text-dark mb-1">Available Stays & Facilities</h4>
+        <p class="text-muted small mb-0">Browse rooms, verified amenities, and direct booking portals</p>
+    </div>
+    <div class="col-md-6 text-md-end">
+        <div class="btn-group shadow-xs rounded-pill bg-white p-1 border" role="group">
+            <button type="button" class="btn btn-sm btn-primary rounded-pill px-3 py-1 font-semibold filter-btn active" onclick="filterHotels('all', this)">All Stays</button>
+            {% for app in country_info.apps[:3] %}
+            <button type="button" class="btn btn-sm btn-light rounded-pill px-3 py-1 text-muted filter-btn" onclick="filterHotels('{{ app.name }}', this)">{{ app.name.split(' ')[0] }}</button>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+{# ── Hotel Listings Grid ── #}
+<div class="row g-4 mb-5" id="hotelCardsGrid">
     {% for hotel in hotels %}
-    <div class="col-md-6 col-lg-4">
-        <div class="glass-card h-100 overflow-hidden shadow-sm" style="transition: transform 0.2s; cursor: pointer;" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
-            <div id="carousel-{{ loop.index }}" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner" style="border-radius: 1rem 1rem 0 0;">
+    <div class="col-md-6 col-lg-4 hotel-card-item" data-app="{{ hotel.primary_app.app_name if hotel.primary_app else '' }}">
+        <div class="glass-card h-100 border-0 shadow-sm overflow-hidden d-flex flex-column" style="transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 1.25rem;">
+            
+            {# ── Image Carousel ── #}
+            <div id="carousel-{{ loop.index }}" class="carousel slide position-relative" data-bs-ride="carousel">
+                {# Rating Badge #}
+                <div class="position-absolute top-0 end-0 m-3" style="z-index: 5;">
+                    <span class="badge bg-warning text-dark shadow-sm fs-6 px-3 py-2 rounded-pill fw-bold">
+                        <i class="bi bi-star-fill text-dark me-1"></i> {{ hotel.rating }}
+                    </span>
+                </div>
+
+                {# Primary App Badge #}
+                <div class="position-absolute top-0 start-0 m-3" style="z-index: 5;">
+                    <span class="badge bg-white text-dark shadow-sm px-3 py-2 rounded-pill fw-bold border">
+                        <span class="badge rounded-circle p-1 me-1" style="background: {{ hotel.primary_app.color if hotel.primary_app else '#4F46E5' }};"></span>
+                        {{ hotel.primary_app.app_name.split(' ')[0] if hotel.primary_app else 'Featured' }}
+                    </span>
+                </div>
+
+                <div class="carousel-inner" style="border-radius: 1.25rem 1.25rem 0 0;">
                     <div class="carousel-item active">
-                        <img src="{{ hotel.outer_image_url }}" class="d-block w-100" alt="{{ hotel.name }} Outer View" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80';">
-                        <div class="carousel-caption d-none d-md-block p-1" style="background: rgba(0,0,0,0.5); border-radius: 5px; bottom: 10px;">
-                            <small>Outer View</small>
+                        <img src="{{ hotel.outer_image_url }}" class="d-block w-100" alt="{{ hotel.name }} Exterior" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=600&q=80';">
+                        <div class="carousel-caption p-1" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); border-radius: 2rem; bottom: 12px; left: 20%; right: 20%;">
+                            <small class="fw-bold text-white"><i class="bi bi-building me-1"></i> Exterior View</small>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{ hotel.inner_image_url }}" class="d-block w-100" alt="{{ hotel.name }} Inner View" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=600&q=80';">
-                        <div class="carousel-caption d-none d-md-block p-1" style="background: rgba(0,0,0,0.5); border-radius: 5px; bottom: 10px;">
-                            <small>Inner View</small>
+                        <img src="{{ hotel.inner_image_url }}" class="d-block w-100" alt="{{ hotel.name }} Interior" style="height: 220px; object-fit: cover;" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=600&q=80';">
+                        <div class="carousel-caption p-1" style="background: rgba(0,0,0,0.55); backdrop-filter: blur(4px); border-radius: 2rem; bottom: 12px; left: 20%; right: 20%;">
+                            <small class="fw-bold text-white"><i class="bi bi-door-open me-1"></i> Room & Interior</small>
                         </div>
                     </div>
                 </div>
@@ -60,32 +157,119 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
-            <div class="p-4 d-flex flex-column" style="height: calc(100% - 220px);">
-                <div class="d-flex justify-content-between align-items-start mb-2">
-                    <h5 class="fw-bold text-primary mb-0 pe-2">{{ hotel.name }}</h5>
-                    <span class="badge bg-warning text-dark shadow-sm">⭐ {{ hotel.rating }}</span>
+
+            {# ── Card Content ── #}
+            <div class="p-4 d-flex flex-column flex-grow-1">
+                <h5 class="fw-bold text-dark mb-1">{{ hotel.name }}</h5>
+                <p class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ hotel.address }}</p>
+                
+                {# Price Section #}
+                <div class="my-2 p-2 rounded-3 bg-light d-flex align-items-baseline justify-content-between border">
+                    <div>
+                        <span class="fs-4 fw-extrabold text-success">₹{{ hotel.price }}</span>
+                        {% if currency_info and currency_info.code != 'INR' %}
+                        <span class="fs-6 text-muted fw-semibold">({{ currency_info.symbol }}{{ (hotel.price * currency_info.rate)|int }})</span>
+                        {% endif %}
+                        <span class="text-muted small">/ night</span>
+                    </div>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold" style="font-size: 0.7rem;">
+                        <i class="bi bi-tag-fill me-1"></i> Best Rate
+                    </span>
                 </div>
                 
-                <p class="text-muted small mb-1">📍 {{ hotel.address }}</p>
-                
-                <h4 class="fw-bold text-success mt-2 mb-3">
-                    ₹{{ hotel.price }}
-                    {% if currency_info and currency_info.code != 'INR' %}
-                    <span class="fs-5 text-secondary">({{ currency_info.symbol }}{{ (hotel.price * currency_info.rate)|int }})</span>
+                {# Facilities & Amenities Section #}
+                <div class="my-3">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <small class="fw-bold text-dark" style="font-size: 0.78rem;">
+                            <i class="bi bi-check2-circle text-primary me-1"></i> Included Facilities:
+                        </small>
+                        <small class="text-muted" style="font-size: 0.7rem;">Verified Amenities</small>
+                    </div>
+                    <div class="d-flex flex-wrap gap-1">
+                        {% if hotel.facilities %}
+                            {% for fac in hotel.facilities %}
+                            <span class="badge {{ fac.badge_class }} py-1 px-2 rounded-pill d-inline-flex align-items-center gap-1" style="font-size: 0.72rem; font-weight: 500;" title="{{ fac.desc }}">
+                                <i class="bi {{ fac.icon }}"></i> {{ fac.name }}
+                            </span>
+                            {% endfor %}
+                        {% else %}
+                            {% for amenity in hotel.amenities %}
+                            <span class="badge bg-light text-secondary border py-1 px-2 rounded-pill" style="font-size: 0.72rem;">
+                                <i class="bi bi-check-circle-fill text-success me-1"></i> {{ amenity }}
+                            </span>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+
+                {# ── Country Hotel App Booking Buttons ── #}
+                <div class="mt-auto pt-3 border-top">
+                    {% if hotel.primary_app %}
+                    {# Primary Button for That Country's Top App #}
+                    <a href="{{ hotel.primary_app.url }}" target="_blank" class="btn w-100 rounded-pill fw-bold py-2 mb-2 shadow-sm text-white d-flex align-items-center justify-content-center gap-2" style="background: {{ hotel.primary_app.bg_gradient }};">
+                        <i class="bi {{ hotel.primary_app.icon_class }}"></i>
+                        <span>Book on {{ hotel.primary_app.app_name }}</span>
+                        <i class="bi bi-arrow-up-right small"></i>
+                    </a>
+                    {% else %}
+                    <a href="https://www.booking.com/searchresults.html?ss={{ hotel.name | urlencode }}%20{{ hotel.address | urlencode }}" target="_blank" class="btn btn-primary w-100 rounded-pill fw-bold py-2 mb-2 shadow-sm">
+                        Book Room <i class="bi bi-box-arrow-up-right ms-1 small"></i>
+                    </a>
                     {% endif %}
-                    <span class="text-muted fs-6 fw-normal">/ night (per room)</span>
-                </h4>
-                
-                <div class="mb-4">
-                    {% for amenity in hotel.amenities %}
-                    <span class="badge bg-light text-secondary border me-1 mb-1">{{ amenity }}</span>
-                    {% endfor %}
+
+                    {# Secondary Comparison Options on Other Apps of that Country #}
+                    {% if hotel.booking_options and hotel.booking_options|length > 1 %}
+                    <div class="mt-2 text-center">
+                        <small class="text-muted d-block mb-1" style="font-size: 0.7rem;">Or check availability on:</small>
+                        <div class="d-flex flex-wrap justify-content-center gap-1">
+                            {% for opt in hotel.booking_options[1:] %}
+                            <a href="{{ opt.url }}" target="_blank" class="btn btn-sm btn-outline-secondary rounded-pill py-0 px-2 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.7rem;" title="Compare on {{ opt.app_name }}">
+                                <i class="bi {{ opt.icon_class }}" style="color: {{ opt.color }};"></i>
+                                <span>{{ opt.app_name.split(' ')[0] }}</span>
+                                <i class="bi bi-box-arrow-up-right text-muted" style="font-size: 0.6rem;"></i>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
                 </div>
-                
-                <a href="https://www.booking.com/searchresults.html?ss={{ hotel.name | urlencode }}%20{{ hotel.address | urlencode }}" target="_blank" class="btn btn-outline-primary w-100 rounded-pill mt-auto fw-bold shadow-sm">Book Now</a>            </div>
+
+            </div>
         </div>
     </div>
     {% endfor %}
 </div>
 {% endif %}
+
+<script>
+function quickSearch(dest) {
+    const input = document.getElementById('locationInput');
+    input.value = dest;
+    document.getElementById('hotelSearchForm').submit();
+}
+
+function filterHotels(appName, btnElement) {
+    // Update active button state
+    document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.remove('active', 'btn-primary');
+        b.classList.add('btn-light', 'text-muted');
+    });
+    btnElement.classList.add('active', 'btn-primary');
+    btnElement.classList.remove('btn-light', 'text-muted');
+
+    const cards = document.querySelectorAll('.hotel-card-item');
+    cards.forEach(card => {
+        if (appName === 'all') {
+            card.style.display = 'block';
+        } else {
+            const cardApp = card.getAttribute('data-app') || '';
+            if (cardApp.toLowerCase().includes(appName.toLowerCase())) {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        }
+    });
+}
+</script>
 {% endblock %}
