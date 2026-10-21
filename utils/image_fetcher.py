@@ -56,7 +56,8 @@ def fetch_image(query, limit=3):
                 if ii and ii[0].get('mime') in ['image/jpeg', 'image/jpg']:
                     file_url = ii[0].get('url', '')
                     title = pinfo.get('title', '').lower()
-                    if _is_valid_image_url(file_url) and not any(bad in title for bad in ['map', 'logo', 'flag', 'coat_of_arms', 'diagram', 'icon', 'symbol', 'stamp', 'sign', 'chart', 'poster']):
+                    BAD_TERMS = ['map', 'logo', 'flag', 'coat_of_arms', 'diagram', 'icon', 'symbol', 'stamp', 'sign', 'chart', 'poster', 'cat', 'dog', 'animal', 'bird', 'flower', 'insect', 'fish', 'dish', 'recipe', 'food', 'protest', 'parade', 'cannon', 'fighter_jet', 'navy_day']
+                    if _is_valid_image_url(file_url) and not any(bad in title for bad in BAD_TERMS):
                         if file_url not in urls:
                             urls.append(file_url)
                             if len(urls) >= limit:
@@ -79,7 +80,7 @@ def fetch_image(query, limit=3):
                     if ii and ii[0].get('mime') in ['image/jpeg', 'image/jpg']:
                         file_url = ii[0].get('url', '')
                         title = pinfo.get('title', '').lower()
-                        if _is_valid_image_url(file_url) and not any(bad in title for bad in ['map', 'logo', 'flag', 'coat_of_arms', 'diagram', 'icon', 'symbol', 'stamp']):
+                        if _is_valid_image_url(file_url) and not any(bad in title for bad in BAD_TERMS):
                             if file_url not in urls:
                                 urls.append(file_url)
                                 if len(urls) >= limit:

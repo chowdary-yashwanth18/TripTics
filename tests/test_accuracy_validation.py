@@ -279,6 +279,27 @@ class TestHotelsAndRides(unittest.TestCase):
         providers = [r["provider"] for r in rides_vn["rides"]]
         self.assertTrue(any("Grab" in p for p in providers))
 
+    def test_hotel_image_relevance_and_validity(self):
+        from utils.hotel_generator import generate_hotels, get_hotel_category
+        
+        self.assertEqual(get_hotel_category("Araku"), "hill")
+        self.assertEqual(get_hotel_category("Visakhapatnam"), "beach")
+        self.assertEqual(get_hotel_category("Maredumilli"), "jungle")
+        self.assertEqual(get_hotel_category("Jaipur"), "heritage")
+        self.assertEqual(get_hotel_category("Tirupati"), "pilgrimage")
+        
+        for loc in ["Araku", "Visakhapatnam", "Goa", "Srikakulam"]:
+            hotels = generate_hotels(loc)
+            self.assertGreater(len(hotels), 0)
+            for h in hotels:
+                self.assertTrue(h["outer_image_url"].startswith("http"))
+                self.assertTrue(h["inner_image_url"].startswith("http"))
+                # Prohibited irrelevant content check
+                lower_url = h["outer_image_url"].lower()
+                self.assertNotIn("cat_sitting", lower_url)
+                self.assertNotIn("passiflora", lower_url)
+                self.assertNotIn("navy_day", lower_url)
+
 
 if __name__ == "__main__":
     unittest.main()
