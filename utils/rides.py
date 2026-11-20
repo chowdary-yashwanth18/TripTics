@@ -569,8 +569,9 @@ COUNTRY_RIDE_SERVICES = {
                 'type': 'Bike',
                 'category': 'Bike',
                 'icon': '🏍️',
-                'base_fare': 25,
-                'per_km': 9.0,
+                'base_fare': 20,
+                'base_km': 1.5,
+                'per_km': 6.5,
                 'min_fare': 25,
                 'eta': '2-4 mins',
                 'color': 'warning',
@@ -579,30 +580,62 @@ COUNTRY_RIDE_SERVICES = {
                 'book_url': 'https://rapido.bike/'
             },
             {
+                'provider': 'Rapido',
+                'type': 'Auto',
+                'category': 'Auto',
+                'icon': '🛺',
+                'base_fare': 30,
+                'base_km': 1.5,
+                'per_km': 11.5,
+                'min_fare': 35,
+                'eta': '3-5 mins',
+                'color': 'warning',
+                'features': '3 Seats • Meter-free guaranteed auto with doorstep pickup',
+                'app_name': 'Rapido',
+                'book_url': 'https://rapido.bike/'
+            },
+            {
+                'provider': 'Rapido',
+                'type': 'Cab Economy',
+                'category': 'Car',
+                'icon': '🚗',
+                'base_fare': 50,
+                'base_km': 2.0,
+                'per_km': 13.5,
+                'min_fare': 60,
+                'eta': '4-7 mins',
+                'color': 'warning',
+                'features': '4 Seats • Lowest fare AC hatchback ride',
+                'app_name': 'Rapido',
+                'book_url': 'https://rapido.bike/'
+            },
+            {
                 'provider': 'Uber',
                 'type': 'Auto',
                 'category': 'Auto',
                 'icon': '🛺',
-                'base_fare': 35,
-                'per_km': 13.5,
+                'base_fare': 32,
+                'base_km': 1.5,
+                'per_km': 12.0,
                 'min_fare': 35,
                 'eta': '3-6 mins',
                 'color': 'dark',
-                'features': '3 Seats • Breezy & Meter-Free Guaranteed Auto',
+                'features': '3 Seats • Breezy & contactless verified auto',
                 'app_name': 'Uber',
                 'book_url': 'https://m.uber.com/ul/?action=setPickup'
             },
             {
                 'provider': 'Ola',
-                'type': 'Mini',
-                'category': 'Car',
-                'icon': '🚗',
-                'base_fare': 65,
-                'per_km': 15.0,
-                'min_fare': 65,
-                'eta': '4-8 mins',
+                'type': 'Auto',
+                'category': 'Auto',
+                'icon': '🛺',
+                'base_fare': 30,
+                'base_km': 1.5,
+                'per_km': 12.0,
+                'min_fare': 35,
+                'eta': '3-6 mins',
                 'color': 'success',
-                'features': '4 Seats • AC Compact Hatchback',
+                'features': '3 Seats • Quick auto hailing with cashless OTP ride',
                 'app_name': 'Ola',
                 'book_url': 'https://book.olacabs.com/'
             },
@@ -611,26 +644,43 @@ COUNTRY_RIDE_SERVICES = {
                 'type': 'Go',
                 'category': 'Car',
                 'icon': '🚙',
-                'base_fare': 70,
-                'per_km': 15.5,
+                'base_fare': 60,
+                'base_km': 2.0,
+                'per_km': 14.5,
                 'min_fare': 70,
                 'eta': '4-8 mins',
                 'color': 'dark',
-                'features': '4 Seats • Comfortable AC Ride',
+                'features': '4 Seats • Comfortable AC compact car',
                 'app_name': 'Uber',
                 'book_url': 'https://m.uber.com/ul/?action=setPickup'
+            },
+            {
+                'provider': 'Ola',
+                'type': 'Mini',
+                'category': 'Car',
+                'icon': '🚗',
+                'base_fare': 60,
+                'base_km': 2.0,
+                'per_km': 14.0,
+                'min_fare': 65,
+                'eta': '4-8 mins',
+                'color': 'success',
+                'features': '4 Seats • Everyday dependable AC hatchback',
+                'app_name': 'Ola',
+                'book_url': 'https://book.olacabs.com/'
             },
             {
                 'provider': 'Ola',
                 'type': 'Prime Sedan',
                 'category': 'Premium',
                 'icon': '🚘',
-                'base_fare': 110,
-                'per_km': 19.5,
-                'min_fare': 110,
+                'base_fare': 90,
+                'base_km': 2.0,
+                'per_km': 17.5,
+                'min_fare': 100,
                 'eta': '5-10 mins',
                 'color': 'primary',
-                'features': '4 Seats • Top-Rated Sedans & Extra Legroom',
+                'features': '4 Seats • Top-rated sedans & extra legroom',
                 'app_name': 'Ola',
                 'book_url': 'https://book.olacabs.com/'
             },
@@ -639,12 +689,13 @@ COUNTRY_RIDE_SERVICES = {
                 'type': 'XL',
                 'category': 'XL',
                 'icon': '🚐',
-                'base_fare': 160,
-                'per_km': 26.0,
-                'min_fare': 160,
+                'base_fare': 140,
+                'base_km': 2.0,
+                'per_km': 23.0,
+                'min_fare': 150,
                 'eta': '6-12 mins',
                 'color': 'dark',
-                'features': '6 Seats • Ertiga / Innova SUV for Family',
+                'features': '6 Seats • Ertiga / Innova SUV for families & luggage',
                 'app_name': 'Uber',
                 'book_url': 'https://m.uber.com/ul/?action=setPickup'
             }
@@ -745,8 +796,12 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
 
     rides = []
     for s in profile['services']:
-        # Compute price in country's local currency
-        raw_fare = s['base_fare'] + (s['per_km'] * actual_distance)
+        # Compute realistic fare with base distance inclusion
+        base_km = s.get('base_km', 1.5)
+        if actual_distance <= base_km:
+            raw_fare = s['base_fare']
+        else:
+            raw_fare = s['base_fare'] + (s['per_km'] * (actual_distance - base_km))
         local_price = max(s['min_fare'], int(round(raw_fare)))
 
         # Convert to INR for comparison if foreign currency

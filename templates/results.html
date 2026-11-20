@@ -47,6 +47,359 @@
             </div>
             {% endif %}
 
+            {# ── Complete Destination Guide, Route Map, Stays, Dining, Culture & Spots ── #}
+            {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') | replace("'", "") %}
+            {% set guide = rec.master_guide %}
+            {% if guide %}
+            <div class="mt-3">
+                <button class="btn btn-primary w-100 py-2 px-3 rounded-pill shadow-sm d-flex align-items-center justify-content-between gap-2 fw-bold text-start" type="button" data-bs-toggle="collapse" data-bs-target="#masterGuideCollapse-{{ dest_id }}" aria-expanded="false" style="background: linear-gradient(135deg, #1E40AF, #7C3AED); border: none;">
+                    <div class="d-flex align-items-center gap-2 text-truncate">
+                        <span class="fs-5">🗺️</span>
+                        <span class="text-white text-truncate">Complete Destination Guide & Route Map</span>
+                    </div>
+                    <span class="badge bg-white text-primary rounded-pill font-semibold px-2 py-1 flex-shrink-0" style="font-size: 0.68rem;">
+                        View All Details <i class="bi bi-chevron-down ms-1"></i>
+                    </span>
+                </button>
+
+                <div class="collapse mt-2" id="masterGuideCollapse-{{ dest_id }}">
+                    <div class="p-3 bg-white rounded-3 border shadow-sm">
+                        <!-- Header & Tagline -->
+                        <div class="mb-3 pb-2 border-bottom d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="fw-bold text-primary mb-0">{{ guide.title }}</h6>
+                                <small class="text-muted d-block" style="font-size: 0.72rem;">{{ guide.tagline }}</small>
+                            </div>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-2 py-1" style="font-size: 0.68rem;">
+                                <i class="bi bi-calendar3 me-1"></i> {{ guide.days }}-Day Plan
+                            </span>
+                        </div>
+
+                        <!-- Guide Tabs Nav -->
+                        <ul class="nav nav-pills nav-fill mb-3 p-1 bg-light rounded-pill border" id="guideTabs-{{ dest_id }}" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active rounded-pill py-1 px-1 fw-bold" id="tab-route-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-route-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    🗺️ Route Map
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill py-1 px-1 fw-bold" id="tab-spots-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-spots-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    📍 All Spots
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill py-1 px-1 fw-bold" id="tab-stays-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-stays-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    🏨 Stays & Lodges
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill py-1 px-1 fw-bold" id="tab-dining-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-dining-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    🍽️ Dishes & Dining
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill py-1 px-1 fw-bold" id="tab-culture-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-culture-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    🎭 Culture
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link rounded-pill py-1 px-1 fw-bold" id="tab-party-btn-{{ dest_id }}" data-bs-toggle="pill" data-bs-target="#tab-party-{{ dest_id }}" type="button" role="tab" style="font-size: 0.68rem;">
+                                    🎂 Celebrations
+                                </button>
+                            </li>
+                        </ul>
+
+                        <!-- Guide Tabs Content -->
+                        <div class="tab-content" id="guideTabsContent-{{ dest_id }}">
+                            <!-- TAB 1: Route Map & Plan -->
+                            <div class="tab-pane fade show active" id="tab-route-{{ dest_id }}" role="tabpanel">
+                                <div class="mb-3 rounded-3 overflow-hidden border shadow-2xs" style="height: 220px;">
+                                    <iframe width="100%" height="100%" frameborder="0" style="border:0;" src="{{ guide.map_embed_url }}" allowfullscreen loading="lazy"></iframe>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-2" style="font-size: 0.8rem;"><i class="bi bi-compass-fill text-primary"></i> Enthusiastic {{ guide.days }}-Day Route Roadmap:</h6>
+                                {% for day_plan in guide.enthusiastic_itinerary %}
+                                <div class="p-2 mb-2 bg-light rounded-3 border">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="badge bg-primary rounded-pill" style="font-size: 0.65rem;">Day {{ day_plan.day_number }}</span>
+                                        <strong class="text-dark small" style="font-size: 0.74rem;">{{ day_plan.theme }}</strong>
+                                    </div>
+                                    <div class="ps-2" style="border-left: 2px dashed #3B82F6;">
+                                        {% for slot in day_plan.slots %}
+                                        <div class="mb-1" style="font-size: 0.7rem;">
+                                            <span class="fw-bold text-dark">{{ slot.icon }} {{ slot.time }}:</span>
+                                            <span class="text-primary fw-semibold">{{ slot.title }}</span> — <span class="text-muted">{{ slot.desc }}</span>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+
+                            <!-- TAB 2: Categorized Visiting Spots -->
+                            <div class="tab-pane fade" id="tab-spots-{{ dest_id }}" role="tabpanel">
+                                <div class="accordion accordion-flush" id="spotsAccordion-{{ dest_id }}">
+                                    <!-- Temples -->
+                                    {% if guide.tourist_spots.temples %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-warning" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTemples-{{ dest_id }}">
+                                                🛕 Temples & Sacred Shrines ({{ guide.tourist_spots.temples|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseTemples-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.temples %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                    {% if item.timing %}<div class="text-success small fw-medium"><i class="bi bi-clock-fill"></i> {{ item.timing }}</div>{% endif %}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Hills & Viewpoints -->
+                                    {% if guide.tourist_spots.hills_viewpoints %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHills-{{ dest_id }}">
+                                                🌄 Hill Stations & Scenic Viewpoints ({{ guide.tourist_spots.hills_viewpoints|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseHills-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.hills_viewpoints %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Waterfalls -->
+                                    {% if guide.tourist_spots.waterfalls %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-info" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFalls-{{ dest_id }}">
+                                                🌊 Waterfalls & Cascades ({{ guide.tourist_spots.waterfalls|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFalls-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.waterfalls %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Parks & Botanical -->
+                                    {% if guide.tourist_spots.parks_botanical %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseParks-{{ dest_id }}">
+                                                🌳 Botanical Gardens & Parks ({{ guide.tourist_spots.parks_botanical|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseParks-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.parks_botanical %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Zoo & Wildlife -->
+                                    {% if guide.tourist_spots.zoo_wildlife %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseZoo-{{ dest_id }}">
+                                                🦁 Zoo & Wildlife Sanctuaries ({{ guide.tourist_spots.zoo_wildlife|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseZoo-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.zoo_wildlife %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Shopping Malls -->
+                                    {% if guide.tourist_spots.shopping_malls %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMalls-{{ dest_id }}">
+                                                🛍️ Shopping Malls & Bazaars ({{ guide.tourist_spots.shopping_malls|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseMalls-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.shopping_malls %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
+                                    <!-- Fun Zones -->
+                                    {% if guide.tourist_spots.fun_zones_waterparks %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFuns-{{ dest_id }}">
+                                                🎢 Fun Zones & Waterparks ({{ guide.tourist_spots.fun_zones_waterparks|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseFuns-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.fun_zones_waterparks %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- TAB 3: Stays & Lodges for Nights -->
+                            <div class="tab-pane fade" id="tab-stays-{{ dest_id }}" role="tabpanel">
+                                <div class="d-flex flex-column gap-2" style="font-size: 0.72rem;">
+                                    {% for stay in guide.stays %}
+                                    <div class="p-2 bg-light rounded-3 border">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-bold text-dark">🏨 {{ stay.name }}</span>
+                                            <span class="badge bg-warning text-dark font-semibold py-0 px-2" style="font-size: 0.65rem;">
+                                                ⭐ {{ stay.rating }}
+                                            </span>
+                                        </div>
+                                        <div class="text-muted small mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> {{ stay.address }}</div>
+                                        <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.7rem;">
+                                            <a href="tel:{{ stay.phone }}" class="text-decoration-none text-primary fw-semibold">
+                                                <i class="bi bi-telephone-fill me-1"></i> {{ stay.phone }}
+                                            </a>
+                                            <a href="{{ stay.primary_app.url if stay.primary_app else ('https://www.makemytrip.com/hotels/' ~ (rec.Destination|urlencode) ~ '-hotels.html') }}" target="_blank" class="btn btn-sm btn-primary rounded-pill py-0 px-2 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.66rem;">
+                                                <span>Book Official</span>
+                                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.58rem;"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <!-- TAB 4: Dining & Dishes -->
+                            <div class="tab-pane fade" id="tab-dining-{{ dest_id }}" role="tabpanel">
+                                <h6 class="fw-bold text-dark mb-2" style="font-size: 0.78rem;"><i class="bi bi-egg-fried text-warning"></i> Must-Try Signature Local Delicacies:</h6>
+                                <div class="d-flex flex-column gap-2 mb-2" style="font-size: 0.72rem;">
+                                    {% for dish in guide.dining_cuisine.must_try_dishes %}
+                                    <div class="p-2 bg-light rounded-3 border">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-bold text-dark">{{ dish.name }}</span>
+                                            <span class="badge {% if 'Veg' in dish.type and 'Non' not in dish.type %}bg-success-subtle text-success border border-success-subtle{% else %}bg-danger-subtle text-danger border border-danger-subtle{% endif %}" style="font-size: 0.62rem;">
+                                                {{ dish.type }}
+                                            </span>
+                                        </div>
+                                        <div class="text-muted mb-1">{{ dish.desc }}</div>
+                                        <div class="text-primary small fw-semibold"><i class="bi bi-shop me-1"></i> Best At: {{ dish.best_at }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if guide.dining_cuisine.famous_food_streets %}
+                                <h6 class="fw-bold text-dark mb-1 mt-2" style="font-size: 0.76rem;"><i class="bi bi-fire text-danger"></i> Famous Food Streets:</h6>
+                                {% for s in guide.dining_cuisine.famous_food_streets %}
+                                <div class="p-2 mb-1 bg-white rounded-2 border shadow-2xs" style="font-size: 0.7rem;">
+                                    <div class="fw-bold text-dark">{{ s.name }} ({{ s.landmark }})</div>
+                                    <div class="text-muted">{{ s.specialties }}</div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+
+                            <!-- TAB 5: Culture & Festivals -->
+                            <div class="tab-pane fade" id="tab-culture-{{ dest_id }}" role="tabpanel">
+                                <div class="p-2 mb-2 bg-light rounded-3 border" style="font-size: 0.72rem;">
+                                    <h6 class="fw-bold text-primary mb-1"><i class="bi bi-bank"></i> Cultural Heritage:</h6>
+                                    <p class="text-dark mb-0">{{ guide.culture_traditions.summary }}</p>
+                                </div>
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.76rem;"><i class="bi bi-stars text-warning"></i> Major Festivals & Sacred Rituals:</h6>
+                                <div class="d-flex flex-column gap-2 mb-2" style="font-size: 0.72rem;">
+                                    {% for f in guide.culture_traditions.festivals_rituals %}
+                                    <div class="p-2 bg-white rounded-3 border shadow-2xs">
+                                        <div class="fw-bold text-dark mb-1">{{ f.name }}</div>
+                                        <div class="text-muted mb-1">{{ f.importance }}</div>
+                                        <div class="text-success small fw-medium"><i class="bi bi-feather me-1"></i> Rituals: {{ f.rituals }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% if guide.culture_traditions.art_crafts %}
+                                <div class="p-2 bg-light rounded-3 border small" style="font-size: 0.7rem;">
+                                    <strong class="text-secondary"><i class="bi bi-brush-fill"></i> Traditional Arts & Crafts:</strong> {{ guide.culture_traditions.art_crafts }}
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- TAB 6: Celebrations & Birthday Venues -->
+                            <div class="tab-pane fade" id="tab-party-{{ dest_id }}" role="tabpanel">
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.78rem;"><i class="bi bi-balloon-heart-fill text-danger"></i> Birthday & Occasion Celebration Venues:</h6>
+                                <small class="text-muted d-block mb-2" style="font-size: 0.7rem;">Exact map-style landmark directions for booking party lawns, rooftop cabanas & bonfires:</small>
+                                <div class="d-flex flex-column gap-2" style="font-size: 0.72rem;">
+                                    {% for v in guide.celebrations_venues %}
+                                    <div class="p-2 bg-white rounded-3 border shadow-2xs">
+                                        <div class="d-flex justify-content-between align-items-center mb-1">
+                                            <span class="fw-bold text-danger">🎉 {{ v.name }}</span>
+                                            {% if v.phone %}
+                                            <a href="tel:{{ v.phone }}" class="badge bg-primary text-white text-decoration-none py-1 px-2 rounded-pill" style="font-size: 0.65rem;">
+                                                <i class="bi bi-telephone-fill me-1"></i> Call Venue
+                                            </a>
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-dark fw-medium mb-1"><i class="bi bi-pin-map-fill text-danger"></i> <strong>Map Landmark:</strong> {{ v.map_landmark }}</div>
+                                        <div class="text-muted mb-1"><strong>Vibe:</strong> {{ v.vibe }}</div>
+                                        <div class="text-success small"><strong>Setup:</strong> {{ v.features }}</div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
             {# ── Top Attractions (Dynamic Google Places) ── #}
             {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') | replace("'", "") %}
             <div class="mt-3 p-3 bg-light rounded-3 border">
@@ -95,15 +448,30 @@
                     <i class="bi bi-phone-fill text-primary"></i> Bookable via <strong>{{ local_stays[0].primary_app.app_name }}</strong> & regional apps
                 </small>
                 {% endif %}
-                <div class="d-flex flex-wrap gap-2 mt-2">
-                    {% for stay in local_stays[:4] %}
-                    <a href="{{ stay.primary_app.url if stay.primary_app else url_for('hotels') ~ '?location=' ~ (rec.Destination ~ ', ' ~ rec.State)|urlencode }}" target="_blank" class="btn btn-sm btn-outline-success shadow-sm d-inline-flex align-items-center gap-1" style="text-decoration: none; font-size: 0.75rem;">
-                        <span>🏨 {{ stay.name }}</span>
-                        <strong class="text-dark">{{ display_price(stay.price, currency_info) }}</strong>
-                        {% if stay.primary_app %}
-                        <span class="badge bg-white text-secondary border font-normal py-0 px-1" style="font-size: 0.65rem;">{{ stay.primary_app.app_name.split(' ')[0] }}</span>
-                        {% endif %}
-                    </a>
+                <div class="d-flex flex-column gap-2 mt-2">
+                    {% for stay in local_stays[:3] %}
+                    <div class="p-2 bg-white rounded-3 border shadow-xs d-flex flex-column gap-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="fw-bold text-dark small text-truncate" style="max-width: 68%;">🏨 {{ stay.name }}</span>
+                            <span class="badge bg-warning text-dark font-semibold py-0 px-2" style="font-size: 0.68rem;">
+                                <i class="bi bi-star-fill text-dark me-1"></i> {{ stay.rating }}
+                            </span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-1">
+                            {% for fac in stay.facilities[:3] %}
+                            <span class="badge bg-light text-secondary border font-normal py-0 px-1" style="font-size: 0.62rem;"><i class="bi {{ fac.icon }}"></i> {{ fac.name }}</span>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.7rem;">
+                            <a href="tel:{{ stay.phone }}" class="text-decoration-none text-primary fw-semibold" title="Click to call reception">
+                                <i class="bi bi-telephone-fill me-1"></i> {{ stay.phone }}
+                            </a>
+                            <a href="{{ stay.primary_app.url if stay.primary_app else ('https://www.makemytrip.com/hotels/' ~ (rec.Destination|urlencode) ~ '-hotels.html') }}" target="_blank" class="btn btn-sm btn-primary rounded-pill py-0 px-2 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.66rem;">
+                                <span>Book on {{ stay.primary_app.app_name.split(' ')[0] if stay.primary_app else 'Official Site' }}</span>
+                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.58rem;"></i>
+                            </a>
+                        </div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -223,12 +591,17 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
-                                            {% if opt.provenance %}
-                                            <div class="text-muted small mb-1 text-truncate" style="font-size: 0.68rem; max-width: 140px;" title="{{ opt.provenance.source_provider }}">{{ opt.provenance.source_provider }}</div>
-                                            {% endif %}
+                                            {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else "Official State RTC / RedBus") %}
                                             {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
-                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-primary shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Ticket <i class="bi bi-box-arrow-up-right"></i></a>
+                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
+                                            </span>
+                                            <div>
+                                                <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-primary shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                    <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else "RTC / RedBus") }}</span>
+                                                    <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                     {% if opt.legs and opt.legs|length > 1 %}
@@ -243,9 +616,8 @@
                                                     <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                 </div>
                                                 <div class="text-end">
-                                                    <div class="fw-bold text-success small mb-1">{{ display_price(leg.price, currency_info) }}</div>
-                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book</a>
+                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.google.com/travel/flights") %}
+                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
                                                 </div>
                                             </div>
                                             {% endfor %}
@@ -298,12 +670,17 @@
                                             </div>
                                         </div>
                                         <div class="text-end">
-                                            <h6 class="mb-0 fw-bold text-success" style="font-size: 0.9rem;">{{ display_price(opt.price, currency_info) }} <span class="text-muted small fw-normal">(per ticket)</span></h6>
-                                            {% if opt.provenance %}
-                                            <div class="text-muted small mb-1 text-truncate" style="font-size: 0.68rem; max-width: 140px;" title="{{ opt.provenance.source_provider }}">{{ opt.provenance.source_provider }}</div>
-                                            {% endif %}
+                                            {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else "Official State RTC / RedBus") %}
                                             {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
-                                            <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-outline-danger shadow-sm rounded-pill py-0" style="font-size: 0.7rem;">Book Ticket <i class="bi bi-box-arrow-up-right"></i></a>
+                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
+                                                <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
+                                            </span>
+                                            <div>
+                                                <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-danger shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                    <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else "RTC / RedBus") }}</span>
+                                                    <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                     {% if opt.legs and opt.legs|length > 1 %}
@@ -318,9 +695,8 @@
                                                     <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                 </div>
                                                 <div class="text-end">
-                                                    <div class="fw-bold text-success small mb-1">{{ display_price(leg.price, currency_info) }}</div>
-                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book</a>
+                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.google.com/travel/flights") %}
+                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
                                                 </div>
                                             </div>
                                             {% endfor %}
@@ -336,6 +712,93 @@
                 </div>
                 </div>
                 {% endif %}
+            {% endif %}
+
+            {# ── Available ATMs Nearby Transit Hubs (Railway Stations, Bus Stops & Airports) ── #}
+            {% if rec.atms %}
+            <div class="mt-3 p-3 bg-white rounded-3 border shadow-xs">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                        <span class="fs-5">🏧</span>
+                        <span>Available ATMs Nearby Transit Hubs</span>
+                    </h6>
+                    <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold px-2 py-1" style="font-size: 0.68rem;">
+                        <i class="bi bi-clock-history me-1"></i> Open 24/7
+                    </span>
+                </div>
+                <small class="text-muted d-block mb-3" style="font-size: 0.74rem;">
+                    Instant cash withdrawal & deposit points located directly at railway station concourses, bus terminals, and airport arrivals in <strong>{{ rec.Destination }}</strong>:
+                </small>
+
+                <div class="row g-2">
+                    {% if rec.atms.railway %}
+                    <div class="col-12 col-md-4">
+                        <div class="p-2 rounded-3 bg-light border h-100">
+                            <div class="fw-bold small text-primary mb-1 d-flex align-items-center gap-1">
+                                <i class="bi bi-train-front text-primary"></i> <span>Railway Station ATMs</span>
+                            </div>
+                            {% for atm in rec.atms.railway[:2] %}
+                            <div class="bg-white p-2 rounded-2 border mb-1 shadow-2xs">
+                                <div class="fw-bold text-dark" style="font-size: 0.74rem;">{{ atm.bank }}</div>
+                                <div class="text-muted" style="font-size: 0.68rem;"><i class="bi bi-geo-alt-fill text-danger"></i> {{ atm.location }}</div>
+                                <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.65rem;">
+                                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> 24/7 Cash</span>
+                                    <a href="{{ atm.maps_url }}" target="_blank" class="text-primary text-decoration-none fw-semibold">
+                                        Directions <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if rec.atms.bus %}
+                    <div class="col-12 col-md-4">
+                        <div class="p-2 rounded-3 bg-light border h-100">
+                            <div class="fw-bold small text-success mb-1 d-flex align-items-center gap-1">
+                                <i class="bi bi-bus-front text-success"></i> <span>Bus Stand / ISBT ATMs</span>
+                            </div>
+                            {% for atm in rec.atms.bus[:2] %}
+                            <div class="bg-white p-2 rounded-2 border mb-1 shadow-2xs">
+                                <div class="fw-bold text-dark" style="font-size: 0.74rem;">{{ atm.bank }}</div>
+                                <div class="text-muted" style="font-size: 0.68rem;"><i class="bi bi-geo-alt-fill text-danger"></i> {{ atm.location }}</div>
+                                <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.65rem;">
+                                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> 24/7 Cash</span>
+                                    <a href="{{ atm.maps_url }}" target="_blank" class="text-success text-decoration-none fw-semibold">
+                                        Directions <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    {% if rec.atms.airport or rec.atms.city %}
+                    <div class="col-12 col-md-4">
+                        <div class="p-2 rounded-3 bg-light border h-100">
+                            <div class="fw-bold small text-info mb-1 d-flex align-items-center gap-1">
+                                <i class="bi bi-airplane text-info"></i> <span>Airport & City ATMs</span>
+                            </div>
+                            {% set display_other = rec.atms.airport if rec.atms.airport else rec.atms.city %}
+                            {% for atm in display_other[:2] %}
+                            <div class="bg-white p-2 rounded-2 border mb-1 shadow-2xs">
+                                <div class="fw-bold text-dark" style="font-size: 0.74rem;">{{ atm.bank }}</div>
+                                <div class="text-muted" style="font-size: 0.68rem;"><i class="bi bi-geo-alt-fill text-danger"></i> {{ atm.location }}</div>
+                                <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.65rem;">
+                                    <span class="text-success"><i class="bi bi-check-circle-fill"></i> 24/7 Cash</span>
+                                    <a href="{{ atm.maps_url }}" target="_blank" class="text-info text-decoration-none fw-semibold">
+                                        Directions <i class="bi bi-box-arrow-up-right"></i>
+                                    </a>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
             {% endif %}
 
             {# ── Score bar ── #}
@@ -477,6 +940,137 @@
         </div>
         {% endif %}
         <p class="lead text-muted">Based on a budget of <strong>{{ display_price(budget, currency_info) }}</strong> for <strong>{{ days }} days</strong> and <strong>{{ travelers }} travelers</strong>.</p>
+    </div>
+</div>
+
+{# ── AI Trip Concierge & Day Planner (Visible only after vacation details entered) ── #}
+{% set chat_dest = target_location if target_location else (recommendations[0].Destination if recommendations else (alternatives[0].Destination if alternatives else 'India')) %}
+<div class="row mb-5" id="ai-concierge-section">
+    <div class="col-12">
+        <div class="glass-card p-4 rounded-4 shadow-sm border border-primary border-opacity-25" style="background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(243,244,255,0.92));">
+            <div class="d-flex flex-wrap justify-content-between align-items-center mb-3 pb-3 border-bottom">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 52px; height: 52px; background: linear-gradient(135deg, #4F46E5, #8B5CF6); color: white; font-size: 1.6rem;">
+                        🤖
+                    </div>
+                    <div>
+                        <h4 class="fw-bold text-dark mb-0 d-flex align-items-center gap-2">
+                            <span>TripTics AI Concierge & Day Planner</span>
+                            <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold" style="font-size: 0.7rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.5rem;"></i> Active</span>
+                        </h4>
+                        <small class="text-muted" style="font-size: 0.82rem;">
+                            Personalized routing, order of sights (where to go first), chill spots & birthday party recommendations for <strong class="text-primary">{{ chat_dest.title() }}</strong>
+                        </small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 mt-2 mt-md-0">
+                    <span class="badge bg-white text-dark border px-3 py-2 shadow-xs"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ chat_dest.title() }}</span>
+                    <span class="badge bg-white text-dark border px-3 py-2 shadow-xs"><i class="bi bi-calendar3 text-primary me-1"></i> {{ days }} Day{% if days > 1 %}s{% endif %}</span>
+                    <span class="badge bg-white text-dark border px-3 py-2 shadow-xs"><i class="bi bi-people-fill text-info me-1"></i> {{ travelers }} Traveler{% if travelers > 1 %}s{% endif %}</span>
+                    <span class="badge bg-white text-success border px-3 py-2 shadow-xs"><i class="bi bi-wallet2 text-success me-1"></i> ₹{{ budget }}</span>
+                </div>
+            </div>
+
+            {# Quick Travel Vibe & Prompt Chips #}
+            <div class="mb-3">
+                <small class="text-muted fw-bold d-block mb-2" style="font-size: 0.75rem;"><i class="bi bi-stars text-warning me-1"></i> Choose Your Travel Vibe or Prompt for {{ chat_dest.title() }}:</small>
+                <div class="d-flex flex-wrap gap-2">
+                    <button class="btn btn-sm btn-outline-success rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('I am a Nature Lover: suggest places rolling through green fields, organic farms, valleys and scenic nature spots in {{ chat_dest.title() }}')">
+                        <span>🌿 Nature & Countryside Farms</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-warning rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1 text-dark" type="button" onclick="sendPrompt('I am a Temple and Devotional person: plan an efficient spiritual trip covering famous temples, sacred shrines and darshan in {{ chat_dest.title() }}')">
+                        <span>🛕 Temples & Devotional Shrines</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-primary rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Trip with Friends and Family: suggest waterparks, fun zones, chill spots, resort celebration lawns and group food in {{ chat_dest.title() }}')">
+                        <span>👨‍👩‍👧‍👦 Friends & Family Fun / Waterparks</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Adventure and Trekking: suggest top trekking trails, waterfalls, wildlife safari and outdoor activities in {{ chat_dest.title() }}')">
+                        <span>🥾 Adventure, Waterfalls & Treks</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-dark rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Plan an efficient {{ days }}-day itinerary for {{ chat_dest.title() }} covering all famous temples, scenic viewpoints, waterfalls, treks, zoo and fun zones')">
+                        <span>🗺️ Plan {{ days }}-Day Trip (Cover All Places)</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('What are the best traditional dishes to try and famous food streets in {{ chat_dest.title() }}?')">
+                        <span>🍲 Dishes to Try & Dining</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Tell me about the culture, traditions, festivals and rituals in {{ chat_dest.title() }}')">
+                        <span>🎭 Culture & Festivals</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('What are the best shopping malls and traditional bazaars in {{ chat_dest.title() }}?')">
+                        <span>🛍️ Shopping Malls & Bazaars</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-danger rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Where can we celebrate a birthday party or anniversary in {{ chat_dest.title() }} with exact landmark map locations?')">
+                        <span>🎂 Birthday Spots (Landmark Locations)</span>
+                    </button>
+                    <button class="btn btn-sm btn-outline-info rounded-pill py-1 px-3 shadow-xs d-flex align-items-center gap-1" type="button" onclick="sendPrompt('Where are the nearest ATMs near the railway station, bus stop, and airport in {{ chat_dest.title() }}?')">
+                        <span>🏧 Nearest Transit ATMs</span>
+                    </button>
+                </div>
+            </div>
+
+            {# Chat Messages Container #}
+            <div id="ai-chat-messages" class="p-3 bg-white rounded-3 border mb-3 overflow-auto shadow-inner" style="max-height: 480px; min-height: 250px;">
+                <!-- Initial Greeting & Interactive Persona Prompt -->
+                <div class="d-flex gap-2 mb-3">
+                    <div class="fs-4">🤖</div>
+                    <div class="p-3 rounded-4 bg-light border shadow-xs" style="max-width: 90%;">
+                        <div class="fw-bold small text-primary mb-1">TripTics AI Concierge</div>
+                        <div class="small text-dark lh-base">
+                            Hello! 👋 Welcome to your AI Travel Concierge for <strong>{{ chat_dest.title() }}</strong> ({{ days }} day{% if days > 1 %}s{% endif %}, {{ travelers }} traveler{% if travelers > 1 %}s{% endif %}, budget ₹{{ budget }}).<br><br>
+                            To tailor your trip efficiently and cover every famous spot, <strong>what kind of traveler are you?</strong>
+                            
+                            <div class="row g-2 mt-2 mb-2">
+                                <div class="col-12 col-md-6">
+                                    <div class="p-2 rounded-3 bg-white border shadow-2xs h-100 hover-shadow cursor-pointer" onclick="sendPrompt('I am a Nature Lover: suggest places rolling through green fields, organic farms, valleys and scenic nature spots in {{ chat_dest.title() }}')">
+                                        <div class="fw-bold text-success small mb-1"><span class="me-1">🌿</span> Nature & Farm Lover</div>
+                                        <div class="text-muted" style="font-size: 0.72rem;">Rolling green fields, organic farms, tea/coffee estates & tranquil countryside.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="p-2 rounded-3 bg-white border shadow-2xs h-100 hover-shadow cursor-pointer" onclick="sendPrompt('I am a Temple and Devotional person: plan an efficient spiritual trip covering famous temples, sacred shrines and darshan in {{ chat_dest.title() }}')">
+                                        <div class="fw-bold text-warning small mb-1"><span class="me-1">🛕</span> Temple & Devotional Person</div>
+                                        <div class="text-muted" style="font-size: 0.72rem;">Sacred jyotirlingas, ancient shrines, morning aarti & spiritual heritage.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="p-2 rounded-3 bg-white border shadow-2xs h-100 hover-shadow cursor-pointer" onclick="sendPrompt('Trip with Friends and Family: suggest waterparks, fun zones, chill spots, resort celebration lawns and group food in {{ chat_dest.title() }}')">
+                                        <div class="fw-bold text-primary small mb-1"><span class="me-1">👨‍👩‍👧‍👦</span> Trip with Friends / Family</div>
+                                        <div class="text-muted" style="font-size: 0.72rem;">Waterparks, fun zones, chill cafes, resort party lawns & group feasts.</div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="p-2 rounded-3 bg-white border shadow-2xs h-100 hover-shadow cursor-pointer" onclick="sendPrompt('Adventure and Trekking: suggest top trekking trails, waterfalls, wildlife safari and outdoor activities in {{ chat_dest.title() }}')">
+                                        <div class="fw-bold text-danger small mb-1"><span class="me-1">🥾</span> Adventure & Trekker</div>
+                                        <div class="text-muted" style="font-size: 0.72rem;">Gushing waterfalls, mountain ridge hikes, national park safaris & adventure.</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="d-flex flex-wrap gap-2 pt-1 border-top">
+                                <span class="badge bg-light text-dark border cursor-pointer" onclick="sendPrompt('Plan an efficient {{ days }}-day itinerary for {{ chat_dest.title() }} covering all famous temples, scenic viewpoints, waterfalls, treks, zoo and fun zones')">
+                                    🗺️ Plan {{ days }}-Day Trip (Cover All Places)
+                                </span>
+                                <span class="badge bg-light text-dark border cursor-pointer" onclick="sendPrompt('Where should I go first in {{ chat_dest.title() }} and what to do?')">
+                                    📍 Where should I go first?
+                                </span>
+                                <span class="badge bg-light text-dark border cursor-pointer" onclick="sendPrompt('Where are the nearest ATMs near the railway station, bus stop, and airport in {{ chat_dest.title() }}?')">
+                                    🏧 Transit Hub ATMs (Station / Bus / Airport)
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {# Chat Input Form #}
+            <form id="ai-chat-form" onsubmit="handleChatSubmit(event)" class="d-flex gap-2">
+                <input type="text" id="ai-chat-input" class="form-control rounded-pill px-3 shadow-xs" placeholder="Ask anything (e.g. Where should I go first in {{ chat_dest.title() }}? Where can we chill?)..." autocomplete="off" required>
+                <button type="submit" id="ai-chat-send-btn" class="btn btn-primary rounded-pill px-4 shadow-sm d-flex align-items-center gap-2">
+                    <span>Ask AI</span>
+                    <i class="bi bi-send-fill"></i>
+                </button>
+            </form>
+        </div>
     </div>
 </div>
 
@@ -873,11 +1467,15 @@ function loadRides(locationQuery, idSuffix) {
                         </div>
                     </div>
                     <div class="text-end">
-                        <h6 class="mb-0 fw-bold text-success" style="font-size: 0.95rem;">${ride.price_display}</h6>
-                        <a href="${ride.book_url}" target="_blank" class="btn btn-sm btn-dark rounded-pill py-0 px-2 mt-1 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.68rem;">
-                            <span>Open ${ride.app_name}</span>
-                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.6rem;"></i>
-                        </a>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
+                            <i class="bi bi-shield-check me-1"></i> Verified App
+                        </span>
+                        <div>
+                            <a href="${ride.book_url}" target="_blank" class="btn btn-sm btn-dark rounded-pill py-1 px-3 mt-1 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                <span>Book in ${ride.app_name}</span>
+                                <i class="bi bi-box-arrow-up-right" style="font-size: 0.62rem;"></i>
+                            </a>
+                        </div>
                     </div>
                 `;
                 container.appendChild(item);
@@ -891,5 +1489,220 @@ function loadRides(locationQuery, idSuffix) {
             container.innerHTML = '<p class="text-danger small w-100 mb-0">Error calculating rides.</p>';
         });
 }
+
+// ══════════════════════════════════════════════════════════════
+// AI CONCIERGE & DAY PLANNER CLIENT
+// ══════════════════════════════════════════════════════════════
+const TRIP_AI_CONTEXT = {
+    destination: "{{ chat_dest }}",
+    days: {{ days }},
+    travelers: {{ travelers }},
+    budget: {{ budget }}
+};
+
+function formatAiMarkdown(text) {
+    if (!text) return '';
+    let html = text
+        .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+        .replace(/^### (.*$)/gim, '<h6 class="fw-bold text-primary mt-3 mb-1">$1</h6>')
+        .replace(/^#### (.*$)/gim, '<h6 class="fw-bold text-dark mt-2 mb-1" style="font-size:0.85rem;">$1</h6>')
+        .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+        .replace(/^\* (.*$)/gim, '<div class="ms-2 mb-1">• $1</div>')
+        .replace(/^([0-9]+\.) (.*$)/gim, '<div class="ms-2 mb-1 fw-medium">$1 $2</div>')
+        .replace(/\n\n/g, '<div class="my-2"></div>')
+        .replace(/\n/g, '<br>');
+    return html;
+}
+
+function appendChatMessage(containerId, sender, text, isUser) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+
+    const row = document.createElement('div');
+    row.className = isUser ? 'd-flex justify-content-end mb-3' : 'd-flex gap-2 mb-3';
+
+    if (isUser) {
+        row.innerHTML = `
+            <div class="p-3 rounded-4 bg-primary text-white shadow-xs" style="max-width: 82%; font-size: 0.85rem;">
+                <div class="fw-bold small opacity-75 mb-1 text-end">You</div>
+                <div>${text.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</div>
+            </div>
+        `;
+    } else {
+        row.innerHTML = `
+            <div class="fs-4">🤖</div>
+            <div class="p-3 rounded-4 bg-light border shadow-xs" style="max-width: 88%; font-size: 0.85rem;">
+                <div class="fw-bold small text-primary mb-1">${sender}</div>
+                <div class="text-dark lh-base">${formatAiMarkdown(text)}</div>
+            </div>
+        `;
+    }
+
+    container.appendChild(row);
+    container.scrollTop = container.scrollHeight;
+}
+
+function showTypingIndicator(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return null;
+
+    const ind = document.createElement('div');
+    ind.id = `${containerId}-typing`;
+    ind.className = 'd-flex gap-2 mb-3';
+    ind.innerHTML = `
+        <div class="fs-4">🤖</div>
+        <div class="p-3 rounded-4 bg-light border shadow-xs d-flex align-items-center gap-2" style="font-size: 0.82rem;">
+            <div class="spinner-grow spinner-grow-sm text-primary" role="status"></div>
+            <span class="text-muted fst-italic">AI Concierge is planning your trip...</span>
+        </div>
+    `;
+    container.appendChild(ind);
+    container.scrollTop = container.scrollHeight;
+    return ind;
+}
+
+function removeTypingIndicator(containerId) {
+    const ind = document.getElementById(`${containerId}-typing`);
+    if (ind) ind.remove();
+}
+
+function sendPrompt(promptText) {
+    const input = document.getElementById('ai-chat-input');
+    if (input) {
+        input.value = promptText;
+        executeAiChat(promptText);
+    }
+}
+
+function handleChatSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('ai-chat-input');
+    if (!input || !input.value.trim()) return;
+    const query = input.value.trim();
+    input.value = '';
+    executeAiChat(query);
+}
+
+function executeAiChat(userText) {
+    // Append to page chat
+    appendChatMessage('ai-chat-messages', 'You', userText, true);
+    // Append to floating drawer if exists
+    appendChatMessage('floating-chat-messages', 'You', userText, true);
+
+    showTypingIndicator('ai-chat-messages');
+    showTypingIndicator('floating-chat-messages');
+
+    fetch('/api/chatbot', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            message: userText,
+            destination: TRIP_AI_CONTEXT.destination,
+            days: TRIP_AI_CONTEXT.days,
+            travelers: TRIP_AI_CONTEXT.travelers,
+            budget: TRIP_AI_CONTEXT.budget
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        removeTypingIndicator('ai-chat-messages');
+        removeTypingIndicator('floating-chat-messages');
+
+        const reply = data.reply || "I couldn't process that query. Please try asking again!";
+        appendChatMessage('ai-chat-messages', 'TripTics AI Concierge', reply, false);
+        appendChatMessage('floating-chat-messages', 'TripTics AI Concierge', reply, false);
+    })
+    .catch(err => {
+        removeTypingIndicator('ai-chat-messages');
+        removeTypingIndicator('floating-chat-messages');
+        const errReply = "Sorry, I ran into an issue communicating with the AI server. Please try again!";
+        appendChatMessage('ai-chat-messages', 'TripTics AI Concierge', errReply, false);
+        appendChatMessage('floating-chat-messages', 'TripTics AI Concierge', errReply, false);
+    });
+}
+
+function toggleFloatingChat() {
+    const drawer = document.getElementById('floating-chat-drawer');
+    if (drawer) {
+        drawer.classList.toggle('d-none');
+        if (!drawer.classList.contains('d-none')) {
+            const input = document.getElementById('floating-chat-input');
+            if (input) input.focus();
+        }
+    }
+}
+
+function handleFloatingSubmit(e) {
+    e.preventDefault();
+    const input = document.getElementById('floating-chat-input');
+    if (!input || !input.value.trim()) return;
+    const query = input.value.trim();
+    input.value = '';
+    executeAiChat(query);
+}
 </script>
+
+{# ── Floating AI Chatbot Widget ── #}
+<div id="floating-ai-widget" style="position: fixed; bottom: 25px; right: 25px; z-index: 1060;">
+    <!-- Toggle Button -->
+    <button id="floating-chat-toggle" class="btn btn-primary rounded-pill px-3 py-2 shadow-lg d-flex align-items-center gap-2 border-2 border-white" onclick="toggleFloatingChat()" style="background: linear-gradient(135deg, #4F46E5, #8B5CF6); font-size: 0.85rem; font-weight: 600;">
+        <span class="fs-5">🤖</span>
+        <span>AI Day Planner</span>
+        <span class="badge bg-white text-primary rounded-pill ms-1" style="font-size: 0.65rem;">Ask AI</span>
+    </button>
+
+    <!-- Floating Chat Drawer -->
+    <div id="floating-chat-drawer" class="card shadow-lg border-primary border-opacity-25 rounded-4 d-none position-absolute" style="bottom: 55px; right: 0; width: 380px; max-width: calc(100vw - 35px); height: 520px; overflow: hidden; background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); z-index: 1070;">
+        <!-- Header -->
+        <div class="card-header bg-primary text-white py-2 px-3 d-flex justify-content-between align-items-center" style="background: linear-gradient(135deg, #4F46E5, #8B5CF6);">
+            <div class="d-flex align-items-center gap-2">
+                <span class="fs-5">🤖</span>
+                <div>
+                    <h6 class="mb-0 fw-bold small text-white">TripTics AI Planner</h6>
+                    <small class="opacity-75" style="font-size: 0.68rem;">{{ chat_dest.title() }} • Day & Chill Assistant</small>
+                </div>
+            </div>
+            <button type="button" class="btn-close btn-close-white" style="font-size: 0.7rem;" onclick="toggleFloatingChat()"></button>
+        </div>
+
+        <!-- Chat messages -->
+        <div id="floating-chat-messages" class="card-body p-3 overflow-auto" style="height: 390px; background: #FAFBFD;">
+            <div class="d-flex gap-2 mb-2">
+                <div class="fs-5">🤖</div>
+                <div class="p-2 px-3 rounded-4 bg-light border shadow-xs" style="max-width: 92%; font-size: 0.78rem;">
+                    <div class="fw-bold text-primary mb-1" style="font-size: 0.75rem;">AI Concierge</div>
+                    <span>Hi! Traveling to <strong>{{ chat_dest.title() }}</strong>? What is your travel style?</span>
+                    <div class="d-flex flex-column gap-1 mt-2 mb-2">
+                        <button class="btn btn-xs btn-outline-success text-start py-1 px-2 rounded-2" style="font-size: 0.72rem;" onclick="sendPrompt('I am a Nature Lover: suggest places rolling through green fields, organic farms, valleys and scenic nature spots in {{ chat_dest.title() }}')">
+                            🌿 Nature & Countryside Lover
+                        </button>
+                        <button class="btn btn-xs btn-outline-warning text-dark text-start py-1 px-2 rounded-2" style="font-size: 0.72rem;" onclick="sendPrompt('I am a Temple and Devotional person: plan an efficient spiritual trip covering famous temples, sacred shrines and darshan in {{ chat_dest.title() }}')">
+                            🛕 Temples & Devotional Person
+                        </button>
+                        <button class="btn btn-xs btn-outline-primary text-start py-1 px-2 rounded-2" style="font-size: 0.72rem;" onclick="sendPrompt('Trip with Friends and Family: suggest waterparks, fun zones, chill spots, resort celebration lawns and group food in {{ chat_dest.title() }}')">
+                            👨‍👩‍👧‍👦 Friends & Family / Waterparks
+                        </button>
+                        <button class="btn btn-xs btn-outline-danger text-start py-1 px-2 rounded-2" style="font-size: 0.72rem;" onclick="sendPrompt('Adventure and Trekking: suggest top trekking trails, waterfalls, wildlife safari and outdoor activities in {{ chat_dest.title() }}')">
+                            🥾 Adventure, Waterfalls & Treks
+                        </button>
+                        <button class="btn btn-xs btn-outline-info text-start py-1 px-2 rounded-2" style="font-size: 0.72rem;" onclick="sendPrompt('Where are the nearest ATMs near the railway station, bus stop, and airport in {{ chat_dest.title() }}?')">
+                            🏧 Nearest Transit Hub ATMs
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input -->
+        <div class="card-footer bg-white p-2 border-top">
+            <form onsubmit="handleFloatingSubmit(event)" class="d-flex gap-1">
+                <input type="text" id="floating-chat-input" class="form-control form-control-sm rounded-pill px-3" placeholder="Ask AI about {{ chat_dest.title() }}..." autocomplete="off" required style="font-size: 0.78rem;">
+                <button type="submit" class="btn btn-sm btn-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 32px; height: 32px; flex-shrink: 0;">
+                    <i class="bi bi-send-fill" style="font-size: 0.75rem;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

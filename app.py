@@ -134,6 +134,15 @@ def planner():
             
         display_location = target_state if target_state and target_state.lower() not in ['all', 'anywhere in the world'] else actual_state
 
+        # ── Attach Destination Master Guide (Route map, all categorized spots, stays, dishes, culture, celebrations, ATMs) ──
+        from utils.destination_guide import get_destination_master_guide
+        for rec in recommendation_data.get('matches', []):
+            rec['master_guide'] = get_destination_master_guide(rec.get('Destination', ''), rec.get('State', ''), days)
+            rec['atms'] = rec['master_guide'].get('atms', {})
+        for rec in recommendation_data.get('alternatives', []):
+            rec['master_guide'] = get_destination_master_guide(rec.get('Destination', ''), rec.get('State', ''), days)
+            rec['atms'] = rec['master_guide'].get('atms', {})
+
         return render_template('results.html',
                                recommendations=recommendation_data['matches'],
                                alternatives=recommendation_data['alternatives'],
@@ -296,5 +305,53 @@ def api_currency():
     }
 
 
+@app.route('/api/atms')
+def api_atms():
+    """Returns nearby ATMs for railway stations, bus stands, and airports."""
+    from utils.atm_service import get_nearby_atms
+    dest = request.args.get('location', '').strip()
+    state = request.args.get('state', '').strip()
+    return get_nearby_atms(dest, state)
+
+
+@app.route('/api/destination-guide')
+def api_destination_guide():
+    """Returns complete destination master guide, route map, spots, dishes, culture, and celebration venues."""
+    from utils.destination_guide import get_destination_master_guide
+    dest = request.args.get('location', '').strip()
+    state = request.args.get('state', '').strip()
+    days = int(request.args.get('days', 3) or 3)
+    return get_destination_master_guide(dest, state, days)
+
+
+@app.route('/api/chatbot', methods=['POST'])
+def api_chatbot():
+    """
+    AI Travel Concierge & Day Planner API.
+    Helps tourists plan their day, order of visiting sights, chill spots, and party/celebration venues.
+    """
+    data = request.get_json(silent=True) or request.form
+    user_message = data.get('message', '').strip()
+    destination = data.get('destination', '').strip()
+    days = int(data.get('days', 1) or 1)
+    travelers = int(data.get('travelers', 1) or 1)
+    budget = int(data.get('budget', 0) or 0)
+    history = data.get('history', [])
+    
+    if not user_message:
+        return {'reply': 'Please type a question to get travel assistance!', 'suggestions': []}, 400
+        
+    from utils.ai_chatbot import get_ai_chat_response
+    response = get_ai_chat_response(
+        user_message=user_message,
+        destination=destination,
+        days=days,
+        travelers=travelers,
+        budget=budget,
+        history=history
+    )
+    return response
+
+
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)

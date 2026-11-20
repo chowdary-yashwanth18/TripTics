@@ -146,11 +146,6 @@ def get_verified_bus_options(origin, destination, travel_date=None, is_return=Fa
     if any(loc in [orig_clean, dest_clean] for loc in ['andaman', 'port blair', 'havelock', 'lakshadweep']):
         return []
         
-    distance = get_distance(origin, destination)
-    # Bus journeys exceeding 1500 km are rarely direct in India
-    if distance > 1400:
-        return []
-
     options = []
     corridor_key = (orig_clean, dest_clean)
     is_verified_corridor = corridor_key in VERIFIED_CORRIDORS
@@ -162,6 +157,10 @@ def get_verified_bus_options(origin, destination, travel_date=None, is_return=Fa
         speed = corr_info['speed_kmh']
         primary_rtc = corr_info['rtc']
     else:
+        distance = get_distance(origin, destination)
+        # Bus journeys exceeding 1500 km are rarely direct in India
+        if distance > 1400:
+            return []
         dist_km = distance if distance > 0 else 300
         speed = 45 # Average national highway bus speed
         # Guess primary RTC based on terminal data
