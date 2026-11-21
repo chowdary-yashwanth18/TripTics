@@ -55,8 +55,8 @@ def planner():
         target_state = request.form.get('target_state', 'all').strip()
         starting_city = request.form.get('starting_city', '').strip()
         travel_date = request.form.get('travel_date', '').strip()
-        outbound_transport = request.form.get('outbound_transport', 'any').strip()
-        return_transport = request.form.get('return_transport', 'any').strip()
+        outbound_transport = (request.form.get('outbound_transport') or 'any').strip() or 'any'
+        return_transport = (request.form.get('return_transport') or 'any').strip() or 'any'
 
         # ── Server-side guard against impossible inputs ───────────────────
         if budget < 500:

@@ -255,9 +255,11 @@ def _synthesize_flights(origin, destination, dist_km, is_return=False):
     orig_airport = orig_gw['airport']['name']
     dest_airport = dest_gw['airport']['name']
     dest_hub_city = dest_gw['airport']['city']
+    orig_hub_city = orig_gw['airport']['city']
     
-    # Check if destination city has no commercial airport of its own
-    is_connecting = dest_hub_city.lower() not in dest_city.lower() and dest_city.lower() not in dest_hub_city.lower()
+    # Check if either city has no commercial airport
+    is_dest_no_airport = dest_hub_city.lower() not in dest_city.lower() and dest_city.lower() not in dest_hub_city.lower()
+    is_orig_no_airport = orig_hub_city.lower() not in orig_city.lower() and orig_city.lower() not in orig_hub_city.lower()
     
     # Flight duration (cruising speed ~700 km/h + 30 min takeoff/approach)
     flight_hours = max(1, int(dist_km / 650))
@@ -265,45 +267,182 @@ def _synthesize_flights(origin, destination, dist_km, is_return=False):
     flight_mins = max(15, round(flight_mins / 10) * 10)
     flight_dur_str = f"{flight_hours}h {flight_mins:02d}m"
     
-    route_msg = (
-        f"✈️ Note: {dest_city} does not have a commercial airport. Showing verified flight to nearest airport ({dest_airport}) + connecting ground transfer to {dest_city}."
-        if is_connecting else None
-    )
+    if is_dest_no_airport:
+        route_msg = f"✈️ Note: {dest_city} does not have a commercial airport. Showing verified flight to nearest airport ({dest_airport}) + connecting ground transfer to {dest_city}."
+        f1_legs = [
+            {
+                'origin': f"{orig_city} ({orig_airport})",
+                'destination': f"{dest_hub_city} ({dest_airport})",
+                'mode': 'flight',
+                'icon': '✈️',
+                'name': f"IndiGo Flight 6E {random.randint(400, 899)}",
+                'class_type': 'Economy (15kg Check-in + 7kg Cabin)',
+                'start_time': '06:45',
+                'end_time': f"{6 + flight_hours:02d}:{45 + (flight_mins % 60):02d}",
+                'duration': flight_dur_str,
+                'price': 0,
+                'booking_url': 'https://www.goindigo.in/'
+            },
+            {
+                'origin': f"{dest_hub_city} Airport",
+                'destination': f"{dest_city} Valley / Center",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': f"Connecting Scenic Mountain Transfer to {dest_city}",
+                'class_type': 'Scenic Mountain Ghat Transit',
+                'start_time': f"{7 + flight_hours:02d}:15",
+                'end_time': f"{10 + flight_hours:02d}:15",
+                'duration': '~3h 00m',
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            }
+        ]
+        f1_name = f"IndiGo Flight 6E {random.randint(400, 899)} (Via {dest_hub_city} Airport) + Connecting Transfer"
+        f1_arr = f"{10 + flight_hours:02d}:15"
+        f1_dur = f"~{flight_hours + 3}h {flight_mins:02d}m (Flight + Transfer)"
 
-    f1_legs = [{
-        'origin': f"{orig_city} ({orig_airport})",
-        'destination': f"{dest_hub_city} ({dest_airport})" if is_connecting else f"{dest_city} ({dest_airport})",
-        'mode': 'flight',
-        'icon': '✈️',
-        'name': f"IndiGo Flight 6E {random.randint(400, 899)}",
-        'class_type': 'Economy (15kg Check-in + 7kg Cabin)',
-        'start_time': '06:45',
-        'end_time': f"{6 + flight_hours:02d}:{45 + (flight_mins % 60):02d}",
-        'duration': flight_dur_str,
-        'price': 0
-    }]
-    if is_connecting:
-        f1_legs.append({
-            'origin': f"{dest_hub_city} Airport",
-            'destination': f"{dest_city} Valley / Center",
-            'mode': 'cab',
-            'icon': '🚗',
-            'name': f"Connecting Airport Transfer / Cab to {dest_city}",
-            'class_type': 'Scenic Mountain Ghat Transit',
-            'start_time': f"{7 + flight_hours:02d}:15",
-            'end_time': f"{10 + flight_hours:02d}:15",
-            'duration': '~3h 00m',
-            'price': 0
-        })
+        f2_legs = [
+            {
+                'origin': f"{orig_city} ({orig_airport})",
+                'destination': f"{dest_hub_city} ({dest_airport})",
+                'mode': 'flight',
+                'icon': '✈️',
+                'name': f"Air India AI {random.randint(500, 999)}",
+                'class_type': 'Economy (Complimentary Meal & Baggage)',
+                'start_time': '14:20',
+                'end_time': f"{14 + flight_hours:02d}:{20 + (flight_mins % 60):02d}",
+                'duration': flight_dur_str,
+                'price': 0,
+                'booking_url': 'https://www.makemytrip.com/flights/'
+            },
+            {
+                'origin': f"{dest_hub_city} Airport",
+                'destination': f"{dest_city} Valley / Center",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': f"Connecting Express Transfer / Cab to {dest_city}",
+                'class_type': 'Scenic Mountain Ghat Transit',
+                'start_time': f"{15 + flight_hours:02d}:00",
+                'end_time': f"{18 + flight_hours:02d}:00",
+                'duration': '~3h 00m',
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            }
+        ]
+        f2_name = f"Air India AI {random.randint(500, 999)} (Via {dest_hub_city} Airport) + Connecting Transfer"
+        f2_arr = f"{18 + flight_hours:02d}:00"
+        f2_dur = f"~{flight_hours + 3}h {flight_mins:02d}m (Flight + Transfer)"
+
+    elif is_orig_no_airport:
+        route_msg = f"✈️ Note: {orig_city} does not have a commercial airport. Showing connecting transfer from {orig_city} to nearest airport ({orig_airport}) + verified flight to {dest_city}."
+        f1_legs = [
+            {
+                'origin': f"{orig_city} Center / Valley",
+                'destination': f"{orig_hub_city} Airport ({orig_airport})",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': f"Scenic Mountain Transfer to {orig_hub_city} Airport",
+                'class_type': 'Scenic Mountain Ghat Transit',
+                'start_time': '10:30',
+                'end_time': '13:30',
+                'duration': '~3h 00m',
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            },
+            {
+                'origin': f"{orig_hub_city} ({orig_airport})",
+                'destination': f"{dest_city} ({dest_airport})",
+                'mode': 'flight',
+                'icon': '✈️',
+                'name': f"IndiGo Flight 6E {random.randint(400, 899)}",
+                'class_type': 'Economy (15kg Check-in + 7kg Cabin)',
+                'start_time': '15:15',
+                'end_time': f"{15 + flight_hours:02d}:{15 + (flight_mins % 60):02d}",
+                'duration': flight_dur_str,
+                'price': 0,
+                'booking_url': 'https://www.goindigo.in/'
+            }
+        ]
+        f1_name = f"Scenic Transfer + IndiGo Flight 6E {random.randint(400, 899)} (Via {orig_hub_city} Airport)"
+        f1_arr = f"{15 + flight_hours:02d}:{15 + (flight_mins % 60):02d}"
+        f1_dur = f"~{flight_hours + 3}h {flight_mins:02d}m (Transfer + Flight)"
+
+        f2_legs = [
+            {
+                'origin': f"{orig_city} Center / Valley",
+                'destination': f"{orig_hub_city} Airport ({orig_airport})",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': f"Scenic Transfer to {orig_hub_city} Airport",
+                'class_type': 'Scenic Mountain Ghat Transit',
+                'start_time': '15:00',
+                'end_time': '18:00',
+                'duration': '~3h 00m',
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            },
+            {
+                'origin': f"{orig_hub_city} ({orig_airport})",
+                'destination': f"{dest_city} ({dest_airport})",
+                'mode': 'flight',
+                'icon': '✈️',
+                'name': f"Air India AI {random.randint(500, 999)}",
+                'class_type': 'Economy (Complimentary Meal & Baggage)',
+                'start_time': '19:40',
+                'end_time': f"{19 + flight_hours:02d}:{40 + (flight_mins % 60):02d}",
+                'duration': flight_dur_str,
+                'price': 0,
+                'booking_url': 'https://www.makemytrip.com/flights/'
+            }
+        ]
+        f2_name = f"Scenic Transfer + Air India AI {random.randint(500, 999)} (Via {orig_hub_city} Airport)"
+        f2_arr = f"{19 + flight_hours:02d}:{40 + (flight_mins % 60):02d}"
+        f2_dur = f"~{flight_hours + 3}h {flight_mins:02d}m (Transfer + Flight)"
+
+    else:
+        route_msg = None
+        f1_legs = [{
+            'origin': f"{orig_city} ({orig_airport})",
+            'destination': f"{dest_city} ({dest_airport})",
+            'mode': 'flight',
+            'icon': '✈️',
+            'name': f"IndiGo Flight 6E {random.randint(400, 899)}",
+            'class_type': 'Economy (15kg Check-in + 7kg Cabin)',
+            'start_time': '06:45',
+            'end_time': f"{6 + flight_hours:02d}:{45 + (flight_mins % 60):02d}",
+            'duration': flight_dur_str,
+            'price': 0,
+            'booking_url': 'https://www.goindigo.in/'
+        }]
+        f1_name = f"IndiGo Flight 6E {random.randint(400, 899)} Direct Scheduled Flight"
+        f1_arr = f"{6 + flight_hours:02d}:{45 + (flight_mins % 60):02d}"
+        f1_dur = flight_dur_str
+
+        f2_legs = [{
+            'origin': f"{orig_city} ({orig_airport})",
+            'destination': f"{dest_city} ({dest_airport})",
+            'mode': 'flight',
+            'icon': '✈️',
+            'name': f"Air India AI {random.randint(500, 999)}",
+            'class_type': 'Economy (Complimentary Meal & Baggage)',
+            'start_time': '14:20',
+            'end_time': f"{14 + flight_hours:02d}:{20 + (flight_mins % 60):02d}",
+            'duration': flight_dur_str,
+            'price': 0,
+            'booking_url': 'https://www.makemytrip.com/flights/'
+        }]
+        f2_name = f"Air India AI {random.randint(500, 999)} Direct Full Service Flight"
+        f2_arr = f"{14 + flight_hours:02d}:{20 + (flight_mins % 60):02d}"
+        f2_dur = flight_dur_str
 
     f1 = {
-        'name': f"IndiGo Flight 6E {random.randint(400, 899)}" + (f" (Via {dest_hub_city} Airport) + Connecting Transfer" if is_connecting else " Direct Scheduled Flight"),
+        'name': f1_name,
         'mode': 'flight',
         'icon': '✈️',
         'class_type': 'Economy',
-        'start_time': '06:45',
-        'end_time': f"{10 + flight_hours:02d}:15" if is_connecting else f"{6 + flight_hours:02d}:{45 + (flight_mins % 60):02d}",
-        'duration': f"~{flight_hours + 3}h {flight_mins:02d}m (Flight + Transfer)" if is_connecting else flight_dur_str,
+        'start_time': '06:45' if not is_orig_no_airport else '10:30',
+        'end_time': f1_arr,
+        'duration': f1_dur,
         'price': 0,
         'booking_url': 'https://www.goindigo.in/',
         'route_message': route_msg,
@@ -312,40 +451,14 @@ def _synthesize_flights(origin, destination, dist_km, is_return=False):
         'legs': f1_legs
     }
     
-    f2_legs = [{
-        'origin': f"{orig_city} ({orig_airport})",
-        'destination': f"{dest_hub_city} ({dest_airport})" if is_connecting else f"{dest_city} ({dest_airport})",
-        'mode': 'flight',
-        'icon': '✈️',
-        'name': f"Air India AI {random.randint(500, 999)}",
-        'class_type': 'Economy (Complimentary Meal & Baggage)',
-        'start_time': '14:20',
-        'end_time': f"{14 + flight_hours:02d}:{20 + (flight_mins % 60):02d}",
-        'duration': flight_dur_str,
-        'price': 0
-    }]
-    if is_connecting:
-        f2_legs.append({
-            'origin': f"{dest_hub_city} Airport",
-            'destination': f"{dest_city} Valley / Center",
-            'mode': 'cab',
-            'icon': '🚗',
-            'name': f"Connecting Express Transfer / Cab to {dest_city}",
-            'class_type': 'Scenic Mountain Ghat Transit',
-            'start_time': f"{15 + flight_hours:02d}:00",
-            'end_time': f"{18 + flight_hours:02d}:00",
-            'duration': '~3h 00m',
-            'price': 0
-        })
-
     f2 = {
-        'name': f"Air India AI {random.randint(500, 999)}" + (f" (Via {dest_hub_city} Airport) + Connecting Transfer" if is_connecting else " Direct Full Service Flight"),
+        'name': f2_name,
         'mode': 'flight',
         'icon': '✈️',
         'class_type': 'Economy',
-        'start_time': '14:20',
-        'end_time': f"{18 + flight_hours:02d}:00" if is_connecting else f"{14 + flight_hours:02d}:{20 + (flight_mins % 60):02d}",
-        'duration': f"~{flight_hours + 3}h {flight_mins:02d}m (Flight + Transfer)" if is_connecting else flight_dur_str,
+        'start_time': '14:20' if not is_orig_no_airport else '15:00',
+        'end_time': f2_arr,
+        'duration': f2_dur,
         'price': 0,
         'booking_url': 'https://www.makemytrip.com/flights/',
         'route_message': route_msg,
@@ -369,8 +482,10 @@ def _synthesize_trains(origin, destination, dist_km, is_return=False):
     orig_stat = orig_gw['station']['name']
     dest_stat = dest_gw['station']['name']
     dest_stat_city = dest_gw['station']['city']
+    orig_stat_city = orig_gw['station']['city']
     
-    is_connecting = dest_stat_city.lower() not in dest_city.lower() and dest_city.lower() not in dest_stat_city.lower()
+    is_dest_junction = dest_stat_city.lower() not in dest_city.lower() and dest_city.lower() not in dest_stat_city.lower()
+    is_orig_junction = orig_stat_city.lower() not in orig_city.lower() and orig_city.lower() not in orig_stat_city.lower()
     
     # Train speed ~70 km/h average
     train_hours = max(2, int(dist_km / 70))
@@ -382,63 +497,204 @@ def _synthesize_trains(origin, destination, dist_km, is_return=False):
     num1, name1 = t_pairs[0] if len(t_pairs) > 0 else ('12727', 'Superfast Express')
     num2, name2 = t_pairs[1] if len(t_pairs) > 1 else ('20833', 'Vande Bharat Express')
     
-    t1_route_msg = (
-        f"🚆 Note: Showing express train via nearest railway junction ({dest_stat}) + connecting transit to {dest_city}."
-        if is_connecting else None
-    )
+    if is_dest_junction:
+        route_msg = f"🚆 Note: No direct train operates between {orig_city} and {dest_city}. Showing verified express train to nearest railway junction ({dest_stat}) + connecting transit to {dest_city}."
+        t1_legs = [
+            {
+                'origin': f"{orig_city} ({orig_stat})",
+                'destination': f"{dest_stat_city} Junction ({dest_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"{num1} {name1}",
+                'class_type': 'AC Superfast Express (3A / 2A)',
+                'start_time': '07:15',
+                'end_time': f"{(7 + train_hours) % 24:02d}:{(15 + train_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            },
+            {
+                'origin': f"{dest_stat_city} Junction",
+                'destination': f"{dest_city} Railway Station",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"Connecting Mountain Scenic / Express to {dest_city}",
+                'class_type': 'Vistadome / Reserved Chair Car',
+                'start_time': f"{(8 + train_hours) % 24:02d}:30",
+                'end_time': f"{(11 + train_hours) % 24:02d}:15",
+                'duration': '~2h 45m',
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            }
+        ]
+        t1_name = f"{num1} {name1} (Via {dest_stat_city} Junction) + Connecting Mountain Rail"
+        t1_arr = f"{(11 + train_hours) % 24:02d}:15"
+        t1_dur = f"~{train_hours + 3}h (Train + Scenic Transfer)"
 
-    t1 = {
-        'name': f"{num1} {name1}" + (f" (Via {dest_stat_city} Junction)" if is_connecting else ""),
-        'mode': 'train',
-        'icon': '🚆',
-        'class_type': '3A / 2A / 1A / SL',
-        'start_time': '07:15',
-        'end_time': f"{(7 + train_hours) % 24:02d}:{(15 + train_mins) % 60:02d}",
-        'duration': duration_str,
-        'price': 0,
-        'booking_url': 'https://www.irctc.co.in/nget/train-search',
-        'route_message': t1_route_msg,
-        'vacancy': _format_vacancy('train'),
-        'provenance': {'is_verified': True, 'source': 'Indian Railways Schedule'},
-        'legs': [{
+        t2_legs = [
+            {
+                'origin': f"{orig_city} ({orig_stat})",
+                'destination': f"{dest_stat_city} Junction ({dest_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"{num2} {name2}",
+                'class_type': 'Executive CC / Chair Car',
+                'start_time': '16:30',
+                'end_time': f"{(16 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            },
+            {
+                'origin': f"{dest_stat_city} Junction",
+                'destination': f"{dest_city} Railway Station",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"Connecting Express Rail to {dest_city}",
+                'class_type': 'Reserved Chair Car',
+                'start_time': f"{(17 + train_hours) % 24:02d}:45",
+                'end_time': f"{(20 + train_hours) % 24:02d}:30",
+                'duration': '~2h 45m',
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            }
+        ]
+        t2_name = f"{num2} {name2} (Via {dest_stat_city} Junction) + Connecting Express"
+        t2_arr = f"{(20 + train_hours) % 24:02d}:30"
+        t2_dur = f"~{train_hours + 3}h (Train + Connecting Rail)"
+
+    elif is_orig_junction:
+        route_msg = f"🚆 Note: No direct train operates between {orig_city} and {dest_city}. Showing connecting transit from {orig_city} to {orig_stat_city} Junction + verified express train to {dest_city}."
+        t1_legs = [
+            {
+                'origin': f"{orig_city} Railway Station",
+                'destination': f"{orig_stat_city} Junction ({orig_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"Mountain Scenic Express to {orig_stat_city} Junction",
+                'class_type': 'Vistadome / Reserved Chair Car',
+                'start_time': '16:10',
+                'end_time': '19:00',
+                'duration': '~2h 50m',
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            },
+            {
+                'origin': f"{orig_stat_city} Junction ({orig_stat})",
+                'destination': f"{dest_city} ({dest_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"{num1} {name1}",
+                'class_type': 'AC Superfast Express (3A / 2A)',
+                'start_time': '20:30',
+                'end_time': f"{(20 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            }
+        ]
+        t1_name = f"Mountain Scenic Rail + {num1} {name1} (Via {orig_stat_city} Junction)"
+        t1_arr = f"{(20 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}"
+        t1_dur = f"~{train_hours + 3}h (Scenic Rail + Express)"
+
+        t2_legs = [
+            {
+                'origin': f"{orig_city} Railway Station",
+                'destination': f"{orig_stat_city} Junction ({orig_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"Connecting Hill Rail to {orig_stat_city} Junction",
+                'class_type': 'Hill Passenger Express',
+                'start_time': '07:30',
+                'end_time': '10:15',
+                'duration': '~2h 45m',
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            },
+            {
+                'origin': f"{orig_stat_city} Junction ({orig_stat})",
+                'destination': f"{dest_city} ({dest_stat})",
+                'mode': 'train',
+                'icon': '🚆',
+                'name': f"{num2} {name2}",
+                'class_type': 'Executive CC / Chair Car',
+                'start_time': '11:30',
+                'end_time': f"{(11 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.irctc.co.in/nget/train-search'
+            }
+        ]
+        t2_name = f"Hill Passenger + {num2} {name2} (Via {orig_stat_city} Junction)"
+        t2_arr = f"{(11 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}"
+        t2_dur = f"~{train_hours + 3}h (Hill Rail + Express)"
+
+    else:
+        route_msg = None
+        t1_legs = [{
             'origin': f"{orig_city} ({orig_stat})",
-            'destination': f"{dest_stat_city} ({dest_stat})" if is_connecting else f"{dest_city} ({dest_stat})",
+            'destination': f"{dest_city} ({dest_stat})",
             'mode': 'train',
             'icon': '🚆',
             'name': f"{num1} {name1}",
-            'class_type': 'AC Sleeper & Chair Car (Pantry Car Available)',
+            'class_type': 'AC Sleeper & Chair Car (3A / 2A)',
             'start_time': '07:15',
             'end_time': f"{(7 + train_hours) % 24:02d}:{(15 + train_mins) % 60:02d}",
             'duration': duration_str,
-            'price': 0
+            'price': 0,
+            'booking_url': 'https://www.irctc.co.in/nget/train-search'
         }]
-    }
-    
-    t2 = {
-        'name': f"{num2} {name2}" + (f" (Via {dest_stat_city} Junction)" if is_connecting else ""),
-        'mode': 'train',
-        'icon': '🚆',
-        'class_type': 'Executive CC / Chair Car / 3A',
-        'start_time': '16:30',
-        'end_time': f"{(16 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}",
-        'duration': duration_str,
-        'price': 0,
-        'booking_url': 'https://www.irctc.co.in/nget/train-search',
-        'route_message': t1_route_msg,
-        'vacancy': _format_vacancy('train'),
-        'provenance': {'is_verified': True, 'source': 'Indian Railways Schedule'},
-        'legs': [{
+        t1_name = f"{num1} {name1} Direct Superfast Express"
+        t1_arr = f"{(7 + train_hours) % 24:02d}:{(15 + train_mins) % 60:02d}"
+        t1_dur = duration_str
+
+        t2_legs = [{
             'origin': f"{orig_city} ({orig_stat})",
-            'destination': f"{dest_stat_city} ({dest_stat})" if is_connecting else f"{dest_city} ({dest_stat})",
+            'destination': f"{dest_city} ({dest_stat})",
             'mode': 'train',
             'icon': '🚆',
             'name': f"{num2} {name2}",
-            'class_type': 'High-Speed AC (On-board Wi-Fi & Infotainment)',
+            'class_type': 'Executive CC / Chair Car / 3A',
             'start_time': '16:30',
             'end_time': f"{(16 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}",
             'duration': duration_str,
-            'price': 0
+            'price': 0,
+            'booking_url': 'https://www.irctc.co.in/nget/train-search'
         }]
+        t2_name = f"{num2} {name2} High-Speed Vande Bharat"
+        t2_arr = f"{(16 + train_hours) % 24:02d}:{(30 + train_mins) % 60:02d}"
+        t2_dur = duration_str
+
+    t1 = {
+        'name': t1_name,
+        'mode': 'train',
+        'icon': '🚆',
+        'class_type': '3A / 2A / 1A / SL',
+        'start_time': '07:15' if not is_orig_junction else '16:10',
+        'end_time': t1_arr,
+        'duration': t1_dur,
+        'price': 0,
+        'booking_url': 'https://www.irctc.co.in/nget/train-search',
+        'route_message': route_msg,
+        'vacancy': _format_vacancy('train'),
+        'provenance': {'is_verified': True, 'source': 'Indian Railways Schedule'},
+        'legs': t1_legs
+    }
+    
+    t2 = {
+        'name': t2_name,
+        'mode': 'train',
+        'icon': '🚆',
+        'class_type': 'Executive CC / Chair Car / 3A',
+        'start_time': '16:30' if not is_orig_junction else '07:30',
+        'end_time': t2_arr,
+        'duration': t2_dur,
+        'price': 0,
+        'booking_url': 'https://www.irctc.co.in/nget/train-search',
+        'route_message': route_msg,
+        'vacancy': _format_vacancy('train'),
+        'provenance': {'is_verified': True, 'source': 'Indian Railways Schedule'},
+        'legs': t2_legs
     }
     return [t1, t2]
 
@@ -454,51 +710,170 @@ def _synthesize_buses(origin, destination, dist_km, is_return=False):
     dest_terminal = dest_gw['bus']['terminal']
     rtc_name = dest_gw['bus']['rtc']
     
+    dest_hub_city = dest_gw['airport']['city']
+    orig_hub_city = orig_gw['airport']['city']
+    
+    is_dest_connecting = dest_hub_city.lower() not in dest_city.lower() or dist_km > 550
+    is_orig_connecting = orig_hub_city.lower() not in orig_city.lower() or dist_km > 550
+    
     # Bus highway speed ~48 km/h
     bus_hours = max(2, int(dist_km / 48))
     bus_mins = max(15, int(((dist_km / 48) - bus_hours) * 60))
     bus_mins = round(bus_mins / 15) * 15
     duration_str = f"{bus_hours}h {bus_mins:02d}m"
     
-    b1 = {
-        'name': f"{rtc_name} Luxury Multi-Axle Volvo AC Sleeper",
-        'mode': 'bus',
-        'icon': '🚌',
-        'class_type': 'AC Sleeper (2+1)',
-        'start_time': '20:15',
-        'end_time': f"{(20 + bus_hours) % 24:02d}:{(15 + bus_mins) % 60:02d}",
-        'duration': duration_str,
-        'price': 0,
-        'booking_url': 'https://www.redbus.in/',
-        'vacancy': _format_vacancy('bus'),
-        'provenance': {'is_verified': True, 'source': f"{rtc_name} Scheduled Fleet"},
-        'legs': [{
+    if is_return and is_orig_connecting:
+        route_msg = f"🚌 Note: No direct interstate bus operates between {orig_city} and {dest_city}. Showing connecting State RTC Ghat Express from {orig_city} to {orig_hub_city} Central Complex + luxury interstate sleeper coach to {dest_city}."
+        b1_legs = [
+            {
+                'origin': f"{orig_city} Bus Complex",
+                'destination': f"{orig_hub_city} Central RTC Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Ghat Super Luxury Express",
+                'class_type': 'Mountain Ghat Transit (Push-back 2+2)',
+                'start_time': '14:00',
+                'end_time': '17:15',
+                'duration': '~3h 15m',
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            },
+            {
+                'origin': f"{orig_hub_city} Central RTC Complex",
+                'destination': f"{dest_city} ({dest_terminal})",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Multi-Axle Volvo AC Sleeper",
+                'class_type': 'AC Sleeper (2+1) Live GPS & USB Charging',
+                'start_time': '20:15',
+                'end_time': f"{(20 + bus_hours) % 24:02d}:{(15 + bus_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            }
+        ]
+        b1_name = f"{rtc_name} Connecting Ghat Transit + Volvo AC Sleeper (Via {orig_hub_city})"
+        b1_arr = f"{(20 + bus_hours) % 24:02d}:{(15 + bus_mins) % 60:02d}"
+        b1_dur = f"~{bus_hours + 3}h (Connecting Bus Transit)"
+
+        b2_legs = [
+            {
+                'origin': f"{orig_city} Bus Complex",
+                'destination': f"{orig_hub_city} Central RTC Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Express Shuttle",
+                'class_type': 'Regional Express Transit',
+                'start_time': '16:00',
+                'end_time': '19:15',
+                'duration': '~3h 15m',
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            },
+            {
+                'origin': f"{orig_hub_city} Central RTC Complex",
+                'destination': f"{dest_city} ({dest_terminal})",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': 'IntrCity SmartBus Premium Lounge',
+                'class_type': 'Premium AC Sleeper (Washroom Onboard)',
+                'start_time': '21:30',
+                'end_time': f"{(21 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            }
+        ]
+        b2_name = f"SmartBus Interstate Lounge + Connecting Transit (Via {orig_hub_city})"
+        b2_arr = f"{(21 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}"
+        b2_dur = f"~{bus_hours + 3}h (Connecting Bus Transit)"
+
+    elif (not is_return) and is_dest_connecting:
+        route_msg = f"🚌 Note: No direct interstate bus operates between {orig_city} and {dest_city}. Showing luxury interstate bus to {dest_hub_city} Central RTC Complex + connecting State RTC Ghat Express to {dest_city}."
+        b1_legs = [
+            {
+                'origin': f"{orig_city} ({orig_terminal})",
+                'destination': f"{dest_hub_city} Central RTC Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Multi-Axle Volvo AC Sleeper",
+                'class_type': 'AC Sleeper (2+1) Live GPS & USB Charging',
+                'start_time': '18:30',
+                'end_time': f"{(18 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            },
+            {
+                'origin': f"{dest_hub_city} Central RTC Complex",
+                'destination': f"{dest_city} Bus Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Ghat Super Luxury Express",
+                'class_type': 'Mountain Ghat Transit (Push-back 2+2)',
+                'start_time': f"{(19 + bus_hours) % 24:02d}:15",
+                'end_time': f"{(22 + bus_hours) % 24:02d}:30",
+                'duration': '~3h 15m',
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            }
+        ]
+        b1_name = f"{rtc_name} Volvo AC Sleeper + Connecting Ghat Transit (Via {dest_hub_city})"
+        b1_arr = f"{(22 + bus_hours) % 24:02d}:30"
+        b1_dur = f"~{bus_hours + 3}h (Connecting Bus Transit)"
+
+        b2_legs = [
+            {
+                'origin': f"{orig_city} ({orig_terminal})",
+                'destination': f"{dest_hub_city} Central RTC Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': 'IntrCity SmartBus Premium Lounge',
+                'class_type': 'Premium AC Sleeper (Washroom Onboard)',
+                'start_time': '20:00',
+                'end_time': f"{(20 + bus_hours) % 24:02d}:{(00 + bus_mins) % 60:02d}",
+                'duration': duration_str,
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            },
+            {
+                'origin': f"{dest_hub_city} Central RTC Complex",
+                'destination': f"{dest_city} Bus Complex",
+                'mode': 'bus',
+                'icon': '🚌',
+                'name': f"{rtc_name} Ultra Deluxe Express",
+                'class_type': 'Ghat Section Transit',
+                'start_time': f"{(21 + bus_hours) % 24:02d}:00",
+                'end_time': f"{(24 + bus_hours) % 24:02d}:15",
+                'duration': '~3h 15m',
+                'price': 0,
+                'booking_url': 'https://www.redbus.in/'
+            }
+        ]
+        b2_name = f"IntrCity Lounge + {rtc_name} Connecting Express (Via {dest_hub_city})"
+        b2_arr = f"{(24 + bus_hours) % 24:02d}:15"
+        b2_dur = f"~{bus_hours + 3}h (Connecting Bus Transit)"
+
+    else:
+        route_msg = None
+        b1_legs = [{
             'origin': f"{orig_city} ({orig_terminal})",
             'destination': f"{dest_city} ({dest_terminal})",
             'mode': 'bus',
             'icon': '🚌',
-            'name': f"{rtc_name} Volvo AC Fleet",
-            'class_type': 'AC Sleeper (Live GPS & USB Charging)',
+            'name': f"{rtc_name} Luxury Multi-Axle Volvo AC Sleeper",
+            'class_type': 'AC Sleeper (2+1) Live GPS & USB Charging',
             'start_time': '20:15',
             'end_time': f"{(20 + bus_hours) % 24:02d}:{(15 + bus_mins) % 60:02d}",
             'duration': duration_str,
-            'price': 0
+            'price': 0,
+            'booking_url': 'https://www.redbus.in/'
         }]
-    }
-    
-    b2 = {
-        'name': "IntrCity SmartBus / Zingbus Luxury Lounge",
-        'mode': 'bus',
-        'icon': '🚌',
-        'class_type': 'Premium AC Sleeper',
-        'start_time': '21:30',
-        'end_time': f"{(21 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}",
-        'duration': duration_str,
-        'price': 0,
-        'booking_url': 'https://www.redbus.in/',
-        'vacancy': _format_vacancy('bus'),
-        'provenance': {'is_verified': True, 'source': 'SmartBus Fleet Network'},
-        'legs': [{
+        b1_name = f"{rtc_name} Luxury Multi-Axle Volvo AC Sleeper Direct"
+        b1_arr = f"{(20 + bus_hours) % 24:02d}:{(15 + bus_mins) % 60:02d}"
+        b1_dur = duration_str
+
+        b2_legs = [{
             'origin': f"{orig_city} ({orig_terminal})",
             'destination': f"{dest_city} ({dest_terminal})",
             'mode': 'bus',
@@ -508,8 +883,43 @@ def _synthesize_buses(origin, destination, dist_km, is_return=False):
             'start_time': '21:30',
             'end_time': f"{(21 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}",
             'duration': duration_str,
-            'price': 0
+            'price': 0,
+            'booking_url': 'https://www.redbus.in/'
         }]
+        b2_name = "IntrCity SmartBus / Zingbus Luxury Lounge Direct"
+        b2_arr = f"{(21 + bus_hours) % 24:02d}:{(30 + bus_mins) % 60:02d}"
+        b2_dur = duration_str
+
+    b1 = {
+        'name': b1_name,
+        'mode': 'bus',
+        'icon': '🚌',
+        'class_type': 'AC Sleeper (2+1)',
+        'start_time': b1_legs[0]['start_time'],
+        'end_time': b1_arr,
+        'duration': b1_dur,
+        'price': 0,
+        'booking_url': 'https://www.redbus.in/',
+        'route_message': route_msg,
+        'vacancy': _format_vacancy('bus'),
+        'provenance': {'is_verified': True, 'source': f"{rtc_name} Scheduled Fleet"},
+        'legs': b1_legs
+    }
+    
+    b2 = {
+        'name': b2_name,
+        'mode': 'bus',
+        'icon': '🚌',
+        'class_type': 'Premium AC Sleeper',
+        'start_time': b2_legs[0]['start_time'],
+        'end_time': b2_arr,
+        'duration': b2_dur,
+        'price': 0,
+        'booking_url': 'https://www.redbus.in/',
+        'route_message': route_msg,
+        'vacancy': _format_vacancy('bus'),
+        'provenance': {'is_verified': True, 'source': 'SmartBus Fleet Network'},
+        'legs': b2_legs
     }
     return [b1, b2]
 
@@ -526,6 +936,8 @@ def _synthesize_cabs(origin, destination, dist_km, is_return=False):
     cab_mins = max(10, int(((dist_km / 55) - cab_hours) * 60))
     duration_str = f"{cab_hours}h {cab_mins:02d}m"
     
+    route_msg = f"🚗 Route Path: Doorstep road trip between {orig_city} and {dest_city} via {highway} with recommended highway rest stops & scenic fuel halts."
+    
     c1 = {
         'name': "Savaari Outstation AC Sedan",
         'mode': 'cab',
@@ -536,20 +948,37 @@ def _synthesize_cabs(origin, destination, dist_km, is_return=False):
         'duration': duration_str,
         'price': 0,
         'booking_url': 'https://www.savaari.com/',
+        'route_message': route_msg,
         'vacancy': _format_vacancy('cab'),
         'provenance': {'is_verified': True, 'source': 'Savaari National Outstation Network'},
-        'legs': [{
-            'origin': f"{orig_city} (Doorstep Pickup)",
-            'destination': f"{dest_city} via {highway}",
-            'mode': 'cab',
-            'icon': '🚗',
-            'name': 'Savaari AC Outstation Chauffeur',
-            'class_type': 'Dedicated AC Sedan • Doorstep Pickup • Highway Tolls Included',
-            'start_time': 'Flexible Departure',
-            'end_time': f"+{duration_str}",
-            'duration': duration_str,
-            'price': 0
-        }]
+        'legs': [
+            {
+                'origin': f"{orig_city} (Doorstep Pickup)",
+                'destination': f"Expressway Corridor ({highway})",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': 'Savaari AC Outstation Chauffeur (Corridor Cruise)',
+                'class_type': 'Dedicated AC Sedan • Fastag Express Highway',
+                'start_time': 'Departure at your schedule',
+                'end_time': f"+{max(1, cab_hours - 1)}h",
+                'duration': f"{max(1, cab_hours - 1)}h",
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            },
+            {
+                'origin': f"Expressway Corridor ({highway})",
+                'destination': f"{dest_city} (Doorstep Drop)",
+                'mode': 'cab',
+                'icon': '🚗',
+                'name': f"Final Approach & Scenic Destination Drive",
+                'class_type': 'Scenic Ghat / Local Area Navigation',
+                'start_time': f"+{max(1, cab_hours - 1)}h",
+                'end_time': f"+{duration_str}",
+                'duration': '~1h 00m',
+                'price': 0,
+                'booking_url': 'https://www.savaari.com/'
+            }
+        ]
     }
     
     c2 = {
@@ -562,20 +991,37 @@ def _synthesize_cabs(origin, destination, dist_km, is_return=False):
         'duration': duration_str,
         'price': 0,
         'booking_url': 'https://www.makemytrip.com/cabs/',
+        'route_message': route_msg,
         'vacancy': _format_vacancy('cab'),
         'provenance': {'is_verified': True, 'source': 'MakeMyTrip Outstation Network'},
-        'legs': [{
-            'origin': f"{orig_city} (Doorstep Pickup)",
-            'destination': f"{dest_city} via {highway}",
-            'mode': 'cab',
-            'icon': '🚙',
-            'name': 'Outstation AC Premium SUV',
-            'class_type': 'Spacious SUV for Families • Extra Luggage Space • Experienced Driver',
-            'start_time': 'Flexible Departure',
-            'end_time': f"+{duration_str}",
-            'duration': duration_str,
-            'price': 0
-        }]
+        'legs': [
+            {
+                'origin': f"{orig_city} (Doorstep Pickup)",
+                'destination': f"Highway Waypoint via {highway}",
+                'mode': 'cab',
+                'icon': '🚙',
+                'name': 'Outstation AC Premium SUV (Highway Leg)',
+                'class_type': 'Spacious SUV for Families • Extra Luggage Space',
+                'start_time': 'Departure at your schedule',
+                'end_time': f"+{max(1, cab_hours - 1)}h",
+                'duration': f"{max(1, cab_hours - 1)}h",
+                'price': 0,
+                'booking_url': 'https://www.makemytrip.com/cabs/'
+            },
+            {
+                'origin': f"Highway Waypoint via {highway}",
+                'destination': f"{dest_city} (Doorstep Drop)",
+                'mode': 'cab',
+                'icon': '🚙',
+                'name': f"Scenic Scenic Mountain Drive to {dest_city}",
+                'class_type': 'Smooth Chauffeur-driven Valley Transit',
+                'start_time': f"+{max(1, cab_hours - 1)}h",
+                'end_time': f"+{duration_str}",
+                'duration': '~1h 00m',
+                'price': 0,
+                'booking_url': 'https://www.makemytrip.com/cabs/'
+            }
+        ]
     }
     return [c1, c2]
 

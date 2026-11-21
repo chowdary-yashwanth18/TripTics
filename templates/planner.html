@@ -77,26 +77,8 @@
                     </div>
                 </div>
 
-                <div class="row g-3 mb-4">
-                    <div class="col-md-6">
-                        <label for="outbound_transport" class="form-label fw-bold text-dark"><i class="bi bi-airplane-engines-fill text-primary me-1"></i> Outbound Travel Mode</label>
-                        <select class="form-select" id="outbound_transport" name="outbound_transport">
-                            <option value="any">Any Mode (Flight, Train, Bus)</option>
-                            <option value="flight">Flight Only</option>
-                            <option value="train">Train Only</option>
-                            <option value="bus">Bus Only</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6">
-                        <label for="return_transport" class="form-label fw-bold text-dark"><i class="bi bi-airplane-landing-fill text-danger me-1"></i> Return Travel Mode</label>
-                        <select class="form-select" id="return_transport" name="return_transport">
-                            <option value="any">Any Mode (Flight, Train, Bus)</option>
-                            <option value="flight">Flight Only</option>
-                            <option value="train">Train Only</option>
-                            <option value="bus">Bus Only</option>
-                        </select>
-                    </div>
-                </div>
+                <input type="hidden" id="outbound_transport" name="outbound_transport" value="any">
+                <input type="hidden" id="return_transport" name="return_transport" value="any">
 
                 <div class="d-grid mt-4">
                     <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-lg py-3 fw-bold">

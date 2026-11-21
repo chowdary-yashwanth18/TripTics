@@ -63,7 +63,19 @@ NO_AIRPORT_CITIES = {
     'munnar': {'nearest_city': 'kochi', 'distance_km': 110, 'ground_mode': 'bus'},
     'coorg': {'nearest_city': 'bengaluru', 'distance_km': 135, 'ground_mode': 'bus'},
     'wayanad': {'nearest_city': 'kochi', 'distance_km': 85, 'ground_mode': 'bus'},
-    'kakinada': {'nearest_city': 'rajahmundry', 'distance_km': 65, 'ground_mode': 'bus'}
+    'kakinada': {'nearest_city': 'rajahmundry', 'distance_km': 65, 'ground_mode': 'bus'},
+    'manali': {'nearest_city': 'delhi', 'distance_km': 290, 'ground_mode': 'bus'},
+    'shimla': {'nearest_city': 'delhi', 'distance_km': 115, 'ground_mode': 'train'},
+    'ooty': {'nearest_city': 'chennai', 'distance_km': 88, 'ground_mode': 'train'},
+    'coonoor': {'nearest_city': 'chennai', 'distance_km': 80, 'ground_mode': 'train'},
+    'kodaikanal': {'nearest_city': 'chennai', 'distance_km': 120, 'ground_mode': 'bus'},
+    'pondicherry': {'nearest_city': 'chennai', 'distance_km': 145, 'ground_mode': 'bus'},
+    'hampi': {'nearest_city': 'bengaluru', 'distance_km': 340, 'ground_mode': 'train'},
+    'gokarna': {'nearest_city': 'goa', 'distance_km': 140, 'ground_mode': 'cab'},
+    'alappuzha': {'nearest_city': 'kochi', 'distance_km': 80, 'ground_mode': 'cab'},
+    'alleppey': {'nearest_city': 'kochi', 'distance_km': 80, 'ground_mode': 'cab'},
+    'rishikesh': {'nearest_city': 'delhi', 'distance_km': 45, 'ground_mode': 'cab'},
+    'haridwar': {'nearest_city': 'delhi', 'distance_km': 55, 'ground_mode': 'train'},
 }
 
 
@@ -427,6 +439,57 @@ def search_verified_flights(origin_city, dest_city):
             "has_direct_flight": False,
             "route_message": f"✈️ Note: {dest_city.title()} does not have a commercial airport. Nearest airport is {hub_city} ({dist_km} km away). Showing connecting transit options."
         }
+
+    if no_airport_orig:
+        hub_city = no_airport_orig['nearest_city'].title()
+        dist_km = no_airport_orig['distance_km']
+        ground_mode = no_airport_orig.get('ground_mode', 'cab')
+        
+        # Search verified flights from gateway hub city to destination
+        hub_res = search_verified_flights(hub_city, dest_city)
+        hub_flights = hub_res.get('flights', [])
+        
+        if hub_flights:
+            connecting_flights = []
+            for hf in hub_flights:
+                c_flight = dict(hf)
+                c_flight['name'] = f"Scenic Transfer + {hf.get('airline', 'IndiGo')} Flight (Via {hub_city} Airport)"
+                c_flight['route_message'] = f"✈️ Note: {origin_city.title()} does not have a commercial airport. Showing connecting transfer from {origin_city.title()} to nearest airport ({hub_city}) + verified return flight to {dest_city.title()}."
+                c_flight['legs'] = [
+                    {
+                        'origin': origin_city.title(),
+                        'destination': f"{hub_city} Airport",
+                        'mode': ground_mode,
+                        'icon': '🚆' if ground_mode == 'train' else '🚗',
+                        'name': f"Connecting {ground_mode.title()} / Scenic Transfer to {hub_city} Airport",
+                        'class_type': 'Scenic Mountain Ghat Transit',
+                        'start_time': '12:00',
+                        'end_time': hf.get('start_time', '16:00'),
+                        'duration': f"~{max(2, int(dist_km / 45))}h",
+                        'price': 0,
+                        'booking_url': 'https://www.irctc.co.in/nget/train-search' if ground_mode == 'train' else 'https://www.savaari.com/'
+                    },
+                    {
+                        'origin': f"{hub_city} Airport ({hf.get('origin', hub_city)})",
+                        'destination': hf.get('destination', dest_city.title()),
+                        'mode': 'flight',
+                        'icon': '✈️',
+                        'name': f"{hf.get('airline', 'IndiGo')} {hf.get('flight_number', 'Flight')}",
+                        'class_type': 'Economy Flight (15kg Check-in + 7kg Cabin)',
+                        'start_time': hf.get('start_time', '16:00'),
+                        'end_time': hf.get('end_time', '17:35'),
+                        'duration': hf.get('duration', '1h 35m'),
+                        'price': 0,
+                        'booking_url': hf.get('booking_url', 'https://www.makemytrip.com/flights/')
+                    }
+                ]
+                connecting_flights.append(c_flight)
+            
+            return {
+                "flights": connecting_flights,
+                "has_direct_flight": False,
+                "route_message": f"✈️ Note: {origin_city.title()} does not have a commercial airport. Showing connecting transfer to {hub_city} Airport + verified flight to {dest_city.title()}."
+            }
 
     orig_ap = resolve_airport(origin_city)
     dest_ap = resolve_airport(dest_city)

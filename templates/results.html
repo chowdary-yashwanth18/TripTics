@@ -564,25 +564,27 @@
 
                     <div class="accordion" id="travelAccordion{{ dest_id }}">
                         {% if rec.Outbound_Options %}
-                        <div class="accordion-item border-0 shadow-sm mb-2 rounded-3 overflow-hidden">
+                        <div class="accordion-item border-0 shadow-sm mb-3 rounded-3 overflow-hidden">
                             <h2 class="accordion-header" id="headingOutbound{{ dest_id }}">
-                                <button class="accordion-button collapsed py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
-                                    Outbound (To {{ rec.Destination }})
+                                <button class="accordion-button py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
+                                    <i class="bi bi-airplane-engines-fill text-primary me-2"></i> Outbound Transit (To {{ rec.Destination }})
                                 </button>
                             </h2>
-                            <div id="collapseOutbound{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                            <div id="collapseOutbound{{ dest_id }}" class="accordion-collapse collapse show">
                                 <div class="accordion-body p-2 bg-light">
                                     <div class="list-group list-group-flush rounded">
+                                        {% set shown_out_alerts = [] %}
                                         {% for opt in rec.Outbound_Options %}
-                                        {% if opt.route_message %}
+                                        {% if opt.route_message and (opt.mode ~ opt.route_message) not in shown_out_alerts %}
+                                        {% set _ = shown_out_alerts.append(opt.mode ~ opt.route_message) %}
                                         <div class="transport-item-{{ dest_id }} alert alert-warning p-2 mb-2 shadow-xs rounded-3" data-mode="{{ opt.mode }}" style="border-left: 4px solid var(--bs-warning);">
                                             <div class="d-flex align-items-center gap-2">
                                                 <span class="fs-5">{{ opt.icon }}</span>
                                                 <div class="w-100">
-                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.78rem;">
-                                                        {{ "Connecting Flight via Airport Hub" if opt.mode == 'flight' else ("Connecting Railway Route via Junction" if opt.mode == 'train' else ("Connecting Bus Transit" if opt.mode == 'bus' else "Connecting Highway Route")) }}
+                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.8rem;">
+                                                        {{ "✈️ Via Route & Path (Connecting Flight via Airport Hub)" if opt.mode == 'flight' else ("🚆 Via Route & Path (Connecting Railway Route via Junction)" if opt.mode == 'train' else ("🚌 Via Route & Path (Connecting Bus Transit via Hub)" if opt.mode == 'bus' else "🚗 Via Highway Route & Path")) }}
                                                     </h6>
-                                                    <p class="mb-0 small text-dark" style="font-size: 0.73rem;">{{ opt.route_message }}</p>
+                                                    <p class="mb-0 small text-dark mt-1" style="font-size: 0.74rem;">{{ opt.route_message }}</p>
                                                     {% if opt.mode == 'flight' %}
                                                     <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
                                                         <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
@@ -590,6 +592,10 @@
                                                     {% elif opt.mode == 'train' %}
                                                     <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
                                                         <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
+                                                    {% elif opt.mode == 'bus' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
                                                     </div>
                                                     {% endif %}
                                                 </div>
@@ -633,18 +639,21 @@
                                         </div>
                                         {% if opt.legs and opt.legs|length > 1 %}
                                         <div class="transport-item-{{ dest_id }} list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded" data-mode="{{ opt.mode }}">
-                                            <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
-                                            <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                            <h6 class="small fw-bold text-dark mb-2 border-bottom pb-1">
+                                                <i class="bi bi-signpost-split-fill text-primary me-1"></i> Via Route & Connecting Path ({{ opt.legs|length }} Legs)
+                                            </h6>
+                                            <div class="ps-2" style="border-left: 2px dashed #0d6efd;">
                                                 {% for leg in opt.legs %}
                                                 <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
-                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#0d6efd{% endif %};"></div>
                                                     <div>
-                                                        <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
-                                                        <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                        <div class="fw-bold small text-dark"><span class="badge bg-secondary me-1" style="font-size: 0.62rem;">Leg {{ loop.index }}</span> {{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                        <div class="text-muted" style="font-size: 0.72rem;">{{ leg.icon }} <span class="fw-semibold">{{ leg.name }}</span> | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                     </div>
                                                     <div class="text-end">
-                                                        {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                        {% set leg_book_url = leg.booking_url if leg.booking_url else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else ("https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.savaari.com/" if leg.mode in ['cab', 'car'] else "https://www.makemytrip.com/flights/"))) %}
+                                                        {% set leg_book_label = "IRCTC" if leg.mode == 'train' else ("RedBus" if leg.mode == 'bus' else ("Cab" if leg.mode in ['cab', 'car'] else "Airline")) %}
+                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book {{ leg_book_label }} <i class="bi bi-box-arrow-up-right"></i></a>
                                                     </div>
                                                 </div>
                                                 {% endfor %}
@@ -661,23 +670,25 @@
                         {% if rec.Return_Options %}
                         <div class="accordion-item border-0 shadow-sm rounded-3 overflow-hidden">
                             <h2 class="accordion-header" id="headingReturn{{ dest_id }}">
-                                <button class="accordion-button collapsed py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
-                                    Return (From {{ rec.Destination }})
+                                <button class="accordion-button py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
+                                    <i class="bi bi-airplane-landing-fill text-danger me-2"></i> Return Transit (From {{ rec.Destination }} to {{ rec.Starting_City or 'Hometown' }})
                                 </button>
                             </h2>
-                            <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                            <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse show">
                                 <div class="accordion-body p-2 bg-light">
                                     <div class="list-group list-group-flush rounded">
+                                        {% set shown_ret_alerts = [] %}
                                         {% for opt in rec.Return_Options %}
-                                        {% if opt.route_message %}
+                                        {% if opt.route_message and (opt.mode ~ opt.route_message) not in shown_ret_alerts %}
+                                        {% set _ = shown_ret_alerts.append(opt.mode ~ opt.route_message) %}
                                         <div class="transport-item-{{ dest_id }} alert alert-warning p-2 mb-2 shadow-xs rounded-3" data-mode="{{ opt.mode }}" style="border-left: 4px solid var(--bs-warning);">
                                             <div class="d-flex align-items-center gap-2">
                                                 <span class="fs-5">{{ opt.icon }}</span>
                                                 <div class="w-100">
-                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.78rem;">
-                                                        {{ "Connecting Flight via Airport Hub" if opt.mode == 'flight' else ("Connecting Railway Route via Junction" if opt.mode == 'train' else ("Connecting Bus Transit" if opt.mode == 'bus' else "Connecting Highway Route")) }}
+                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.8rem;">
+                                                        {{ "✈️ Via Route & Path (Connecting Flight via Airport Hub)" if opt.mode == 'flight' else ("🚆 Via Route & Path (Connecting Railway Route via Junction)" if opt.mode == 'train' else ("🚌 Via Route & Path (Connecting Bus Transit via Hub)" if opt.mode == 'bus' else "🚗 Via Highway Route & Path")) }}
                                                     </h6>
-                                                    <p class="mb-0 small text-dark" style="font-size: 0.73rem;">{{ opt.route_message }}</p>
+                                                    <p class="mb-0 small text-dark mt-1" style="font-size: 0.74rem;">{{ opt.route_message }}</p>
                                                     {% if opt.mode == 'flight' %}
                                                     <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
                                                         <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
@@ -685,6 +696,10 @@
                                                     {% elif opt.mode == 'train' %}
                                                     <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
                                                         <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
+                                                    {% elif opt.mode == 'bus' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
                                                     </div>
                                                     {% endif %}
                                                 </div>
@@ -728,18 +743,21 @@
                                         </div>
                                         {% if opt.legs and opt.legs|length > 1 %}
                                         <div class="transport-item-{{ dest_id }} list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded" data-mode="{{ opt.mode }}">
-                                            <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
-                                            <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                            <h6 class="small fw-bold text-dark mb-2 border-bottom pb-1">
+                                                <i class="bi bi-signpost-split-fill text-danger me-1"></i> Via Route & Connecting Path ({{ opt.legs|length }} Legs)
+                                            </h6>
+                                            <div class="ps-2" style="border-left: 2px dashed #dc3545;">
                                                 {% for leg in opt.legs %}
                                                 <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
-                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#dc3545{% endif %};"></div>
                                                     <div>
-                                                        <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
-                                                        <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                        <div class="fw-bold small text-dark"><span class="badge bg-secondary me-1" style="font-size: 0.62rem;">Leg {{ loop.index }}</span> {{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                        <div class="text-muted" style="font-size: 0.72rem;">{{ leg.icon }} <span class="fw-semibold">{{ leg.name }}</span> | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
                                                     </div>
                                                     <div class="text-end">
-                                                        {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
-                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                        {% set leg_book_url = leg.booking_url if leg.booking_url else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else ("https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.savaari.com/" if leg.mode in ['cab', 'car'] else "https://www.makemytrip.com/flights/"))) %}
+                                                        {% set leg_book_label = "IRCTC" if leg.mode == 'train' else ("RedBus" if leg.mode == 'bus' else ("Cab" if leg.mode in ['cab', 'car'] else "Airline")) %}
+                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book {{ leg_book_label }} <i class="bi bi-box-arrow-up-right"></i></a>
                                                     </div>
                                                 </div>
                                                 {% endfor %}
@@ -1458,6 +1476,19 @@ function filterTransportMode(destId, mode) {
             }
         });
     }
+
+    // Ensure Outbound and Return accordions are opened
+    const obCol = document.getElementById(`collapseOutbound${destId}`);
+    if (obCol && !obCol.classList.contains('show') && typeof bootstrap !== 'undefined') {
+        const c1 = bootstrap.Collapse.getOrCreateInstance(obCol, { toggle: false });
+        c1.show();
+    }
+    const retCol = document.getElementById(`collapseReturn${destId}`);
+    if (retCol && !retCol.classList.contains('show') && typeof bootstrap !== 'undefined') {
+        const c2 = bootstrap.Collapse.getOrCreateInstance(retCol, { toggle: false });
+        c2.show();
+    }
+
     const items = document.querySelectorAll(`.transport-item-${destId}`);
     items.forEach(el => {
         const itemMode = el.getAttribute('data-mode') || '';
