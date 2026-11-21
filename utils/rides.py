@@ -8,6 +8,7 @@ with realistic fares computed from actual pickup and drop-off tourist locations 
 
 import hashlib
 import random
+import urllib.parse
 from utils.currency import get_currency_info
 
 # ── 1. Country Ride-Hailing Profiles ──────────────────────────────────────────
@@ -774,6 +775,11 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
     clean_pickup = (pickup or "Current Location / Hotel").strip()
     clean_dropoff = (dropoff or f"Top Tourist Spot in {location.title()}").strip()
 
+    # Pre-encode URL parameters for deep linking
+    encoded_dropoff = urllib.parse.quote_plus(f"{clean_dropoff}, {location}")
+    encoded_pickup = urllib.parse.quote_plus(f"{clean_pickup}, {location}")
+    google_maps_url = f"https://www.google.com/maps/dir/?api=1&origin={encoded_pickup}&destination={encoded_dropoff}"
+
     # Calculate realistic distance between pickup and dropoff
     if distance_km is not None and float(distance_km) > 0:
         actual_distance = round(float(distance_km), 1)
@@ -782,17 +788,24 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
         combined_route = f"{location.lower().strip()}-{clean_pickup.lower()}-{clean_dropoff.lower()}"
         hash_val = int(hashlib.md5(combined_route.encode('utf-8')).hexdigest(), 16)
         
-        if clean_pickup.lower() == clean_dropoff.lower():
-            actual_distance = 1.2
-        elif any(k in clean_pickup.lower() for k in ['airport', 'hub', 'far']):
-            actual_distance = round(14.0 + (hash_val % 180) / 10.0, 1) # 14 to 32 km
-        elif any(k in clean_dropoff.lower() for k in ['cave', 'waterfall', 'hills', 'valley', 'national park', 'island']):
-            actual_distance = round(12.0 + (hash_val % 160) / 10.0, 1) # 12 to 28 km
+        pick_low = clean_pickup.lower()
+        drop_low = clean_dropoff.lower()
+
+        if pick_low == drop_low:
+            actual_distance = 1.0
+        elif any(k in pick_low or k in drop_low for k in ['airport', 'aerodrome', 'terminal 1', 'terminal 2']):
+            actual_distance = round(22.0 + (hash_val % 140) / 10.0, 1) # 22 to 36 km
+        elif any(k in drop_low for k in ['cave', 'waterfall', 'hills', 'valley', 'national park', 'island', 'lake', 'sanctuary', 'dam']):
+            actual_distance = round(15.0 + (hash_val % 180) / 10.0, 1) # 15 to 33 km
+        elif any(k in pick_low or k in drop_low for k in ['station', 'bus stand', 'junction', 'railway', 'rtc', 'isbt']):
+            actual_distance = round(4.0 + (hash_val % 60) / 10.0, 1) # 4 to 10 km
+        elif any(k in drop_low for k in ['mall', 'bazaar', 'market', 'cafe', 'restaurant', 'rooftop', 'resort', 'park', 'temple']):
+            actual_distance = round(3.5 + (hash_val % 80) / 10.0, 1) # 3.5 to 11.5 km
         else:
-            actual_distance = round(3.5 + (hash_val % 115) / 10.0, 1) # 3.5 to 15.0 km
+            actual_distance = round(4.5 + (hash_val % 115) / 10.0, 1) # 4.5 to 16.0 km
 
     # Duration: ~2.0 mins per km in city + 4 mins base pickup time
-    duration_mins = max(4, int(actual_distance * 2.2 + 3))
+    duration_mins = max(5, int(actual_distance * 2.2 + 3))
 
     rides = []
     for s in profile['services']:
@@ -812,6 +825,21 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
             price_inr = max(40, int(round(local_price / rate)))
             price_display = f"₹{price_inr} ({profile['currency_symbol']}{local_price:,})"
 
+        # Dynamic App Deep Link / Official Booking Redirection
+        prov = s.get('provider', '').lower()
+        if 'uber' in prov:
+            ride_book_url = f"https://m.uber.com/ul/?action=setPickup&client_id=triptics&pickup=my_location&dropoff[formatted_address]={encoded_dropoff}"
+        elif 'rapido' in prov:
+            ride_book_url = "https://rapido.bike/"
+        elif 'ola' in prov:
+            ride_book_url = "https://book.olacabs.com/"
+        elif 'grab' in prov:
+            ride_book_url = "https://grab.onelink.me/2695613898"
+        elif 'careem' in prov:
+            ride_book_url = "https://www.careem.com/"
+        else:
+            ride_book_url = s.get('book_url', 'https://m.uber.com/ul/?action=setPickup')
+
         rides.append({
             'provider': s['provider'],
             'type': s['type'],
@@ -825,7 +853,7 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
             'color': s['color'],
             'features': s['features'],
             'app_name': s['app_name'],
-            'book_url': s['book_url']
+            'book_url': ride_book_url
         })
 
     # Sort by price ascending
@@ -840,5 +868,6 @@ def generate_ride_options(location, pickup="Current Location / Hotel", dropoff=N
         'dropoff': clean_dropoff,
         'distance_km': actual_distance,
         'duration_mins': duration_mins,
+        'google_maps_url': google_maps_url,
         'rides': rides
     }

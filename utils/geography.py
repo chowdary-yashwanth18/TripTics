@@ -52,6 +52,41 @@ CITY_COORDINATES = {
     'kochi': (9.9312, 76.2673),
     'cochin': (9.9312, 76.2673),
     'trivandrum': (8.5241, 76.9366),
+    'gujarat': (23.0225, 72.5714),
+    'ahmedabad': (23.0225, 72.5714),
+    'surat': (21.1702, 72.8311),
+    'vadodara': (22.3072, 73.1812),
+    'rajkot': (22.3039, 70.8022),
+    'kerala': (10.8505, 76.2711),
+    'kashmir': (34.0837, 74.7973),
+    'srinagar': (34.0837, 74.7973),
+    'jammu': (32.7266, 74.8570),
+    'himachal pradesh': (31.1048, 77.1734),
+    'chandigarh': (30.7333, 76.7794),
+    'kalka': (30.8354, 76.9328),
+    'uttarakhand': (30.0869, 78.2676),
+    'dehradun': (30.3165, 78.0322),
+    'haridwar': (29.9457, 78.1642),
+    'rajasthan': (26.9124, 75.7873),
+    'jodhpur': (26.2389, 73.0243),
+    'udaipur': (24.5854, 73.7125),
+    'coimbatore': (11.0168, 76.9558),
+    'madurai': (9.9252, 78.1198),
+    'pondicherry': (11.9416, 79.8083),
+    'puducherry': (11.9416, 79.8083),
+    'andaman': (11.6234, 92.7265),
+    'port blair': (11.6234, 92.7265),
+    'leh': (34.1526, 77.5771),
+    'ladakh': (34.1526, 77.5771),
+    'shillong': (25.5788, 91.8933),
+    'guwahati': (26.1445, 91.7362),
+    'gangtok': (27.3389, 88.6065),
+    'darjeeling': (27.0410, 88.2663),
+    'puri': (19.8135, 85.8312),
+    'bhubaneswar': (20.2961, 85.8245),
+    'lucknow': (26.8467, 80.9462),
+    'bhopal': (23.2599, 77.4126),
+    'indore': (22.7196, 75.8577),
     'da nang': (16.0544, 108.2022),
     'danang': (16.0544, 108.2022),
     'hanoi': (21.0285, 105.8542),
@@ -113,7 +148,11 @@ def get_distance(origin, destination):
     hash_val = int(hashlib.md5(hash_str.encode('utf-8')).hexdigest(), 16)
     random.seed(hash_val)
     
-    return random.randint(200, 5000)
+    # Check if foreign/international destination
+    foreign_keys = ['london', 'paris', 'tokyo', 'dubai', 'singapore', 'bangkok', 'bali', 'vietnam', 'hanoi', 'danang', 'usa', 'new york']
+    if any(k in origin_lower or k in dest_lower for k in foreign_keys):
+        return random.randint(3500, 9500)
+    return random.randint(280, 1450)
 
 def get_nearest_airport(city):
     """

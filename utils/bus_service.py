@@ -40,6 +40,42 @@ OPERATORS = {
         'base_rate_per_km': {'Shivneri': 2.50, 'Shivshahi': 1.80, 'Semi-Luxury': 1.35},
         'booking_portal': 'https://msrtc.maharashtra.gov.in/'
     },
+    'GSRTC': {
+        'name': 'GSRTC (Gujarat State Road Transport Corp)',
+        'types': ['Gurjanagari (A/C Multi-Axle)', 'Volvo Sleeper', 'Express Gurjarnagari'],
+        'base_rate_per_km': {'Gurjanagari': 2.30, 'Volvo Sleeper': 2.40, 'Express': 1.40},
+        'booking_portal': 'https://gsrtc.in/'
+    },
+    'RSRTC': {
+        'name': 'RSRTC (Rajasthan State Road Transport Corp)',
+        'types': ['Super Luxury (A/C Multi-Axle)', 'Goldline A/C', 'Express'],
+        'base_rate_per_km': {'Super Luxury': 2.30, 'Goldline A/C': 2.10, 'Express': 1.40},
+        'booking_portal': 'https://transport.rajasthan.gov.in/'
+    },
+    'HRTC': {
+        'name': 'HRTC (Himachal Road Transport Corp)',
+        'types': ['Himgaura (Volvo A/C)', 'Himmani Deluxe', 'Semi-Deluxe'],
+        'base_rate_per_km': {'Himgaura': 2.50, 'Himmani Deluxe': 1.85, 'Semi-Deluxe': 1.45},
+        'booking_portal': 'https://www.hrtchp.com/'
+    },
+    'SETC': {
+        'name': 'SETC (State Express Transport Corp Tamil Nadu)',
+        'types': ['Ultra Deluxe (A/C Sleeper)', 'Air Conditioned Seater', 'Classic'],
+        'base_rate_per_km': {'Ultra Deluxe': 2.35, 'Air Conditioned Seater': 1.90, 'Classic': 1.40},
+        'booking_portal': 'https://www.tnstc.in/'
+    },
+    'UPSRTC': {
+        'name': 'UPSRTC (Uttar Pradesh State Road Transport Corp)',
+        'types': ['Janrath (A/C 3+2)', 'Shatabdi (Volvo A/C)', 'Lohia Express'],
+        'base_rate_per_km': {'Janrath': 2.20, 'Shatabdi': 2.45, 'Lohia Express': 1.40},
+        'booking_portal': 'https://upsrtc.up.gov.in/'
+    },
+    'JKSRTC': {
+        'name': 'JKSRTC (Jammu & Kashmir State Road Transport Corp)',
+        'types': ['Deluxe AC Volvo', 'Semi-Deluxe', 'Express'],
+        'base_rate_per_km': {'Deluxe AC Volvo': 2.50, 'Semi-Deluxe': 1.80, 'Express': 1.40},
+        'booking_portal': 'https://jksrtc.jk.gov.in/'
+    },
     'PRIVATE': {
         'operators': ['IntrCity SmartBus', 'VRL Travels', 'Orange Travels', 'Zingbus', 'SRS Travels'],
         'types': ['A/C Sleeper (2+1)', 'A/C Seater/Sleeper Premium'],
@@ -197,8 +233,10 @@ def get_verified_bus_options(origin, destination, travel_date=None, is_return=Fa
     ]
 
     # Select appropriate operators
-    rtc_data = OPERATORS.get(primary_rtc, OPERATORS['APSRTC'])
-    rtc_name = rtc_data['name'].split('(')[0].strip()
+    rtc_data = OPERATORS.get(primary_rtc)
+    if not rtc_data or 'name' not in rtc_data:
+        rtc_data = OPERATORS['APSRTC']
+    rtc_name = rtc_data.get('name', 'State RTC (National)').split('(')[0].strip()
     
     # 1. State RTC Option 1: Premium A/C
     premium_class = rtc_data['types'][0]

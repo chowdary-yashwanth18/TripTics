@@ -486,232 +486,274 @@
                 </div>
             </div>
 
-            {# ── Local Rides (Country-Specific & Attraction-Based) ── #}
+            {# ── Local Rides (Country-Specific & Custom Location Input) ── #}
             {% set dest_attractions = rec.Attractions.split(',') if rec.Attractions else [] %}
             <div class="mt-3 p-3 bg-light rounded-3 border" id="ride-card-{{ dest_id }}">
                 <div class="d-flex justify-content-between align-items-center mb-2">
                     <div>
                         <h6 class="fw-bold text-dark mb-0">
-                            <i class="bi bi-car-front-fill text-warning me-1"></i> Local Rides & Cabs
+                            <i class="bi bi-car-front-fill text-warning me-1"></i> Local Rides & Cabs (Uber, Rapido, Ola)
                         </h6>
                         <small class="text-muted" style="font-size: 0.7rem;" id="ride-subtitle-{{ dest_id }}">
-                            Country-specific ride services & distance fares
+                            Enter your pickup & destination spot to find rides & book on official apps
                         </small>
                     </div>
-                    <button class="btn btn-sm btn-outline-dark rounded-pill py-0 px-2" type="button" onclick="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" id="btn-rides-{{ dest_id }}" style="font-size: 0.75rem;">
-                        Check Prices
+                    <button class="btn btn-sm btn-warning fw-bold text-dark rounded-pill py-0 px-3 shadow-xs" type="button" onclick="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" id="btn-rides-{{ dest_id }}" style="font-size: 0.75rem;">
+                        <i class="bi bi-search me-1"></i> Find Rides
                     </button>
                 </div>
 
-                {# ── Route Selector (Pickup & Famous Spot Dropoff) ── #}
-                <div id="ride-controls-{{ dest_id }}" class="p-2 mb-2 bg-white rounded-3 border shadow-xs d-none">
+                {# ── Route Selector (Pickup & Destination Custom Input) ── #}
+                <div id="ride-controls-{{ dest_id }}" class="p-2 mb-2 bg-white rounded-3 border shadow-xs">
                     <div class="row g-2 align-items-center">
                         <div class="col-12 col-md-6">
                             <label class="form-label text-muted small mb-1 fw-bold" style="font-size: 0.7rem;">
-                                <i class="bi bi-geo-alt-fill text-success"></i> Pickup (Current Location):
+                                <i class="bi bi-geo-alt-fill text-success"></i> Pickup Location:
                             </label>
-                            <select class="form-select form-select-sm py-1" id="pickup-select-{{ dest_id }}" onchange="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" style="font-size: 0.75rem;">
-                                <option value="Current Location / Hotel" selected>📍 Current Location / My Hotel</option>
-                                <option value="Central Railway Station / Bus Stand">🚉 Transit Hub / Station</option>
-                                <option value="Airport / City Center">✈️ Airport / City Center</option>
-                            </select>
+                            <input type="text" class="form-control form-control-sm py-1" id="pickup-input-{{ dest_id }}" data-location="{{ rec.Destination }}, {{ rec.State }}" value="Current Location / Hotel" placeholder="Enter pickup address, hotel or station..." style="font-size: 0.75rem;">
+                            <div class="d-flex flex-wrap gap-1 mt-1">
+                                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-1 rounded-pill" style="font-size: 0.65rem;" onclick="setPickupPreset('{{ dest_id }}', '📍 Current Hotel / Resort')">📍 My Hotel</button>
+                                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-1 rounded-pill" style="font-size: 0.65rem;" onclick="setPickupPreset('{{ dest_id }}', '🚉 Central Railway Station')">🚉 Railway Station</button>
+                                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-1 rounded-pill" style="font-size: 0.65rem;" onclick="setPickupPreset('{{ dest_id }}', '✈️ Airport Terminal')">✈️ Airport</button>
+                                <button type="button" class="btn btn-xs btn-outline-secondary py-0 px-1 rounded-pill" style="font-size: 0.65rem;" onclick="setPickupPreset('{{ dest_id }}', '🚌 Bus Stand')">🚌 Bus Stand</button>
+                            </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <label class="form-label text-muted small mb-1 fw-bold" style="font-size: 0.7rem;">
-                                <i class="bi bi-pin-map-fill text-danger"></i> Famous Spot to Visit:
+                                <i class="bi bi-pin-map-fill text-danger"></i> Where do you want to go? (Destination / Spot):
                             </label>
-                            <select class="form-select form-select-sm py-1" id="dropoff-select-{{ dest_id }}" onchange="loadRides('{{ rec.Destination }}, {{ rec.State }}', '{{ dest_id }}')" style="font-size: 0.75rem;">
-                                {% for attr in dest_attractions %}
-                                <option value="{{ attr.strip() }}" {% if loop.first %}selected{% endif %}>🎯 {{ attr.strip() }}</option>
+                            <input type="text" class="form-control form-control-sm py-1" id="dropoff-input-{{ dest_id }}" data-location="{{ rec.Destination }}, {{ rec.State }}" value="{{ dest_attractions[0].strip() if dest_attractions else 'Central Landmark' }}" placeholder="Enter spot name, mall, party venue, temple..." style="font-size: 0.75rem;">
+                            <div class="d-flex flex-wrap gap-1 mt-1" style="max-height: 48px; overflow-y: auto;">
+                                {% for attr in dest_attractions[:4] %}
+                                <button type="button" class="btn btn-xs btn-outline-primary py-0 px-1 rounded-pill text-truncate" style="font-size: 0.65rem; max-width: 140px;" onclick="setDropoffPreset('{{ dest_id }}', '{{ attr.strip() | replace("'", "\\'") }}')">🎯 {{ attr.strip() }}</button>
                                 {% endfor %}
-                                {% if not dest_attractions %}
-                                <option value="Central Sightseeing Point" selected>🎯 Central Famous Landmark</option>
-                                {% endif %}
-                            </select>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-2 pt-2 border-top d-flex flex-wrap justify-content-between align-items-center gap-1" id="route-info-{{ dest_id }}">
-                        <!-- Route summary badge and country app tag will render here -->
+                        <!-- Route summary badge and navigation button will render here -->
                     </div>
                 </div>
 
-                <div id="rides-{{ dest_id }}" class="list-group list-group-flush rounded d-none mt-2">
+                <div id="rides-{{ dest_id }}" class="list-group list-group-flush rounded mt-2">
                     <!-- Rides will load here -->
                 </div>
             </div>
 
-            {# ── Travel Options ── #}
+            {# ── Travel Options (All Modes Guaranteed & Filterable) ── #}
             {% if starting_city %}
-                {% if not rec.Outbound_Options and not rec.Return_Options %}
-                <div class="mt-4 p-3 bg-danger bg-opacity-10 rounded-3 border border-danger">
-                    <h6 class="fw-bold text-danger mb-1"><i class="bi bi-exclamation-triangle-fill"></i> Transport Not Available</h6>
-                    <p class="mb-0 small text-dark">We're sorry, there are no direct flights, trains, or buses available for this route currently. Please check nearby major transit hubs or consider an alternative mode of transportation.</p>
-                </div>
-                {% else %}
                 {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') %}
                 <div class="mt-4">
-                    <h6 class="fw-bold text-dark mb-2"><i class="bi bi-ticket-detailed-fill text-primary"></i> Travel Options</h6>
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <h6 class="fw-bold text-dark mb-0">
+                            <i class="bi bi-ticket-detailed-fill text-primary"></i> Travel Options (Flights, Trains, Buses & Cabs)
+                        </h6>
+                        <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold px-2 py-1" style="font-size: 0.68rem;">
+                            <i class="bi bi-shield-check me-1"></i> All Modes Verified
+                        </span>
+                    </div>
+
+                    {# ── Mode Filter Buttons ── #}
+                    <div class="btn-group btn-group-sm mb-2 w-100" role="group" id="mode-filters-{{ dest_id }}">
+                        <button type="button" class="btn btn-sm btn-outline-primary active py-1" onclick="filterTransportMode('{{ dest_id }}', 'all')">🌟 All Modes</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary py-1" onclick="filterTransportMode('{{ dest_id }}', 'flight')">✈️ Flights</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary py-1" onclick="filterTransportMode('{{ dest_id }}', 'train')">🚆 Trains</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary py-1" onclick="filterTransportMode('{{ dest_id }}', 'bus')">🚌 Buses</button>
+                        <button type="button" class="btn btn-sm btn-outline-primary py-1" onclick="filterTransportMode('{{ dest_id }}', 'cab')">🚗 Cabs / Road</button>
+                    </div>
+
                     <div class="accordion" id="travelAccordion{{ dest_id }}">
                         {% if rec.Outbound_Options %}
-                    <div class="accordion-item border-0 shadow-sm mb-2 rounded-3 overflow-hidden">
-                        <h2 class="accordion-header" id="headingOutbound{{ dest_id }}">
-                            <button class="accordion-button collapsed py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
-                                Outbound (To {{ rec.Destination }})
-                            </button>
-                        </h2>
-                        <div id="collapseOutbound{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
-                            <div class="accordion-body p-2 bg-light">
-                                <div class="list-group list-group-flush rounded">
-                                    {% for opt in rec.Outbound_Options %}
-                                    {% if opt.route_message %}
-                                    <div class="alert alert-warning p-3 mb-2 shadow-sm rounded-3" style="border-left: 4px solid var(--bs-warning);">
-                                        <h6 class="fw-bold text-danger mb-1"><i class="bi bi-info-circle-fill"></i> No Direct Flights</h6>
-                                        <p class="mb-0 small text-dark fw-medium">{{ opt.route_message }}</p>
-                                    </div>
-                                    {% endif %}
-                                    <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="fs-4 me-2">{{ opt.icon }}</div>
-                                            <div>
-                                                <h6 class="mb-0 fw-bold small text-primary">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
-                                                <div class="text-muted" style="font-size: 0.75rem;">
-                                                    <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
-                                                    <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
-                                                </div>
-                                                <div class="d-flex align-items-center gap-1 mt-1">
-                                                    <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
-                                                        {{ opt.vacancy.text }}
-                                                    </span>
-                                                    {% if opt.provenance and opt.provenance.is_verified %}
-                                                    <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
-                                                        <i class="bi bi-shield-check"></i> Verified
-                                                    </span>
+                        <div class="accordion-item border-0 shadow-sm mb-2 rounded-3 overflow-hidden">
+                            <h2 class="accordion-header" id="headingOutbound{{ dest_id }}">
+                                <button class="accordion-button collapsed py-2 px-3 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOutbound{{ dest_id }}">
+                                    Outbound (To {{ rec.Destination }})
+                                </button>
+                            </h2>
+                            <div id="collapseOutbound{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                                <div class="accordion-body p-2 bg-light">
+                                    <div class="list-group list-group-flush rounded">
+                                        {% for opt in rec.Outbound_Options %}
+                                        {% if opt.route_message %}
+                                        <div class="transport-item-{{ dest_id }} alert alert-warning p-2 mb-2 shadow-xs rounded-3" data-mode="{{ opt.mode }}" style="border-left: 4px solid var(--bs-warning);">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="fs-5">{{ opt.icon }}</span>
+                                                <div class="w-100">
+                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.78rem;">
+                                                        {{ "Connecting Flight via Airport Hub" if opt.mode == 'flight' else ("Connecting Railway Route via Junction" if opt.mode == 'train' else ("Connecting Bus Transit" if opt.mode == 'bus' else "Connecting Highway Route")) }}
+                                                    </h6>
+                                                    <p class="mb-0 small text-dark" style="font-size: 0.73rem;">{{ opt.route_message }}</p>
+                                                    {% if opt.mode == 'flight' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
+                                                    {% elif opt.mode == 'train' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-end">
-                                            {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else "Official State RTC / RedBus") %}
-                                            {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
-                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
-                                                <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
-                                            </span>
-                                            <div>
-                                                <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-primary shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                                                    <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else "RTC / RedBus") }}</span>
-                                                    <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% if opt.legs and opt.legs|length > 1 %}
-                                    <div class="list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded">
-                                        <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
-                                        <div class="ps-2" style="border-left: 2px dashed #ccc;">
-                                            {% for leg in opt.legs %}
-                                            <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
-                                                <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                        {% endif %}
+                                        <div class="transport-item-{{ dest_id }} list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm" data-mode="{{ opt.mode }}">
+                                            <div class="d-flex align-items-center">
+                                                <div class="fs-4 me-2">{{ opt.icon }}</div>
                                                 <div>
-                                                    <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
-                                                    <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
-                                                </div>
-                                                <div class="text-end">
-                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.google.com/travel/flights") %}
-                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                    <h6 class="mb-0 fw-bold small text-primary">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">
+                                                        <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
+                                                        <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 mt-1">
+                                                        <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
+                                                            {{ opt.vacancy.text }}
+                                                        </span>
+                                                        {% if opt.provenance and opt.provenance.is_verified %}
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
+                                                            <i class="bi bi-shield-check"></i> Verified
+                                                        </span>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            {% endfor %}
+                                            <div class="text-end">
+                                                {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else ("Savaari / MMT Cabs" if opt.mode in ['cab', 'car'] else "Official State RTC / RedBus")) %}
+                                                {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if opt.mode == 'train' else ("https://www.savaari.com/" if opt.mode in ['cab', 'car'] else "https://www.makemytrip.com/flights/"))) %}
+                                                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
+                                                </span>
+                                                <div>
+                                                    <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-primary shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                        <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else ("Cab Portal" if opt.mode in ['cab', 'car'] else "RTC / RedBus")) }}</span>
+                                                        <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
+                                        {% if opt.legs and opt.legs|length > 1 %}
+                                        <div class="transport-item-{{ dest_id }} list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded" data-mode="{{ opt.mode }}">
+                                            <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
+                                            <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                                {% for leg in opt.legs %}
+                                                <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
+                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                    <div>
+                                                        <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                        <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
                                     </div>
-                                    {% endif %}
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    {% endif %}
-                    
-                    {% if rec.Return_Options %}
-                    <div class="accordion-item border-0 shadow-sm rounded-3 overflow-hidden">
-                        <h2 class="accordion-header" id="headingReturn{{ dest_id }}">
-                            <button class="accordion-button collapsed py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
-                                Return (From {{ rec.Destination }})
-                            </button>
-                        </h2>
-                        <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
-                            <div class="accordion-body p-2 bg-light">
-                                <div class="list-group list-group-flush rounded">
-                                    {% for opt in rec.Return_Options %}
-                                    {% if opt.route_message %}
-                                    <div class="alert alert-warning p-3 mb-2 shadow-sm rounded-3" style="border-left: 4px solid var(--bs-warning);">
-                                        <h6 class="fw-bold text-danger mb-1"><i class="bi bi-info-circle-fill"></i> No Direct Flights</h6>
-                                        <p class="mb-0 small text-dark fw-medium">{{ opt.route_message }}</p>
-                                    </div>
-                                    {% endif %}
-                                    <div class="list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm">
-                                        <div class="d-flex align-items-center">
-                                            <div class="fs-4 me-2">{{ opt.icon }}</div>
-                                            <div>
-                                                <h6 class="mb-0 fw-bold small text-danger">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
-                                                <div class="text-muted" style="font-size: 0.75rem;">
-                                                    <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
-                                                    <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
-                                                </div>
-                                                <div class="d-flex align-items-center gap-1 mt-1">
-                                                    <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
-                                                        {{ opt.vacancy.text }}
-                                                    </span>
-                                                    {% if opt.provenance and opt.provenance.is_verified %}
-                                                    <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
-                                                        <i class="bi bi-shield-check"></i> Verified
-                                                    </span>
+                        {% endif %}
+                        
+                        {% if rec.Return_Options %}
+                        <div class="accordion-item border-0 shadow-sm rounded-3 overflow-hidden">
+                            <h2 class="accordion-header" id="headingReturn{{ dest_id }}">
+                                <button class="accordion-button collapsed py-2 px-3 fw-bold text-danger" type="button" data-bs-toggle="collapse" data-bs-target="#collapseReturn{{ dest_id }}">
+                                    Return (From {{ rec.Destination }})
+                                </button>
+                            </h2>
+                            <div id="collapseReturn{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#travelAccordion{{ dest_id }}">
+                                <div class="accordion-body p-2 bg-light">
+                                    <div class="list-group list-group-flush rounded">
+                                        {% for opt in rec.Return_Options %}
+                                        {% if opt.route_message %}
+                                        <div class="transport-item-{{ dest_id }} alert alert-warning p-2 mb-2 shadow-xs rounded-3" data-mode="{{ opt.mode }}" style="border-left: 4px solid var(--bs-warning);">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="fs-5">{{ opt.icon }}</span>
+                                                <div class="w-100">
+                                                    <h6 class="fw-bold mb-0 text-dark small" style="font-size: 0.78rem;">
+                                                        {{ "Connecting Flight via Airport Hub" if opt.mode == 'flight' else ("Connecting Railway Route via Junction" if opt.mode == 'train' else ("Connecting Bus Transit" if opt.mode == 'bus' else "Connecting Highway Route")) }}
+                                                    </h6>
+                                                    <p class="mb-0 small text-dark" style="font-size: 0.73rem;">{{ opt.route_message }}</p>
+                                                    {% if opt.mode == 'flight' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'train')" class="fw-bold text-decoration-none text-primary">🚆 Trains</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
+                                                    {% elif opt.mode == 'train' %}
+                                                    <div class="mt-1 small text-muted" style="font-size: 0.68rem;">
+                                                        <i class="bi bi-lightbulb-fill text-warning"></i> Looking for other options? Switch to <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'flight')" class="fw-bold text-decoration-none text-primary">✈️ Flights</a>, <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'bus')" class="fw-bold text-decoration-none text-success">🚌 Buses</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('{{ dest_id }}', 'cab')" class="fw-bold text-decoration-none text-danger">🚗 Cabs</a>.
+                                                    </div>
                                                     {% endif %}
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="text-end">
-                                            {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else "Official State RTC / RedBus") %}
-                                            {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/" if opt.mode == 'train' else "https://www.google.com/travel/flights")) %}
-                                            <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
-                                                <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
-                                            </span>
-                                            <div>
-                                                <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-danger shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                                                    <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else "RTC / RedBus") }}</span>
-                                                    <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    {% if opt.legs and opt.legs|length > 1 %}
-                                    <div class="list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded">
-                                        <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
-                                        <div class="ps-2" style="border-left: 2px dashed #ccc;">
-                                            {% for leg in opt.legs %}
-                                            <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
-                                                <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                        {% endif %}
+                                        <div class="transport-item-{{ dest_id }} list-group-item d-flex justify-content-between align-items-center py-2 px-2 bg-white mb-1 border rounded shadow-sm" data-mode="{{ opt.mode }}">
+                                            <div class="d-flex align-items-center">
+                                                <div class="fs-4 me-2">{{ opt.icon }}</div>
                                                 <div>
-                                                    <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
-                                                    <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
-                                                </div>
-                                                <div class="text-end">
-                                                    {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/" if leg.mode == 'train' else "https://www.google.com/travel/flights") %}
-                                                    <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                    <h6 class="mb-0 fw-bold small text-danger">{{ opt.name }} <span class="badge bg-secondary ms-1" style="font-size: 0.6rem;">{{ opt.class_type }}</span></h6>
+                                                    <div class="text-muted" style="font-size: 0.75rem;">
+                                                        <div class="text-dark fw-medium mb-1"><i class="bi bi-geo-alt"></i> {{ opt.legs[0].origin }} &rarr; {{ opt.legs[-1].destination }}</div>
+                                                        <span class="fw-bold text-dark">{{ opt.start_time }}</span> &rarr; <span class="fw-bold text-dark">{{ opt.end_time }}</span> ({{ opt.duration }})
+                                                    </div>
+                                                    <div class="d-flex align-items-center gap-1 mt-1">
+                                                        <span class="badge bg-{{ opt.vacancy.color }} text-{{ 'dark' if opt.vacancy.color == 'warning' else 'white' }}" style="font-size: 0.65rem;">
+                                                            {{ opt.vacancy.text }}
+                                                        </span>
+                                                        {% if opt.provenance and opt.provenance.is_verified %}
+                                                        <span class="badge bg-success-subtle text-success border border-success-subtle" style="font-size: 0.62rem;">
+                                                            <i class="bi bi-shield-check"></i> Verified
+                                                        </span>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
-                                            {% endfor %}
+                                            <div class="text-end">
+                                                {% set official_portal = "IRCTC Official Portal" if opt.mode == 'train' else ("Official Airline Portal" if opt.mode == 'flight' else ("Savaari / MMT Cabs" if opt.mode in ['cab', 'car'] else "Official State RTC / RedBus")) %}
+                                                {% set book_url = opt.booking_url if opt.booking_url else ("https://www.redbus.in/" if opt.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if opt.mode == 'train' else ("https://www.savaari.com/" if opt.mode in ['cab', 'car'] else "https://www.makemytrip.com/flights/"))) %}
+                                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle rounded-pill font-semibold mb-1 d-inline-block" style="font-size: 0.68rem;">
+                                                    <i class="bi bi-box-arrow-up-right me-1"></i> {{ official_portal }}
+                                                </span>
+                                                <div>
+                                                    <a href="{{ book_url }}" target="_blank" class="btn btn-sm btn-danger shadow-sm rounded-pill py-1 px-3 d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
+                                                        <span>Book on {{ "IRCTC" if opt.mode == 'train' else ("Airline" if opt.mode == 'flight' else ("Cab Portal" if opt.mode in ['cab', 'car'] else "RTC / RedBus")) }}</span>
+                                                        <i class="bi bi-arrow-up-right" style="font-size: 0.62rem;"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
                                         </div>
+                                        {% if opt.legs and opt.legs|length > 1 %}
+                                        <div class="transport-item-{{ dest_id }} list-group-item py-2 px-3 mb-2 bg-light border-0 shadow-sm rounded" data-mode="{{ opt.mode }}">
+                                            <h6 class="small fw-bold text-muted mb-2 border-bottom pb-1">Route Details ({{ opt.legs|length }} Legs)</h6>
+                                            <div class="ps-2" style="border-left: 2px dashed #ccc;">
+                                                {% for leg in opt.legs %}
+                                                <div class="d-flex justify-content-between align-items-center mb-2 position-relative" style="padding-left: 15px;">
+                                                    <div class="position-absolute" style="left: -21px; top: 5px; width: 10px; height: 10px; border-radius: 50%; background: {% if loop.first %}#198754{% elif loop.last %}#dc3545{% else %}#ccc{% endif %};"></div>
+                                                    <div>
+                                                        <div class="fw-bold small text-dark">{{ leg.origin }} &rarr; {{ leg.destination }}</div>
+                                                        <div class="text-muted" style="font-size: 0.7rem;">{{ leg.icon }} {{ leg.name }} | {{ leg.start_time }} - {{ leg.end_time }} ({{ leg.duration }})</div>
+                                                    </div>
+                                                    <div class="text-end">
+                                                        {% set leg_book_url = "https://www.redbus.in/" if leg.mode == 'bus' else ("https://www.irctc.co.in/nget/train-search" if leg.mode == 'train' else "https://www.makemytrip.com/flights/") %}
+                                                        <a href="{{ leg_book_url }}" target="_blank" class="btn btn-sm btn-outline-danger rounded-pill py-0 px-2" style="font-size: 0.65rem;">Book Official <i class="bi bi-box-arrow-up-right"></i></a>
+                                                    </div>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        {% endfor %}
                                     </div>
-                                    {% endif %}
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
-                </div>
-                {% endif %}
             {% endif %}
 
             {# ── Available ATMs Nearby Transit Hubs (Railway Stations, Bus Stops & Airports) ── #}
@@ -1387,6 +1429,54 @@ function rideToAttraction(attrName, idSuffix, locationQuery) {
 }
 
 // ── Country-Specific & Distance-Based Dynamic Ride Loading ──
+function setPickupPreset(idSuffix, val) {
+    const inp = document.getElementById(`pickup-input-${idSuffix}`);
+    if (inp) {
+        inp.value = val;
+        const loc = inp.getAttribute('data-location') || '';
+        loadRides(loc, idSuffix);
+    }
+}
+
+function setDropoffPreset(idSuffix, val) {
+    const inp = document.getElementById(`dropoff-input-${idSuffix}`);
+    if (inp) {
+        inp.value = val;
+        const loc = inp.getAttribute('data-location') || '';
+        loadRides(loc, idSuffix);
+    }
+}
+
+function filterTransportMode(destId, mode) {
+    const group = document.getElementById(`mode-filters-${destId}`);
+    if (group) {
+        group.querySelectorAll('button').forEach(b => {
+            b.classList.remove('active');
+            const oc = b.getAttribute('onclick') || '';
+            if (oc.includes(`'${mode}'`)) {
+                b.classList.add('active');
+            }
+        });
+    }
+    const items = document.querySelectorAll(`.transport-item-${destId}`);
+    items.forEach(el => {
+        const itemMode = el.getAttribute('data-mode') || '';
+        if (mode === 'all') {
+            el.classList.remove('d-none');
+        } else if (mode === 'flight' && itemMode === 'flight') {
+            el.classList.remove('d-none');
+        } else if (mode === 'train' && itemMode === 'train') {
+            el.classList.remove('d-none');
+        } else if (mode === 'bus' && itemMode === 'bus') {
+            el.classList.remove('d-none');
+        } else if (mode === 'cab' && (itemMode === 'cab' || itemMode === 'car')) {
+            el.classList.remove('d-none');
+        } else {
+            el.classList.add('d-none');
+        }
+    });
+}
+
 function loadRides(locationQuery, idSuffix) {
     const container = document.getElementById(`rides-${idSuffix}`);
     const btn = document.getElementById(`btn-rides-${idSuffix}`);
@@ -1394,11 +1484,14 @@ function loadRides(locationQuery, idSuffix) {
     const subtitle = document.getElementById(`ride-subtitle-${idSuffix}`);
     const routeInfo = document.getElementById(`route-info-${idSuffix}`);
     
-    // Read user selected pickup and dropoff spots
+    // Read user custom pickup and dropoff inputs (with fallback to select)
+    const pickupInput = document.getElementById(`pickup-input-${idSuffix}`);
+    const dropoffInput = document.getElementById(`dropoff-input-${idSuffix}`);
     const pickupSelect = document.getElementById(`pickup-select-${idSuffix}`);
     const dropoffSelect = document.getElementById(`dropoff-select-${idSuffix}`);
-    const pickup = pickupSelect ? pickupSelect.value : 'Current Location / Hotel';
-    const dropoff = dropoffSelect ? dropoffSelect.value : '';
+
+    const pickup = pickupInput ? pickupInput.value : (pickupSelect ? pickupSelect.value : 'Current Location / Hotel');
+    const dropoff = dropoffInput ? dropoffInput.value : (dropoffSelect ? dropoffSelect.value : '');
 
     if (btn) {
         btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
@@ -1411,7 +1504,7 @@ function loadRides(locationQuery, idSuffix) {
     }
 
     container.classList.remove('d-none');
-    container.innerHTML = '<div class="text-center w-100 py-3"><div class="spinner-border spinner-border-sm text-primary" role="status"></div><p class="small text-muted mt-1 mb-0">Calculating route & local fares...</p></div>';
+    container.innerHTML = '<div class="text-center w-100 py-3"><div class="spinner-border spinner-border-sm text-primary" role="status"></div><p class="small text-muted mt-1 mb-0">Calculating route & local cab availability...</p></div>';
 
     const apiUrl = `/api/rides?location=${encodeURIComponent(locationQuery)}&pickup=${encodeURIComponent(pickup)}&dropoff=${encodeURIComponent(dropoff)}`;
 
@@ -1419,31 +1512,35 @@ function loadRides(locationQuery, idSuffix) {
         .then(response => response.json())
         .then(data => {
             if (btn) {
-                btn.classList.add('d-none');
+                btn.innerHTML = '<i class="bi bi-arrow-repeat me-1"></i> Update Route';
+                btn.disabled = false;
             }
             if (data.error || !data.rides || data.rides.length === 0) {
-                container.innerHTML = '<p class="text-muted small w-100 mb-0">No rides available right now.</p>';
+                container.innerHTML = '<p class="text-muted small w-100 mb-0">No rides available for this corridor currently.</p>';
                 return;
             }
             
             // Update country & route badge header
             if (subtitle && data.country_name) {
-                subtitle.innerHTML = `<span class="badge bg-white text-dark border me-1"><span class="fs-6">${data.flag}</span> ${data.country_name} Local Rides</span> <span class="text-muted">Estimated distance: <strong>${data.distance_km} km</strong></span>`;
+                subtitle.innerHTML = `<span class="badge bg-white text-dark border me-1"><span class="fs-6">${data.flag}</span> ${data.country_name} Transit</span> <span class="text-muted">Route Distance: <strong>${data.distance_km} km</strong> (~${data.duration_mins} mins)</span>`;
             }
 
             if (routeInfo) {
+                const mapsUrl = data.google_maps_url || `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(pickup)}&destination=${encodeURIComponent(dropoff)}`;
                 routeInfo.innerHTML = `
-                    <div class="d-flex align-items-center gap-1">
+                    <div class="d-flex flex-wrap align-items-center gap-1">
                         <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold" style="font-size: 0.72rem;">
                             <i class="bi bi-signpost-2-fill me-1"></i> ${data.distance_km} km
                         </span>
                         <span class="badge bg-warning-subtle text-dark border border-warning-subtle rounded-pill" style="font-size: 0.72rem;">
                             <i class="bi bi-clock-history me-1"></i> ~${data.duration_mins} mins
                         </span>
+                        <a href="${mapsUrl}" target="_blank" class="btn btn-sm btn-outline-primary rounded-pill py-0 px-2 ms-auto d-inline-flex align-items-center gap-1 shadow-xs" style="font-size: 0.7rem;">
+                            <i class="bi bi-map-fill text-danger"></i>
+                            <span>View Turn-by-Turn in Google Maps</span>
+                            <i class="bi bi-box-arrow-up-right" style="font-size: 0.6rem;"></i>
+                        </a>
                     </div>
-                    <small class="text-muted text-truncate" style="font-size: 0.7rem; max-width: 260px;" title="To ${data.dropoff}">
-                        To: <strong class="text-dark">${data.dropoff}</strong>
-                    </small>
                 `;
             }
 
@@ -1472,7 +1569,7 @@ function loadRides(locationQuery, idSuffix) {
                         </span>
                         <div>
                             <a href="${ride.book_url}" target="_blank" class="btn btn-sm btn-dark rounded-pill py-1 px-3 mt-1 shadow-xs d-inline-flex align-items-center gap-1" style="font-size: 0.72rem;">
-                                <span>Book in ${ride.app_name}</span>
+                                <span>Book on ${ride.app_name}</span>
                                 <i class="bi bi-box-arrow-up-right" style="font-size: 0.62rem;"></i>
                             </a>
                         </div>

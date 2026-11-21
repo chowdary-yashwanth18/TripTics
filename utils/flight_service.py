@@ -376,10 +376,56 @@ def search_verified_flights(origin_city, dest_city):
     if no_airport_dest:
         hub_city = no_airport_dest['nearest_city'].title()
         dist_km = no_airport_dest['distance_km']
+        ground_mode = no_airport_dest.get('ground_mode', 'cab')
+        
+        # Search verified flights from origin to this gateway hub city
+        hub_res = search_verified_flights(origin_city, hub_city)
+        hub_flights = hub_res.get('flights', [])
+        
+        if hub_flights:
+            connecting_flights = []
+            for hf in hub_flights:
+                c_flight = dict(hf)
+                c_flight['name'] = f"{hf.get('airline', 'IndiGo')} Flight + Scenic Transfer (Via {hub_city} Airport)"
+                c_flight['route_message'] = f"✈️ Note: {dest_city.title()} does not have a commercial airport. Fly from {origin_city.title()} to {hub_city} International ({hf.get('destination')}), then take a {ground_mode}/cab (~{dist_km} km) to {dest_city.title()}."
+                c_flight['legs'] = [
+                    {
+                        'origin': hf.get('origin', origin_city.title()),
+                        'destination': f"{hub_city} Airport ({hf.get('destination')})",
+                        'mode': 'flight',
+                        'icon': '✈️',
+                        'name': f"{hf.get('airline', 'IndiGo')} {hf.get('flight_number', 'Flight')}",
+                        'class_type': 'Economy Flight (15kg Check-in + 7kg Cabin)',
+                        'start_time': hf.get('start_time', '06:45'),
+                        'end_time': hf.get('end_time', '08:20'),
+                        'duration': hf.get('duration', '1h 35m'),
+                        'price': 0
+                    },
+                    {
+                        'origin': f"{hub_city} Airport",
+                        'destination': dest_city.title(),
+                        'mode': ground_mode,
+                        'icon': '🚆' if ground_mode == 'train' else '🚗',
+                        'name': f"Connecting {ground_mode.title()} / Scenic Transfer to {dest_city.title()}",
+                        'class_type': 'Scenic Mountain Ghat Transit',
+                        'start_time': hf.get('end_time', '08:20'),
+                        'end_time': 'Arrival at ' + dest_city.title(),
+                        'duration': f"~{max(2, int(dist_km / 45))}h",
+                        'price': 0
+                    }
+                ]
+                connecting_flights.append(c_flight)
+            
+            return {
+                "flights": connecting_flights,
+                "has_direct_flight": False,
+                "route_message": f"✈️ Note: {dest_city.title()} does not have a commercial airport. Showing verified flight to nearest airport ({hub_city}) + connecting ground transfer to {dest_city.title()}."
+            }
+        
         return {
             "flights": [],
             "has_direct_flight": False,
-            "route_message": f"{dest_city.title()} does not have a commercial airport. Nearest airport is {hub_city} ({dist_km} km away). Showing connecting ground transit."
+            "route_message": f"✈️ Note: {dest_city.title()} does not have a commercial airport. Nearest airport is {hub_city} ({dist_km} km away). Showing connecting transit options."
         }
 
     orig_ap = resolve_airport(origin_city)
