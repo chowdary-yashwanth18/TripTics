@@ -805,6 +805,456 @@ DESTINATION_MASTER_REGISTRY = {
                 'phone': '+91 891 668 8999'
             }
         ]
+    },
+
+    # ── TIRUPATI & TIRUMALA (Andhra Pradesh) ───────────────────────────────────
+    'tirupati': {
+        'destination': 'Tirupati',
+        'title': 'Tirupati & Tirumala, Andhra Pradesh',
+        'tagline': 'Spiritual Capital of Andhra Pradesh — Abode of Lord Venkateswara, Seshachalam Biosphere & Magnificent Waterfalls',
+        'overview': 'Tirupati, nestled at the foot of the ancient Seshachalam Hills, is one of the world\'s most sacred pilgrimage destinations. Famous for the hilltop shrine of Lord Sri Venkateswara at Tirumala, it also features breathtaking natural waterfalls like Talakona (highest in AP), sacred rock-cut cave temples, and Asia\'s largest zoological park.',
+        
+        'route_map': {
+            'overview_route': 'Alipiri / Foothills Gateway ➔ Kapila Theertham & Waterfall ➔ Seshachalam Ghat Road / Srivari Mettu Trek ➔ Tirumala Seven Hills Sanctum ➔ Silathoranam & Chakra Theertham ➔ Talakona Waterfall Biosphere Trek ➔ Tiruchanur Padmavathi Ammavari Temple',
+            'suggested_sequence': [
+                'Day 1: Foothill Darshan at Kapila Theertham, climb or drive up Tirumala Ghat road, sacred Sri Venkateswara Swamy Darshan & Laddu Prasadam.',
+                'Day 2: Morning visit to Silathoranam & Papavinasanam, descent to Tirupati, Sri Govindaraja Swamy Temple, and Tiruchanur Padmavathi Ammavari Temple.',
+                'Day 3: Full-day scenic nature excursion to Talakona Waterfalls (270 ft cascade) with canopy ropewalk and jungle trail inside S.V. National Park.',
+                'Day 4: Kailasakona Waterfalls or Sri Kalahasteeswara Temple (Srikalahasti Vayu Lingam) and Sri Venkateswara Zoological Park safari.'
+            ]
+        },
+
+        'tourist_spots': {
+            'temples': [
+                {
+                    'name': 'Sri Venkateswara Swamy Temple (Tirumala)',
+                    'landmark': 'Tirumala Seven Hills (~22 km from Tirupati foothills via scenic ghat road)',
+                    'desc': 'World-famous 10th-century Dravidian shrine dedicated to Lord Balaji; the richest and most visited spiritual sanctuary in the world.',
+                    'timing': '03:00 AM – 11:30 PM (Continuous Darshan slots)',
+                    'highlight': 'World-famous Tirupati Laddu, Suprabhata Seva, and sacred head-tonsuring (Kalyanakatta)'
+                },
+                {
+                    'name': 'Sri Padmavathi Ammavari Temple',
+                    'landmark': 'Tiruchanur (~5 km from Tirupati Railway Station)',
+                    'desc': 'Sacred temple of the presiding goddess Padmavathi (consort of Lord Venkateswara); tradition dictates visiting here to complete the Tirumala pilgrimage.',
+                    'timing': '06:30 AM – 11:30 AM & 04:00 PM – 08:30 PM',
+                    'highlight': 'Padma Sarovaram holy tank and Kumkumarchana ritual'
+                },
+                {
+                    'name': 'Sri Govindaraja Swamy Temple',
+                    'landmark': 'Central Tirupati, near Railway Station concourse',
+                    'desc': 'Ancient 12th-century temple housing Lord Vishnu in colossal reclining posture, consecrated by Saint Ramanujacharya.',
+                    'timing': '05:00 AM – 12:30 PM & 04:30 PM – 09:00 PM',
+                    'highlight': 'Towering seven-tiered gopuram and peaceful morning aarti'
+                },
+                {
+                    'name': 'Sri Kapileswara Swamy Temple',
+                    'landmark': 'Northern foothills of Tirumala Hills, Alipiri bypass',
+                    'desc': 'The only dedicated Shiva temple in Tirupati, located beside a sacred natural mountain waterfall pool.',
+                    'timing': '06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM',
+                    'highlight': 'Kapila Theertham waterfall plunge pool and ancient rock inscriptions'
+                },
+                {
+                    'name': 'Sri Kalahasteeswara Temple (Srikalahasti)',
+                    'landmark': 'Srikalahasti (~36 km from Tirupati on Swarnamukhi River)',
+                    'desc': 'Celebrated Pancha Bhoota Sthalam (representing the Vayu/Wind element) and premier Rahu-Ketu Sarpa Dosha Nivarana temple in India.',
+                    'timing': '06:00 AM – 09:00 PM',
+                    'highlight': 'Unflickering ghee lamp in the sanctum demonstrating the divine wind element'
+                }
+            ],
+
+            'waterfalls': [
+                {
+                    'name': 'Talakona Waterfalls (Highest in Andhra Pradesh)',
+                    'landmark': 'Nerabailu village, Sri Venkateswara National Park (~45 km from Tirupati via Bakarapeta)',
+                    'desc': 'Magnificent 270-ft natural cascade plunging through dense evergreen forests. The crystal-clear waters pass through rare medicinal herbs into deep natural swimming pools.',
+                    'highlight': '240-meter canopy ropewalk suspended 35 ft high, herbal rock pools, and biodiversity trek'
+                },
+                {
+                    'name': 'Kapila Theertham Waterfalls',
+                    'landmark': 'Alipiri bypass road, foothills of Tirumala, Tirupati',
+                    'desc': 'Perennial mountain waterfall cascading down steep granite cliffs of Seshachalam range into the sacred temple pushkarini.',
+                    'highlight': 'Sacred ablution point for pilgrims and spectacular cascading flow during post-monsoon'
+                },
+                {
+                    'name': 'Kailasakona Waterfalls',
+                    'landmark': 'Near Narayanavanam (~40 km from Tirupati via Puttur highway)',
+                    'desc': 'Perennial 40-foot natural waterfall pouring crystal-clear mineral waters into a safe rock pond with adjacent ancient Shiva shrine.',
+                    'highlight': 'Safe family swimming, scenic hill drive, and green picnic lawns'
+                },
+                {
+                    'name': 'Ubbalamadugu Falls (Tada Falls / Siddulaiah Kona)',
+                    'landmark': 'Varadaiahpalem border (~75 km from Tirupati)',
+                    'desc': 'Multi-tiered mountain stream cascades cutting through deep rock gorges with crystal-clear plunge pools and a 7 km boulder trek.',
+                    'highlight': 'Adventure boulder-hopping, forest trekking, and secluded swimming lagoons'
+                },
+                {
+                    'name': 'Chakra Theertham & Papavinasanam Waterfalls',
+                    'landmark': 'Tirumala forest ridge, ~5 km north of Tirumala temple',
+                    'desc': 'Sacred mountain waterfalls and stream cascades nestled inside dense pine and teak woods.',
+                    'highlight': 'Spiritual holy dip and peaceful forest breezes'
+                }
+            ],
+
+            'hills_viewpoints': [
+                {
+                    'name': 'Silathoranam (Natural Stone Rock Arch)',
+                    'landmark': '1 km north of Tirumala temple, Tirumala Hills',
+                    'desc': 'Rare geological natural rock arch formation dating back 1.5 billion years, one of only three such arches in the world.',
+                    'highlight': 'Unique prehistoric geological marvel surrounded by landscaped rock gardens'
+                },
+                {
+                    'name': 'Srivari Mettu & Alipiri Footstep Pilgrimage Treks',
+                    'landmark': 'Alipiri & Srinivasa Mangapuram footpaths, Tirupati',
+                    'desc': 'Ancient stone-stepped pilgrimage paths (3,550 steps) climbed barefoot by millions of devotees amidst forest canopies.',
+                    'highlight': 'Continuous drinking water, free luggage transport to Tirumala, and panoramic valley viewpoints'
+                },
+                {
+                    'name': 'Japali Hanuman Theertham',
+                    'landmark': 'Dense forest trail, 4 km from Tirumala',
+                    'desc': 'Sacred forest temple and natural spring where Lord Hanuman is believed to have meditated.',
+                    'highlight': 'Serene jungle walking trail under ancient banyan and teak canopies'
+                }
+            ],
+
+            'parks_botanical': [
+                {
+                    'name': 'Sri Venkateswara Zoological Park',
+                    'landmark': 'SV Zoo Road, Tirupati (~10 km from center)',
+                    'desc': 'Asia’s largest zoological park spreading across 5,500 acres of natural forest reserve, featuring open-moated enclosures and lion safaris.',
+                    'highlight': 'Battery buggy safari, white tigers, leopards, and Asiatic lions'
+                },
+                {
+                    'name': 'Kalyani Dam & Forest Reservoir',
+                    'landmark': 'Rangampeta forest area (~18 km from Tirupati)',
+                    'desc': 'Picturesque freshwater dam nestled in deep mountain valleys providing water to Tirupati; surrounded by verdant forests.',
+                    'highlight': 'Scenic nature viewpoints, peaceful sunset breezes, and birdwatching'
+                }
+            ],
+
+            'shopping_malls': [
+                {
+                    'name': 'Tirupati Urban Haat & Craft Bazaars',
+                    'landmark': 'Karakambadi Road, Tirupati',
+                    'desc': 'Artisan emporium showcasing traditional Andhra brass artifacts, red sanders wood carvings, and Kalamkari handlooms.',
+                    'highlight': 'Authentic Tirupati Tanjore gold-foil paintings and bronze idols'
+                },
+                {
+                    'name': 'Kalanikethan & South India Shopping Mall',
+                    'landmark': 'TK Street / Gandhi Road, Tirupati',
+                    'desc': 'Premier multi-floor shopping hub for authentic Kanchipuram and Dharmavaram pure silk sarees and festive wear.',
+                    'highlight': 'Handloom silk collection and traditional jewelry'
+                }
+            ],
+
+            'fun_zones_waterparks': [
+                {
+                    'name': 'Regional Science Centre & Planetarium',
+                    'landmark': 'Alipiri foothills road, Tirupati',
+                    'desc': 'Interactive science museum featuring outdoor science park, 3D science theater, and state-of-the-art planetarium.',
+                    'highlight': 'Stargazing telescope sessions and interactive physics exhibits'
+                }
+            ]
+        },
+
+        'dining_cuisine': {
+            'must_try_dishes': [
+                {
+                    'name': 'Tirupati Laddu Prasadam',
+                    'type': 'Sacred Sweet Specialty',
+                    'desc': 'The GI-tagged divine sweet prepared using premium besan, pure cow ghee, cashew nuts, cardamom, raisins, and sugar candy (Kalkandu).',
+                    'best_at': 'TTD Laddu Counters, Tirumala Sanctum'
+                },
+                {
+                    'name': 'Authentic Rayalaseema & Andhra Banana Leaf Thali',
+                    'type': 'Pure Vegetarian Meals',
+                    'desc': 'Steaming hot Sona Masoori rice served with hot ghee, Kandi Podi (gunpowder), Gongura chutney, Gutti Vankaya curry, and Payasam.',
+                    'best_at': 'Bhimas Deluxe (Railway Station Road) & Madhuram Veg'
+                },
+                {
+                    'name': 'Tirumala Free Nitya Annadanam',
+                    'type': 'Sacred Devotional Feast',
+                    'desc': 'Massive state-of-the-art dining complex serving thousands of pilgrims steaming hot sambar rice, sweet pongal, and buttermilk with supreme devotion.',
+                    'best_at': 'Matrusri Tarigonda Vengamamba Complex, Tirumala'
+                }
+            ],
+            'famous_food_streets': [
+                {
+                    'name': 'Bhavani Nagar & Gandhi Road Food Lane',
+                    'landmark': 'Central Tirupati, near RTC Complex',
+                    'desc': 'Vibrant evening street famous for steaming Ghee Idlis, spicy Guntur Dosas, and hot filter coffee.'
+                }
+            ]
+        },
+
+        'culture_traditions': {
+            'summary': 'Tirupati represents the living spiritual soul of Dravidian devotional tradition, steeped in ancient Vaishnavite traditions, daily temple rituals, and the sacred Seshachalam forest ecosystem.',
+            'festivals_rituals': [
+                {
+                    'name': 'Srivari Salakatla Brahmotsavam (September – October)',
+                    'importance': 'Grand 9-day annual celestial festival where Lord Malayappa Swamy is taken out in majestic processions on various Vahanams (Garuda Vahanam, Rathotsavam).',
+                    'rituals': 'Garuda Seva, Golden Chariot procession, and Chakrasnanam bath.'
+                },
+                {
+                    'name': 'Vaikunta Ekadasi (December – January)',
+                    'importance': 'The auspicious day when the sacred northern door (Vaikunta Dwaram) is opened for devotees to attain spiritual liberation.',
+                    'rituals': 'Passing through Vaikunta Dwaram with special morning darshan.'
+                }
+            ],
+            'art_crafts': 'Red sanders wood carvings, brass temple lamps, and Tanjore gold foil art.'
+        },
+
+        'celebrations_venues': [
+            {
+                'name': 'Fortune Select Grand Ridge (Rooftop & Lawns)',
+                'map_landmark': 'Shilparamam, Tiruchanur Road, Tirupati',
+                'vibe': 'Upscale rooftop lounge and landscaped party lawns with panoramic views of the Tirumala Hills.',
+                'features': 'Customized birthday setups, private terrace catering, and gourmet buffet spreads.',
+                'phone': '+91 877 222 1155'
+            },
+            {
+                'name': 'Marasa Sarovar Premiere (Water Lotus Lawns)',
+                'map_landmark': 'Upadhyaya Nagar, Karakambadi Road, Tirupati',
+                'vibe': 'Unique Navarasa-themed luxury resort featuring lotus waterbodies, banquet lawns, and poolside decks.',
+                'features': 'Open-air celebration lawns, gourmet multi-cuisine feasts, and sound system setup.',
+                'phone': '+91 877 666 0000'
+            },
+            {
+                'name': 'Taj Tirupati (Grand Ballrooms & Garden Terrace)',
+                'map_landmark': 'Tirupati-Renigunta Road, near Ramanuja Circle, Tirupati',
+                'vibe': 'Ultra-luxury 5-star hospitality, grand chandeliers, and private celebration lawns.',
+                'features': 'Dedicated event managers, bespoke cake cutting, and live chef stations.',
+                'phone': '+91 877 660 7000'
+            }
+        ]
+    },
+
+    # ── GOA (Beaches, Cascades, Temples & Heritage) ───────────────────────────
+    'goa': {
+        'destination': 'Goa',
+        'title': 'Goa — Tropical Cascades, Sacred Temples & Coastal Heritage',
+        'map_query': 'Panaji, Goa, India',
+        'summary': 'India\'s premier coastal paradise blending Portuguese baroque churches, ancient inland Kadamba temples, lush Western Ghat waterfalls, spice estates, and world-renowned golden beaches.',
+
+        'route_sequence': [
+            'Dudhsagar Waterfalls & Mollem National Park',
+            'Historic Old Goa Churches & Ancient Ponda Temples',
+            'Sahakari Spice Farm & Plantations',
+            'Panaji Latin Quarter (Fontainhas) & Mandovi Cruise',
+            'Vagator & Anjuna Sunset Clifftops'
+        ],
+
+        'tourist_spots': {
+            'waterfalls': [
+                {
+                    'name': 'Dudhsagar Waterfalls (Sea of Milk)',
+                    'landmark': 'Bhagwan Mahavir Wildlife Sanctuary, Mollem (accessed via Kulem / Collem safari jeep or trek)',
+                    'desc': 'Majestic 310-meter four-tiered cascade tumbling through the verdant Western Ghats beneath the historic railway arch bridge.',
+                    'highlight': 'Natural freshwater plunge pool swim and scenic 4x4 jungle jeep safari'
+                },
+                {
+                    'name': 'Harvalem / Arvalem Waterfalls',
+                    'landmark': 'Near Sanquelim & Arvalem rock-cut caves, North Goa (~32 km from Panaji)',
+                    'desc': 'Picturesque 50-meter cascade cascading into a broad emerald plunge pool surrounded by dense fruit orchards and ancient rock caves.',
+                    'highlight': 'Historic 6th-century rock-cut Pandava Buddhist caves and Rudreshwar temple'
+                },
+                {
+                    'name': 'Tambdi Surla Waterfalls',
+                    'landmark': 'Deep Mollem National Park jungle trail, starting from Tambdi Surla Mahadev Temple',
+                    'desc': 'Secluded forest waterfall reached by a scenic 90-minute rainforest trek across mountain streams in the Western Ghats.',
+                    'highlight': 'Pristine rainforest trail and 12th-century Kadamba black basalt temple'
+                },
+                {
+                    'name': 'Netravali / Savari Waterfalls',
+                    'landmark': 'Netravali Wildlife Sanctuary, South Goa',
+                    'desc': 'Hidden double-cascade waterfall deep inside dense evergreen canopy with natural rock jacuzzis.',
+                    'highlight': 'Bubbly lake phenomenon and tranquil nature solitude'
+                }
+            ],
+
+            'temples': [
+                {
+                    'name': 'Shri Mangueshi Temple (Manguesh Devasthan)',
+                    'landmark': 'Mangeshi village, Priol, Ponda (~21 km from Panaji)',
+                    'desc': 'Celebrated 400-year-old Shiva temple featuring ornate Konkani-Goan architecture, a seven-story Deepastambha (lamp tower), and sacred temple tank.',
+                    'timing': '06:00 AM – 10:00 PM',
+                    'highlight': 'Spectacular evening lamp tower illumination and Maha Shivaratri celebrations'
+                },
+                {
+                    'name': 'Shri Shanta Durga Temple (Kavlem)',
+                    'landmark': 'Foothills of Kavalem village, Ponda (~28 km from Panaji)',
+                    'desc': 'Revered peaceful Goddess temple dedicated to the deity who mediated the celestial war between Vishnu and Shiva; showcases pyramidal shikharas and Roman arched stained-glass windows.',
+                    'timing': '06:00 AM – 09:30 PM',
+                    'highlight': 'Golden palanquin procession (Palkhi) and tranquil hillside courtyard'
+                },
+                {
+                    'name': 'Tambdi Surla Mahadev Temple (Kadamba Temple)',
+                    'landmark': 'Mollem National Park forest base, North Goa',
+                    'desc': 'The oldest surviving temple in Goa (12th century), masterfully carved from weather-resistant black basalt stone featuring intricate Kadamba-Yadava carvings.',
+                    'timing': '07:00 AM – 06:00 PM',
+                    'highlight': 'Ancient rock craftsmanship nestled amidst dense virgin rainforest'
+                },
+                {
+                    'name': 'Shri Mahalaxmi Temple (Bandora)',
+                    'landmark': 'Bandivade / Bandora, Ponda',
+                    'desc': 'Sacred ancestral temple of Goddess Mahalaxmi wearing a linga on her crown; holds historical wooden galleries depicting Bhagavad Gita scenes.',
+                    'timing': '06:30 AM – 08:30 PM',
+                    'highlight': 'Navaratri festival rathotsavam'
+                }
+            ],
+
+            'hills_viewpoints': [
+                {
+                    'name': 'Fort Aguada & Lighthouse Clifftop',
+                    'landmark': 'Sinquerim Beach headland, Candolim, North Goa',
+                    'desc': '17th-century Portuguese coastal fort offering 360-degree vistas over the Arabian Sea and Mandovi River confluence.',
+                    'highlight': 'Four-story historic lighthouse and panoramic ocean sunset'
+                },
+                {
+                    'name': 'Chapora Fort Clifftop (Dil Chahta Hai Point)',
+                    'landmark': 'Vagator headland, overlooking Chapora River estuary',
+                    'desc': 'Red laterite cliff ramparts overlooking golden Vagator shoreline and crashing surf.',
+                    'highlight': 'Spectacular sunset silhouettes and sea-breeze panorama'
+                },
+                {
+                    'name': 'Cabo de Rama Fort Sea Cliffs',
+                    'landmark': 'Canacona, South Goa (~30 km from Margao)',
+                    'desc': 'Wild secluded cliff promontory with dramatic vertical drop into turquoise coastal waters.',
+                    'highlight': 'Unspoiled sea views and tranquil white chapel ruins'
+                }
+            ],
+
+            'parks_botanical': [
+                {
+                    'name': 'Sahakari Spice Farm & Plantations',
+                    'landmark': 'Curti, Ponda (~2 km from Ponda town)',
+                    'desc': '130-acre lush organic spice plantation cultivating vanilla, cardamom, cinnamon, peri-peri peppers, and betel nut palms.',
+                    'highlight': 'Guided spice botanical walk, elephant bathing, and authentic buffet lunch'
+                },
+                {
+                    'name': 'Salim Ali Bird Sanctuary (Chorão Island)',
+                    'landmark': 'Mandovi River estuary, accessed via Ribandar ferry',
+                    'desc': 'Pristine mangrove swamp forest sanctuary hosting migratory waterbirds, kingfishers, and mudskippers.',
+                    'highlight': 'Early morning quiet boat safari through winding mangrove canals'
+                }
+            ],
+
+            'zoo_wildlife': [
+                {
+                    'name': 'Bhagwan Mahavir Wildlife Sanctuary & Mollem National Park',
+                    'landmark': 'Eastern border along Western Ghats, Mollem',
+                    'desc': 'Goa\'s largest wildlife reserve spanning 240 sq km; home to leopards, barking deer, giant flying squirrels, and King Cobras.',
+                    'highlight': 'Dudhsagar waterfall jeep safaris and canopy birdwatching'
+                },
+                {
+                    'name': 'Bondla Wildlife Sanctuary & Zoo',
+                    'landmark': 'Ponda Taluka foothills, North Goa',
+                    'desc': 'Family-friendly sanctuary with mini zoo, deer safari park, botanical rose garden, and rehabilitation center.',
+                    'highlight': 'Safe animal viewing and quiet botanical walk'
+                }
+            ],
+
+            'shopping_malls': [
+                {
+                    'name': 'Mall De Goa (Porvorim)',
+                    'landmark': 'NH-66 Highway, Porvorim, North Goa',
+                    'desc': 'Premier modern multi-level shopping destination featuring international fashion brands, INOX cinema, and multi-cuisine food court.',
+                    'highlight': 'Air-conditioned leisure and branded shopping'
+                },
+                {
+                    'name': 'Anjuna Flea Market & Arpora Saturday Night Market',
+                    'landmark': 'Anjuna Beachfront & Arpora Hillside, North Goa',
+                    'desc': 'World-famous open-air bohemian markets brimming with handmade silver jewelry, spices, leather crafts, live acoustic bands, and global street food.',
+                    'highlight': 'Vibrant bohemian night shopping and live music'
+                }
+            ],
+
+            'fun_zones_waterparks': [
+                {
+                    'name': 'Splashdown Waterpark (Anjuna)',
+                    'landmark': 'Calangute-Anjuna Main Road, North Goa',
+                    'desc': 'High-energy family water park featuring 5 pools, tornado flumes, spiral aqua slides, and dancing rain decks.',
+                    'highlight': 'Adrenaline water slides and family wave pool'
+                },
+                {
+                    'name': 'Grand Island Scuba Diving & Snorkeling Expeditions',
+                    'landmark': 'Departs from Sinquerim / Vasco jetties',
+                    'desc': 'Open-sea underwater adventure featuring shallow coral reef diving, tropical fish sightings, and dolphin spotting cruises.',
+                    'highlight': 'PADI certified instructors and underwater photography'
+                }
+            ]
+        },
+
+        'dining_cuisine': {
+            'must_try_dishes': [
+                {
+                    'name': 'Authentic Goan Fish Curry Thali',
+                    'type': 'Coastal Seafood Delight',
+                    'desc': 'Fresh Kingfish (Surmai) or Pomfret curry prepared with freshly grated coconut, Kashmiri chilies, and tangy Kokum (Amsol), served with rice and fried prawns.',
+                    'best_at': 'Ritz Classic (Panaji 18th June Road) & Anand Seafood (Anjuna)'
+                },
+                {
+                    'name': 'Chicken / Vegetable Xacuti & Poi Bread',
+                    'type': 'Heritage Indo-Portuguese Specialty',
+                    'desc': 'Rich, complex gravy made with roasted whole spices, poppy seeds, and desiccated coconut, paired with hot traditional Goan wood-fired Poi bread.',
+                    'best_at': 'Viva Panjim (Fontainhas Heritage Quarter)'
+                },
+                {
+                    'name': 'Traditional Goan Bebinca',
+                    'type': 'Multi-Layered Coconut Pudding',
+                    'desc': 'The "Queen of Goan desserts" — 7 to 16 baked layers of rich coconut milk, egg yolk, flour, pure ghee, and grated nutmeg.',
+                    'best_at': 'Confeitaria 31 de Janeiro (Fontainhas)'
+                }
+            ],
+            'famous_food_streets': [
+                {
+                    'name': 'Fontainhas & 18th June Road Food Walk',
+                    'landmark': 'Panaji Latin Quarter & City Center',
+                    'desc': 'Charming cobblestone lanes lined with Portuguese heritage bakeries, craft cafes, and seafood bistros.'
+                }
+            ]
+        },
+
+        'culture_traditions': {
+            'summary': 'Goa embodies a vibrant synthesis of four centuries of Portuguese influence and indigenous Konkani Hindu heritage, expressed through melodious Konkani Mandos, festive Carnival processions, Shigmo folk dances, and relaxed \'Susegad\' living.',
+            'festivals_rituals': [
+                {
+                    'name': 'Goa Carnival (February)',
+                    'importance': 'Colossal 4-day pre-Lent cultural fiesta led by King Momo featuring extravagant street floats, brass bands, masked dancers, and colorful street parades in Panaji and Margao.',
+                    'rituals': 'Float parade processions, Red and Black gala dance, and street music.'
+                },
+                {
+                    'name': 'Shigmo Spring Festival (March)',
+                    'importance': 'Traditional Goan Hindu spring celebration honoring warrior heroes and the harvest with colossal mythological tableau processions and traditional Ghode Modni folk dances.',
+                    'rituals': 'Fugdi dances, temple rath processions, and vibrant color smearing.'
+                }
+            ],
+            'art_crafts': 'Terracotta pottery, Azulejos hand-painted ceramic tiles, brass samai lamps, and coconut shell crafts.'
+        },
+
+        'celebrations_venues': [
+            {
+                'name': 'W Goa Rockpool (Vagator Hilltop)',
+                'map_landmark': 'Vagator Beach headland, below Chapora Fort, North Goa',
+                'vibe': 'Ultra-stylish cliffside poolside lounge carved into the red laterite rocks with uninterrupted ocean sunset views.',
+                'features': 'Sunset cocktails, private DJ booths, customized celebration cakes, and coastal grill banquet.',
+                'phone': '+91 832 671 8888'
+            },
+            {
+                'name': 'Thalassa Greek Taverna & Sunset Deck',
+                'map_landmark': 'Vaddy, Siolim (~15 mins from Morjim / Vagator), North Goa',
+                'vibe': 'Iconic open-air Mediterranean taverna perched over the backwaters with white cabanas and fire dancer shows.',
+                'features': 'Sunset cake cutting, live Greek sirtaki dance, and gourmet Mediterranean platters.',
+                'phone': '+91 98500 33537'
+            },
+            {
+                'name': 'Purple Martini at Sunset Point (Anjuna Clifftop)',
+                'map_landmark': 'St. Michael\'s Vaddo, Anjuna Clifftop, North Goa',
+                'vibe': 'Santorini-themed clifftop lounge with direct crashing wave views, saxophone artists, and twilight celebrations.',
+                'features': 'Reserved ocean-view private tables, candlelit setup, and anniversary/birthday decor.',
+                'phone': '+91 98719 00995'
+            }
+        ]
     }
 }
 
@@ -831,6 +1281,10 @@ def get_destination_master_guide(destination, state='', days=3):
         matched = DESTINATION_MASTER_REGISTRY.get('visakhapatnam')
     elif any(alias in dest_lower for alias in ['araku', 'borra']):
         matched = DESTINATION_MASTER_REGISTRY.get('araku')
+    elif any(alias in dest_lower for alias in ['tirupati', 'tirumala', 'tirupathi', 'renigunta', 'srikalahasti', 'chandragiri']):
+        matched = DESTINATION_MASTER_REGISTRY.get('tirupati')
+    elif any(alias in dest_lower for alias in ['goa', 'panaji', 'madgaon', 'vasco', 'calangute', 'baga', 'anjuna', 'candolim', 'siolim', 'vagator']):
+        matched = DESTINATION_MASTER_REGISTRY.get('goa')
     elif any(alias in dest_lower for alias in ['gujarat', 'ahmedabad', 'kutch', 'sasan gir', 'dwarka', 'somnath']):
         matched = DESTINATION_MASTER_REGISTRY.get('gujarat')
 

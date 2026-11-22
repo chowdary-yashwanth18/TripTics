@@ -1503,6 +1503,7 @@ function filterTransportMode(destId, mode) {
 
     try {
         const items = document.getElementsByClassName(`transport-item-${destId}`);
+        let visibleCount = 0;
         Array.from(items).forEach(el => {
             const itemMode = el.getAttribute('data-mode') || '';
             let show = false;
@@ -1520,10 +1521,33 @@ function filterTransportMode(destId, mode) {
 
             if (show) {
                 el.classList.remove('d-none');
+                visibleCount++;
             } else {
                 el.classList.add('d-none');
             }
         });
+
+        // Dynamic notice if no transport options exist for the selected mode
+        let noModeAlert = document.getElementById(`no-mode-alert-${destId}`);
+        if (visibleCount === 0 && mode !== 'all') {
+            const modeNames = { 'flight': 'Flights', 'train': 'Trains', 'bus': 'Buses', 'cab': 'Cabs / Road' };
+            const modeIcons = { 'flight': '✈️', 'train': '🚆', 'bus': '🚌', 'cab': '🚗' };
+            const mName = modeNames[mode] || mode;
+            const mIcon = modeIcons[mode] || '🚍';
+            if (!noModeAlert) {
+                noModeAlert = document.createElement('div');
+                noModeAlert.id = `no-mode-alert-${destId}`;
+                noModeAlert.className = 'alert alert-info p-2 mt-2 shadow-xs rounded-3 small';
+                const obColBody = document.querySelector(`#collapseOutbound${destId} .list-group`);
+                if (obColBody) {
+                    obColBody.prepend(noModeAlert);
+                }
+            }
+            noModeAlert.innerHTML = `<strong>${mIcon} No direct ${mName} available:</strong> Showing alternative verified travel modes. Please click <a href="javascript:void(0)" onclick="filterTransportMode('${destId}', 'all')" class="fw-bold text-primary">All Modes</a>, <a href="javascript:void(0)" onclick="filterTransportMode('${destId}', 'train')" class="fw-bold text-primary">🚆 Trains</a>, or <a href="javascript:void(0)" onclick="filterTransportMode('${destId}', 'bus')" class="fw-bold text-primary">🚌 Buses</a> to view connecting paths.`;
+            noModeAlert.classList.remove('d-none');
+        } else if (noModeAlert) {
+            noModeAlert.classList.add('d-none');
+        }
     } catch (e) {
         console.error("Filter error:", e);
     }

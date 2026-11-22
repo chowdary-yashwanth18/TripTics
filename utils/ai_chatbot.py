@@ -363,11 +363,138 @@ Here are the most sacred, famous, and widely visited temples for pilgrims visiti
   * **Dolphin's Nose & Lighthouse Clifftop Hike:** Dramatic sea-cliff overlook above Vizag harbor and port.
   * **Lambasingi Cloud Ridge Trek:** High-altitude mountain hike through pine forests and cloud-shrouded peaks.
   * **Rushikonda Coastal Adventure:** Sea kayaking, scuba diving, and surfing lessons along the golden beach."""
+    },
+
+    # ── TIRUPATI (TIRUMALA, Andhra Pradesh) ───────────────────────────────────
+    'tirupati': {
+        'name': 'Tirupati',
+        'title': 'Tirupati & Tirumala, Andhra Pradesh',
+        'categories': {
+            'waterfalls': [
+                "🌊 **Talakona Waterfalls (Sri Venkateswara National Park)** (~45 km from Tirupati): Highest waterfall in AP (270 ft cascade) with crystal-clear medicinal freshwater pools, canopy ropewalk, and dense jungle trek.",
+                "🌊 **Kapila Theertham Waterfalls** (Alipiri foothills, Tirupati): Sacred mountain cascade tumbling directly into the temple pushkarini rock pool at the base of Tirumala Hills.",
+                "🌊 **Kailasakona Waterfalls** (~40 km near Narayanavanam): Perennial 40-ft cascade pouring clear spring waters into a safe rock pond.",
+                "🌊 **Ubbalamadugu / Tada Falls** (~75 km near Varadaiahpalem): Multi-tiered cascades, natural swimming pools, and rocky canyon hike.",
+                "🌊 **Chakra Theertham & Papavinasanam Falls** (Tirumala Hills): Mountain stream cascades in the sacred Tirumala forest."
+            ],
+            'trekking': [
+                "🥾 **Srivari Mettu & Alipiri Footstep Pilgrimage Treks**: Historic 3,550 stone steps up the sacred Seshachalam Hills amidst chantings and deers.",
+                "🥾 **Talakona Canopy Ropewalk & Forest Trail**: 240-meter canopy walk suspended 35 ft high, followed by deep jungle waterfall hike.",
+                "🥾 **Silathoranam & Chakra Theertham Walk**: Rare natural rock arch formation (1.5 billion years old) and quiet woodland trail in Tirumala."
+            ],
+            'temples': [
+                "🛕 **Sri Venkateswara Swamy Temple (Tirumala)**: The world-famous Seven Hills shrine of Lord Balaji.",
+                "🛕 **Sri Padmavathi Ammavari Temple (Tiruchanur)**: Presiding consort temple, essential completion of Tirumala pilgrimage.",
+                "🛕 **Sri Govindaraja Swamy Temple**: Grand 12th-century temple in Tirupati city.",
+                "🛕 **Sri Kapileswara Swamy Temple (Kapila Theertham)**: Ancient Shiva rock-cut temple with sacred waterfall pool.",
+                "🛕 **Sri Kalahasteeswara Temple (Srikalahasti)** (~36 km): Celebrated Vayu Lingam and Rahu-Ketu Kshetram."
+            ],
+            'botanical_farms': [
+                "🦁 **Sri Venkateswara Zoological Park** (Asia's largest zoo, ~5,500 acres, open safari)",
+                "🌾 **Regional Agricultural Research Station & Mango Orchards** (Tirupati rural belt)",
+                "🌴 **Kalyani Dam & Forest Reservoir** (Picturesque lake surrounded by forested hillocks)"
+            ]
+        },
+        'waterfalls_specific': """### 🌊 Spectacular Waterfalls in & around Tirupati
+
+Here are verified natural waterfalls and cascades situated in and around **Tirupati**:
+
+* **1. 🌊 Talakona Waterfalls (Sri Venkateswara National Park):**
+  * 📍 **Exact Location:** Nerabailu village, ~45 km from Tirupati center (accessible via Bakarapeta / SV National Park road).
+  * ✨ **What to Expect:** The highest waterfall in Andhra Pradesh (270 ft cascade) plunging through dense evergreen forests. The crystal-clear water passes through rare medicinal herbs into natural freshwater swimming pools.
+  * 💡 **Traveler Tips:** Safe rock pools for swimming; includes a thrilling 240-meter canopy ropewalk suspended 35 ft high in the tree canopy and nature trails. Best visited post-monsoon and in winter.
+
+* **2. 🌊 Kapila Theertham Waterfalls:**
+  * 📍 **Exact Location:** Northern base of Tirumala Hills, Alipiri bypass, Tirupati.
+  * ✨ **What to Expect:** Sacred mountain cascade tumbling over steep granite cliffs directly into the temple pushkarini / rock pool.
+  * 💡 **Traveler Tips:** Magnificent sight during and after monsoon rains; holy ablution point before climbing the hill.
+
+* **3. 🌊 Kailasakona Waterfalls:**
+  * 📍 **Exact Location:** Near Narayanavanam & Puttur, ~40 km from Tirupati (via Chennai highway).
+  * ✨ **What to Expect:** Perennial 40-foot cascade pouring clear spring waters into a safe rock pond with adjacent ancient Shiva-Parvati shrine.
+  * 💡 **Traveler Tips:** Ideal for family picnics and weekend relaxation.
+
+* **4. 🌊 Ubbalamadugu / Tada Falls (Siddulaiah Kona):**
+  * 📍 **Exact Location:** Varadaiahpalem border, ~75 km from Tirupati.
+  * ✨ **What to Expect:** Multi-tiered cascades, crystal-clear rock pools, and a 7 km adventurous boulder-hopping forest trek.
+  * 💡 **Traveler Tips:** Very popular with trekkers. Wear high-grip trekking shoes and carry drinking water.
+
+* **5. 🌊 Chakra Theertham & Papavinasanam Waterfalls:**
+  * 📍 **Exact Location:** Inside Tirumala forest ridge (~5 km from Tirumala main temple).
+  * ✨ **What to Expect:** Pristine mountain stream cascades nestled in sacred woodland."""
+    },
+
+    # ── GOA ───────────────────────────────────────────────────────────────────
+    'goa': {
+        'name': 'Goa',
+        'title': 'Goa, India',
+        'categories': {
+            'waterfalls': [
+                "🌊 **Dudhsagar Waterfalls (Bhagwan Mahavir Wildlife Sanctuary)**: India's 5th highest waterfall (310m 4-tiered cascade) plunging below the colonial railway arch bridge.",
+                "🌊 **Harvalem / Arvalem Waterfalls** (~32 km from Panaji, Sanquelim): 50-meter scenic cascade pouring into a tranquil emerald pool beside ancient 6th-century rock-cut Pandava Caves.",
+                "🌊 **Tambdi Surla Waterfalls** (Deep inside Mollem National Park): Secret rainforest waterfall reached via a scenic 90-minute jungle stream trek starting at the 12th-century Mahadev Temple.",
+                "🌊 **Netravali / Savari Falls** (Netravali Sanctuary, South Goa): Twin secluded forest cascades with natural rock pools and bubbly lake phenomenon."
+            ],
+            'trekking': [
+                "🥾 **Dudhsagar Railway & Forest Trail Trek**: Iconic scenic hike through tropical deciduous forests and misty mountain ravines in Mollem.",
+                "🥾 **Tambdi Surla Rainforest Hike**: Pristine jungle trail traversing river crossings and virgin Western Ghats biodiversity.",
+                "🥾 **Devil's Canyon Jungle Walk**: Unique rock formations and rushing mountain river canyon trail in Mollem.",
+                "🥾 **Aguada to Sinquerim Coastal Clifftop Hike**: Breathtaking Arabian Sea cliff trail overlooking crashing waves and ancient ramparts."
+            ],
+            'temples': [
+                "🛕 **Shri Mangueshi Temple (Priol, Ponda)**: Iconic 400-year-old Shiva shrine famous for its 7-story Deepastambha lamp tower.",
+                "🛕 **Shri Shanta Durga Temple (Kavlem)**: Revered peaceful Goddess temple featuring Indo-Portuguese arched architecture.",
+                "🛕 **Tambdi Surla Mahadev Temple**: Oldest surviving temple in Goa (12th century Kadamba black basalt architecture).",
+                "🛕 **Shri Mahalaxmi Temple (Bandora)**: Sacred ancestral deity shrine with historic wooden galleries."
+            ],
+            'botanical_farms': [
+                "🌿 **Sahakari Spice Farm** (Curti, Ponda — 130-acre organic spice plantation with guided tours & elephant baths)",
+                "🌴 **Pascoal Spice Village** (Picturesque spice estate along the Mandovi tributary river)",
+                "🦜 **Dr. Salim Ali Bird Sanctuary** (Mangrove swamp forest island accessed by ferry)"
+            ]
+        },
+        'waterfalls_specific': """### 🌊 Spectacular Waterfalls in & around Goa
+
+Here are verified natural waterfalls and cascades in and around **Goa**:
+
+* **1. 🌊 Dudhsagar Waterfalls (The Sea of Milk):**
+  * 📍 **Exact Location:** Bhagwan Mahavir Wildlife Sanctuary, Mollem (Western Ghats border).
+  * 🚙 **Access:** 4x4 open safari jeeps from Kulem / Collem base, followed by a short walk through fresh water streams.
+  * ✨ **What to Expect:** A colossal 310-meter four-tiered white water cataract crashing through dense jungle beneath the iconic railway bridge.
+  * 💡 **Traveler Tips:** Life jackets are mandatory for swimming in the crystal-clear plunge pool. Visit during or right after monsoons for thunderous volume.
+
+* **2. 🌊 Harvalem / Arvalem Waterfalls:**
+  * 📍 **Exact Location:** Near Sanquelim, North Goa (~32 km from Panaji).
+  * ✨ **What to Expect:** 50-meter scenic cascade plunging into a freshwater lake beside ancient 6th-century rock-cut Pandava Caves.
+  * 💡 **Traveler Tips:** Peaceful family picnic spot with paved steps and viewing decks.
+
+* **3. 🌊 Tambdi Surla Waterfalls:**
+  * 📍 **Exact Location:** Deep inside Mollem National Park.
+  * ✨ **What to Expect:** Hidden 90-minute jungle trek starting from the 12th-century Kadamba Mahadev Temple through dense Western Ghats canopy.
+
+* **4. 🌊 Netravali / Savari Waterfalls:**
+  * 📍 **Exact Location:** Netravali Wildlife Sanctuary, South Goa (~50 km from Margao).
+  * ✨ **What to Expect:** Untouched double-tier forest cascade with secluded plunge pools and the nearby mysterious Bubbly Lake."""
     }
 }
 
 # Aliases
 DESTINATION_ALIASES = {
+    'goa': 'goa',
+    'panaji': 'goa',
+    'madgaon': 'goa',
+    'margao': 'goa',
+    'vasco': 'goa',
+    'calangute': 'goa',
+    'baga': 'goa',
+    'anjuna': 'goa',
+    'candolim': 'goa',
+    'vagator': 'goa',
+    'siolim': 'goa',
+    'tirupati': 'tirupati',
+    'tirumala': 'tirupati',
+    'tirupathi': 'tirupati',
+    'renigunta': 'tirupati',
     'gujarat': 'gujarat',
     'ahmedabad': 'gujarat',
     'kutch': 'gujarat',
@@ -553,15 +680,111 @@ def _generate_comprehensive_multiday_itinerary(dest_clean, days=3, travelers=2, 
     return "\n".join(lines)
 
 
+FAMOUS_WATERFALLS_DIRECTORY = {
+    'tirupati': """### 🌊 Spectacular Waterfalls in & around Tirupati
+
+Here are verified natural waterfalls and cascades situated in and around **Tirupati**:
+
+* **1. 🌊 Talakona Waterfalls (Sri Venkateswara National Park):**
+  * 📍 **Exact Location:** Nerabailu village, ~45 km from Tirupati (via Bakarapeta road, inside S.V. Biosphere Reserve).
+  * ✨ **What to Expect:** The highest waterfall in Andhra Pradesh, tumbling 270 feet down sheer cliffs into crystal-clear freshwater swimming pools. The mountain stream flows through rare medicinal herbs and dense evergreen red sanders forests.
+  * 💡 **Traveler Tips:** Safe, pristine freshwater rock pools for swimming and foot wading. Includes a thrilling 240-meter canopy ropewalk suspended 35 feet high in the tree canopy.
+
+* **2. 🌊 Kapila Theertham Waterfalls:**
+  * 📍 **Exact Location:** At the northern base of Tirumala Hills, Alipiri bypass, Tirupati foothills.
+  * ✨ **What to Expect:** A sacred perennial mountain cascade that flows down steep granite cliffs of the Seshachalam range, plunging directly into the temple pushkarini / rock reservoir.
+  * 💡 **Traveler Tips:** Spectacular natural sight; sacred ablution spot for devotees before beginning the hill ascent.
+
+* **3. 🌊 Kailasakona Waterfalls:**
+  * 📍 **Exact Location:** Near Narayanavanam & Puttur, ~40 km from Tirupati (via Chennai highway).
+  * ✨ **What to Expect:** A scenic 40-foot perennial natural cascade pouring clear mineral-rich spring waters into a shallow, safe rock pond.
+  * 💡 **Traveler Tips:** Ideal for relaxing family day-outings and picnics; small ancient Shiva-Parvati shrine located beside the cascade.
+
+* **4. 🌊 Ubbalamadugu Falls (Tada Falls / Siddulaiah Kona):**
+  * 📍 **Exact Location:** Varadaiahpalem border, ~75 km from Tirupati.
+  * ✨ **What to Expect:** Multi-tiered mountain cascades cutting through rocky boulder canyons, featuring crystal-clear natural plunge pools and a 7 km adventurous boulder-hopping forest trek.
+  * 💡 **Traveler Tips:** Very popular with trekkers and youth groups. Wear high-grip trekking shoes and carry drinking water.
+
+* **5. 🌊 Chakra Theertham & Papavinasanam Waterfalls (Tirumala Hills):**
+  * 📍 **Exact Location:** Inside Tirumala forest ridge, ~5 km from Tirumala main temple.
+  * ✨ **What to Expect:** Pristine mountain streams and natural cascades flowing through tranquil forest canopies with holy ablution pools.""",
+
+    'visakhapatnam': """### 🌊 Spectacular Nearby Waterfalls in & around Visakhapatnam
+
+* **1. 🌊 Devarapalli Waterfalls (Bahuda River Cascades):**
+  * 📍 **Location:** Near Devarapalli, ~55 km from Vizag center via Sambhuvanipalem / Anandapuram road.
+  * ✨ **Experience:** Multi-tiered natural cascade tumbling over stepped rock formations into clean freshwater swimming pools; peaceful green valley picnic setting.
+
+* **2. 🌊 Lothugedda / Lothapalli Waterfalls:**
+  * 📍 **Location:** Near Chintapalli / Lothugedda forest valley (~90 km from Visakhapatnam).
+  * ✨ **Experience:** Hidden cascade cutting through rocky boulder canyons with natural freshwater plunge pools and lush Eastern Ghats forest trails.
+
+* **3. 🌊 Katiki Waterfalls:**
+  * 📍 **Location:** Near Borra Caves, ~95 km from Vizag (accessed via 4x4 Jeep trail and Gosthani riverbed).
+  * ✨ **Experience:** 50-ft natural cascade with adventurous stream crossings; stalls serve authentic hot bamboo chicken.
+
+* **4. 🌊 Chaparai Water Cascades (Dumbriguda):**
+  * 📍 **Location:** ~115 km from Vizag (15 km past Araku towards Paderu).
+  * ✨ **Experience:** Broad, smooth sloping river rocks where crystal-clear mountain streams flow gently amidst pine and teak canopies.
+
+* **5. 🌊 Kothapalli Waterfalls:**
+  * 📍 **Location:** Near G. Madugula / Paderu (~110 km from Vizag).
+  * ✨ **Experience:** Picturesque multi-tiered cascading waterfall framed by verdant terraced agricultural hills.
+
+* **6. 🌊 Thatipudi Reservoir & Spillway Cascades:**
+  * 📍 **Location:** Near S.Kota foothills (~65 km from Vizag).
+  * ✨ **Experience:** Scenic mountain valley reservoir with spillway cascades, gardens, and pedal boating.""",
+
+    'araku': """### 🌊 Spectacular Waterfalls in & around Araku Valley
+
+* **1. 🌊 Katiki Waterfalls:**
+  * 📍 **Location:** Near Borra Caves (~90 km from Vizag, 35 km from Araku center).
+  * ✨ **Experience:** 50-ft thunderous mountain cascade reached via 4x4 Jeep stream-crossing ride and bamboo chicken stalls.
+
+* **2. 🌊 Chaparai Water Cascades (Dumbriguda):**
+  * 📍 **Location:** 15 km from Araku on Paderu road.
+  * ✨ **Experience:** Smooth flat rocks with gentle mountain stream flow, perfect for foot dipping and wading.
+
+* **3. 🌊 Tatiguda Waterfalls (Ananthagiri):**
+  * 📍 **Location:** Ananthagiri Ghats, 25 km before Araku.
+  * ✨ **Experience:** Picturesque cascade nestled amidst coffee plantations and mist-covered hills.
+
+* **4. 🌊 Kothapalli Waterfalls:**
+  * 📍 **Location:** Near Paderu (~40 km from Araku).
+  * ✨ **Experience:** Multi-tiered stepped cascade framed by terraced tribal hills.""",
+
+    'goa': """### 🌊 Spectacular Waterfalls in Goa
+
+* **1. 🌊 Dudhsagar Waterfalls (Mollem National Park):**
+  * 📍 **Location:** Bhagwan Mahaveer Sanctuary, Goa-Karnataka border (~60 km from Panaji).
+  * ✨ **Experience:** One of India's tallest 4-tiered waterfalls (310 meters) cascading down sheer western ghat cliffs like a "sea of milk", traversed by a dramatic railway viaduct.
+  * 💡 **Tips:** Reached via open-top 4x4 Jeep jungle safari from Kulem through river streams.
+
+* **2. 🌊 Arvalem Waterfalls (Harvalem):**
+  * 📍 **Location:** Sanquelim, North Goa (~30 km from Panaji).
+  * ✨ **Experience:** 50-meter scenic cascade plunging into a freshwater lake beside ancient 6th-century rock-cut Pandava Caves.
+
+* **3. 🌊 Tambdi Surla Waterfalls:**
+  * 📍 **Location:** Inside Mollem National Park.
+  * ✨ **Experience:** Hidden 90-minute jungle trek starting from the 12th-century Kadamba Mahadev Temple through dense Western Ghats canopy."""
+}
+
+
 def _format_waterfalls_for_chatbot(destination, guide=None, profile=None):
     """Formats verified waterfalls and natural cascades for the destination."""
     dest_title = (destination or 'Your Destination').title()
+    dest_lower = (destination or '').lower().strip()
     
     # 1. If curated waterfalls_specific exists in profile, use it
     if profile and profile.get('waterfalls_specific'):
         return profile['waterfalls_specific']
+
+    # 2. Check if destination matches any curated registry of famous waterfalls
+    for key, content in FAMOUS_WATERFALLS_DIRECTORY.items():
+        if key in dest_lower or dest_lower in key:
+            return content
         
-    # 2. Or if guide has curated waterfalls
+    # 3. Or if guide has curated waterfalls
     if guide and guide.get('tourist_spots', {}).get('waterfalls'):
         falls = guide['tourist_spots']['waterfalls']
         lines = [
@@ -579,7 +802,7 @@ def _format_waterfalls_for_chatbot(destination, guide=None, profile=None):
             lines.append("")
         return "\n".join(lines)
         
-    # 3. Or if profile has categories.waterfalls
+    # 4. Or if profile has categories.waterfalls
     if profile and profile.get('categories', {}).get('waterfalls'):
         falls = profile['categories']['waterfalls']
         lines = [
@@ -590,7 +813,7 @@ def _format_waterfalls_for_chatbot(destination, guide=None, profile=None):
             lines.append(f"* {f}\n")
         return "\n".join(lines)
         
-    # 4. Fallback generic waterfalls
+    # 5. Fallback generic waterfalls
     return f"""### 🌊 Spectacular Waterfalls in & around {dest_title}
 
 Here are recommended natural waterfalls and cascades around **{dest_title}**:
@@ -764,7 +987,67 @@ Here are the most sacred, famous, and widely visited temples for pilgrims visiti
 * **4. 🛕 Ambaji Shakti Peeth Temple:**
   * 📍 **Location:** Gabbar Hill, Banaskantha.
   * ⏰ **Timings:** 07:00 AM – 11:30 AM & 07:00 PM – 09:00 PM.
-  * 🙏 **Significance:** Premier Shakti Peeth where the heart of Goddess Sati is believed to have fallen; worshiped through the sacred Viso Yantra."""
+  * 🙏 **Significance:** Premier Shakti Peeth where the heart of Goddess Sati is believed to have fallen; worshiped through the sacred Viso Yantra.""",
+
+    'visakhapatnam': """### 🛕 Most Famous & Visited Temples in & around Visakhapatnam
+
+Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Visakhapatnam**:
+
+* **1. 🛕 Sri Varaha Lakshmi Narasimha Swamy Temple (Simhachalam Hilltop):**
+  * 📍 **Exact Location:** Simhachalam Hill, ~18 km from Visakhapatnam railway station (direct RTC ghat buses available).
+  * ⏰ **Darshan Timings:** 07:00 AM – 11:30 AM, 12:30 PM – 02:30 PM & 03:30 PM – 07:00 PM.
+  * 🙏 **Sacred Significance:** The 11th-century lion-incarnation shrine of Lord Vishnu and one of the 32 Narasimha Kshetras. The deity is continuously covered in sandalwood paste (Chandanotsavam) appearing like a Shiva Lingam.
+  * 💡 **Pilgrim Tip:** ₹100 & ₹300 Special Darshan tickets save time during weekends.
+
+* **2. 🛕 Sri Veera Venkata Satyanarayana Swamy Temple (Annavaram):**
+  * 📍 **Exact Location:** Ratnagiri Hill, Annavaram (~110 km from Vizag on NH-16, frequent direct express trains & RTC buses).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 01:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** The second most visited pilgrimage destination in Andhra Pradesh after Tirupati. Renowned across South India for performing the holy Satyanarayana Vratham ceremony for family prosperity and health.
+  * 💡 **Pilgrim Tip:** Devotees can book Vratham tickets online or at the hill counters; the famous Annavaram Godhuma Prasadam (wheat halwa in sal leaves) is world-famous.
+
+* **3. 🛕 Sri Kanaka Maha Lakshmi Temple (Burujupeta):**
+  * 📍 **Exact Location:** Burujupeta, Heritage Old Vizag area (~3 km from Vizag port/station).
+  * ⏰ **Darshan Timings:** Open 24 Hours on Thursdays; 05:00 AM – 11:00 PM on other days.
+  * 🙏 **Sacred Significance:** The presiding guardian deity of Visakhapatnam. The sanctum sanctorum has no roof (open to the sky) and devotees can directly perform Sparsha Darshan (touching the feet of Ammavaru).
+
+* **4. 🛕 Sri Sampath Vinayagar Temple (Asilmetta):**
+  * 📍 **Exact Location:** Waltair Uplands Road, Asilmetta, central Vizag.
+  * ⏰ **Darshan Timings:** 06:00 AM – 11:00 AM & 05:30 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Revered wish-fulfilling Lord Ganesha temple where locals, travelers, and transport operators seek blessings before starting any new journey or vehicle purchase.
+
+* **5. 🛕 Ross Hill Sacred Trio (Hilltop Inter-Faith Sanctuary):**
+  * 📍 **Exact Location:** Port area overlook, South Vizag harbor.
+  * ⏰ **Timings:** 06:00 AM – 06:30 PM.
+  * 🙏 **Sacred Significance:** Unique tri-hill harmony featuring Ross Hill Church, Dargah Konda (Sayed Ali Ishaq Madina Dargah), and Sri Venkateswara Temple overlooking the bustling harbor.""",
+
+    'goa': """### 🛕 Most Famous & Visited Temples & Shrines in Goa
+
+Here are the most sacred, famous, and widely visited temples and shrines in **Goa**:
+
+* **1. 🛕 Shri Mangueshi Temple (Priol, Ponda):**
+  * 📍 **Exact Location:** Mangeshi village, Priol, Ponda (~21 km from Panaji).
+  * ⏰ **Darshan Timings:** 06:00 AM – 10:00 PM.
+  * 🙏 **Sacred Significance:** 400-year-old Shiva temple showcasing distinctive Goan-Hindu architecture with a magnificent seven-story Deepastambha (lamp tower) illuminated with oil lamps.
+
+* **2. 🛕 Shri Shanta Durga Temple (Kavlem, Ponda):**
+  * 📍 **Exact Location:** Foothills of Kavalem village, Ponda (~28 km from Panaji).
+  * ⏰ **Darshan Timings:** 06:00 AM – 09:30 PM.
+  * 🙏 **Sacred Significance:** Revered temple dedicated to Goddess Durga in her peaceful (Shanta) form who mediated peace between Vishnu and Shiva; features a grand golden palanquin (Palkhi).
+
+* **3. 🛕 Tambdi Surla Mahadev Temple (Mollem National Park):**
+  * 📍 **Exact Location:** Dense rainforest foothills, Mollem (~65 km from Panaji).
+  * ⏰ **Darshan Timings:** 07:00 AM – 06:00 PM.
+  * 🙏 **Sacred Significance:** The oldest intact temple in Goa (12th century Kadamba-Yadava dynasty), exquisitely hand-chiseled from black basalt stone surviving centuries in the rainforest.
+
+* **4. 🛕 Shri Mahalaxmi Temple (Bandora, Ponda):**
+  * 📍 **Exact Location:** Bandivade, Ponda.
+  * ⏰ **Darshan Timings:** 06:30 AM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Ancient goddess shrine with 24 wooden carved panels depicting scenes from the Bhagavata Purana.
+
+* **5. ⛪ Basilica of Bom Jesus & Se Cathedral (Old Goa):**
+  * 📍 **Exact Location:** Old Goa Heritage Complex (~10 km from Panaji).
+  * ⏰ **Timings:** 09:00 AM – 06:30 PM.
+  * 🙏 **Sacred Significance:** UNESCO World Heritage Site housing the sacred mortal remains of St. Francis Xavier in a silver casket inside a baroque masterpiece."""
 }
 
 
@@ -1039,11 +1322,22 @@ Please provide an actionable, highly helpful, and well-structured response addre
     guide = get_destination_master_guide(dest_clean, days=days)
     
     # ── Safe Word-Boundary Intent Detection ──
-    # Devotional / temples intent - prioritized to prevent culture/general hijacking
-    is_devotional = bool(re.search(r'\b(temple|temples|devotional|pooja|puja|darshan|jyotirlinga|spiritual|pilgrim|pilgrimage|shrine|shrines|aarti|simhachalam|annavaram|shrikalahasti|srikalahasti|tirupati|tirumala)\b', query_lower))
+    # Waterfalls intent: Check for waterfalls first or specific waterfall names
+    is_waterfalls = bool(re.search(r'\b(waterfalls?|cascades?|plunge pools?|falls?)\b', query_lower)) or any(k in query_lower for k in [
+        'devarapalli', 'lothapalli', 'lothugedda', 'katiki', 'chaparai', 'kothapalli', 'thatipudi', 'talakona', 'kapila theertham', 'kailasakona', 'tada falls', 'dudhsagar', 'harvalem', 'arvalem', 'bubbly lake', 'savari'
+    ])
 
-    # Culture & Festivals intent - MUST NOT match 'spiritual' or temples
-    is_culture = bool(re.search(r'\b(culture|cultural|traditions?|traditional|festivals?|rituals?|customs|folklore|folk dance|garba|dhimsa)\b', query_lower)) and not is_devotional
+    # Trekking & Adventure intent
+    is_trekking = bool(re.search(r'\b(treks?|trekking|trecking|hiking|hikes?|wildlife|safari|outdoor activities|outdoor adventure|canopy walk|climbing|kayaking|scuba)\b', query_lower)) or any(k in query_lower for k in [
+        'kambalakonda', 'dolphin\'s nose', 'srivari mettu', 'alipiri', 'silathoranam', 'lambasingi trek', 'devil\'s canyon'
+    ])
+
+    # Devotional / temples intent - MUST NOT match city names!
+    # Explicitly excludes queries where the user specifically asked for waterfalls or trekking
+    is_devotional = bool(re.search(r'\b(temples?|devotional|pooja|puja|darshan|jyotirlinga|spiritual|pilgrims?|pilgrimage|shrines?|aartis?|mandir|kovil|devasthanam|sanctum)\b', query_lower)) and not is_waterfalls and not is_trekking
+
+    # Culture & Festivals intent - MUST NOT match 'spiritual' or temples or waterfalls
+    is_culture = bool(re.search(r'\b(culture|cultural|traditions?|traditional|festivals?|rituals?|customs|folklore|folk dance|garba|dhimsa)\b', query_lower)) and not is_devotional and not is_waterfalls
 
     is_atm = any(k in query_lower for k in [
         'atm', 'atms', 'cash', 'money', 'withdraw', 'station atm', 'bus stop atm', 'airport atm'
@@ -1065,21 +1359,13 @@ Please provide an actionable, highly helpful, and well-structured response addre
         'all spots', 'list of tourist', 'list of spots', 'visiting spots', 'all places', 'directory of', 'cover all places'
     ]) and not ('plan' in query_lower and ('day' in query_lower or 'itinerary' in query_lower))
     
-    is_waterfalls = any(k in query_lower for k in [
-        'waterfall', 'waterfalls', 'cascade', 'cascades', 'devarapalli', 'lothapalli', 'lothugedda', 'katiki', 'chaparai', 'kothapalli', 'thatipudi', 'plunge pool'
-    ])
-
-    is_trekking = any(k in query_lower for k in [
-        'trek', 'treks', 'trekking', 'trecking', 'hike', 'hiking', 'wildlife', 'safari', 'outdoor activities', 'kambalakonda', 'dolphin\'s nose', 'adventure'
-    ])
-    
     is_nature_lover = any(k in query_lower for k in [
         'nature lover', 'rolling through fields', 'farms', 'fields and farms', 'countryside', 'agro', 'tea estate', 'plantations', 'flora', 'lambasingi', 'kondakarla'
-    ])
+    ]) and not is_waterfalls and not is_trekking
     
     is_family_friends = any(k in query_lower for k in [
         'family', 'friends', 'trip with frnds', 'trip with friends', 'waterpark', 'water park', 'fun zone', 'amusement', 'kailasagiri', 'submarine museum'
-    ])
+    ]) and not is_waterfalls and not is_trekking
     
     is_where_first = any(k in query_lower for k in [
         'where to go first', 'where should i go first', 'what to do first', 'order', 'sequence',
@@ -1090,24 +1376,27 @@ Please provide an actionable, highly helpful, and well-structured response addre
         'chill', 'relax', 'peaceful', 'quiet', 'scenic', 'scenic cafe', 'coffee overlook', 'hangout'
     ])
     
-    is_explicit_multiday_plan = bool(re.search(r'plan (an efficient )?\d+[\-– ]?day|\d+[\-– ]?day (master )?plan|\d+[\-– ]?day itinerary|cover all places', query_lower))
+    # Explicit multi-day plan button or prompt
+    is_button_cover_all = bool(re.search(r'plan an efficient \d+[\-– ]?day itinerary for .* covering all (famous )?temples', query_lower)) or 'cover all places' in query_lower
+    is_explicit_multiday_plan = is_button_cover_all or (
+        bool(re.search(r'\b(plan (an efficient )?\d+[\-– ]?day|\d+[\-– ]?day (master )?plan|\d+[\-– ]?day itinerary)\b', query_lower))
+        and not (is_waterfalls or is_trekking or is_devotional or is_nature_lover or is_family_friends or is_atm or is_malls or is_dining or is_party or is_culture)
+    )
 
-    # 1. Explicit Multi-Day Plan requested
+    # 1. Explicit Multi-Day Plan requested (Only when user explicitly asks for overall full trip plan)
     if is_explicit_multiday_plan:
         reply_parts.append(_generate_comprehensive_multiday_itinerary(dest_clean, days, travelers, budget))
 
-    # 2. Devotional & Temple query (PRIORITIZED FOR FAMOUS SACRED SHRINES)
-    elif is_devotional:
-        reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
-
-    # 3. Waterfalls & Adventure / Trekking:
-    # When user asks about waterfalls (or clicks Adventure, Waterfalls & Treks):
-    # GIVE WATERFALLS FIRST!
+    # 2. Waterfalls & Adventure / Trekking (PRIORITIZED FOR PRECISE WATERFALL & TREK QUERIES)
     elif is_waterfalls or is_trekking:
         if is_waterfalls:
             reply_parts.append(_format_waterfalls_for_chatbot(dest_clean, guide, matched_profile))
         if is_trekking:
             reply_parts.append(_format_trekking_adventure_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 3. Devotional & Temple query (PRIORITIZED FOR SACRED SHRINES)
+    elif is_devotional:
+        reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
 
     # 4. Nature lover query
     elif is_nature_lover:
