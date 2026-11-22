@@ -505,6 +505,298 @@ DESTINATION_MASTER_REGISTRY = {
                 'phone': '+91 8936 249 970'
             }
         ]
+    },
+
+    # ── VISAKHAPATNAM (VIZAG, Andhra Pradesh) ─────────────────────────────────
+    'visakhapatnam': {
+        'title': 'Visakhapatnam (City of Destiny & Coastline), Andhra Pradesh',
+        'tagline': 'Sun-Kissed Golden Beaches, Naval Heritage, Sacred Hilltop Shrines & Spectacular Cascades',
+        'map_query': 'Visakhapatnam, Andhra Pradesh',
+
+        'tourist_spots': {
+            'temples': [
+                {
+                    'name': 'Sri Varaha Lakshmi Narasimha Temple (Simhachalam)',
+                    'landmark': 'Simhachalam Hilltop, 16 km from Vizag Central Railway Station',
+                    'desc': 'Revered 11th-century hill shrine where the deity remains enveloped in sacred sandalwood paste year-round, revealed only on Chandanotsavam.',
+                    'timing': '07:00 AM – 04:00 PM & 06:00 PM – 09:00 PM'
+                },
+                {
+                    'name': 'Sri Kanaka Mahalakshmi Temple',
+                    'landmark': 'Burujupeta, Old Post Office area, Old Vizag City',
+                    'desc': 'Ancient wish-fulfilling presiding goddess of Visakhapatnam; unique open-air sanctum without roof or doors, accessible 24/7.',
+                    'timing': 'Open 24 Hours (Special Panchamrutha Abhishekam on Thursdays)'
+                },
+                {
+                    'name': 'Sri Sampath Vinayagar Temple',
+                    'landmark': 'Asilmetta Junction, near RTC Complex, Visakhapatnam',
+                    'desc': 'Hugely popular Ganesha shrine where locals and travelers break coconuts for auspicious journeys and obstacle removal.',
+                    'timing': '06:00 AM – 11:30 AM & 05:30 PM – 09:00 PM'
+                },
+                {
+                    'name': 'Ross Hill Multifaith Mount',
+                    'landmark': 'Port Area, overlooking Vizag Port Entrance & Harbor',
+                    'desc': 'Unique tri-hill harmony site with Ross Hill Catholic Church on one crest, Dargah of Ishaq Madina on the second, and Sri Venkateswara Swamy Temple on the third.',
+                    'timing': '06:00 AM – 06:30 PM'
+                },
+                {
+                    'name': 'Bojjannakonda & Lingalakonda Buddhist Heritage Sites',
+                    'landmark': 'Sankaram village, near Anakapalle (~35 km from Vizag center)',
+                    'desc': '4th to 9th-century monolithic rock-cut Buddhist stupas, meditative caves, and rock-carved Buddha reliefs perched on twin hills.',
+                    'timing': '09:00 AM – 05:00 PM'
+                }
+            ],
+            'hills_viewpoints': [
+                {
+                    'name': 'Kailasagiri Hilltop Park & Ropeway',
+                    'landmark': 'Perched atop 360 ft sea-facing cliff, Beach Road, Visakhapatnam',
+                    'desc': 'Iconic hilltop landscaped park accessed via passenger ropeway with sweeping panoramic views of the Bay of Bengal coastline curve.',
+                    'highlight': 'Cable ropeway ride, 40-ft Shiva-Parvathi statue, Titanic viewpoint deck, circular toy train'
+                },
+                {
+                    'name': 'Dolphin\'s Nose Cliff & Lighthouse',
+                    'landmark': 'Gangavaram port approach, 10 km south of Vizag city center',
+                    'desc': 'Dramatic 358-meter rocky promontory projecting into the sea resembling a dolphin\'s snout, featuring a powerful coastal lighthouse.',
+                    'highlight': 'Breathtaking 360-degree ocean views, historic harbor entrance overlook'
+                },
+                {
+                    'name': 'Thotlakonda & Bavikonda Coastal Hill Plateaus',
+                    'landmark': 'Bheemili Beach Road (Marine Drive), 15 km north of Vizag',
+                    'desc': 'Ancient 2,000-year-old Hinayana Buddhist monastic complexes situated on elevated sea-facing green hill plateaus.',
+                    'highlight': 'Unbroken ocean panoramas, ancient stone stupas, ocean breeze'
+                },
+                {
+                    'name': 'Yarada Beach & Coastal Ghat Viewpoint',
+                    'landmark': 'Behind Dolphin\'s Nose Hill, 15 km from Vizag center',
+                    'desc': 'Secluded golden sandy cove flanked by banana plantations and steep verdant hills on three sides.',
+                    'highlight': 'Scenic coastal hill descent, tranquil turquoise water'
+                }
+            ],
+            'waterfalls': [
+                {
+                    'name': 'Devarapalli Waterfalls (Bahuda River Cascades)',
+                    'landmark': 'Near Devarapalli village, ~55 km from Vizag center via Anandapuram / Sambhuvanipalem',
+                    'desc': 'Splendid natural cascading waterfall where the Bahuda River tumbles over layered rock formations into crystal-clear freshwater pools.',
+                    'highlight': 'Freshwater rock pool bathing, peaceful green valley picnic, scenic rural drive'
+                },
+                {
+                    'name': 'Lothugedda / Lothapalli Waterfalls',
+                    'landmark': 'Near Chintapalli / Lothugedda forest range, ~90 km from Visakhapatnam',
+                    'desc': 'A hidden gem waterfall cascading down rocky boulder canyons into deep natural freshwater plunge pools nestled in lush Eastern Ghats forest.',
+                    'highlight': 'Pristine untouched wilderness, natural swimming pools, boulder hopping'
+                },
+                {
+                    'name': 'Katiki Waterfalls',
+                    'landmark': 'Near Borra Caves, ~95 km from Vizag (accessed via 4x4 Jeep trail from Borra)',
+                    'desc': 'Spectacular 50-ft natural cascade fed by the Gosthani River; features an adventurous stream-crossing Jeep ride and short nature hike.',
+                    'highlight': 'Natural mountain plunge pool, roasted bamboo chicken, lush jungle setting'
+                },
+                {
+                    'name': 'Chaparai Water Cascades (Dumbriguda)',
+                    'landmark': '15 km past Araku town towards Paderu (~115 km from Vizag)',
+                    'desc': 'Broad flat sloping smooth river rocks where crystal-clear cool waters glide gently amidst a dense canopy of pine and teak trees.',
+                    'highlight': 'Gentle rock water sliding, forest shade wading, hot bamboo chicken stalls'
+                },
+                {
+                    'name': 'Kothapalli Waterfalls',
+                    'landmark': 'Near G.Madugula / Paderu, ~110 km from Visakhapatnam',
+                    'desc': 'Picturesque multi-tier cascading waterfall framed by lush green agricultural hills and tribal villages.',
+                    'highlight': 'Tiered water cascades, tranquil photography, cool mountain spray'
+                },
+                {
+                    'name': 'Thatipudi Reservoir & Spillway Cascades',
+                    'landmark': 'Near Gantyada / S.Kota foothills, ~65 km from Vizag',
+                    'desc': 'Lush reservoir surrounded by Eastern Ghats mountains with picturesque spillway cascades and boating facilities.',
+                    'highlight': 'Spillway water streams, serene lake boat rides, hillside greenery'
+                }
+            ],
+            'parks_botanical': [
+                {
+                    'name': 'Kondakarla Ava Freshwater Lake & Bird Sanctuary',
+                    'landmark': 'Near Atchutapuram, ~48 km south of Vizag center',
+                    'desc': 'Vast freshwater wetland lake blooming with pink lotus flowers and water lilies; country catamaran raft rides among migratory birds.',
+                    'highlight': 'Traditional palm-log catamaran boat rides, lotus flower photography, migratory pelicans & herons'
+                },
+                {
+                    'name': 'Mudasarlova Reservoir & Valley Park',
+                    'landmark': 'Mudasarlova valley, 10 km from Vizag center near Arilova',
+                    'desc': 'Centuries-old reservoir nestled in a quiet valley flanked by green hills, lush mango orchards, palm groves, and perennial streams.',
+                    'highlight': 'Orchard walks, tranquil nature picnics, vintage golf course nearby'
+                },
+                {
+                    'name': 'VMRDA City Central Park',
+                    'landmark': 'Opposite Old Central Jail, Dwaraka Nagar / RTC Complex, Visakhapatnam',
+                    'desc': 'Sprawling 22-acre urban botanical garden featuring a musical dancing water fountain, bonsai garden, circular jogging track, and floral beds.',
+                    'highlight': 'Musical fountain show at 07:00 PM, bonsai collection'
+                },
+                {
+                    'name': 'Tenneti Beach Park & Sea View Amphitheatre',
+                    'landmark': 'Beach Road, Jodugullapalem (below Kailasagiri Hill)',
+                    'desc': 'Coastal cliffside landscaped park with direct staircase access to the shore and sweeping views of the historic shipwreck.',
+                    'highlight': 'Sunset ocean vistas, landscaped cliff gardens'
+                }
+            ],
+            'zoo_wildlife': [
+                {
+                    'name': 'Indira Gandhi Zoological Park',
+                    'landmark': 'Yendada, along Marine Drive (Beach Road), Visakhapatnam',
+                    'desc': '625-acre natural forest zoo nestled between Kambalakonda forest and the sea; houses white tigers, Asiatic lions, leopards, primates, and migratory birds in spacious open-moated habitats.',
+                    'highlight': 'Toy train safari, battery-operated buggy tour, butterfly park'
+                },
+                {
+                    'name': 'Kambalakonda Wildlife Sanctuary',
+                    'landmark': 'National Highway 16, opposite IGNP Zoo, Visakhapatnam',
+                    'desc': '71 sq km dry evergreen forest sanctuary home to Indian leopards, barking deer, pangolins, and rare flora.',
+                    'highlight': 'Nature hiking trails, canopy suspension bridge, night camping'
+                }
+            ],
+            'shopping_malls': [
+                {
+                    'name': 'CMR Central Mall',
+                    'landmark': 'Maddilapalem Junction, National Highway 16, Visakhapatnam',
+                    'desc': 'Premier 5-story shopping mall with lifestyle departmental stores, INOX multiplex cinemas, multi-cuisine food court, and gaming zone.',
+                    'highlight': 'National & international fashion, bowling alley, kids play zone'
+                },
+                {
+                    'name': 'Lepakshi Andhra Handicrafts Emporium',
+                    'landmark': 'Near Jagadamba Junction, Main Road, Visakhapatnam',
+                    'desc': 'Official State handicrafts emporium showcasing authentic Kondapalli softwood toys, Kalamkari hand-printed textiles, bronze statues, and sandalwood artifacts.',
+                    'highlight': 'Authentic GI-tagged souvenirs, handloom silk sarees, brass lamps'
+                },
+                {
+                    'name': 'Kurupam Market & Jagadamba Bazaars',
+                    'landmark': 'Old Post Office Road to Jagadamba Junction, Visakhapatnam',
+                    'desc': 'Centuries-old bustling traditional bazaar lane famous for pure gold jewelry, authentic Uppada silk sarees, and local brassware.',
+                    'highlight': 'Traditional wedding jewelry, Uppada Jamdani handloom silk'
+                }
+            ],
+            'fun_zones_waterparks': [
+                {
+                    'name': 'INS Kursura Submarine Museum',
+                    'landmark': 'RK Beach Road Promenade (opposite Victory at Sea Memorial), Visakhapatnam',
+                    'desc': 'Asia\'s first submarine museum; a real decommissioned Russian-built Soviet naval submarine preserved directly on the beach sand.',
+                    'highlight': 'Walk inside actual torpedo rooms, sonar station, and sailor bunk rooms'
+                },
+                {
+                    'name': 'TU-142 Aircraft Museum & Flight Simulator',
+                    'landmark': 'Directly across Beach Road from INS Kursura Submarine, Visakhapatnam',
+                    'desc': 'Real Indian Navy long-range anti-submarine maritime patrol bomber aircraft converted into an interactive museum with flight simulators.',
+                    'highlight': 'VR cockpit flight simulator, survival equipment exhibits'
+                },
+                {
+                    'name': 'Rushikonda Beach Water Adventure Sports',
+                    'landmark': 'Rushikonda Beach, Marine Drive, Visakhapatnam',
+                    'desc': 'Premier coastal water sports center offering jet-skiing, banana boat rides, sea kayaking, scuba diving, and surfing lessons.',
+                    'highlight': 'Jet-ski rides, scuba diving, certified surfing school'
+                },
+                {
+                    'name': 'Matsyadarshini Marine Aquarium',
+                    'landmark': 'Beach Road Promenade, near Pandurangapuram, Visakhapatnam',
+                    'desc': 'Coastal aquarium featuring exotic marine specimens including clownfish, electric rays, lionfish, freshwater piranhas, and sea turtles.',
+                    'highlight': 'Kids marine education, colorful reef aquariums'
+                }
+            ]
+        },
+
+        'dining_cuisine': {
+            'must_try_dishes': [
+                {
+                    'name': 'Madugula Halwa',
+                    'type': 'Sweet Delicacy',
+                    'desc': 'Celebrated 130-year-old traditional sweet prepared from sprouted wheat milk, pure ghee, and cashews with an unforgettable melt-in-mouth texture.',
+                    'best_at': 'Dangeti Murthy Original Halwa (Madugula / Vizag retail counters)'
+                },
+                {
+                    'name': 'Andhra Royyala Iguru (Spicy Prawn Fry)',
+                    'type': 'Non-Vegetarian Seafood',
+                    'desc': 'Fresh Bay of Bengal prawns tossed in caramelized shallots, green chilies, curry leaves, and freshly ground coastal garam masala.',
+                    'best_at': 'Sea Inn (Raju Gari Dhaba, Rushikonda Marine Drive)'
+                },
+                {
+                    'name': 'Chepala Pulusu (Nellore-Style Tangy Fish Curry)',
+                    'type': 'Non-Vegetarian Seafood',
+                    'desc': 'Fresh catch of fish simmered in a fiery, tangy tamarind and raw mango gravy with fenugreek and mustard seeds.',
+                    'best_at': 'Venkatadri Vantillu & Coastal Dhaba (Siripuram)'
+                },
+                {
+                    'name': 'Vizag Bamboo Chicken (Bongu Kodi)',
+                    'type': 'Non-Vegetarian Tribal Specialty',
+                    'desc': 'Country chicken marinated with native forest spices, packed inside fresh green bamboo stalks and charcoal-roasted with zero oil.',
+                    'best_at': 'Bamboo Chicken Point (Rushikonda & Simhachalam approach)'
+                },
+                {
+                    'name': 'Traditional Andhra Banana Leaf Thali',
+                    'type': 'Vegetarian Meals',
+                    'desc': 'Steaming hot Sona Masoori rice served with hot ghee, Gunpowder (Kandi Podi), Gongura pachadi, Drumstick Sambar, and Payasam.',
+                    'best_at': 'Subbayya Gari Hotel (Dwaraka Nagar)'
+                }
+            ],
+            'famous_food_streets': [
+                {
+                    'name': 'RK Beach Road Promenade Food Stalls',
+                    'landmark': 'From Novotel to Kali Temple stretch, Beach Road',
+                    'specialties': 'Muri Mixture (Vizag beach puffed rice chaat), piping hot Mirchi Bajji, grilled buttery sweet corn, and tender coconut water.'
+                },
+                {
+                    'name': 'Siripuram & VIP Road Night Food Street',
+                    'landmark': 'Siripuram Junction, near Dutt Island, Visakhapatnam',
+                    'specialties': 'Shawarma, South Indian dosas with spicy tomato chutney, seafood fried rice, and artisanal filter coffee.'
+                }
+            ]
+        },
+
+        'culture_traditions': {
+            'summary': 'Visakhapatnam embodies a seamless confluence of ancient Kalinga Buddhist legacy, majestic 11th-century Simhachalam temple heritage, and a vibrant coastal maritime community.',
+            'festivals_rituals': [
+                {
+                    'name': 'Visakha Utsav (December – January)',
+                    'importance': 'Premier cultural carnival held along RK Beach showcasing Andhra folk traditions, classical music concerts, craft bazaars, and beach sports.',
+                    'rituals': 'Beach road carnival processions, classical Kuchipudi recitals, and floral exhibits.'
+                },
+                {
+                    'name': 'Chandanotsavam at Simhachalam (April – May)',
+                    'importance': 'The sacred annual festival where the thick sandalwood paste coating is removed, allowing devotees the rare "Nijaroopa Darshanam" of Lord Narasimha for just 12 hours.',
+                    'rituals': 'Nijaroopa sacred darshan and fresh sandalwood paste application.'
+                },
+                {
+                    'name': 'Giri Pradakshina (Guru Purnima)',
+                    'importance': 'Massive spiritual 32-km holy barefoot circumambulation around the sacred Simhachalam hill by hundreds of thousands of pilgrims.',
+                    'rituals': 'Barefoot walking around Simhachalam hill with devotional chants.'
+                }
+            ],
+            'art_crafts': 'Kondapalli wooden lacquer toys, Etikoppaka wooden lacquerware from nearby Yellamanchili, and authentic Uppada Jamdani handloom silk sarees.'
+        },
+
+        'celebrations_venues': [
+            {
+                'name': 'Novotel Visakhapatnam Varun Beach (Vue Lounge & Lawns)',
+                'map_landmark': 'Beach Road, directly opposite RK Beach Submarine Museum Promenade, Visakhapatnam',
+                'vibe': 'Ultra-luxury sea-facing rooftop terrace lounge & infinity poolside cabanas for glamorous birthdays and anniversaries.',
+                'features': 'Vue rooftop lounge, 180-degree ocean sunset view, customized birthday decor, gourmet seafood platters, and sound system.',
+                'phone': '+91 891 304 5678'
+            },
+            {
+                'name': 'The Park Visakhapatnam (Aqua & Vista Oceanfront Lawns)',
+                'map_landmark': 'Beach Road, Pandurangapuram, 1 km south of Waltair Uplands, Visakhapatnam',
+                'vibe': 'Chic private oceanfront lawns and poolside dining decks surrounded by tropical palm groves.',
+                'features': 'Private lawn right on the beach, DJ setup, open-air seafood barbecue, candlelit beach tables, and cake cutting service.',
+                'phone': '+91 891 304 5555'
+            },
+            {
+                'name': 'Sai Priya Beach Resort (Rushikonda Palm Lawns)',
+                'map_landmark': 'Rushikonda Beach Road, Marine Drive, Visakhapatnam',
+                'vibe': 'Expansive green beachfront lawns and seaside banquet cabanas for high-energy group celebrations and family parties.',
+                'features': 'Private celebration lawns, campfire and bonfire pit, beach sound setup, and live barbecue grill.',
+                'phone': '+91 891 279 0333'
+            },
+            {
+                'name': 'Ironhill Brewery & Rooftop Sky Lounge',
+                'map_landmark': 'Siripuram Junction, VIP Road, Visakhapatnam',
+                'vibe': 'High-energy craft brewery and open-air rooftop with city skyline views, craft brews, and DJ music for squad parties.',
+                'features': 'Private party deck, craft beverage platters, customized birthday lighting, and lively music.',
+                'phone': '+91 891 668 8999'
+            }
+        ]
     }
 }
 
@@ -525,12 +817,20 @@ def get_destination_master_guide(destination, state='', days=3):
     dest_lower = dest_clean.lower()
     state_lower = (state or '').strip().lower()
 
-    # Find curated match
+    # Find curated match with aliases
     matched = None
-    for k in DESTINATION_MASTER_REGISTRY.keys():
-        if k in dest_lower or (state_lower and k in state_lower):
-            matched = DESTINATION_MASTER_REGISTRY[k]
-            break
+    if any(alias in dest_lower for alias in ['vizag', 'visakhapatnam', 'vishakapatnam', 'vishakhapatnam', 'visakha']):
+        matched = DESTINATION_MASTER_REGISTRY.get('visakhapatnam')
+    elif any(alias in dest_lower for alias in ['araku', 'borra']):
+        matched = DESTINATION_MASTER_REGISTRY.get('araku')
+    elif any(alias in dest_lower for alias in ['gujarat', 'ahmedabad', 'kutch', 'sasan gir', 'dwarka', 'somnath']):
+        matched = DESTINATION_MASTER_REGISTRY.get('gujarat')
+
+    if not matched:
+        for k in DESTINATION_MASTER_REGISTRY.keys():
+            if k in dest_lower or (state_lower and k in state_lower):
+                matched = DESTINATION_MASTER_REGISTRY[k]
+                break
 
     dest_title = dest_clean.title()
     days_count = max(1, min(days, 7))

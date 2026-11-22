@@ -542,7 +542,7 @@
 
             {# ── Travel Options (All Modes Guaranteed & Filterable) ── #}
             {% if starting_city %}
-                {% set dest_id = rec.Destination | replace(' ', '_') | replace(',', '') %}
+                {% set dest_id = rec.dest_id if rec.dest_id else (rec.Destination | replace(' ', '_') | replace(',', '') | replace("'", "") | replace('-', '_')) %}
                 <div class="mt-4">
                     <div class="d-flex justify-content-between align-items-center mb-2">
                         <h6 class="fw-bold text-dark mb-0">
@@ -1477,35 +1477,56 @@ function filterTransportMode(destId, mode) {
         });
     }
 
-    // Ensure Outbound and Return accordions are opened
-    const obCol = document.getElementById(`collapseOutbound${destId}`);
-    if (obCol && !obCol.classList.contains('show') && typeof bootstrap !== 'undefined') {
-        const c1 = bootstrap.Collapse.getOrCreateInstance(obCol, { toggle: false });
-        c1.show();
-    }
-    const retCol = document.getElementById(`collapseReturn${destId}`);
-    if (retCol && !retCol.classList.contains('show') && typeof bootstrap !== 'undefined') {
-        const c2 = bootstrap.Collapse.getOrCreateInstance(retCol, { toggle: false });
-        c2.show();
+    // Ensure Outbound and Return accordions are opened safely without errors
+    try {
+        const obCol = document.getElementById(`collapseOutbound${destId}`);
+        if (obCol && !obCol.classList.contains('show')) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                const c1 = bootstrap.Collapse.getOrCreateInstance(obCol, { toggle: false });
+                c1.show();
+            } else {
+                obCol.classList.add('show');
+            }
+        }
+        const retCol = document.getElementById(`collapseReturn${destId}`);
+        if (retCol && !retCol.classList.contains('show')) {
+            if (typeof bootstrap !== 'undefined' && bootstrap.Collapse) {
+                const c2 = bootstrap.Collapse.getOrCreateInstance(retCol, { toggle: false });
+                c2.show();
+            } else {
+                retCol.classList.add('show');
+            }
+        }
+    } catch (e) {
+        console.warn("Accordion show error:", e);
     }
 
-    const items = document.querySelectorAll(`.transport-item-${destId}`);
-    items.forEach(el => {
-        const itemMode = el.getAttribute('data-mode') || '';
-        if (mode === 'all') {
-            el.classList.remove('d-none');
-        } else if (mode === 'flight' && itemMode === 'flight') {
-            el.classList.remove('d-none');
-        } else if (mode === 'train' && itemMode === 'train') {
-            el.classList.remove('d-none');
-        } else if (mode === 'bus' && itemMode === 'bus') {
-            el.classList.remove('d-none');
-        } else if (mode === 'cab' && (itemMode === 'cab' || itemMode === 'car')) {
-            el.classList.remove('d-none');
-        } else {
-            el.classList.add('d-none');
-        }
-    });
+    try {
+        const items = document.getElementsByClassName(`transport-item-${destId}`);
+        Array.from(items).forEach(el => {
+            const itemMode = el.getAttribute('data-mode') || '';
+            let show = false;
+            if (mode === 'all') {
+                show = true;
+            } else if (mode === 'flight' && itemMode === 'flight') {
+                show = true;
+            } else if (mode === 'train' && itemMode === 'train') {
+                show = true;
+            } else if (mode === 'bus' && itemMode === 'bus') {
+                show = true;
+            } else if (mode === 'cab' && (itemMode === 'cab' || itemMode === 'car')) {
+                show = true;
+            }
+
+            if (show) {
+                el.classList.remove('d-none');
+            } else {
+                el.classList.add('d-none');
+            }
+        });
+    } catch (e) {
+        console.error("Filter error:", e);
+    }
 }
 
 function loadRides(locationQuery, idSuffix) {

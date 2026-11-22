@@ -218,6 +218,129 @@ CURATED_DESTINATIONS = {
   * Thrilling off-road drive through rocky riverbeds, followed by a 20-minute boulder hike to the thunderous cascade.
 * **🦇 Borra Caves Underground Exploration:**
   * Trek 80 meters deep into subterranean chambers of stalactites, stalagmites, and subterranean river channels."""
+    },
+
+    # ── VISAKHAPATNAM (VIZAG, Andhra Pradesh) ─────────────────────────────────
+    'visakhapatnam': {
+        'name': 'Visakhapatnam',
+        'title': 'Visakhapatnam (Vizag), Andhra Pradesh',
+        'categories': {
+            'waterfalls': [
+                "🌊 **Devarapalli Waterfalls (Bahuda River Cascades)** (Near Devarapalli, ~55 km from Vizag center via Sambhuvanipalem / Anandapuram): Natural cascading waterfall tumbling over stepped rock formations into pristine freshwater swimming pools; peaceful green valley picnic setting.",
+                "🌊 **Lothugedda / Lothapalli Waterfalls** (Near Chintapalli / Lothugedda forest belt, ~90 km from Vizag): Breathtaking hidden cascade cutting through rocky boulder canyons with natural freshwater plunge pools and lush Eastern Ghats forest trails.",
+                "🌊 **Katiki Waterfalls** (Near Borra Caves / Gosthani riverbed, ~95 km from Vizag): A roaring 50-ft natural cascade fed by mountain streams, reached via exciting 4x4 Jeep stream-crossing ride and short jungle hike; stalls serve hot bamboo chicken.",
+                "🌊 **Chaparai Water Cascades (Dumbriguda)** (~115 km from Vizag): Broad, smooth sloping river rocks where crystal-clear mountain streams flow gently amidst pine and teak canopies; famous for forest wading and roasted bamboo chicken.",
+                "🌊 **Kothapalli Waterfalls** (Near G.Madugula / Paderu, ~110 km from Vizag): Multi-tiered cascading waterfall framed by verdant terraced agricultural hills and tribal settlements.",
+                "🌊 **Thatipudi Reservoir & Spillway Cascades** (Near S.Kota foothills, ~65 km from Vizag): Scenic freshwater lake nestled in mountain valleys with picturesque spillway cascades and boating facilities."
+            ],
+            'trekking': [
+                "🥾 **Kambalakonda Wildlife Sanctuary Eco-Trek** (National Highway 16): 5 km guided forest trek, canopy suspension bridge, night camping and spotted deer sanctuary.",
+                "🥾 **Dolphin's Nose & Lighthouse Clifftop Hike**: Dramatic 358-meter sea-cliff overlook above the historic harbor entrance, Port, and deep blue Bay of Bengal.",
+                "🥾 **Lambasingi Misty Ridge & Cheruvula Venam Trek**: High altitude hill trek through cloud-covered pine valleys in the 'Kashmir of Andhra Pradesh'.",
+                "🏄 **Rushikonda Coast & Beach Water Sports**: Certified surfing lessons, sea kayaking, jet-skiing, speedboats, and beach trekking along golden sands."
+            ],
+            'temples': [
+                "🛕 **Sri Varaha Lakshmi Narasimha Temple (Simhachalam)** (Simhachalam Hilltop, 16 km from Vizag Station): Celebrated 11th-century hill shrine where the deity remains enveloped in sacred sandalwood paste year-round.",
+                "🛕 **Sri Kanaka Mahalakshmi Temple** (Burujupeta, Old Town): Ancient wish-fulfilling presiding goddess of Visakhapatnam; unique open-air sanctum without roof or doors, accessible 24/7.",
+                "🛕 **Sri Sampath Vinayagar Temple** (Asilmetta Junction): Famed wish-fulfilling Ganesha temple where locals and travelers break coconuts for auspicious journeys.",
+                "⛪ **Ross Hill Multifaith Mount**: Tri-hill sanctuary housing Ross Hill Catholic Church, Dargah of Ishaq Madina, and Sri Venkateswara Swamy Temple overlooking the harbor.",
+                "🛕 **Bojjannakonda & Lingalakonda Buddhist Heritage Stupas** (Sankaram, Anakapalle): 4th–9th century monolithic rock-cut Buddhist stupas, meditative caves, and rock-carved reliefs."
+            ],
+            'botanical_farms': [
+                "🌸 **Kondakarla Ava Freshwater Lake & Bird Sanctuary** (Near Atchutapuram, ~48 km from Vizag): Vast freshwater wetland lake blooming with pink lotus flowers and water lilies; country catamaran raft rides among pelicans and herons.",
+                "🌾 **Lambasingi Organic Apple, Strawberry & Coffee Farms**: High-altitude organic fruit orchards and mist-shrouded yellow flower fields.",
+                "🌿 **Thotlakonda & Bavikonda Coastal Hill Plateaus**: Elevated sea-facing green hill plateaus with ancient Buddhist monastic ruins and continuous sea breezes.",
+                "🌴 **Mudasarlova Reservoir & Valley Park**: Shaded mango orchards, palm groves, and perennial streams nestled in a quiet green valley."
+            ],
+            'wildlife_zoo': [
+                "🦁 **Indira Gandhi Zoological Park** (Marine Drive, Yendada): 625-acre natural forest zoo housing white tigers, Asiatic lions, leopards, primates, and aviary in open-moated habitats.",
+                "🐾 **Kambalakonda Wildlife Reserve** (NH-16): Dry evergreen forest sanctuary home to Indian leopards, barking deer, pangolins, and peacocks."
+            ],
+            'fun_zones_waterparks': [
+                "🎢 **Kailasagiri Hilltop Fun Zone & Ropeway**: Titanic viewpoint, circular toy train, and 40-ft Shiva-Parvathi statue overlooking the coastal curve.",
+                "🚢 **INS Kursura Submarine Museum & TU-142 Aircraft Museum** (RK Beach): Real walk-through naval submarine and maritime reconnaissance bomber aircraft directly on the beach.",
+                "🏄 **Rushikonda Beach Water Adventure Sports**: Jet-skiing, speedboats, banana rides, kayaking, and certified surfing school.",
+                "⛲ **VMRDA City Central Park**: 22-acre urban botanical garden with musical dancing fountain and bonsai park."
+            ]
+        },
+
+        'waterfalls_specific': """### 🌊 Spectacular Nearby Waterfalls in & around Visakhapatnam
+
+* **🌊 Devarapalli Waterfalls (Bahuda River Cascades)**
+  * 📍 **Exact Location:** Near Devarapalli village, ~55 km from Vizag city center (accessible via Anandapuram / Sambhuvanipalem road).
+  * ✨ **What to Expect:** A stunning multi-tiered cascade where the Bahuda River flows over natural rock steps into clean freshwater swimming pools.
+  * 💡 **Traveler Tips:** Perfect for a peaceful half-day nature escape with friends or family; safe for foot wading and rock-pool dips. Best visited post-monsoon and in winter.
+
+* **🌊 Lothugedda / Lothapalli Waterfalls**
+  * 📍 **Exact Location:** Near Chintapalli / Lothugedda forest belt (~90 km from Visakhapatnam towards Eastern Ghats).
+  * ✨ **What to Expect:** A hidden, pristine mountain waterfall tumbling through rocky boulder canyons into deep natural freshwater plunge pools.
+  * 💡 **Traveler Tips:** Untouched wilderness surrounded by dense forest canopy. Wear trekking shoes for boulder hopping and bring a change of clothes for swimming.
+
+* **🌊 Katiki Waterfalls**
+  * 📍 **Exact Location:** Near Borra Caves, ~95 km from Vizag (accessed via 4x4 Jeep trail and Gosthani riverbed).
+  * ✨ **What to Expect:** Spectacular 50-ft natural cascade plunging down steep green hillocks; reached via an adventurous 4x4 stream-crossing ride and short jungle hike.
+  * 💡 **Traveler Tips:** Stalls at the trailhead serve freshly roasted tribal Bamboo Chicken and hot ginger tea.
+
+* **🌊 Chaparai Water Cascades (Dumbriguda)**
+  * 📍 **Exact Location:** 15 km past Araku town towards Paderu (~115 km from Vizag).
+  * ✨ **What to Expect:** Broad, flat smooth sloping river rocks where crystal-clear mountain streams flow gently amidst dense pine and teak canopies.
+  * 💡 **Traveler Tips:** Very popular for safe family water sliding along smooth rocks and picnic dining beneath shade trees.
+
+* **🌊 Kothapalli Waterfalls**
+  * 📍 **Exact Location:** Near G. Madugula / Paderu (~110 km from Vizag).
+  * ✨ **What to Expect:** Picturesque multi-tier cascade framed by verdant terraced agricultural hills and tribal villages.
+
+* **🌊 Thatipudi Reservoir & Spillway Cascades**
+  * 📍 **Exact Location:** Near S.Kota foothills (~65 km from Vizag).
+  * ✨ **What to Expect:** Scenic lake nestled in mountain valleys with picturesque spillway cascades, lush green hillocks, and boating facilities.""",
+
+        'nature_lover': """### 🌿 Nature & Countryside Lover Experience in Visakhapatnam
+* **🌾 Rolling Fields & Countryside Farms (Lambasingi & Chintapalli):**
+  * Drive up into the misty Eastern Ghats where rolling yellow flower fields (Susan Garden) and organic strawberry & apple farms spread across high-altitude slopes.
+* **🛶 Kondakarla Ava Freshwater Lake & Catamaran Safari:**
+  * Glide across peaceful freshwater wetlands in traditional palm-log catamarans through blooming pink lotus ponds while watching pelicans and herons.
+* **🌊 Thotlakonda & Bavikonda Coastal Hill Plateaus:**
+  * Elevated sea-facing green hill plateaus offering unbroken ocean panoramas, ancient Buddhist stupas, and soothing sea breezes.
+* **🌴 Mudasarlova Reservoir & Palm Valley:**
+  * Shaded mango orchards, palm groves, and perennial mountain streams nestled in a quiet green valley.""",
+
+        'devotional_person': """### 🛕 Sacred Temple & Devotional Journey in Visakhapatnam
+* **1. Sri Varaha Lakshmi Narasimha Temple (Simhachalam Hilltop):**
+  * **Timing:** Morning Darshan (07:00 AM – 11:30 AM), Afternoon (12:00 PM – 04:00 PM), Evening Aarti (06:00 PM – 09:00 PM).
+  * **Sacred Significance:** Revered 11th-century hill shrine where the deity remains enveloped in sandalwood paste year-round, revealed only on Chandanotsavam.
+* **2. Sri Kanaka Mahalakshmi Temple (Burujupeta, Old Town):**
+  * **Timing:** Open 24/7 (Special Panchamrutha Abhishekam on Thursdays).
+  * **Sacred Significance:** The beloved presiding guardian goddess of Visakhapatnam; unique open-air sanctum without roof or doors.
+* **3. Sri Sampath Vinayagar Temple (Asilmetta):**
+  * Famed wish-fulfilling Ganesha shrine where travelers break coconuts before beginning any journey.
+* **4. Ross Hill Multifaith Sanctuary (Port Overlook):**
+  * Tri-hill crest housing Ross Hill Catholic Church, Dargah of Sayyed Ali Madina, and Sri Venkateswara Swamy Temple overlooking the harbor.
+* **5. Bojjannakonda Buddhist Caves (Sankaram, Anakapalle):**
+  * 4th-century monolithic rock-cut Buddhist stupas, meditative monastic caves, and hill climb.""",
+
+        'family_friends': """### 👨‍👩‍👧‍👦 Family & Friends Fun, Waterparks & Chill Out in Visakhapatnam
+* **🎢 High-Energy Fun Zones & Museums:**
+  * **Kailasagiri Hilltop Park:** Ride the passenger ropeway cable car, take the circular toy train, and soak in 360-degree views from Titanic viewpoint.
+  * **INS Kursura Submarine & TU-142 Aircraft Museum (RK Beach):** Walk inside a real Russian-built naval submarine and anti-submarine bomber aircraft directly on the beach promenade.
+  * **Rushikonda Water Sports Zone:** Jet-skiing, banana boat rides, sea kayaking, and certified surfing lessons.
+  * **Indira Gandhi Zoological Park:** 625-acre natural forest zoo with open-moated habitats for white tigers, lions, and battery buggy tours.
+* **🎉 Birthday & Celebration Spots (with exact landmarks):**
+  * **Novotel Varun Beach (Vue Lounge & Lawns):** Beach Road, opposite Submarine Museum — luxury sea-facing rooftop terrace with customized cake cutting.
+  * **The Park Visakhapatnam (Aqua Lawns):** Beach Road, Pandurangapuram — private oceanfront lawns, beach barbecue, and personal DJ setups.
+  * **Sai Priya Beach Resort:** Rushikonda Marine Drive — green beach lawns and campfire circles.
+  * **Ironhill Brewery & Sky Lounge:** Siripuram VIP Road — rooftop skyline views and craft food platters.""",
+
+        'adventure_trekker': """### 🥾 Adventure, Trekking & Waterfalls in Visakhapatnam
+* **🌊 Spectacular Waterfalls:**
+  * **Devarapalli Waterfalls:** ~55 km from Vizag center via Anandapuram — stepped rock cascade with natural swimming rock pools.
+  * **Lothugedda / Lothapalli Waterfalls:** ~90 km from Vizag near Chintapalli — pristine hidden cascade in dense Eastern Ghats forest canyon.
+  * **Katiki Waterfalls:** ~95 km from Vizag near Borra Caves — 50-ft thunderous cascade with 4x4 Jeep stream-crossing ride and bamboo chicken.
+  * **Chaparai Water Cascades:** ~115 km from Vizag — smooth sloping river rocks for gentle water sliding and wading.
+* **🥾 Trekking Trails & Outdoor Sports:**
+  * **Kambalakonda Wildlife Sanctuary Eco-Trek (NH-16):** 5 km guided jungle trail, canopy suspension bridge, and deer sanctuary.
+  * **Dolphin's Nose & Lighthouse Clifftop Hike:** Dramatic sea-cliff overlook above Vizag harbor and port.
+  * **Lambasingi Cloud Ridge Trek:** High-altitude mountain hike through pine forests and cloud-shrouded peaks.
+  * **Rushikonda Coastal Adventure:** Sea kayaking, scuba diving, and surfing lessons along the golden beach."""
     }
 }
 
@@ -241,7 +364,11 @@ DESTINATION_ALIASES = {
     'borra': 'araku',
 
     'visakhapatnam': 'visakhapatnam',
+    'vishakapatnam': 'visakhapatnam',
+    'vishakhapatnam': 'visakhapatnam',
     'vizag': 'visakhapatnam',
+    'visakha': 'visakhapatnam',
+    'waltair': 'visakhapatnam',
 
     'hyderabad': 'hyderabad',
     'secunderabad': 'hyderabad',
@@ -401,6 +528,134 @@ def _generate_comprehensive_multiday_itinerary(dest_clean, days=3, travelers=2, 
                 lines.append(f"* **🛍️ Day {d}: Cultural Villages, Handloom Shopping & Farewell Viewpoint**")
             lines.append("")
 
+    return "\n".join(lines)
+
+
+def _format_waterfalls_for_chatbot(destination, guide=None, profile=None):
+    """Formats verified waterfalls and natural cascades for the destination."""
+    dest_title = (destination or 'Your Destination').title()
+    
+    # 1. If curated waterfalls_specific exists in profile, use it
+    if profile and profile.get('waterfalls_specific'):
+        return profile['waterfalls_specific']
+        
+    # 2. Or if guide has curated waterfalls
+    if guide and guide.get('tourist_spots', {}).get('waterfalls'):
+        falls = guide['tourist_spots']['waterfalls']
+        lines = [
+            f"### 🌊 Spectacular Waterfalls in & around {dest_title}\n",
+            f"Here are verified waterfalls and natural cascades situated in and around **{dest_title}**:\n"
+        ]
+        for f in falls:
+            lines.append(f"* **🌊 {f['name']}**")
+            if f.get('landmark'):
+                lines.append(f"  * 📍 **Location:** {f['landmark']}")
+            if f.get('desc'):
+                lines.append(f"  * ✨ **Experience:** {f['desc']}")
+            if f.get('highlight'):
+                lines.append(f"  * 💡 **Highlight:** {f['highlight']}")
+            lines.append("")
+        return "\n".join(lines)
+        
+    # 3. Or if profile has categories.waterfalls
+    if profile and profile.get('categories', {}).get('waterfalls'):
+        falls = profile['categories']['waterfalls']
+        lines = [
+            f"### 🌊 Spectacular Waterfalls in & around {dest_title}\n",
+            f"Here are verified waterfalls situated in and around **{dest_title}**:\n"
+        ]
+        for f in falls:
+            lines.append(f"* {f}\n")
+        return "\n".join(lines)
+        
+    # 4. Fallback generic waterfalls
+    return f"""### 🌊 Spectacular Waterfalls in & around {dest_title}
+
+Here are recommended natural waterfalls and cascades around **{dest_title}**:
+* **🌊 Mountain Cascades & Valley Falls:**
+  * Visit cascading forest waterfalls within 1–2 hours scenic driving distance.
+  * Perfect for rock-pool foot wading, forest trails, and fresh mountain breezes.
+* 💡 **Traveler Tips:** Wear sturdy trekking shoes for wet rocks and visit during morning hours for best natural lighting."""
+
+
+def _format_trekking_adventure_for_chatbot(destination, guide=None, profile=None):
+    """Formats verified trekking trails, wildlife safari and adventure outdoor activities."""
+    dest_title = (destination or 'Your Destination').title()
+    if profile and profile.get('adventure_trekker'):
+        return profile['adventure_trekker']
+        
+    spots = (guide or {}).get('tourist_spots', {})
+    treks = spots.get('hills_viewpoints', [])
+    zoo = spots.get('zoo_wildlife', [])
+    
+    lines = [f"### 🥾 Top Trekking Trails, Outdoor Adventure & Wildlife in {dest_title}\n"]
+    if treks:
+        lines.append("#### ⛰️ Trekking Trails & Scenic Hill Viewpoints:")
+        for t in treks:
+            lines.append(f"* **🥾 {t['name']}** ({t.get('landmark', '')})")
+            if t.get('desc'):
+                lines.append(f"  * {t['desc']}")
+        lines.append("")
+    if zoo:
+        lines.append("#### 🦁 Wildlife Sanctuaries & Safaris:")
+        for z in zoo:
+            lines.append(f"* **🐾 {z['name']}** ({z.get('landmark', '')})")
+            if z.get('desc'):
+                lines.append(f"  * {z['desc']}")
+        lines.append("")
+    return "\n".join(lines)
+
+
+def _format_temples_for_chatbot(destination, guide=None, profile=None):
+    """Formats verified temples, sacred shrines and devotional pilgrimage details."""
+    dest_title = (destination or 'Your Destination').title()
+    if profile and profile.get('devotional_person'):
+        return profile['devotional_person']
+        
+    temples = (guide or {}).get('tourist_spots', {}).get('temples', [])
+    lines = [f"### 🛕 Famous Temples & Sacred Shrines in {dest_title}\n"]
+    if temples:
+        for t in temples:
+            lines.append(f"* **🛕 {t['name']}** ({t.get('landmark', '')})")
+            if t.get('desc'):
+                lines.append(f"  * **Significance:** {t['desc']}")
+            if t.get('highlight'):
+                lines.append(f"  * **Timing / Darshan:** {t['highlight']}")
+            lines.append("")
+    return "\n".join(lines)
+
+
+def _format_nature_farms_for_chatbot(destination, guide=None, profile=None):
+    """Formats countryside, organic farms, valleys, and nature lover spots."""
+    dest_title = (destination or 'Your Destination').title()
+    if profile and profile.get('nature_lover'):
+        return profile['nature_lover']
+        
+    parks = (guide or {}).get('tourist_spots', {}).get('parks_botanical', [])
+    lines = [f"### 🌿 Nature Spots, Countryside & Green Farms in {dest_title}\n"]
+    if parks:
+        for p in parks:
+            lines.append(f"* **🌸 {p['name']}** ({p.get('landmark', '')})")
+            if p.get('desc'):
+                lines.append(f"  * {p['desc']}")
+            lines.append("")
+    return "\n".join(lines)
+
+
+def _format_family_fun_for_chatbot(destination, guide=None, profile=None):
+    """Formats waterparks, fun zones, group entertainment and celebrations."""
+    dest_title = (destination or 'Your Destination').title()
+    if profile and profile.get('family_friends'):
+        return profile['family_friends']
+        
+    fun = (guide or {}).get('tourist_spots', {}).get('fun_zones_waterparks', [])
+    lines = [f"### 👨‍👩‍👧‍👦 Friends & Family Fun Zones & Waterparks in {dest_title}\n"]
+    if fun:
+        for f in fun:
+            lines.append(f"* **🎢 {f['name']}** ({f.get('landmark', '')})")
+            if f.get('desc'):
+                lines.append(f"  * {f['desc']}")
+            lines.append("")
     return "\n".join(lines)
 
 
@@ -605,7 +860,7 @@ Please provide an actionable, highly helpful, and well-structured response addre
     ])
 
     is_party = any(k in query_lower for k in [
-        'birthday', 'party', 'celebrate', 'celebration', 'anniversary', 'campfire', 'bonfire', 'events', 'occasion'
+        'birthday', 'party', 'parties', 'celebrate', 'celebration', 'anniversary', 'campfire', 'bonfire', 'events', 'occasion'
     ])
 
     is_malls = any(k in query_lower for k in [
@@ -621,23 +876,27 @@ Please provide an actionable, highly helpful, and well-structured response addre
     ]) or ('tradition' in query_lower and not is_malls and not is_dining)
 
     is_spots_list = any(k in query_lower for k in [
-        'all spots', 'list of tourist', 'list of spots', 'visiting spots', 'all places', 'attractions', 'temples, hill'
+        'all spots', 'list of tourist', 'list of spots', 'visiting spots', 'all places', 'directory of', 'cover all places'
+    ]) and not ('plan' in query_lower and ('day' in query_lower or 'itinerary' in query_lower))
+    
+    is_waterfalls = any(k in query_lower for k in [
+        'waterfall', 'waterfalls', 'cascade', 'cascades', 'devarapalli', 'lothapalli', 'lothugedda', 'katiki', 'chaparai', 'kothapalli', 'thatipudi', 'plunge pool'
+    ])
+
+    is_trekking = any(k in query_lower for k in [
+        'trek', 'treks', 'trekking', 'trecking', 'hike', 'hiking', 'wildlife', 'safari', 'outdoor activities', 'kambalakonda', 'dolphin\'s nose', 'adventure'
     ])
     
     is_nature_lover = any(k in query_lower for k in [
-        'nature lover', 'rolling through fields', 'farms', 'fields and farms', 'countryside', 'agro', 'tea estate', 'plantations', 'flora'
+        'nature lover', 'rolling through fields', 'farms', 'fields and farms', 'countryside', 'agro', 'tea estate', 'plantations', 'flora', 'lambasingi', 'kondakarla'
     ])
     
     is_devotional = any(k in query_lower for k in [
-        'temple', 'devotional', 'pooja', 'darshan', 'jyotirlinga', 'spiritual', 'pilgrim', 'shrine', 'aarti'
+        'temple', 'temples', 'devotional', 'pooja', 'darshan', 'jyotirlinga', 'spiritual', 'pilgrim', 'shrine', 'shrines', 'aarti', 'simhachalam'
     ])
     
     is_family_friends = any(k in query_lower for k in [
-        'family', 'friends', 'trip with frnds', 'trip with friends', 'waterpark', 'water park', 'fun zone', 'amusement'
-    ])
-    
-    is_adventure = any(k in query_lower for k in [
-        'trek', 'trecking', 'trekking', 'waterfall', 'waterfalls', 'wildlife', 'safari', 'zoo', 'hiking', 'adventure'
+        'family', 'friends', 'trip with frnds', 'trip with friends', 'waterpark', 'water park', 'fun zone', 'amusement', 'kailasagiri', 'submarine museum'
     ])
     
     is_where_first = any(k in query_lower for k in [
@@ -646,67 +905,76 @@ Please provide an actionable, highly helpful, and well-structured response addre
     ])
     
     is_chill = any(k in query_lower for k in [
-        'chill', 'relax', 'peaceful', 'quiet', 'scenic', 'cafe', 'coffee', 'viewpoint', 'hangout'
+        'chill', 'relax', 'peaceful', 'quiet', 'scenic', 'scenic cafe', 'coffee overlook', 'hangout'
     ])
     
-    is_party = any(k in query_lower for k in [
-        'birthday', 'party', 'celebrate', 'celebration', 'anniversary', 'campfire', 'bonfire', 'events', 'occasion'
-    ])
-    
-    is_multiday_plan = any(k in query_lower for k in [
-        'plan', 'itinerary', 'day 1', 'day 2', 'day 3', 'day 4', 'day 5', 'days trip', 'efficiently', 'master plan', 'cover all'
-    ])
+    is_explicit_multiday_plan = bool(re.search(r'plan (an efficient )?\d+[\-– ]?day|\d+[\-– ]?day (master )?plan|\d+[\-– ]?day itinerary|cover all places', query_lower))
 
-    # 1. ATM query
-    if is_atm:
+    # 1. Explicit Multi-Day Plan requested
+    if is_explicit_multiday_plan:
+        reply_parts.append(_generate_comprehensive_multiday_itinerary(dest_clean, days, travelers, budget))
+
+    # 2. ATM query
+    elif is_atm:
         reply_parts.append(_format_atms_for_chatbot(dest_clean))
 
-    # 2. Birthday parties & Occasion Celebrations (with map-style landmark directions)
+    # 3. Birthday parties & Occasion Celebrations (with map-style landmark directions)
     elif is_party:
         reply_parts.append(_format_celebrations_with_landmarks(guide))
 
-    # 3. Shopping Malls & Bazaars
+    # 4. Shopping Malls & Bazaars
     elif is_malls:
         reply_parts.append(_format_malls_for_chatbot(guide))
 
-    # 4. Food & Dining
+    # 5. Food & Dining
     elif is_dining:
         reply_parts.append(_format_dining_for_chatbot(guide))
 
-    # 5. Culture & Festivals
+    # 6. Culture & Festivals
     elif is_culture:
         reply_parts.append(_format_culture_for_chatbot(guide))
 
-    # 6. Full Categorized Tourist Spots Directory
+    # 7. Waterfalls & Adventure / Trekking:
+    # When user asks about waterfalls (or clicks Adventure, Waterfalls & Treks):
+    # GIVE WATERFALLS FIRST!
+    elif is_waterfalls or is_trekking:
+        if is_waterfalls:
+            reply_parts.append(_format_waterfalls_for_chatbot(dest_clean, guide, matched_profile))
+        if is_trekking:
+            reply_parts.append(_format_trekking_adventure_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 8. Nature lover query
+    elif is_nature_lover:
+        reply_parts.append(_format_nature_farms_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 9. Devotional & Temple query
+    elif is_devotional:
+        reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 10. Family & Friends / Waterparks query
+    elif is_family_friends:
+        reply_parts.append(_format_family_fun_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 11. Full Categorized Tourist Spots Directory
     elif is_spots_list:
         reply_parts.append(_format_all_tourist_spots(guide))
 
-    # 7. Nature lover query
-    elif is_nature_lover and matched_profile and 'nature_lover' in matched_profile:
-        reply_parts.append(matched_profile['nature_lover'])
+    # 12. Where to go first
+    elif is_where_first:
+        if matched_profile and 'where_first' in matched_profile:
+            reply_parts.append(matched_profile['where_first'])
+        else:
+            reply_parts.append(f"### 📍 Where to Start First in {dest_title}\n* Start with the principal landmark or sacred temple early in the morning (08:00 AM) to beat midday traffic, followed by scenic afternoon viewpoints and evening promenade.")
 
-    # 8. Devotional & Temple query
-    elif is_devotional and matched_profile and 'devotional_person' in matched_profile:
-        reply_parts.append(matched_profile['devotional_person'])
+    # 13. Chill spots
+    elif is_chill:
+        if matched_profile and 'chill_spots' in matched_profile:
+            reply_parts.append(matched_profile['chill_spots'])
+        else:
+            reply_parts.append(f"### ☕ Chill & Relaxing Hangout Spots in {dest_title}\n* Lakeside promenades, scenic hill ridge cafes, and botanical gardens for quiet afternoon conversations.")
 
-    # 9. Family & Friends / Waterparks query
-    elif is_family_friends and matched_profile and 'family_friends' in matched_profile:
-        reply_parts.append(matched_profile['family_friends'])
-
-    # 10. Adventure & Trekking query
-    elif is_adventure and matched_profile and 'adventure_trekker' in matched_profile:
-        reply_parts.append(matched_profile['adventure_trekker'])
-
-    # 11. Where to go first
-    elif is_where_first and matched_profile and 'where_first' in matched_profile:
-        reply_parts.append(matched_profile['where_first'])
-
-    # 12. Chill spots
-    elif is_chill and matched_profile and 'chill_spots' in matched_profile:
-        reply_parts.append(matched_profile['chill_spots'])
-
-    # 13. Multi-Day Master Plan or General Question
-    if not reply_parts or is_multiday_plan:
+    # 14. Fallback if no specific category matched
+    if not reply_parts:
         reply_parts.append(_generate_comprehensive_multiday_itinerary(dest_clean, days, travelers, budget))
 
     reply_text = "\n\n---\n\n".join(reply_parts)

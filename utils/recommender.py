@@ -348,6 +348,7 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
         if 'araku' in destination.lower() or 'aruku' in destination.lower():
             attractions_val = "Araku Pinery, Coffee Museum, Borra Caves, Padmapuram Gardens, Galikonda View Point, Cheparai Waterfalls, Madagada Sunrise View Point, Kothapalli Waterfalls, Tribal Museum, Katiki Waterfalls"
 
+        import re
         from utils.geography import get_distance
         distance_km = 0
         if starting_city:
@@ -355,6 +356,7 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
 
         scored.append({
             'Destination':      row['Destination'],
+            'dest_id':          re.sub(r'[^a-zA-Z0-9_]', '', str(row['Destination']).replace(' ', '_')),
             'State':            row['State'],
             'Type':             row['Type'],
             'Distance_km':      distance_km,
