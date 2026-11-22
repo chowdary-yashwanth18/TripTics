@@ -304,19 +304,41 @@ CURATED_DESTINATIONS = {
 * **🌴 Mudasarlova Reservoir & Palm Valley:**
   * Shaded mango orchards, palm groves, and perennial mountain streams nestled in a quiet green valley.""",
 
-        'devotional_person': """### 🛕 Sacred Temple & Devotional Journey in Visakhapatnam
-* **1. Sri Varaha Lakshmi Narasimha Temple (Simhachalam Hilltop):**
-  * **Timing:** Morning Darshan (07:00 AM – 11:30 AM), Afternoon (12:00 PM – 04:00 PM), Evening Aarti (06:00 PM – 09:00 PM).
-  * **Sacred Significance:** Revered 11th-century hill shrine where the deity remains enveloped in sandalwood paste year-round, revealed only on Chandanotsavam.
-* **2. Sri Kanaka Mahalakshmi Temple (Burujupeta, Old Town):**
-  * **Timing:** Open 24/7 (Special Panchamrutha Abhishekam on Thursdays).
-  * **Sacred Significance:** The beloved presiding guardian goddess of Visakhapatnam; unique open-air sanctum without roof or doors.
-* **3. Sri Sampath Vinayagar Temple (Asilmetta):**
-  * Famed wish-fulfilling Ganesha shrine where travelers break coconuts before beginning any journey.
-* **4. Ross Hill Multifaith Sanctuary (Port Overlook):**
-  * Tri-hill crest housing Ross Hill Catholic Church, Dargah of Sayyed Ali Madina, and Sri Venkateswara Swamy Temple overlooking the harbor.
-* **5. Bojjannakonda Buddhist Caves (Sankaram, Anakapalle):**
-  * 4th-century monolithic rock-cut Buddhist stupas, meditative monastic caves, and hill climb.""",
+        'devotional_person': """### 🛕 Most Famous & Visited Temples in & around Visakhapatnam
+
+Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Visakhapatnam**:
+
+* **1. 🛕 Sri Varaha Lakshmi Narasimha Swamy Temple (Simhachalam Hilltop):**
+  * 📍 **Exact Location:** Simhachalam Hilltop, ~16 km from Visakhapatnam Central Railway Station (frequent ghat road RTC buses and taxis).
+  * ⏰ **Darshan Timings:** Morning (07:00 AM – 11:30 AM), Afternoon (12:00 PM – 04:00 PM), Evening Aarti (06:00 PM – 09:00 PM).
+  * 🙏 **Sacred Significance:** The premier 11th-century hill shrine of Lord Narasimha in Andhra Pradesh. The deity remains covered with thick sandalwood paste throughout the year and is seen in His real "Nijaroopa" form only for 12 hours during the annual Chandanotsavam festival.
+  * 💡 **Pilgrim Tip:** Famous for Simhachalam Appanna Laddu and Pulihara prasadam. Early morning darshan minimizes queue times.
+
+* **2. 🛕 Sri Veera Venkata Satyanarayana Swamy Temple (Annavaram Hilltop / Ratnagiri):**
+  * 📍 **Exact Location:** Ratnagiri Hilltop, Annavaram (~110 km from Vizag center via NH-16, ~2 hrs by express train or road).
+  * ⏰ **Darshan Timings:** Sarva Darshanam: 06:00 AM – 12:30 PM & 01:00 PM – 09:00 PM; Sri Satyanarayana Swamy Vrathams take place continuously from 06:00 AM to 06:00 PM.
+  * 🙏 **Sacred Significance:** One of the most famous and highly visited Vishnu pilgrimage destinations in India. Hundreds of thousands of devotees travel here to perform the sacred Satyanarayana Swamy Vratham for marriage, health, and family prosperity.
+  * 💡 **Pilgrim Tip:** Famous for authentic Annavaram Godhumai (wheat rava) prasadam. Vratham halls on the hill accommodate both individual and group ceremonies with priest assistance.
+
+* **3. 🛕 Sri Kanaka Mahalakshmi Temple (Burujupeta, Old Town):**
+  * 📍 **Exact Location:** Burujupeta, Old Town area, Visakhapatnam (~4 km from Station).
+  * ⏰ **Darshan Timings:** Open 24 Hours continuously (Special Panchamrutha Abhishekam every Thursday).
+  * 🙏 **Sacred Significance:** The ancient presiding guardian goddess of Visakhapatnam. Uniquely, the sanctum sanctorum has no roof or doors, allowing devotees to pray and offer flowers directly to the deity at any hour of the day or night.
+
+* **4. 🛕 Sri Sampath Vinayagar Temple (Asilmetta Junction):**
+  * 📍 **Exact Location:** Asilmetta Junction, near RTC Bus Complex, Visakhapatnam.
+  * ⏰ **Darshan Timings:** 06:00 AM – 11:30 AM & 05:30 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Renowned wish-fulfilling Ganesha temple where devotees and travelers break coconuts for auspicious beginnings and safe journeys.
+
+* **5. 🛕 Ross Hill Multifaith Mount & Sri Venkateswara Swamy Temple:**
+  * 📍 **Exact Location:** Port Area, South Channel, Visakhapatnam.
+  * ⏰ **Darshan Timings:** 06:00 AM – 06:30 PM.
+  * 🙏 **Sacred Significance:** Tri-hill spiritual harmony overlook housing Sri Venkateswara Swamy Temple (dating back to 1866) on one hill, Ross Hill Church on the second, and Dargah of Ishaq Madina on the third with sweeping ocean views.
+
+* **6. 🛕 Bojjannakonda & Lingalakonda Buddhist Rock-Cut Heritage Stupas:**
+  * 📍 **Exact Location:** Sankaram village, near Anakapalle (~35 km from Vizag).
+  * ⏰ **Visiting Hours:** 09:00 AM – 05:00 PM.
+  * 🙏 **Sacred Significance:** 4th–9th century monolithic rock-cut Buddhist stupas, meditative caves, and rock-carved Buddha reliefs.""",
 
         'family_friends': """### 👨‍👩‍👧‍👦 Family & Friends Fun, Waterparks & Chill Out in Visakhapatnam
 * **🎢 High-Energy Fun Zones & Museums:**
@@ -606,23 +628,185 @@ def _format_trekking_adventure_for_chatbot(destination, guide=None, profile=None
     return "\n".join(lines)
 
 
+FAMOUS_TEMPLES_DIRECTORY = {
+    'tirupati': """### 🛕 Most Famous & Visited Temples in & around Tirupati
+
+Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Tirupati**:
+
+* **1. 🛕 Sri Venkateswara Swamy Temple (Tirumala Hilltop):**
+  * 📍 **Exact Location:** Tirumala Seven Hills (~22 km from Tirupati foothills via scenic ghat road).
+  * ⏰ **Darshan Timings:** Suprabhata Seva (03:00 AM) to Ekantha Seva (11:30 PM); Sarva Darshan open throughout the day.
+  * 🙏 **Sacred Significance:** The world's most revered and visited Hindu temple dedicated to Lord Venkateswara (Balaji / Govinda). Famed for the divine Tirupati Laddu prasadam, sacred tonsuring (Kalyanakatta), and supreme spiritual energy.
+  * 💡 **Pilgrim Tip:** Book ₹300 Special Entry Darshan online in advance via the TTD official portal (ttdevasthanams.ap.gov.in).
+
+* **2. 🛕 Sri Padmavathi Ammavari Temple (Tiruchanur):**
+  * 📍 **Exact Location:** Tiruchanur (~5 km from Tirupati railway station).
+  * ⏰ **Darshan Timings:** 06:30 AM – 11:30 AM & 04:00 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Presiding consort of Lord Venkateswara; custom holds that a pilgrimage to Tirumala is complete only after seeking blessings from Mother Padmavathi.
+
+* **3. 🛕 Sri Govindaraja Swamy Temple:**
+  * 📍 **Exact Location:** Near Tirupati Railway Station in the heart of Tirupati city.
+  * ⏰ **Darshan Timings:** 05:00 AM – 12:30 PM & 04:30 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Grand 12th-century temple consecrated by Saint Ramanujacharya housing Lord Vishnu in yoga-nidra reclining posture.
+
+* **4. 🛕 Sri Kapileswara Swamy Temple (Kapila Theertham):**
+  * 📍 **Exact Location:** At the base of Tirumala Hills, Alipiri bypass.
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Ancient rock-carved Shiva temple set beside a sacred natural mountain waterfall pool.
+
+* **5. 🛕 Sri Kalahasteeswara Temple (Srikalahasti):**
+  * 📍 **Exact Location:** Srikalahasti (~36 km from Tirupati on the Swarnamukhi River).
+  * ⏰ **Darshan Timings:** 06:00 AM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Celebrated Pancha Bhoota Sthalam (Vayu Lingam / Wind Element) and premier Rahu-Ketu Sarpa Dosha Nivarana temple in India.""",
+
+    'varanasi': """### 🛕 Most Famous & Visited Temples in Varanasi (Kashi)
+
+* **1. 🛕 Kashi Vishwanath Temple (Golden Temple of Shiva & Vishwanath Corridor):**
+  * 📍 **Location:** Lahori Tola, Dashashwamedh Ghat area, Varanasi.
+  * ⏰ **Timings:** Mangala Aarti (03:00 AM), Darshan (04:00 AM – 11:00 PM).
+  * 🙏 **Significance:** One of the 12 sacred Jyotirlingas, the spiritual epicenter of Hinduism. Newly renovated corridor connects the temple directly to the sacred Ganga River.
+
+* **2. 🛕 Sankat Mochan Hanuman Temple:**
+  * 📍 **Location:** Saket Nagar, near Assi Ghat (~3 km from BHU).
+  * ⏰ **Timings:** 05:00 AM – 10:00 PM.
+  * 🙏 **Significance:** Established by Goswami Tulsidas, renowned for removing life's planetary hurdles and obstacles.
+
+* **3. 🛕 Sri Annapurna Devi Temple:**
+  * 📍 **Location:** Adjacent to Kashi Vishwanath Temple.
+  * ⏰ **Timings:** 05:00 AM – 10:30 PM.
+  * 🙏 **Significance:** Goddess of nourishment and abundance; traditional belief holds that no one remains hungry in Kashi under Mother Annapurna's gaze.
+
+* **4. 🛕 Kaal Bhairav Temple:**
+  * 📍 **Location:** Bharonath, Kashi.
+  * ⏰ **Timings:** 05:00 AM – 01:30 PM & 04:30 PM – 09:30 PM.
+  * 🙏 **Significance:** The fierce Kotwal (guardian protector) of Kashi; pilgrims visit Kaal Bhairav to seek permission before entering and leaving the holy city.""",
+
+    'puri': """### 🛕 Most Famous & Visited Temples in Puri & Konark
+
+* **1. 🛕 Jagannath Temple Puri (Char Dham Mahakshetra):**
+  * 📍 **Location:** Grand Road (Bada Danda), Puri.
+  * ⏰ **Timings:** 05:30 AM – 10:00 PM.
+  * 🙏 **Significance:** One of the supreme Char Dham pilgrimage shrines dedicated to Lord Jagannath, Balabhadra, and Subhadra. Famous for the world-renowned Ratha Yatra and the sacred Mahaprasad (56 Bhog) prepared in earthen pots.
+
+* **2. 🛕 Gundicha Temple (Mausi Maa Temple):**
+  * 📍 **Location:** North end of Bada Danda (~3 km from Jagannath Temple).
+  * ⏰ **Timings:** 06:00 AM – 09:00 PM.
+  * 🙏 **Significance:** Holy garden sanctuary where the Deities reside during the 9 days of annual Ratha Yatra.
+
+* **3. 🛕 Sun Temple Konark (Surya Devalaya):**
+  * 📍 **Location:** Marine Drive (~35 km from Puri).
+  * ⏰ **Timings:** 06:00 AM – 08:00 PM.
+  * 🙏 **Significance:** UNESCO World Heritage architectural masterpiece shaped as a colossal 24-wheeled chariot of the Sun God drawn by seven horses.""",
+
+    'madurai': """### 🛕 Most Famous & Visited Temples in Madurai
+
+* **1. 🛕 Arulmigu Meenakshi Sundareswarar Temple:**
+  * 📍 **Location:** City Center, Madurai.
+  * ⏰ **Timings:** 05:00 AM – 12:30 PM & 04:00 PM – 10:00 PM.
+  * 🙏 **Significance:** Architectural marvel of Dravidian heritage with 14 towering, colorfully sculpted gopurams, the sacred Golden Lotus tank, and the Hall of Thousand Pillars.
+
+* **2. 🛕 Koodal Azhagar Temple:**
+  * 📍 **Location:** Perumal Koil Street (~1 km from Meenakshi Temple).
+  * ⏰ **Timings:** 06:00 AM – 12:00 PM & 04:30 PM – 09:00 PM.
+  * 🙏 **Significance:** Ancient Divya Desam dedicated to Lord Vishnu portrayed in three sacred postures: sitting, standing, and reclining across three tiered sanctums.
+
+* **3. 🛕 Thiruparankundram Murugan Temple:**
+  * 📍 **Location:** Thiruparankundram (~8 km from Madurai).
+  * ⏰ **Timings:** 05:30 AM – 01:00 PM & 04:00 PM – 09:00 PM.
+  * 🙏 **Significance:** The first of the six sacred battle camps (Arupadaiveedu) of Lord Murugan, featuring remarkable 8th-century rock-cut cave sanctums.""",
+
+    'amritsar': """### 🛕 Most Famous & Sacred Shrines in Amritsar
+
+* **1. 🛕 Sri Harmandir Sahib (The Golden Temple / Sachkhand):**
+  * 📍 **Location:** Golden Temple Road, Amritsar.
+  * ⏰ **Timings:** Open 24/7 (Palki Sahib ceremony 04:00 AM & 10:00 PM).
+  * 🙏 **Significance:** The holiest Gurdwara of Sikhism surrounded by the sacred Amrit Sarovar. The Guru Ka Langar serves over 100,000 free hot meals daily with radical equality and seva.
+
+* **2. 🛕 Durgiana Temple (Lakshmi Narayan Temple):**
+  * 📍 **Location:** Near Hathi Gate, Amritsar.
+  * ⏰ **Timings:** 06:00 AM – 10:00 PM.
+  * 🙏 **Significance:** Historic 16th-century temple built in the middle of a sacred lake, dedicated to Goddess Durga and Lord Krishna.""",
+
+    'haridwar': """### 🛕 Most Famous & Visited Temples in Haridwar & Rishikesh
+
+* **1. 🛕 Mansa Devi Temple (Bilwa Parvat):**
+  * 📍 **Location:** Bilwa Parvat hilltop (accessed via ropeway/Udan Khatola or foot trek).
+  * ⏰ **Timings:** 05:00 AM – 09:00 PM.
+  * 🙏 **Significance:** Wish-fulfilling Goddess temple overlooking Haridwar and the meandering Ganga River.
+
+* **2. 🛕 Chandi Devi Temple (Neel Parvat):**
+  * 📍 **Location:** Neel Parvat hilltop on opposite bank of Ganga (ropeway available).
+  * ⏰ **Timings:** 06:00 AM – 08:00 PM.
+  * 🙏 **Significance:** Ancient Siddh Peetha established by Adi Shankaracharya.
+
+* **3. 🛕 Har Ki Pauri & Ganga Aarti:**
+  * 📍 **Location:** Har Ki Pauri Ghat, Haridwar.
+  * ⏰ **Timings:** 06:00 PM – 07:30 PM every evening.
+  * 🙏 **Significance:** Famed evening Ganga Aarti where thousands of lit brass lamps and floating marigold diyas illuminate the sacred river.""",
+
+    'gujarat': """### 🛕 Most Famous & Visited Temples in Gujarat
+
+* **1. 🛕 Somnath Jyotirlinga Temple (Prabhas Patan, Veraval):**
+  * 📍 **Location:** Prabhas Patan, right on the Arabian Sea coast.
+  * ⏰ **Timings:** 06:00 AM – 10:00 PM (Sound & Light show at 08:00 PM).
+  * 🙏 **Significance:** The first of the 12 sacred Shiva Jyotirlingas, revered as the "Eternal Shrine" that has stood through millennia.
+
+* **2. 🛕 Dwarkadhish Temple (Jagat Mandir, Dwarka):**
+  * 📍 **Location:** Gomti Creek, Dwarka.
+  * ⏰ **Timings:** 06:30 AM – 01:00 PM & 05:00 PM – 09:30 PM.
+  * 🙏 **Significance:** One of the sacred Char Dham temples dedicated to Lord Krishna ("King of Dwarka"), featuring a 72-pillared spire and 52-yard sacred flag.
+
+* **3. 🛕 Nageshwar Jyotirlinga Temple:**
+  * 📍 **Location:** 15 km from Dwarka on the coastal road.
+  * ⏰ **Timings:** 06:00 AM – 12:30 PM & 05:00 PM – 09:30 PM.
+  * 🙏 **Significance:** Ancient Jyotirlinga shrine featuring a magnificent 80-ft seated Lord Shiva statue visible for miles.
+
+* **4. 🛕 Ambaji Shakti Peeth Temple:**
+  * 📍 **Location:** Gabbar Hill, Banaskantha.
+  * ⏰ **Timings:** 07:00 AM – 11:30 AM & 07:00 PM – 09:00 PM.
+  * 🙏 **Significance:** Premier Shakti Peeth where the heart of Goddess Sati is believed to have fallen; worshiped through the sacred Viso Yantra."""
+}
+
+
 def _format_temples_for_chatbot(destination, guide=None, profile=None):
     """Formats verified temples, sacred shrines and devotional pilgrimage details."""
     dest_title = (destination or 'Your Destination').title()
+    dest_lower = (destination or '').lower().strip()
+    
+    # 1. If curated devotional_person exists in profile, use it
     if profile and profile.get('devotional_person'):
         return profile['devotional_person']
+
+    # 2. Check if destination matches any curated registry of famous temples
+    for key, content in FAMOUS_TEMPLES_DIRECTORY.items():
+        if key in dest_lower or dest_lower in key:
+            return content
         
     temples = (guide or {}).get('tourist_spots', {}).get('temples', [])
-    lines = [f"### 🛕 Famous Temples & Sacred Shrines in {dest_title}\n"]
+    lines = [f"### 🛕 Most Famous & Visited Temples in & around {dest_title}\n"]
     if temples:
-        for t in temples:
-            lines.append(f"* **🛕 {t['name']}** ({t.get('landmark', '')})")
+        for idx, t in enumerate(temples[:5], 1):
+            landmark_str = f" • 📍 {t.get('landmark', '')}" if t.get('landmark') else ""
+            lines.append(f"* **{idx}. 🛕 {t['name']}**{landmark_str}")
+            if t.get('timing'):
+                lines.append(f"  * ⏰ **Darshan Timings:** {t['timing']}")
             if t.get('desc'):
-                lines.append(f"  * **Significance:** {t['desc']}")
+                lines.append(f"  * 🙏 **Sacred Significance:** {t['desc']}")
             if t.get('highlight'):
-                lines.append(f"  * **Timing / Darshan:** {t['highlight']}")
+                lines.append(f"  * 💡 **Pilgrim Tip:** {t['highlight']}")
             lines.append("")
-    return "\n".join(lines)
+        return "\n".join(lines)
+
+    return f"""### 🛕 Most Famous & Sacred Temples in & around {dest_title}
+
+* **1. 🛕 Historic Presiding City Shrine:**
+  * 📍 **Location:** Central Heritage District of {dest_title}.
+  * ⏰ **Darshan Timings:** 06:30 AM – 11:30 AM & 05:30 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Ancient sanctum renowned for morning aarti, peaceful architecture, and devotional darshan.
+* **2. 🛕 Hilltop Pilgrimage & Panoramic View Shrine:**
+  * 📍 **Location:** Scenic hilltop overlook (~15–30 mins from city center).
+  * ⏰ **Darshan Timings:** 07:00 AM – 06:00 PM.
+  * 🙏 **Sacred Significance:** Sacred hill deity where devotees perform traditional pradakshina and enjoy peaceful valley vistas."""
 
 
 def _format_nature_farms_for_chatbot(destination, guide=None, profile=None):
@@ -854,7 +1038,13 @@ Please provide an actionable, highly helpful, and well-structured response addre
     reply_parts = []
     guide = get_destination_master_guide(dest_clean, days=days)
     
-    # Check intent categories
+    # ── Safe Word-Boundary Intent Detection ──
+    # Devotional / temples intent - prioritized to prevent culture/general hijacking
+    is_devotional = bool(re.search(r'\b(temple|temples|devotional|pooja|puja|darshan|jyotirlinga|spiritual|pilgrim|pilgrimage|shrine|shrines|aarti|simhachalam|annavaram|shrikalahasti|srikalahasti|tirupati|tirumala)\b', query_lower))
+
+    # Culture & Festivals intent - MUST NOT match 'spiritual' or temples
+    is_culture = bool(re.search(r'\b(culture|cultural|traditions?|traditional|festivals?|rituals?|customs|folklore|folk dance|garba|dhimsa)\b', query_lower)) and not is_devotional
+
     is_atm = any(k in query_lower for k in [
         'atm', 'atms', 'cash', 'money', 'withdraw', 'station atm', 'bus stop atm', 'airport atm'
     ])
@@ -871,10 +1061,6 @@ Please provide an actionable, highly helpful, and well-structured response addre
         'dish', 'dishes', 'food', 'eat', 'dining', 'delicac', 'thali', 'restaurant', 'street food', 'cuisine', 'specialties'
     ])
 
-    is_culture = any(k in query_lower for k in [
-        'culture', 'festival', 'festivals', 'ritual', 'rituals', 'customs', 'folklore', 'folk dance', 'garba', 'dhimsa', 'traditions'
-    ]) or ('tradition' in query_lower and not is_malls and not is_dining)
-
     is_spots_list = any(k in query_lower for k in [
         'all spots', 'list of tourist', 'list of spots', 'visiting spots', 'all places', 'directory of', 'cover all places'
     ]) and not ('plan' in query_lower and ('day' in query_lower or 'itinerary' in query_lower))
@@ -889,10 +1075,6 @@ Please provide an actionable, highly helpful, and well-structured response addre
     
     is_nature_lover = any(k in query_lower for k in [
         'nature lover', 'rolling through fields', 'farms', 'fields and farms', 'countryside', 'agro', 'tea estate', 'plantations', 'flora', 'lambasingi', 'kondakarla'
-    ])
-    
-    is_devotional = any(k in query_lower for k in [
-        'temple', 'temples', 'devotional', 'pooja', 'darshan', 'jyotirlinga', 'spiritual', 'pilgrim', 'shrine', 'shrines', 'aarti', 'simhachalam'
     ])
     
     is_family_friends = any(k in query_lower for k in [
@@ -914,27 +1096,11 @@ Please provide an actionable, highly helpful, and well-structured response addre
     if is_explicit_multiday_plan:
         reply_parts.append(_generate_comprehensive_multiday_itinerary(dest_clean, days, travelers, budget))
 
-    # 2. ATM query
-    elif is_atm:
-        reply_parts.append(_format_atms_for_chatbot(dest_clean))
+    # 2. Devotional & Temple query (PRIORITIZED FOR FAMOUS SACRED SHRINES)
+    elif is_devotional:
+        reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
 
-    # 3. Birthday parties & Occasion Celebrations (with map-style landmark directions)
-    elif is_party:
-        reply_parts.append(_format_celebrations_with_landmarks(guide))
-
-    # 4. Shopping Malls & Bazaars
-    elif is_malls:
-        reply_parts.append(_format_malls_for_chatbot(guide))
-
-    # 5. Food & Dining
-    elif is_dining:
-        reply_parts.append(_format_dining_for_chatbot(guide))
-
-    # 6. Culture & Festivals
-    elif is_culture:
-        reply_parts.append(_format_culture_for_chatbot(guide))
-
-    # 7. Waterfalls & Adventure / Trekking:
+    # 3. Waterfalls & Adventure / Trekking:
     # When user asks about waterfalls (or clicks Adventure, Waterfalls & Treks):
     # GIVE WATERFALLS FIRST!
     elif is_waterfalls or is_trekking:
@@ -943,17 +1109,33 @@ Please provide an actionable, highly helpful, and well-structured response addre
         if is_trekking:
             reply_parts.append(_format_trekking_adventure_for_chatbot(dest_clean, guide, matched_profile))
 
-    # 8. Nature lover query
+    # 4. Nature lover query
     elif is_nature_lover:
         reply_parts.append(_format_nature_farms_for_chatbot(dest_clean, guide, matched_profile))
 
-    # 9. Devotional & Temple query
-    elif is_devotional:
-        reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
-
-    # 10. Family & Friends / Waterparks query
+    # 5. Family & Friends / Waterparks query
     elif is_family_friends:
         reply_parts.append(_format_family_fun_for_chatbot(dest_clean, guide, matched_profile))
+
+    # 6. ATM query
+    elif is_atm:
+        reply_parts.append(_format_atms_for_chatbot(dest_clean))
+
+    # 7. Birthday parties & Occasion Celebrations (with map-style landmark directions)
+    elif is_party:
+        reply_parts.append(_format_celebrations_with_landmarks(guide))
+
+    # 8. Shopping Malls & Bazaars
+    elif is_malls:
+        reply_parts.append(_format_malls_for_chatbot(guide))
+
+    # 9. Food & Dining
+    elif is_dining:
+        reply_parts.append(_format_dining_for_chatbot(guide))
+
+    # 10. Culture & Festivals
+    elif is_culture:
+        reply_parts.append(_format_culture_for_chatbot(guide))
 
     # 11. Full Categorized Tourist Spots Directory
     elif is_spots_list:

@@ -519,7 +519,15 @@ DESTINATION_MASTER_REGISTRY = {
                     'name': 'Sri Varaha Lakshmi Narasimha Temple (Simhachalam)',
                     'landmark': 'Simhachalam Hilltop, 16 km from Vizag Central Railway Station',
                     'desc': 'Revered 11th-century hill shrine where the deity remains enveloped in sacred sandalwood paste year-round, revealed only on Chandanotsavam.',
-                    'timing': '07:00 AM – 04:00 PM & 06:00 PM – 09:00 PM'
+                    'timing': '07:00 AM – 04:00 PM & 06:00 PM – 09:00 PM',
+                    'highlight': 'Famous Simhachalam Laddu prasadam, Appanna Swamy Chandanotsavam Nijaroopam'
+                },
+                {
+                    'name': 'Sri Veera Venkata Satyanarayana Swamy Temple (Annavaram)',
+                    'landmark': 'Ratnagiri Hilltop, Annavaram (~110 km from Vizag on NH-16 / direct train & express bus route)',
+                    'desc': 'World-famous sacred hill shrine dedicated to Lord Satyanarayana Swamy. Millions of devotees visit to perform the sacred Satyanarayana Vratham for family prosperity and new beginnings.',
+                    'timing': '06:00 AM – 12:30 PM & 01:00 PM – 09:00 PM (Continuous Vratham rituals 06:00 AM – 06:00 PM)',
+                    'highlight': 'World-renowned authentic Annavaram Wheat Rava (Godhumai) Prasadam and divine Satyanarayana Vrathams'
                 },
                 {
                     'name': 'Sri Kanaka Mahalakshmi Temple',
