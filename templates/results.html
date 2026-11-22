@@ -1028,6 +1028,9 @@
                     <span class="badge bg-white text-dark border px-3 py-2 shadow-xs"><i class="bi bi-calendar3 text-primary me-1"></i> {{ days }} Day{% if days > 1 %}s{% endif %}</span>
                     <span class="badge bg-white text-dark border px-3 py-2 shadow-xs"><i class="bi bi-people-fill text-info me-1"></i> {{ travelers }} Traveler{% if travelers > 1 %}s{% endif %}</span>
                     <span class="badge bg-white text-success border px-3 py-2 shadow-xs"><i class="bi bi-wallet2 text-success me-1"></i> ₹{{ budget }}</span>
+                    <a href="{{ url_for('trip_diary') }}" class="btn btn-sm btn-primary rounded-pill px-3 py-2 shadow-xs d-flex align-items-center gap-1 text-white text-decoration-none">
+                        <i class="bi bi-journal-bookmark-fill text-warning"></i> Trip Diary
+                    </a>
                 </div>
             </div>
 

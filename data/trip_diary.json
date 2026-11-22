@@ -1,0 +1,196 @@
+{
+  "trips": [
+    {
+      "id": "tirupati-nov24",
+      "destination": "Tirupati",
+      "origin": "Bengaluru",
+      "start_date": "2026-11-24",
+      "end_date": "2026-11-27",
+      "travelers": 2,
+      "notes": "Door-to-door Tirupati pilgrimage and Talakona waterfalls trip with family.",
+      "created_at": "2026-11-22T10:00:00"
+    }
+  ],
+  "expenses": [
+    {
+      "id": "57eaf7ce",
+      "trip_id": "tirupati-nov24",
+      "title": "IRCTC Express Train Tickets (KSR Bengaluru ➔ Tirupati)",
+      "amount": 1240.0,
+      "category": "transport",
+      "is_prebooked": true,
+      "payment_mode": "IRCTC Online",
+      "date": "2026-11-20",
+      "time": "14:30",
+      "notes": "Confirmed AC Chair Car tickets for 2 travelers"
+    },
+    {
+      "id": "e142c710",
+      "trip_id": "tirupati-nov24",
+      "title": "Hotel Bhimas Deluxe (2 Nights Stay, Tirupati City)",
+      "amount": 4200.0,
+      "category": "stay_lounge",
+      "is_prebooked": true,
+      "payment_mode": "MakeMyTrip Pre-Paid",
+      "date": "2026-11-20",
+      "time": "16:00",
+      "notes": "Deluxe AC Room pre-booked near Railway Station"
+    },
+    {
+      "id": "6ff13433",
+      "trip_id": "tirupati-nov24",
+      "title": "IRCTC Executive Railway Lounge Access (Waiting Pass)",
+      "amount": 350.0,
+      "category": "stay_lounge",
+      "is_prebooked": true,
+      "payment_mode": "Online Banking",
+      "date": "2026-11-21",
+      "time": "11:15",
+      "notes": "2 hours lounge access before boarding with buffet breakfast"
+    },
+    {
+      "id": "6de0eb35",
+      "trip_id": "tirupati-nov24",
+      "title": "TTD ₹300 Special Entry Darshan Passes",
+      "amount": 600.0,
+      "category": "activities_darshan",
+      "is_prebooked": true,
+      "payment_mode": "TTD Official Portal",
+      "date": "2026-11-21",
+      "time": "10:00",
+      "notes": "Slot confirmed for 25th Nov 09:00 AM"
+    },
+    {
+      "id": "67ae3600",
+      "trip_id": "tirupati-nov24",
+      "title": "KSRTC Airavat Multi-Axle Volvo Return Bus Tickets",
+      "amount": 1600.0,
+      "category": "transport",
+      "is_prebooked": true,
+      "payment_mode": "RedBus Online",
+      "date": "2026-11-21",
+      "time": "19:00",
+      "notes": "Night sleeper return to Bengaluru"
+    },
+    {
+      "id": "538a0521",
+      "trip_id": "tirupati-nov24",
+      "title": "Doorstep Auto to Bengaluru Railway Station",
+      "amount": 180.0,
+      "category": "transport",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-24",
+      "time": "05:45",
+      "notes": "Doorstep morning pickup"
+    },
+    {
+      "id": "be336859",
+      "trip_id": "tirupati-nov24",
+      "title": "Station Morning Hot Filter Coffee & Idli",
+      "amount": 120.0,
+      "category": "food",
+      "is_prebooked": false,
+      "payment_mode": "GPay UPI",
+      "date": "2026-11-24",
+      "time": "06:30",
+      "notes": "Platform 1 refresh counter"
+    },
+    {
+      "id": "a1362732",
+      "trip_id": "tirupati-nov24",
+      "title": "Auto from Tirupati Station to Hotel Bhimas",
+      "amount": 100.0,
+      "category": "transport",
+      "is_prebooked": false,
+      "payment_mode": "Cash",
+      "date": "2026-11-24",
+      "time": "12:15",
+      "notes": "Local auto drop"
+    },
+    {
+      "id": "482e1344",
+      "trip_id": "tirupati-nov24",
+      "title": "Authentic Rayalaseema Veg Thali Lunch",
+      "amount": 380.0,
+      "category": "food",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-24",
+      "time": "13:30",
+      "notes": "Banana leaf lunch with hot ghee & gongura"
+    },
+    {
+      "id": "4be67d5c",
+      "trip_id": "tirupati-nov24",
+      "title": "APSRTC Electric Ghat Bus to Tirumala Hilltop",
+      "amount": 180.0,
+      "category": "transport",
+      "is_prebooked": false,
+      "payment_mode": "UPI / PhonePe",
+      "date": "2026-11-24",
+      "time": "16:30",
+      "notes": "Tickets for 2 travelers up the Seven Hills"
+    },
+    {
+      "id": "db68af4d",
+      "trip_id": "tirupati-nov24",
+      "title": "Sacred Camphor, Garland & Puja Flowers",
+      "amount": 150.0,
+      "category": "activities_darshan",
+      "is_prebooked": false,
+      "payment_mode": "Cash",
+      "date": "2026-11-24",
+      "time": "18:00",
+      "notes": "Tirumala Sanctum flower stall"
+    },
+    {
+      "id": "44f71a03",
+      "trip_id": "tirupati-nov24",
+      "title": "Extra Tirupati Laddu Prasadam Tokens (5 Laddus)",
+      "amount": 250.0,
+      "category": "shopping",
+      "is_prebooked": false,
+      "payment_mode": "Debit Card",
+      "date": "2026-11-25",
+      "time": "11:30",
+      "notes": "Official TTD laddu counters"
+    },
+    {
+      "id": "6749492e",
+      "trip_id": "tirupati-nov24",
+      "title": "Talakona Waterfalls Eco-Park Entry & Canopy Walk",
+      "amount": 350.0,
+      "category": "activities_darshan",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-26",
+      "time": "10:30",
+      "notes": "Waterfall nature trail & hanging ropewalk tickets"
+    },
+    {
+      "id": "6cb809ac",
+      "trip_id": "tirupati-nov24",
+      "title": "Tirupati Handicrafts & Red Sanders Wood Souvenirs",
+      "amount": 650.0,
+      "category": "shopping",
+      "is_prebooked": false,
+      "payment_mode": "GPay UPI",
+      "date": "2026-11-26",
+      "time": "17:00",
+      "notes": "Lepakshi Emporium Gandhi Road"
+    },
+    {
+      "id": "931f4150",
+      "trip_id": "tirupati-nov24",
+      "title": "Fresh Coconut Water",
+      "amount": 50.0,
+      "category": "food",
+      "is_prebooked": false,
+      "payment_mode": "Cash",
+      "date": "2026-11-22",
+      "time": "11:54",
+      "notes": "Roadside stall"
+    }
+  ]
+}

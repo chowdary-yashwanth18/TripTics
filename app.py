@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, url_for, flash, redirect
 import os
+from datetime import date, datetime
 from utils.data_loader import load_destinations
 from utils.recommender import recommend_destinations
 from utils.analytics import generate_analytics_charts, get_kpi_metrics, get_key_insights
@@ -351,6 +352,90 @@ def api_chatbot():
         history=history
     )
     return response
+
+
+# ==============================================================================
+# DOOR-TO-DOOR TRIP DIARY & TRAVEL EXPENSE MANAGER ROUTES
+# ==============================================================================
+@app.route('/trip-diary')
+def trip_diary():
+    """Door-to-door trip diary and real-time travel expense tracker page."""
+    from utils.trip_tracker import get_all_trips, get_trip_details
+    trip_id = request.args.get('trip_id', '').strip()
+    all_trips = get_all_trips()
+    
+    if not trip_id and all_trips:
+        trip_id = all_trips[0]['id']
+        
+    details = get_trip_details(trip_id) if trip_id else None
+    today_date = date.today().isoformat()
+    
+    return render_template('trip_diary.html', all_trips=all_trips, details=details, today_date=today_date)
+
+
+@app.route('/trip-diary/create', methods=['POST'])
+def trip_create():
+    """Create a new trip timeline."""
+    from utils.trip_tracker import create_or_update_trip
+    dest = request.form.get('destination', '').strip()
+    origin = request.form.get('origin', '').strip()
+    start_date = request.form.get('start_date', '').strip()
+    end_date = request.form.get('end_date', '').strip()
+    travelers = int(request.form.get('travelers', 1) or 1)
+    notes = request.form.get('notes', '').strip()
+    
+    if not dest or not start_date or not end_date:
+        flash('Please provide Destination and Travel Dates.', 'warning')
+        return redirect(url_for('trip_diary'))
+        
+    new_id = create_or_update_trip(dest, start_date, end_date, origin=origin, travelers=travelers, notes=notes)
+    flash(f'Trip diary started for {dest}! Add pre-booked stays or start logging live expenses.', 'success')
+    return redirect(url_for('trip_diary', trip_id=new_id))
+
+
+@app.route('/trip-diary/add-expense', methods=['POST'])
+def trip_add_expense():
+    """Add a pre-booked or live in-transit expense."""
+    from utils.trip_tracker import add_expense
+    trip_id = request.form.get('trip_id', '').strip()
+    title = request.form.get('title', '').strip()
+    amount = float(request.form.get('amount', 0) or 0)
+    category = request.form.get('category', 'misc').strip()
+    is_prebooked = request.form.get('is_prebooked', 'false').lower() in ['true', '1', 'yes']
+    payment_mode = request.form.get('payment_mode', 'UPI / PhonePe').strip()
+    notes = request.form.get('notes', '').strip()
+    
+    if not trip_id or not title or amount <= 0:
+        flash('Please enter a valid expense title and amount.', 'warning')
+        return redirect(url_for('trip_diary', trip_id=trip_id))
+        
+    add_expense(trip_id, title, amount, category=category, is_prebooked=is_prebooked, payment_mode=payment_mode, notes=notes)
+    flash(f'Added ₹{amount:.2f} for "{title}" to your trip diary!', 'success')
+    return redirect(url_for('trip_diary', trip_id=trip_id))
+
+
+@app.route('/trip-diary/delete-expense', methods=['POST'])
+def trip_delete_expense():
+    """Remove an expense entry."""
+    from utils.trip_tracker import delete_expense
+    exp_id = request.form.get('expense_id', '').strip()
+    trip_id = request.form.get('trip_id', '').strip()
+    if exp_id:
+        delete_expense(exp_id)
+        flash('Expense removed from diary.', 'info')
+    return redirect(url_for('trip_diary', trip_id=trip_id))
+
+
+@app.route('/api/trip-diary/parse-sms', methods=['POST'])
+def trip_parse_sms():
+    """API endpoint to parse PhonePe / UPI / Bank SMS text."""
+    from utils.trip_tracker import parse_upi_sms_or_text
+    data = request.get_json(silent=True) or request.form
+    raw_sms = data.get('sms', '').strip()
+    if not raw_sms:
+        return {'error': 'No SMS text provided'}, 400
+    parsed = parse_upi_sms_or_text(raw_sms)
+    return parsed or {'error': 'Could not parse transaction SMS'}
 
 
 if __name__ == '__main__':
