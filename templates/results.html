@@ -1090,6 +1090,9 @@
 
                 {# Controller Buttons & Full Ledger Link #}
                 <div class="d-flex flex-wrap align-items-center gap-2">
+                    <button type="button" class="btn btn-sm text-white rounded-pill px-3 py-1 fw-bold shadow-xs" style="background: linear-gradient(135deg, #5f259f, #3b1464);" data-bs-toggle="modal" data-bs-target="#resultsUpiQrModal">
+                        <i class="bi bi-qr-code-scan me-1"></i> 🟣 Scan & Pay (PhonePe QR)
+                    </button>
                     <a href="{{ url_for('trip_diary', trip_id=trip_diary.trip.id) }}" class="btn btn-outline-success btn-sm rounded-pill px-3 py-1 fw-bold" target="_blank" title="Open full diary with charts, categories, and PDF export">
                         <i class="bi bi-journal-text me-1"></i> Full Diary Ledger ↗
                     </a>
@@ -2183,6 +2186,45 @@ function handleSmartSpendSubmit(e, tripId) {
     });
 }
 
+function updateResultsDynamicUpiQr() {
+    const amtInput = document.getElementById('resQrItemAmount');
+    const nameInput = document.getElementById('resQrItemName');
+    const amt = parseFloat(amtInput ? amtInput.value : 40) || 40;
+    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Trip Spend') || 'Trip Spend');
+    const upiString = `upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=${amt}&cu=INR&tn=${name}`;
+    
+    const qrImg = document.getElementById('resDynamicUpiQrImg');
+    if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}`;
+    }
+    const deepLink = document.getElementById('resDirectPhonePeDeepLink');
+    if (deepLink) {
+        deepLink.href = upiString;
+    }
+}
+
+function confirmResultsQrPayment(tripId) {
+    const amtInput = document.getElementById('resQrItemAmount');
+    const nameInput = document.getElementById('resQrItemName');
+    const amt = parseFloat(amtInput ? amtInput.value : 40) || 40;
+    const title = (nameInput ? nameInput.value.trim() : 'PhonePe QR Payment') || 'PhonePe QR Payment';
+    
+    let cat = 'food';
+    const lower = title.toLowerCase();
+    if (lower.includes('auto') || lower.includes('cab') || lower.includes('taxi')) cat = 'transport';
+    else if (lower.includes('hotel') || lower.includes('stay')) cat = 'stay_lounge';
+    else if (lower.includes('darshan') || lower.includes('puja')) cat = 'activities_darshan';
+    else if (lower.includes('shop') || lower.includes('prasadam')) cat = 'shopping';
+
+    quickAddSpendAjax(tripId, title, amt, cat);
+    
+    const modalEl = document.getElementById('resultsUpiQrModal');
+    if (modalEl) {
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (modalInstance) modalInstance.hide();
+    }
+}
+
 // Backward compatibility helpers
 function quickAddResult(tripId, title, amount, category) {
     quickAddSpendAjax(tripId, title, amount, category);
@@ -2198,6 +2240,60 @@ function parseAndAddResultSMS(tripId) {
     handleSmartSpendSubmit(fakeEvent, tripId);
 }
 </script>
+
+{# ── Results Real Dynamic UPI QR Code Modal ── #}
+{% if trip_diary %}
+<div class="modal fade" id="resultsUpiQrModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header text-white border-0 py-3 px-4" style="background: linear-gradient(135deg, #5f259f 0%, #3b1464 100%);">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-4">🟣</span>
+                    <div>
+                        <h6 class="modal-title fw-bold mb-0 text-white">Scan & Pay via PhonePe / UPI</h6>
+                        <small class="text-white-50" style="font-size: 0.7rem;">Live Scannable Merchant QR • Real PhonePe App</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <p class="text-muted small mb-3">
+                    Point your real phone's <strong>PhonePe, Google Pay, or Paytm</strong> camera at this QR code to scan and pay live!
+                </p>
+
+                <div class="row g-2 mb-3 text-start">
+                    <div class="col-7">
+                        <label class="form-label small fw-bold text-dark mb-1">Item / Merchant Name</label>
+                        <input type="text" id="resQrItemName" class="form-control form-control-sm rounded-pill px-3" value="Filter Coffee & Chai" placeholder="e.g. Chai, Auto, Lunch" oninput="updateResultsDynamicUpiQr()">
+                    </div>
+                    <div class="col-5">
+                        <label class="form-label small fw-bold text-dark mb-1">Amount (₹)</label>
+                        <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="40" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded-4 border d-inline-block shadow-xs mb-3 position-relative">
+                    <img id="resDynamicUpiQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=triptics@upi%26pn=TripTics%20Ledger%26am=40%26cu=INR%26tn=TripTics%20Vacation" 
+                         alt="PhonePe UPI QR Code" width="200" height="200" class="rounded-3 shadow-xs">
+                    <div class="small fw-bold text-dark mt-2 d-flex align-items-center justify-content-center gap-1">
+                        <span class="badge bg-primary text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;">Any UPI App</span>
+                        <span>PhonePe • GPay • Paytm</span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column gap-2">
+                    <a id="resDirectPhonePeDeepLink" href="upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=40&cu=INR&tn=TripTics%20Vacation" class="btn btn-sm text-white rounded-pill py-2 fw-bold shadow-xs d-md-none" style="background: #5f259f;">
+                        🟣 Open Directly in PhonePe App (Mobile Only)
+                    </a>
+                    <button type="button" class="btn btn-success rounded-pill py-2 fw-bold shadow-xs d-flex align-items-center justify-content-center gap-2" onclick="confirmResultsQrPayment('{{ trip_diary.trip.id }}')">
+                        <i class="bi bi-check-circle-fill"></i> ✓ I Have Paid — Record to Trip Ledger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 {# ── Floating AI Chatbot Widget ── #}
 <div id="floating-ai-widget" style="position: fixed; bottom: 25px; right: 25px; z-index: 1060;">

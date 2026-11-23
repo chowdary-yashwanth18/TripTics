@@ -38,12 +38,16 @@
                     </div>
                     {% endif %}
                     
-                    <button class="btn btn-sm btn-primary rounded-pill px-3 py-2 shadow-xs d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#newTripModal">
-                        <i class="bi bi-plus-circle-fill"></i> New Trip
+                    <button class="btn btn-sm text-white rounded-pill px-3 py-2 shadow-xs fw-bold d-flex align-items-center gap-1" style="background: linear-gradient(135deg, #5f259f, #3b1464);" data-bs-toggle="modal" data-bs-target="#realUpiQrModal">
+                        <i class="bi bi-qr-code-scan"></i> 🟣 Scan & Pay (PhonePe QR)
                     </button>
                     
-                    <button class="btn btn-sm btn-outline-dark rounded-pill px-3 py-2 shadow-xs" onclick="window.print()">
-                        <i class="bi bi-printer me-1"></i> Print / Save
+                    <button class="btn btn-sm btn-outline-primary rounded-pill px-3 py-2 shadow-xs fw-bold d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#exportStatementModal">
+                        <i class="bi bi-file-earmark-text-fill"></i> 📄 Official Statement
+                    </button>
+                    
+                    <button class="btn btn-sm btn-primary rounded-pill px-3 py-2 shadow-xs d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#newTripModal">
+                        <i class="bi bi-plus-circle-fill"></i> New Trip
                     </button>
                 </div>
             </div>
@@ -67,9 +71,9 @@
                     </p>
                 </div>
                 <div class="d-flex flex-wrap gap-2">
-                    <a href="#smsInput" class="btn btn-light rounded-pill px-3 py-2 fw-bold text-success shadow-xs d-flex align-items-center gap-1" onclick="document.getElementById('smsInput').focus();">
-                        <i class="bi bi-phone-fill"></i> + Log PhonePe Expense
-                    </a>
+                    <button type="button" class="btn btn-light rounded-pill px-3 py-2 fw-bold text-dark shadow-xs d-flex align-items-center gap-1" data-bs-toggle="modal" data-bs-target="#realUpiQrModal">
+                        <i class="bi bi-qr-code text-primary"></i> 📷 Scan & Pay via PhonePe
+                    </button>
                     <form action="{{ url_for('trip_update_status') }}" method="POST" onsubmit="return confirm('Have you reached back home? This will finish the trip and calculate the final budget split.');">
                         <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
                         <input type="hidden" name="status" value="Completed">
@@ -548,6 +552,165 @@
     </div>
 </div>
 
+{# ── Real Dynamic UPI QR Code Modal ("Scan & Pay with PhonePe / GPay") ── #}
+<div class="modal fade" id="realUpiQrModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header text-white border-0 py-3 px-4" style="background: linear-gradient(135deg, #5f259f 0%, #3b1464 100%);">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="fs-4">🟣</span>
+                    <div>
+                        <h6 class="modal-title fw-bold mb-0 text-white">Scan & Pay via PhonePe / UPI</h6>
+                        <small class="text-white-50" style="font-size: 0.7rem;">Live Scannable Merchant QR • Real PhonePe App</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <p class="text-muted small mb-3">
+                    Point your real phone's <strong>PhonePe, Google Pay, or Paytm</strong> camera at this QR code to scan and pay live!
+                </p>
+
+                <div class="row g-2 mb-3 text-start">
+                    <div class="col-7">
+                        <label class="form-label small fw-bold text-dark mb-1">Item / Merchant Name</label>
+                        <input type="text" id="qrItemName" class="form-control form-control-sm rounded-pill px-3" value="Filter Coffee & Chai" placeholder="e.g. Chai, Auto, Lunch" oninput="updateDynamicUpiQr()">
+                    </div>
+                    <div class="col-5">
+                        <label class="form-label small fw-bold text-dark mb-1">Amount (₹)</label>
+                        <input type="number" id="qrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="40" min="1" step="1" oninput="updateDynamicUpiQr()">
+                    </div>
+                </div>
+
+                <div class="p-3 bg-light rounded-4 border d-inline-block shadow-xs mb-3 position-relative">
+                    <img id="dynamicUpiQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=triptics@upi%26pn=TripTics%20Ledger%26am=40%26cu=INR%26tn=TripTics%20Vacation" 
+                         alt="PhonePe UPI QR Code" width="200" height="200" class="rounded-3 shadow-xs">
+                    <div class="small fw-bold text-dark mt-2 d-flex align-items-center justify-content-center gap-1">
+                        <span class="badge bg-primary text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;">Any UPI App</span>
+                        <span>PhonePe • GPay • Paytm</span>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-column gap-2">
+                    <a id="directPhonePeDeepLink" href="upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=40&cu=INR&tn=TripTics%20Vacation" class="btn btn-sm text-white rounded-pill py-2 fw-bold shadow-xs d-md-none" style="background: #5f259f;">
+                        🟣 Open Directly in PhonePe App (Mobile Only)
+                    </a>
+                    <button type="button" class="btn btn-success rounded-pill py-2 fw-bold shadow-xs d-flex align-items-center justify-content-center gap-2" onclick="confirmQrPayment('{{ details.trip.id }}')">
+                        <i class="bi bi-check-circle-fill"></i> ✓ I Have Paid — Record to Trip Ledger
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{# ── Official Trip Settlement & Expense Invoice Modal ── #}
+<div class="modal fade" id="exportStatementModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="modal-header bg-dark text-white border-0 py-3 px-4 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <i class="bi bi-file-earmark-text-fill fs-5 text-warning"></i>
+                    <div>
+                        <h6 class="modal-title fw-bold mb-0 text-white">TripTics Official Vacation Settlement Invoice</h6>
+                        <small class="text-white-50" style="font-size: 0.68rem;">Certified Door-to-Door Travel Financial Statement</small>
+                    </div>
+                </div>
+                <div class="d-flex gap-2 align-items-center">
+                    <button type="button" class="btn btn-warning btn-sm fw-bold rounded-pill px-3" onclick="window.print()">
+                        <i class="bi bi-printer me-1"></i> Print / Save PDF
+                    </button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+            <div class="modal-body p-4 p-md-5 bg-white text-dark" id="printableInvoiceBody">
+                <div class="d-flex justify-content-between align-items-start border-bottom pb-4 mb-4">
+                    <div>
+                        <h4 class="fw-extrabold text-primary mb-1">TripTics™</h4>
+                        <div class="text-muted small">Intelligent Door-to-Door Travel Platform</div>
+                        <div class="small text-muted mt-2">Destination: <strong>{{ details.trip.destination }}</strong></div>
+                        <div class="small text-muted">Trip Dates: <strong>{{ details.trip.start_date }} to {{ details.trip.end_date }}</strong></div>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-success text-white px-3 py-1 rounded-pill fw-bold mb-2">FINAL STATEMENT</span>
+                        <div class="small text-muted">Invoice #: <strong>TT-{{ details.trip.id|upper }}</strong></div>
+                        <div class="small text-muted">Generated: <strong>{{ today_date }}</strong></div>
+                        <div class="small text-muted">Total Travelers: <strong>{{ details.travelers }}</strong></div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-4">
+                        <div class="p-3 bg-light rounded-3 border">
+                            <small class="text-muted d-block" style="font-size: 0.72rem;">Pre-Booked Stays & Tickets</small>
+                            <h5 class="fw-bold text-dark mb-0">₹{{ "{:,.2f}".format(details.prebooked_total) }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 bg-light rounded-3 border">
+                            <small class="text-muted d-block" style="font-size: 0.72rem;">Live On-Road PhonePe Spends</small>
+                            <h5 class="fw-bold text-dark mb-0">₹{{ "{:,.2f}".format(details.on_trip_total) }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 bg-primary text-white rounded-3 shadow-xs">
+                            <small class="text-white-50 d-block" style="font-size: 0.72rem;">Total Door-to-Door Cost</small>
+                            <h5 class="fw-extrabold mb-0">₹{{ "{:,.2f}".format(details.grand_total) }}</h5>
+                        </div>
+                    </div>
+                </div>
+
+                <h6 class="fw-bold text-dark mb-2">Itemized Expense Ledger</h6>
+                <div class="table-responsive mb-4">
+                    <table class="table table-sm table-bordered align-middle" style="font-size: 0.8rem;">
+                        <thead class="table-light">
+                            <tr>
+                                <th>#</th>
+                                <th>Date / Time</th>
+                                <th>Item / Vendor Description</th>
+                                <th>Category</th>
+                                <th>Type</th>
+                                <th class="text-end">Amount (INR)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for exp in details.all_expenses %}
+                            <tr>
+                                <td>{{ loop.index }}</td>
+                                <td>{{ exp.date }} {{ exp.time }}</td>
+                                <td class="fw-semibold">{{ exp.title }}</td>
+                                <td>{{ exp.category|title }}</td>
+                                <td><span class="badge {% if exp.is_prebooked %}bg-secondary{% else %}bg-primary{% endif %} text-white" style="font-size: 0.65rem;">{% if exp.is_prebooked %}Pre-Booked{% else %}On-Road PhonePe{% endif %}</span></td>
+                                <td class="text-end fw-bold">₹{{ "{:,.2f}".format(exp.amount) }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot class="table-light fw-bold">
+                            <tr>
+                                <td colspan="5" class="text-end">Total Door-to-Door Investment:</td>
+                                <td class="text-end text-primary">₹{{ "{:,.2f}".format(details.grand_total) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+
+                <div class="p-3 bg-success-subtle rounded-3 border border-success-subtle mb-4">
+                    <h6 class="fw-bold text-success mb-1"><i class="bi bi-people-fill me-1"></i> Equal Group Settlement</h6>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="small text-dark">Split equally across <strong>{{ details.travelers }} travelers</strong>:</span>
+                        <h5 class="fw-extrabold text-success mb-0">₹{{ "{:,.2f}".format(details.per_person_share) }} per person</h5>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between text-muted small pt-3 border-top" style="font-size: 0.72rem;">
+                    <div>Generated automatically by TripTics Travel Concierge & Expense Ledger.</div>
+                    <div>Status: <strong>Verified & Settled</strong></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
 let GRAND_TOTAL = {{ details.grand_total }};
 
@@ -575,6 +738,68 @@ function updateDiaryTotals(data) {
     if (badgeCount && data.on_trip_total !== undefined) {
         badgeCount.textContent = `Live Spent • ${formatInr(data.on_trip_total)}`;
     }
+}
+
+function updateDynamicUpiQr() {
+    const amtInput = document.getElementById('qrItemAmount');
+    const nameInput = document.getElementById('qrItemName');
+    const amt = parseFloat(amtInput ? amtInput.value : 40) || 40;
+    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Trip Spend') || 'Trip Spend');
+    const upiString = `upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=${amt}&cu=INR&tn=${name}`;
+    
+    const qrImg = document.getElementById('dynamicUpiQrImg');
+    if (qrImg) {
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}`;
+    }
+    const deepLink = document.getElementById('directPhonePeDeepLink');
+    if (deepLink) {
+        deepLink.href = upiString;
+    }
+}
+
+function confirmQrPayment(tripId) {
+    const amtInput = document.getElementById('qrItemAmount');
+    const nameInput = document.getElementById('qrItemName');
+    const amt = parseFloat(amtInput ? amtInput.value : 40) || 40;
+    const title = (nameInput ? nameInput.value.trim() : 'PhonePe QR Payment') || 'PhonePe QR Payment';
+    
+    let cat = 'food';
+    const lower = title.toLowerCase();
+    if (lower.includes('auto') || lower.includes('cab') || lower.includes('taxi') || lower.includes('fuel')) cat = 'transport';
+    else if (lower.includes('hotel') || lower.includes('room') || lower.includes('stay')) cat = 'stay_lounge';
+    else if (lower.includes('darshan') || lower.includes('puja') || lower.includes('ticket') || lower.includes('temple')) cat = 'activities_darshan';
+    else if (lower.includes('shop') || lower.includes('sweet') || lower.includes('prasadam')) cat = 'shopping';
+
+    fetch('{{ url_for("trip_auto_sync_payment") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            trip_id: tripId,
+            title: title,
+            amount: amt,
+            category: cat,
+            payment_mode: 'PhonePe QR'
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            updateDiaryTotals(data);
+            showPhonePeAlert(title, amt);
+            if (data.expense) appendOnTripItem(tripId, data.expense);
+            
+            const modalEl = document.getElementById('realUpiQrModal');
+            if (modalEl) {
+                const modalInstance = bootstrap.Modal.getInstance(modalEl);
+                if (modalInstance) modalInstance.hide();
+            }
+            showDiaryToast(`✓ Live PhonePe QR payment of ₹${amt} captured and recorded!`);
+        }
+    })
+    .catch(err => console.error(err));
 }
 
 let phonepeTimeout = null;

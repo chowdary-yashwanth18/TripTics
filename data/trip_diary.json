@@ -281,6 +281,18 @@
       "date": "2026-11-23",
       "time": "21:09",
       "notes": "⚡ Automatically captured via PhonePe Auto-Sync"
+    },
+    {
+      "id": "7ab65b64",
+      "trip_id": "tirupati-nov24",
+      "title": "merchant dubey",
+      "amount": 760.0,
+      "category": "misc",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-23",
+      "time": "21:15",
+      "notes": "⚡ Automatically captured via PhonePe Auto-Sync"
     }
   ]
 }
