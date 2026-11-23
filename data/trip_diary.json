@@ -269,6 +269,18 @@
       "date": "2026-11-23",
       "time": "18:33",
       "notes": ""
+    },
+    {
+      "id": "7cfa3c76",
+      "trip_id": "tirupati-nov24",
+      "title": "Sharma Filter Coffee & Chai",
+      "amount": 40.0,
+      "category": "food",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-23",
+      "time": "21:09",
+      "notes": "⚡ Automatically captured via PhonePe Auto-Sync"
     }
   ]
 }

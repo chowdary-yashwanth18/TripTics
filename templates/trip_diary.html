@@ -220,12 +220,14 @@
 
                 <!-- Live Auto-Detection Simulator -->
                 <div class="p-3 bg-light rounded-4 border">
-                    <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="small fw-bold text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Test Live PhonePe Payment Detection:</span>
-                        <span class="badge bg-secondary-subtle text-secondary" style="font-size: 0.65rem;">0 Clicks Needed</span>
+                        <span class="badge bg-secondary-subtle text-secondary" style="font-size: 0.65rem;">Auto-Sync Demo</span>
                     </div>
-                    <p class="text-muted small mb-2" style="font-size: 0.72rem;">Tap below to test how PhonePe payments are captured automatically:</p>
-                    <div class="d-flex flex-wrap gap-2">
+                    <p class="text-muted small mb-2" style="font-size: 0.72rem;">
+                        Prices vary by city and shop. These are typical regional shortcuts — or test with any custom amount:
+                    </p>
+                    <div class="d-flex flex-wrap gap-2 mb-2">
                         <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Sharma Filter Coffee & Chai', 40, 'food')">
                             ⚡ ☕ Paid ₹40 Chai
                         </button>
@@ -242,6 +244,19 @@
                             ⚡ 🙏 Paid ₹100 Puja
                         </button>
                     </div>
+
+                    <!-- Custom Amount Tester -->
+                    <div class="pt-2 border-top">
+                        <small class="text-muted d-block mb-1" style="font-size: 0.68rem;">Test Any Custom Price (e.g. ₹85 tea stall or ₹350 dinner):</small>
+                        <div class="input-group input-group-sm">
+                            <span class="input-group-text bg-white">₹</span>
+                            <input type="number" id="customSimAmount" class="form-control form-control-sm" placeholder="Amount (e.g. 85)" style="max-width: 110px;">
+                            <input type="text" id="customSimMerchant" class="form-control form-control-sm" placeholder="Merchant (e.g. Beach Cafe)">
+                            <button class="btn btn-dark btn-sm fw-bold px-3" type="button" onclick="testCustomPhonePeSync('{{ details.trip.id }}')">
+                                Test Auto-Sync
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -253,7 +268,7 @@
                 <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold" style="font-size: 0.68rem;">0-Friction</span>
             </div>
             <p class="text-muted small mb-2" style="font-size: 0.78rem;">
-                Type in plain words like <span class="badge bg-light text-dark border">150 lunch</span>, <span class="badge bg-light text-dark border">40 chai</span>, <span class="badge bg-light text-dark border">120 auto</span>:
+                Type whatever you actually paid like <span class="badge bg-light text-dark border">150 lunch</span>, <span class="badge bg-light text-dark border">80 auto</span>, <span class="badge bg-light text-dark border">25 chai</span>:
             </p>
 
             <form id="diarySmartSpendForm" onsubmit="handleDiarySmartSpend(event, '{{ details.trip.id }}')" class="mb-3">
@@ -271,14 +286,15 @@
                 <div id="diarySpendFeedback" class="small mt-1 px-2 d-none"></div>
             </form>
 
-            <div class="d-flex flex-wrap gap-1 pt-2 border-top">
-                <span class="small fw-bold text-muted me-1" style="font-size: 0.75rem;">1-Tap Presets:</span>
-                <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Morning Filter Coffee & Chai', 40, 'food')">☕ Chai (₹40)</button>
-                <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Station Auto / Cab Ride', 120, 'transport')">🛺 Auto (₹120)</button>
-                <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Banana Leaf Thali Meal', 220, 'food')">🍛 Meal (₹220)</button>
-                <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (₹60)</button>
-                <button type="button" class="btn btn-xs btn-outline-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (₹200)</button>
+            <div class="d-flex flex-wrap align-items-center gap-1 pt-2 border-top">
+                <span class="small fw-bold text-muted me-1" style="font-size: 0.75rem;">Common Benchmarks:</span>
+                <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Morning Filter Coffee & Chai', 40, 'food')">☕ Chai (~₹40)</button>
+                <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Station Auto / Cab Ride', 120, 'transport')">🛺 Auto (~₹120)</button>
+                <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Banana Leaf Thali Meal', 220, 'food')">🍛 Meal (~₹220)</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (~₹60)</button>
+                <button type="button" class="btn btn-xs btn-outline-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (~₹200)</button>
             </div>
+            <small class="text-muted d-block mt-1" style="font-size: 0.68rem;">💡 Prices vary by location — tap above for quick average estimates or type exact cost in box.</small>
         </div>
 
         {# ── CARD 3: Why TripTics is Smarter than PhonePe Alone ── #}
@@ -650,6 +666,22 @@ function simulatePhonePeSync(tripId, title, amount, category) {
         }
     })
     .catch(err => console.error(err));
+}
+
+function testCustomPhonePeSync(tripId) {
+    const amtInput = document.getElementById('customSimAmount');
+    const merchantInput = document.getElementById('customSimMerchant');
+    const amt = parseFloat(amtInput ? amtInput.value : 0) || 0;
+    const merchant = (merchantInput ? merchantInput.value.trim() : '') || 'Custom Merchant Payment';
+    
+    if (amt <= 0) {
+        alert('Please enter a valid amount (e.g. 85 or 350).');
+        return;
+    }
+    
+    simulatePhonePeSync(tripId, merchant, amt, 'misc');
+    if (amtInput) amtInput.value = '';
+    if (merchantInput) merchantInput.value = '';
 }
 
 function quickAddAjax(tripId, title, amount, category) {

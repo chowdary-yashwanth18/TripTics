@@ -1184,14 +1184,15 @@
 
                 <!-- 1-Tap Quick Spends -->
                 <div class="d-flex flex-wrap align-items-center gap-2 pt-2 border-top">
-                    <span class="small fw-bold text-muted me-1"><i class="bi bi-hand-index-thumb text-warning me-1"></i> 1-Tap Spends:</span>
-                    <button type="button" class="btn btn-sm btn-outline-warning text-dark rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Filter Coffee & Chai', 40, 'food')">☕ Chai (₹40)</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Auto / Cab Ride', 120, 'transport')">🛺 Auto (₹120)</button>
-                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Banana Leaf Meal', 220, 'food')">🍛 Meal (₹220)</button>
-                    <button type="button" class="btn btn-sm btn-outline-info text-dark rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (₹60)</button>
-                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Puja Flowers & Camphor', 100, 'activities_darshan')">🙏 Flowers (₹100)</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (₹200)</button>
+                    <span class="small fw-bold text-muted me-1"><i class="bi bi-hand-index-thumb text-warning me-1"></i> Common Benchmarks:</span>
+                    <button type="button" class="btn btn-sm btn-outline-warning text-dark rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Filter Coffee & Chai', 40, 'food')">☕ Chai (~₹40)</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Auto / Cab Ride', 120, 'transport')">🛺 Auto (~₹120)</button>
+                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Banana Leaf Meal', 220, 'food')">🍛 Meal (~₹220)</button>
+                    <button type="button" class="btn btn-sm btn-outline-info text-dark rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (~₹60)</button>
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Puja Flowers & Camphor', 100, 'activities_darshan')">🙏 Flowers (~₹100)</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 py-1" onclick="quickAddSpendAjax('{{ trip_diary.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (~₹200)</button>
                 </div>
+                <small class="text-muted d-block mt-1" style="font-size: 0.7rem;">💡 Prices naturally vary by vendor and city — tap for regional average benchmarks or type exact price in the box above.</small>
 
                 <!-- Live Recent Spends List (With 1-Tap Undo / Delete) -->
                 <div class="mt-3 pt-3 border-top" id="recent-spends-container">
