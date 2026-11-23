@@ -1699,7 +1699,7 @@ def _build_enthusiastic_plan(dest_title, spots, days_count):
     for d in range(1, days_count + 1):
         day_info = {'day_number': d, 'slots': []}
         if d == 1:
-            day_info['theme'] = 'Famous Temples, City Views & Sunset'
+            day_info['theme'] = 'Top Sights, City Views & Sunset'
             if temples:
                 day_info['slots'].append({'time': '08:30 AM – 11:00 AM', 'title': f"Visit {temples[0]['name']}", 'desc': f"Start early in the morning! Located at {temples[0]['landmark']}. Avoid long lines and pray peacefully.", 'icon': '🛕'})
             day_info['slots'].append({'time': '12:00 PM – 02:00 PM', 'title': 'Tasty Local Lunch & Rest', 'desc': 'Enjoy tasty local food at a good nearby restaurant and rest during the afternoon heat.', 'icon': '🍽️'})

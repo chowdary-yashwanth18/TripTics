@@ -1276,35 +1276,20 @@
 {% set display_list = (recommendations + alternatives) if state_info else recommendations %}
 
 {% if display_list %}
-    {% if trip_type == 'all' %}
-        {# ── Group recommendations by Type ── #}
-        {% for type_name, items in display_list | groupby('Type') %}
-        {% set outer_loop = loop %}
-        <div class="row mb-3 mt-4">
-            <div class="col-12">
-                <h3 class="fw-bold text-secondary border-bottom pb-2">Famous {{ type_name | capitalize }}{% if type_name|lower != 'beach' %}s{% else %}es{% endif %}</h3>
-            </div>
+    <div class="row mb-3 mt-4">
+        <div class="col-12">
+            <h3 class="fw-bold text-dark border-bottom pb-2">
+                <i class="bi bi-geo-alt-fill text-primary me-2"></i>Destination Details &amp; Recommendations
+            </h3>
         </div>
-        <div class="row g-4 mb-5">
-            {% for rec in items %}
-            <div class="col-md-4">
-                {{ destination_card(rec, budget, days, travelers, currency_info, is_top=(loop.index == 1 and outer_loop.index == 1)) }}
-            </div>
-            {% endfor %}
+    </div>
+    <div class="row g-4 mb-5">
+        {% for rec in display_list %}
+        <div class="col-md-4">
+            {{ destination_card(rec, budget, days, travelers, currency_info, is_top=(loop.index == 1)) }}
         </div>
         {% endfor %}
-        
-    {% else %}
-        {# ── Flat list of recommendations ── #}
-        <div class="row g-4 mb-5">
-            {% for rec in display_list %}
-            <div class="col-md-4">
-                {{ destination_card(rec, budget, days, travelers, currency_info, is_top=(loop.index == 1)) }}
-            </div>
-            {% endfor %}
-        </div>
-    {% endif %}
-
+    </div>
 {% elif alternatives %}
     {# ── This section only runs if state_info is False (India-wide search) AND there are zero matches ── #}
     <div class="row justify-content-center mb-4">
