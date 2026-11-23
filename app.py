@@ -426,6 +426,23 @@ def trip_delete_expense():
     return redirect(url_for('trip_diary', trip_id=trip_id))
 
 
+@app.route('/trip-diary/update-status', methods=['POST'])
+def trip_update_status():
+    """Update trip status (Planned, In-Transit (Live), Completed)."""
+    from utils.trip_tracker import update_trip_status
+    trip_id = request.form.get('trip_id', '').strip()
+    new_status = request.form.get('status', '').strip()
+    if trip_id and new_status:
+        update_trip_status(trip_id, new_status)
+        if new_status == 'In-Transit (Live)':
+            flash('🟢 Trip Started! Every PhonePe / UPI payment you log will now be tracked live in your Door-to-Door ledger.', 'success')
+        elif new_status == 'Completed':
+            flash('🏁 Trip Completed! You have safely returned home. Here is your final door-to-door budget breakdown.', 'info')
+        else:
+            flash(f'Trip status updated to {new_status}.', 'info')
+    return redirect(url_for('trip_diary', trip_id=trip_id))
+
+
 @app.route('/api/trip-diary/parse-sms', methods=['POST'])
 def trip_parse_sms():
     """API endpoint to parse PhonePe / UPI / Bank SMS text."""

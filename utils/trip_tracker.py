@@ -242,16 +242,19 @@ def get_all_trips():
         on_trip_total = sum(e["amount"] for e in trip_exps if not e.get("is_prebooked", False))
         grand_total = prebooked_total + on_trip_total
 
-        # Status determination based on dates
-        status = "Planned"
-        today_str = date.today().isoformat()
-        if t.get("start_date") and t.get("end_date"):
-            if today_str < t["start_date"]:
-                status = "Upcoming"
-            elif t["start_date"] <= today_str <= t["end_date"]:
-                status = "In-Transit (Live)"
+        # Status determination: check explicit status first, otherwise date-based
+        status = t.get("status")
+        if not status:
+            today_str = date.today().isoformat()
+            if t.get("start_date") and t.get("end_date"):
+                if today_str < t["start_date"]:
+                    status = "Upcoming"
+                elif t["start_date"] <= today_str <= t["end_date"]:
+                    status = "In-Transit (Live)"
+                else:
+                    status = "Completed"
             else:
-                status = "Completed"
+                status = "Planned"
 
         results.append({
             **t,
@@ -322,15 +325,18 @@ def get_trip_details(trip_id):
     travelers = max(1, int(trip.get("travelers", 1)))
     per_person_share = round(grand_total / travelers, 2)
 
-    today_str = date.today().isoformat()
-    status = "Planned"
-    if trip.get("start_date") and trip.get("end_date"):
-        if today_str < trip["start_date"]:
-            status = "Upcoming"
-        elif trip["start_date"] <= today_str <= trip["end_date"]:
-            status = "In-Transit (Live)"
+    status = trip.get("status")
+    if not status:
+        today_str = date.today().isoformat()
+        if trip.get("start_date") and trip.get("end_date"):
+            if today_str < trip["start_date"]:
+                status = "Upcoming"
+            elif trip["start_date"] <= today_str <= trip["end_date"]:
+                status = "In-Transit (Live)"
+            else:
+                status = "Completed"
         else:
-            status = "Completed"
+            status = "Planned"
 
     return {
         "trip": {**trip, "status": status},
@@ -415,6 +421,22 @@ def delete_trip(trip_id):
     data["expenses"] = [e for e in data["expenses"] if e.get("trip_id") != trip_id]
     _save_data(data)
     return True
+
+
+def update_trip_status(trip_id, new_status):
+    """Updates the explicit trip status (Planned, In-Transit (Live), Completed)."""
+    data = _load_data()
+    now_str = datetime.now().strftime("%d-%b %I:%M %p")
+    for t in data.get("trips", []):
+        if t["id"] == trip_id:
+            t["status"] = new_status
+            if new_status == "In-Transit (Live)":
+                t["started_at"] = now_str
+            elif new_status == "Completed":
+                t["ended_at"] = now_str
+            _save_data(data)
+            return True
+    return False
 
 
 # ==============================================================================

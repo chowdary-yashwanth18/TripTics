@@ -50,6 +50,82 @@
         </div>
     </div>
 
+    {# ── Interactive Trip Journey Status Controller (Start Trip / End Trip) ── #}
+    {% if details.trip.status == 'In-Transit (Live)' %}
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-white overflow-hidden position-relative" style="background: linear-gradient(135deg, #065f46 0%, #10b981 100%);">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <span class="badge bg-white text-success fw-bold rounded-pill px-3 py-1 mb-2 d-inline-flex align-items-center gap-1 shadow-xs">
+                        <span class="spinner-grow spinner-grow-sm text-success" style="width: 0.6rem; height: 0.6rem;"></span>
+                        🟢 LIVE ON-ROAD TRACKING ACTIVE
+                    </span>
+                    <h3 class="fw-bold mb-1">Trip is In-Progress! Tracking Door-to-Door Expenses</h3>
+                    <p class="mb-0 text-white-50 small">
+                        From your doorstep to {{ details.trip.destination }} and back: every PhonePe, UPI, and cash spend is recorded here.
+                        {% if details.trip.started_at %} • Started: <strong>{{ details.trip.started_at }}</strong>{% endif %}
+                    </p>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="#smsInput" class="btn btn-light rounded-pill px-3 py-2 fw-bold text-success shadow-xs d-flex align-items-center gap-1" onclick="document.getElementById('smsInput').focus();">
+                        <i class="bi bi-phone-fill"></i> + Log PhonePe Expense
+                    </a>
+                    <form action="{{ url_for('trip_update_status') }}" method="POST" onsubmit="return confirm('Have you reached back home? This will finish the trip and calculate the final budget split.');">
+                        <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
+                        <input type="hidden" name="status" value="Completed">
+                        <button type="submit" class="btn btn-outline-light rounded-pill px-4 py-2 fw-bold shadow-xs d-flex align-items-center gap-2">
+                            <i class="bi bi-house-check-fill"></i> 🏁 Reached Back Home (Finish Trip)
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% elif details.trip.status == 'Completed' %}
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-white overflow-hidden position-relative" style="background: linear-gradient(135deg, #1e293b 0%, #475569 100%);">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <span class="badge bg-white text-dark fw-bold rounded-pill px-3 py-1 mb-2">🏁 TRIP COMPLETED & BUDGET SETTLED</span>
+                    <h3 class="fw-bold mb-1">Welcome Home! Door-to-Door Budget Summary</h3>
+                    <p class="mb-0 text-white-50 small">
+                        Total spent: <strong>₹{{ "{:,.2f}".format(details.grand_total) }}</strong> (Pre-Booked: ₹{{ "{:,.2f}".format(details.prebooked_total) }} + On-Road PhonePe: ₹{{ "{:,.2f}".format(details.on_trip_total) }}). Per person share: <strong>₹{{ "{:,.2f}".format(details.per_person_share) }}</strong>.
+                        {% if details.trip.ended_at %} • Finished: <strong>{{ details.trip.ended_at }}</strong>{% endif %}
+                    </p>
+                </div>
+                <form action="{{ url_for('trip_update_status') }}" method="POST">
+                    <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
+                    <input type="hidden" name="status" value="In-Transit (Live)">
+                    <button type="submit" class="btn btn-outline-light btn-sm rounded-pill px-3 py-2 fw-semibold">
+                        <i class="bi bi-arrow-repeat me-1"></i> Re-open Trip Tracking
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-white overflow-hidden position-relative" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <span class="badge bg-white text-primary fw-bold rounded-pill px-3 py-1 mb-2">STEP 1: PRE-TRIP COMMITMENTS</span>
+                    <h3 class="fw-bold mb-1">Pre-Booked Stays & Tickets Saved! Ready to Travel?</h3>
+                    <p class="mb-0 text-white-50 small">
+                        You have <strong>₹{{ "{:,.2f}".format(details.prebooked_total) }}</strong> in pre-booked tickets & hotel stays. When you step out of your home, click <strong>"Start Trip"</strong> to begin live door-to-door tracking for every PhonePe payment on the road!
+                    </p>
+                </div>
+                <form action="{{ url_for('trip_update_status') }}" method="POST">
+                    <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
+                    <input type="hidden" name="status" value="In-Transit (Live)">
+                    <button type="submit" class="btn btn-warning btn-lg rounded-pill px-4 fw-bold shadow d-flex align-items-center gap-2">
+                        <i class="bi bi-play-circle-fill fs-5"></i> ▶️ Start My Trip (Leaving Home Now)
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
     {# ── Non-Judgmental Financial Clarity Cards ── #}
     <div class="col-12">
         <div class="row g-3">
