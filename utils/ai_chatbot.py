@@ -475,6 +475,83 @@ Here are verified natural waterfalls and cascades in and around **Goa**:
 * **4. 🌊 Netravali / Savari Waterfalls:**
   * 📍 **Exact Location:** Netravali Wildlife Sanctuary, South Goa (~50 km from Margao).
   * ✨ **What to Expect:** Untouched double-tier forest cascade with secluded plunge pools and the nearby mysterious Bubbly Lake."""
+    },
+
+    # ── SRIKAKULAM (Andhra Pradesh) ──────────────────────────────────────────
+    'srikakulam': {
+        'name': 'Srikakulam',
+        'title': 'Srikakulam, Andhra Pradesh',
+        'categories': {
+            'temples': [
+                "🛕 **Sri Suryanarayana Swamy Temple (Arasavalli Sun Temple)** (Arasavalli, ~3 km from town): Ancient 7th-century Sun God temple where morning sunlight illuminates the feet of the Lord twice a year.",
+                "🛕 **Sri Kurmanatha Swamy Temple (Srikurmam)** (~14 km from town): The only temple in the world dedicated to Lord Vishnu in His Kurma (Tortoise) Avatar, featuring a sacred tortoise sanctuary lake.",
+                "🛕 **Sri Mukhalingeswara Swamy Temple (Mukhalingam)** (Jalumuru, on Vamsadhara River, ~45 km): Historic 8th-century temple complex built by Eastern Ganga kings with exquisite stone carvings.",
+                "🛕 **Sri Endala Mallikarjuna Swamy Temple (Ravivalasa)** (~40 km): Unique open-sky Shiva temple worshiped directly under the sun without a roof."
+            ],
+            'viewpoints_hills': [
+                "🌊 **Kalingapatnam Beach & Historic British Lighthouse** (~28 km): Scenic coastal confluence where Vamsadhara River meets the Bay of Bengal with a 19th-century lighthouse.",
+                "🏛️ **Salihundam Buddhist Hillock & Stupas** (~30 km): 2nd-century BC Buddhist heritage hillock with panoramic river views and ancient stupas.",
+                "🌄 **Baruva Sea Beach & Confluence Point** (Sompeta coastline): Pristine beach with golden sand dunes and swaying coconut groves."
+            ],
+            'waterfalls': [
+                "🌊 **Sangam Nagavali River Cascades** (~28 km from Srikakulam): Natural river cascades and picturesque rocky riverbed at the confluence of Nagavali, Suvarnamukhi, and Vegavathi rivers.",
+                "🌊 **Narayanapuram Anicut & Countryside Streams** (Burja Mandal): Scenic water spillways and lush green streams."
+            ],
+            'trekking': [
+                "🥾 **Salihundam Buddhist Hill Walk**: Stone-step nature hike to summit stupas with uninterrupted green valley views.",
+                "🥾 **Kalingapatnam Coastal Sand Dunes Hike**: Scenic sea-breeze walking trail along the ocean."
+            ],
+            'wildlife_zoo': [
+                "🐢 **Srikurmam Sacred Tortoise Sanctuary & Lake**: Conservation lake inside Srikurmam temple caring for hundreds of revered Star Tortoises.",
+                "🦜 **Telineelapuram Bird Sanctuary** (Near Tekkali, ~65 km): Famous seasonal home for thousands of migratory pelicans and painted storks from Siberia."
+            ],
+            'botanical_farms': [
+                "🌾 **Nagavali & Vamsadhara River Green Valleys**: Fertile agricultural valleys with green paddy fields, coconut groves, and banana plantations.",
+                "🌴 **Baruva Coconut Groves & Countryside**: Broad coconut farms along quiet seaside roads."
+            ],
+            'fun_zones_waterparks': [
+                "🏖️ **Kalingapatnam Beach Park & Promenade**: Sandy beach with evening sea-breeze walks and beachside snack stalls.",
+                "🏛️ **Srikakulam Town Municipal Park & Lake**: Green park with walking paths and children's play area."
+            ]
+        },
+        'waterfalls_specific': """### 🌊 Waterfalls & Natural Cascades in & around Srikakulam
+
+Here are scenic natural waterfalls and river cascades situated in and around **Srikakulam**:
+
+* **1. 🌊 Sangam Nagavali River Cascades:**
+  * 📍 **Location:** Sangam village, ~28 km from Srikakulam town (accessible via Amadalavalasa / Rajam road).
+  * ✨ **What to Expect:** A picturesque rocky riverbed and natural water cascades where three sacred rivers meet (Nagavali, Suvarnamukhi, and Vegavathi).
+  * 💡 **Tips:** Safe for foot wading along shallow rocky streams; popular for relaxing family picnics and scenic photos.
+
+* **2. 🌊 Narayanapuram Anicut & Countryside Cascades:**
+  * 📍 **Location:** Burja Mandal (~35 km from Srikakulam).
+  * ✨ **What to Expect:** Rushing water spillways over stone anicuts surrounded by lush green countryside and palm trees.""",
+
+        'devotional_person': """### 🛕 Most Famous & Visited Temples in & around Srikakulam
+
+Here are the most famous, sacred, and widely visited temples in **Srikakulam**:
+
+* **1. 🛕 Sri Suryanarayana Swamy Temple (Arasavalli Sun Temple):**
+  * 📍 **Exact Location:** Arasavalli, ~3 km from Srikakulam town center (autos and town buses available).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 03:30 PM – 08:00 PM.
+  * 🙏 **Sacred Significance:** Built in the 7th century, this is the premier living Sun God temple in India. The temple is designed so the sun's morning rays directly touch the Lord's feet twice each year (in March and October).
+  * 💡 **Pilgrim Tip:** Sunday is the most auspicious day; morning Aditya Hrudayam prayers are very peaceful.
+
+* **2. 🛕 Sri Kurmanatha Swamy Temple (Srikurmam):**
+  * 📍 **Exact Location:** Srikurmam village, ~14 km from Srikakulam town (frequent RTC buses and autos).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 03:00 PM – 08:00 PM.
+  * 🙏 **Sacred Significance:** The only temple in the entire world dedicated to Lord Vishnu in His Kurma (Tortoise) Avatar. Features a sacred tortoise sanctuary lake (Swetha Pushkarini) where rare Star Tortoises are fed by pilgrims.
+  * 💡 **Pilgrim Tip:** Rare Kurma Avatar darshan and feeding the sacred tortoises in the pushkarini.
+
+* **3. 🛕 Sri Mukhalingeswara Swamy Temple (Mukhalingam):**
+  * 📍 **Exact Location:** Jalumuru, on the banks of Vamsadhara River (~45 km from Srikakulam).
+  * ⏰ **Darshan Timings:** 06:00 AM – 07:30 PM.
+  * 🙏 **Sacred Significance:** Ancient 8th-century stone temple built by Eastern Ganga kings with intricate carvings, sculptures, and a peaceful riverside setting.
+
+* **4. 🛕 Sri Endala Mallikarjuna Swamy Temple (Ravivalasa):**
+  * 📍 **Exact Location:** Ravivalasa, near Tekkali (~40 km from Srikakulam).
+  * ⏰ **Darshan Timings:** 06:30 AM – 06:30 PM.
+  * 🙏 **Sacred Significance:** Unique open-sky Shiva temple where the deity is worshipped directly under the sun without a roof."""
     }
 }
 
@@ -511,6 +588,13 @@ DESTINATION_ALIASES = {
     'araku': 'araku',
     'araku valley': 'araku',
     'borra': 'araku',
+
+    'srikakulam': 'srikakulam',
+    'arasavilli': 'srikakulam',
+    'arasavalli': 'srikakulam',
+    'srikurmam': 'srikakulam',
+    'kurmam': 'srikakulam',
+    'mukhalingam': 'srikakulam',
 
     'visakhapatnam': 'visakhapatnam',
     'vishakapatnam': 'visakhapatnam',
@@ -551,8 +635,8 @@ DESTINATION_ALIASES = {
 
 def _generate_comprehensive_multiday_itinerary(dest_clean, days=3, travelers=2, budget=15000):
     """
-    Generates a rich, highly efficient multi-day plan (3, 4, 5, or X days)
-    that systematically covers ALL categories:
+    Generates a clear, simple everyday English multi-day plan (3, 4, 5, or X days)
+    that systematically covers all categories:
     Temples, Scenic Viewpoints, Waterfalls, Trekking, Wildlife/Zoo,
     Botanical Gardens/Farms, Fun Zones/Waterparks, and Stays.
     """
@@ -567,9 +651,9 @@ def _generate_comprehensive_multiday_itinerary(dest_clean, days=3, travelers=2, 
     days_count = max(1, min(days, 7))
 
     lines = [
-        f"### 🗺️ Comprehensive {days_count}-Day Master Plan for {dest_title}",
-        f"**Balanced Route Covering:** 🛕 Temples • 🌄 Scenic Viewpoints • 🌊 Waterfalls • 🥾 Trekking • 🦁 Zoo & Wildlife • 🌺 Botanical Gardens & Farms • 🎢 Waterparks & Fun Zones\n",
-        f"*This itinerary is logically sequenced by time and geography to eliminate traffic delays and beat peak midday temperatures:*\n"
+        f"### 🗺️ Easy {days_count}-Day Trip Plan for {dest_title}",
+        f"**What This Plan Covers:** 🛕 Famous Temples • 🌄 Hill Points • 🌊 Waterfalls • 🥾 Nature Walks • 🦁 Zoo & Animals • 🌺 Gardens & Parks • 🎢 Fun Zones & Waterparks\n",
+        f"*This plan is arranged in simple morning-to-night order so you don't waste time in traffic or travel during the hot midday hours:*\n"
     ]
 
     if profile and 'categories' in profile:
@@ -585,96 +669,99 @@ def _generate_comprehensive_multiday_itinerary(dest_clean, days=3, travelers=2, 
         for d in range(1, days_count + 1):
             lines.append(f"#### 📅 Day {d}:")
             if d == 1:
-                t1 = temples[0] if temples else "Iconic Historic Temple"
-                b1 = botanical[0] if botanical else "Central Botanical Park"
-                v1 = views[0] if views else "Scenic Sunset Viewpoint"
-                lines.append(f"* **🌅 Morning (08:30 AM – 11:30 AM): Spiritual Heritage & Sacred Darshan**")
-                lines.append(f"  * {t1} — Start early when queues are short and morning aarti ambiance is peaceful.")
-                lines.append(f"* **🍽️ Midday & Lunch (12:00 PM – 02:30 PM): Authentic Regional Thali & Culture**")
-                lines.append(f"  * Move indoors to the heritage center to savor authentic regional cuisine and browse indigenous artisan handicrafts.")
-                lines.append(f"* **🌺 Afternoon (03:00 PM – 04:30 PM): Botanical Gardens & Shaded Walks**")
-                lines.append(f"  * {b1} — Peaceful stroll through exotic plant nurseries and flowerbeds.")
-                lines.append(f"* **🌇 Sunset & Evening (05:00 PM – 07:30 PM): Panoramic Vistas & Waterfront Chill**")
-                lines.append(f"  * {v1} — Unwind during golden hour with soothing evening breezes and panoramic views.")
-                lines.append(f"* **🌙 Night (08:00 PM onwards): Leisure Dining & Celebration Deck**")
-                lines.append(f"  * Group dinner at a rooftop garden restaurant with live music.")
+                t1 = temples[0] if temples else "Famous Historic Temple"
+                b1 = botanical[0] if botanical else "Central Park & Gardens"
+                v1 = views[0] if views else "Sunset Point"
+                lines.append(f"* **🌅 Morning (08:30 AM – 11:30 AM): Visit the Main Famous Temple**")
+                lines.append(f"  * {t1} — Go early in the morning so you avoid long lines and can pray peacefully.")
+                lines.append(f"* **🍽️ Afternoon (12:00 PM – 02:30 PM): Good Local Lunch & Rest**")
+                lines.append(f"  * Enjoy tasty local lunch at a good nearby restaurant and rest during the hot midday hours.")
+                lines.append(f"* **🌺 Late Afternoon (03:00 PM – 04:30 PM): Green Gardens & Walk**")
+                lines.append(f"  * {b1} — Take a pleasant walk among green trees and flowers.")
+                lines.append(f"* **🌇 Sunset & Evening (05:00 PM – 07:30 PM): Sunset Point or Beach**")
+                lines.append(f"  * {v1} — Enjoy the cool evening breeze and watch the sunset view with your family or friends.")
+                lines.append(f"* **🌙 Night (08:00 PM onwards): Dinner & Relax**")
+                lines.append(f"  * Relaxed dinner at a popular nearby restaurant.")
 
             elif d == 2:
-                f1 = falls[0] if falls else "Cascading Waterfalls"
+                f1 = falls[0] if falls else "Beautiful Waterfalls"
                 tr1 = treks[0] if treks else "Nature Forest Trail"
                 v2 = views[1] if len(views) > 1 else (views[0] if views else "Hill Ridge")
-                lines.append(f"* **🌄 Morning (08:00 AM – 12:30 PM): Gushing Waterfalls & Mountain Adventure**")
-                lines.append(f"  * {f1} — Experience the cascading falls in the fresh morning air; dip feet in natural rock pools.")
-                lines.append(f"* **🥾 Midday Adventure (12:30 PM – 02:30 PM): Trekking Trail & Shaded Picnic**")
-                lines.append(f"  * {tr1} — Hike through forested canopies followed by authentic regional lunch.")
-                lines.append(f"* **☕ Late Afternoon (03:30 PM – 05:30 PM): Hill Station Ridge & Coffee/Tea Overlook**")
-                lines.append(f"  * {v2} — Savor freshly brewed local coffee/tea looking out over rolling mountain ridges.")
-                lines.append(f"* **🔥 Evening & Campfire (06:30 PM – 09:30 PM): Resort Lawn Celebration**")
-                lines.append(f"  * Open-air campfire, live barbecue, music, and stargazing.")
+                lines.append(f"* **🌄 Morning (08:00 AM – 12:30 PM): Beautiful Waterfalls & Nature**")
+                lines.append(f"  * {f1} — Visit the waterfalls in the morning when the air is fresh. Take photos and dip your feet in the cool water.")
+                lines.append(f"* **🥾 Lunch & Nature Walk (12:30 PM – 02:30 PM): Walk & Food**")
+                lines.append(f"  * {tr1} — Take an easy walk along the trail and enjoy a fresh hot meal.")
+                lines.append(f"* **☕ Afternoon (03:30 PM – 05:30 PM): Hill Viewpoint & Hot Tea/Coffee**")
+                lines.append(f"  * {v2} — Sit back and sip hot tea or coffee while looking out at the hills.")
+                lines.append(f"* **🔥 Evening (06:30 PM – 09:30 PM): Campfire & Dinner**")
+                lines.append(f"  * Campfire, music, and a tasty dinner with family or friends.")
 
             elif d == 3:
-                w1 = wildlife[0] if wildlife else "National Wildlife Park"
-                b2 = botanical[1] if len(botanical) > 1 else (botanical[0] if botanical else "Agro-Farms")
-                lines.append(f"* **🦁 Dawn Safari (06:00 AM – 09:30 AM): Wildlife Sanctuary & Zoological Park**")
-                lines.append(f"  * {w1} — Early morning safari slot when lions, tigers, deer, and birds are active near waterholes.")
-                lines.append(f"* **🌾 Midday & Afternoon (11:00 AM – 03:00 PM): Rolling Green Farms & Countryside Agro-Tour**")
-                lines.append(f"  * {b2} — Walk through rolling farm fields, organic fruit orchards, and pastoral countryside.")
-                lines.append(f"* **🏛️ Sunset Culture (04:30 PM – 07:00 PM): Ancient Stepwells or Fort Heritage**")
-                lines.append(f"  * Explore centuries-old architecture and watch the illuminated heritage monuments at dusk.")
+                w1 = wildlife[0] if wildlife else "Zoo or Wildlife Sanctuary"
+                b2 = botanical[1] if len(botanical) > 1 else (botanical[0] if botanical else "Green Countryside Farms")
+                lines.append(f"* **🦁 Morning (06:30 AM – 10:30 AM): Zoo & Wildlife Park**")
+                lines.append(f"  * {w1} — Visit early in the morning when animals and birds are active and easy to spot.")
+                lines.append(f"* **🌾 Afternoon (11:30 AM – 03:00 PM): Countryside Farms & Green Fields**")
+                lines.append(f"  * {b2} — Take a calm walk through green farm fields, gardens, and countryside spots.")
+                lines.append(f"* **🏛️ Evening (04:30 PM – 07:00 PM): Historic Fort or Monument**")
+                lines.append(f"  * Explore the old fort or heritage site and see the sunset.")
 
             elif d == 4:
-                fn1 = fun[0] if fun else "Premier Theme & Waterpark"
-                fn2 = fun[1] if len(fun) > 1 else "Fun Zone & Lakefront"
-                lines.append(f"* **🎢 Morning to Mid-Afternoon (10:00 AM – 03:30 PM): Waterparks & High-Energy Fun Zones**")
-                lines.append(f"  * {fn1} — Thrilling wave pools, spiral water slides, rain dance, and adventure rides.")
-                lines.append(f"* **🎡 Late Afternoon (04:00 PM – 06:30 PM): Interactive Science, IMAX & Lake Rides**")
-                lines.append(f"  * {fn2} — Toy train, speed-boating, or immersive exhibits.")
-                lines.append(f"* **🌆 Night (07:30 PM onwards): Celebratory Rooftop Lounge & Party Cabanas**")
-                lines.append(f"  * Reserve a private celebration terrace for gourmet platters and signature drinks.")
+                fn1 = fun[0] if fun else "Waterpark & Fun Rides"
+                fn2 = fun[1] if len(fun) > 1 else "Boating & Lake Park"
+                lines.append(f"* **🎢 Morning to Afternoon (10:00 AM – 03:30 PM): Waterpark & Fun Zone**")
+                lines.append(f"  * {fn1} — Have fun on the water slides, wave pool, and rides with family and friends.")
+                lines.append(f"* **🎡 Late Afternoon (04:00 PM – 06:30 PM): Boating & Lake Park**")
+                lines.append(f"  * {fn2} — Enjoy a toy train ride, boating in the lake, or an easy stroll.")
+                lines.append(f"* **🌆 Night (07:30 PM onwards): Celebration & Group Dinner**")
+                lines.append(f"  * Enjoy a special dinner together. If you are celebrating a birthday or anniversary, this is a great spot for cake cutting and fun.")
 
             elif d == 5:
-                t2 = temples[1] if len(temples) > 1 else "Sacred Confluence Shrine"
-                v3 = views[2] if len(views) > 2 else "Lakeside Sunset Point"
-                lines.append(f"* **🛕 Morning (08:30 AM – 11:30 AM): Sacred Shrine & Architectural Wonder**")
-                lines.append(f"  * {t2} — Peaceful morning prayers and architectural exploration.")
-                lines.append(f"* **🛍️ Afternoon (01:00 PM – 04:00 PM): Handloom Textiles & Craft Emporiums**")
-                lines.append(f"  * Pick up authentic regional fabrics, handicrafts, spices, and keepsakes directly from artisan clusters.")
-                lines.append(f"* **🌅 Sunset Golden Hour (05:00 PM – 07:30 PM): Farewell Scenic Overlook**")
-                lines.append(f"  * {v3} — Commemorative group photography and sunset reflection.")
+                t2 = temples[1] if len(temples) > 1 else "Second Sacred Shrine"
+                v3 = views[2] if len(views) > 2 else "Final Scenic Viewpoint"
+                lines.append(f"* **🛕 Morning (08:30 AM – 11:30 AM): Second Sacred Temple or Shrine**")
+                lines.append(f"  * {t2} — Morning prayers and quiet, peaceful darshan.")
+                lines.append(f"* **🛍️ Afternoon (01:00 PM – 04:00 PM): Shopping for Local Clothes & Sweets**")
+                lines.append(f"  * Buy local famous clothes, traditional items, sweets, and gifts to take home.")
+                lines.append(f"* **🌅 Sunset (05:00 PM – 07:30 PM): Final Sunset Viewpoint & Photos**")
+                lines.append(f"  * {v3} — Take group photos, enjoy the sunset, and complete your trip happily.")
             else:
-                lines.append(f"* **🌿 Day {d} Leisure Exploration:**")
-                lines.append(f"  * Off-the-beaten-path village excursions, secluded nature trails, and slow cafe conversations.")
+                lines.append(f"* **🌿 Day {d}: Relaxed Day & Local Spots:**")
+                lines.append(f"  * Visit quiet gardens, try local snacks, and enjoy an easy pace.")
             lines.append("")
     else:
         # Dynamic generic fallback with categorized spots
         from utils.hotel_generator import generate_hotels
-        hotels = generate_hotels(dest_clean) or [{'name': f'{dest_title} Heritage Stay', 'address': f'Central {dest_title}'}]
+        hotels = generate_hotels(dest_clean) or [{'name': f'{dest_title} Hotel', 'address': f'Central {dest_title}'}]
         h1 = hotels[0]
         
         for d in range(1, days_count + 1):
             lines.append(f"#### 📅 Day {d}:")
             if d == 1:
-                lines.append(f"* **🛕 Morning (08:30 AM – 11:30 AM): Signature Sacred Temples & Historic Shrines**")
-                lines.append(f"  * Visit the principal historic temple or monument in {dest_title} before midday heat.")
-                lines.append(f"* **🍽️ Midday (12:00 PM – 02:30 PM): Heritage Gastronomy near {h1['name']}**")
-                lines.append(f"  * Savor authentic local delicacies and browse traditional craft bazars.")
-                lines.append(f"* **🌄 Sunset (04:30 PM – 06:30 PM): Panoramic Viewpoint & Lakefront Chill**")
-                lines.append(f"  * Watch golden hour reflections with gentle evening breezes.")
+                lines.append(f"* **🛕 Morning (08:30 AM – 11:30 AM): Visit the Main Famous Temple**")
+                lines.append(f"  * Visit the principal historic temple or landmark in {dest_title} before midday heat.")
+                lines.append(f"* **🍽️ Afternoon (12:00 PM – 02:30 PM): Tasty Local Lunch near {h1['name']}**")
+                lines.append(f"  * Savor delicious local food and rest during the afternoon.")
+                lines.append(f"* **🌄 Sunset (04:30 PM – 06:30 PM): Sunset Point or Beach**")
+                lines.append(f"  * Enjoy the evening breeze and watch the sunset view.")
             elif d == 2:
-                lines.append(f"* **🌊 Morning (08:30 AM – 12:30 PM): Cascading Waterfalls, Nature Trails & Hill Stations**")
-                lines.append(f"  * Explore lush waterfalls or scenic mountain roads just outside the city center.")
-                lines.append(f"* **🌾 Afternoon (02:00 PM – 04:30 PM): Countryside Farms & Botanical Gardens**")
-                lines.append(f"  * Stroll through landscaped gardens and rolling agricultural fields.")
-                lines.append(f"* **🔥 Evening (06:00 PM onwards): Campfire BBQ & Leisure Celebration**")
+                lines.append(f"* **🌊 Morning (08:30 AM – 12:30 PM): Beautiful Waterfalls & Nature**")
+                lines.append(f"  * Explore scenic waterfalls or green nature spots near {dest_title}.")
+                lines.append(f"* **🌾 Afternoon (02:00 PM – 04:30 PM): Green Gardens & Walk**")
+                lines.append(f"  * Walk through pleasant gardens and countryside areas.")
+                lines.append(f"* **🔥 Evening (06:00 PM onwards): Dinner & Music**")
+                lines.append(f"  * Have a fun dinner with friends or family.")
             elif d == 3:
-                lines.append(f"* **🦁 Morning (08:00 AM – 11:30 AM): Zoological Garden or Wildlife Sanctuary**")
-                lines.append(f"  * Discover regional fauna, deer parks, and bird sanctuaries.")
-                lines.append(f"* **🥾 Afternoon (02:00 PM – 05:00 PM): Trekking Trails or Cave Exploration**")
+                lines.append(f"* **🦁 Morning (08:00 AM – 11:30 AM): Zoo or Wildlife Park**")
+                lines.append(f"  * See animals, birds, and nature in the morning.")
+                lines.append(f"* **🥾 Afternoon (02:00 PM – 05:00 PM): Easy Hill Walk or Sightseeing**")
+                lines.append(f"  * Visit scenic hill spots and viewpoints.")
             elif d == 4:
-                lines.append(f"* **🎢 Full Day (10:00 AM – 05:00 PM): Waterparks, Theme Parks & Family Fun Zones**")
-                lines.append(f"  * Spend the day on water slides, wave pools, and adventure sports.")
+                lines.append(f"* **🎢 Full Day (10:00 AM – 05:00 PM): Waterpark, Fun Rides & Shopping**")
+                lines.append(f"  * Spend the day having fun on water slides, amusement rides, and visiting local shops.")
             else:
-                lines.append(f"* **🛍️ Day {d}: Cultural Villages, Handloom Shopping & Farewell Viewpoint**")
+                lines.append(f"* **🛍️ Day {d}: Shopping for Local Specialties & Final Viewpoint**")
+                lines.append(f"  * Pick up famous local clothes and sweets, and take final memorable photos.")
             lines.append("")
 
     return "\n".join(lines)
@@ -766,7 +853,20 @@ Here are verified natural waterfalls and cascades situated in and around **Tirup
 
 * **3. 🌊 Tambdi Surla Waterfalls:**
   * 📍 **Location:** Inside Mollem National Park.
-  * ✨ **Experience:** Hidden 90-minute jungle trek starting from the 12th-century Kadamba Mahadev Temple through dense Western Ghats canopy."""
+  * ✨ **Experience:** Hidden 90-minute jungle trek starting from the 12th-century Kadamba Mahadev Temple through dense Western Ghats canopy.""",
+
+    'srikakulam': """### 🌊 Waterfalls & Natural Cascades in & around Srikakulam
+
+Here are scenic natural waterfalls and river cascades situated in and around **Srikakulam**:
+
+* **1. 🌊 Sangam Nagavali River Cascades:**
+  * 📍 **Location:** Sangam village, ~28 km from Srikakulam town (accessible via Amadalavalasa / Rajam road).
+  * ✨ **What to Expect:** A picturesque rocky riverbed and natural water cascades where three sacred rivers meet (Nagavali, Suvarnamukhi, and Vegavathi).
+  * 💡 **Tips:** Safe for foot wading along shallow rocky streams; popular for relaxing family picnics and scenic photos.
+
+* **2. 🌊 Narayanapuram Anicut & Countryside Cascades:**
+  * 📍 **Location:** Burja Mandal (~35 km from Srikakulam).
+  * ✨ **What to Expect:** Rushing water spillways over stone anicuts surrounded by lush green countryside and palm trees."""
 }
 
 
@@ -881,6 +981,32 @@ Here are the most sacred, famous, and widely visited temples for pilgrims visiti
   * 📍 **Exact Location:** Srikalahasti (~36 km from Tirupati on the Swarnamukhi River).
   * ⏰ **Darshan Timings:** 06:00 AM – 09:00 PM.
   * 🙏 **Sacred Significance:** Celebrated Pancha Bhoota Sthalam (Vayu Lingam / Wind Element) and premier Rahu-Ketu Sarpa Dosha Nivarana temple in India.""",
+
+    'srikakulam': """### 🛕 Most Famous & Visited Temples in & around Srikakulam
+
+Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Srikakulam**:
+
+* **1. 🛕 Sri Suryanarayana Swamy Temple (Arasavalli Sun Temple):**
+  * 📍 **Exact Location:** Arasavalli, ~3 km from Srikakulam town center (autos and town buses available).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 03:30 PM – 08:00 PM.
+  * 🙏 **Sacred Significance:** Built in the 7th century by Kalinga King Devendra Varma, this is the premier living Sun God temple in India. The temple is designed so the sun's morning rays directly illuminate the deity's feet twice each year (in March and October).
+  * 💡 **Pilgrim Tip:** Sunday is the most popular day for worship; morning Aditya Hrudayam prayers are peaceful.
+
+* **2. 🛕 Sri Kurmanatha Swamy Temple (Srikurmam):**
+  * 📍 **Exact Location:** Srikurmam village, ~14 km from Srikakulam town (frequent RTC buses and autos).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 03:00 PM – 08:00 PM.
+  * 🙏 **Sacred Significance:** The only temple in the entire world dedicated to Lord Vishnu in His Kurma (Tortoise) Avatar. Features a sacred tortoise sanctuary lake (Swetha Pushkarini) where rare Star Tortoises live and are fed by pilgrims.
+  * 💡 **Pilgrim Tip:** Rare Kurma Avatar darshan and feeding the sacred tortoises in the pushkarini.
+
+* **3. 🛕 Sri Mukhalingeswara Swamy Temple (Mukhalingam):**
+  * 📍 **Exact Location:** Jalumuru, on the banks of Vamsadhara River (~45 km from Srikakulam).
+  * ⏰ **Darshan Timings:** 06:00 AM – 07:30 PM.
+  * 🙏 **Sacred Significance:** Ancient 8th-century stone temple complex built by Eastern Ganga kings with intricate carvings, sculptures, and a peaceful riverside setting.
+
+* **4. 🛕 Sri Endala Mallikarjuna Swamy Temple (Ravivalasa):**
+  * 📍 **Exact Location:** Ravivalasa, near Tekkali (~40 km from Srikakulam).
+  * ⏰ **Darshan Timings:** 06:30 AM – 06:30 PM.
+  * 🙏 **Sacred Significance:** Unique open-sky Shiva temple where the deity is worshipped directly under the sun without a roof.""",
 
     'varanasi': """### 🛕 Most Famous & Visited Temples in Varanasi (Kashi)
 
@@ -1284,11 +1410,14 @@ def get_ai_chat_response(user_message, destination='', days=1, travelers=1, budg
 
     # Try Gemini LLM first if configured
     system_instruction = (
-        "You are TripTics AI, an expert travel concierge and trip coordinator. "
-        "CRITICAL INSTRUCTION: When asked for places to visit, chill spots, birthday celebration venues, "
-        "or multi-day itineraries, you MUST ALWAYS provide SPECIFIC, REAL, NAMED VENUES AND EXACT LOCATIONS (e.g., 'Whistling Meadows Resort & Club, Sanand-Bopal Road, Ahmedabad', "
-        "'Makeba The Lounge Cafe, SG Highway', 'Rann Utsav Luxury Tent City, Dhordo', 'Sabarmati Riverfront Promenade'). "
-        "Cover temples, waterfalls, hill stations, viewpoints, trekking trails, zoos/wildlife, botanical gardens/farms, and waterparks/fun zones. "
+        "You are TripTics AI, a friendly travel concierge and trip coordinator. "
+        "CRITICAL LANGUAGE RULE: Always write in SIMPLE, CLEAR, EVERYDAY ENGLISH that any tourist can easily understand. "
+        "Do NOT use complex, flowery, academic, or high-level vocabulary (avoid words like 'gastronomy', 'fauna', 'panoramic vistas', 'gushing cataracts', 'indigenous artisans', 'sanctum sanctorum', 'resilience', 'venerated'). "
+        "Use simple everyday words like 'temple', 'animals', 'tasty local food', 'lunch', 'dinner', 'nice sunset view', 'waterfall', 'shopping', 'fun rides'. "
+        "CRITICAL CONTENT RULE: When asked for places to visit, chill spots, birthday party spots, or itineraries, "
+        "you MUST ALWAYS provide SPECIFIC, REAL, NAMED VENUES AND EXACT REAL LOCATIONS. "
+        "NEVER invent fake landmarks or generic 'Clock Tower' locations. "
+        "If asked about waterfalls, answer ONLY about waterfalls and cascades; if asked about temples, answer ONLY about temples. "
         "If asked about ATMs, name exact ATMs near Railway Stations, Bus Stands, and Airports. Do not include room prices."
     )
     

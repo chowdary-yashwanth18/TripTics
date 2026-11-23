@@ -1255,6 +1255,176 @@ DESTINATION_MASTER_REGISTRY = {
                 'phone': '+91 98719 00995'
             }
         ]
+    },
+
+    # ── SRIKAKULAM (Arasavilli, Srikurmam, Mukhalingam, Kalingapatnam) ────────
+    'srikakulam': {
+        'destination': 'Srikakulam',
+        'title': 'Srikakulam — Sacred Sun Temple, Rare Kurma Kshetra & Scenic Coastline',
+        'map_query': 'Srikakulam, Andhra Pradesh, India',
+        'summary': 'Historic temple district of northern Andhra Pradesh, world-famous for the ancient Arasavalli Sun Temple, the world\'s only Sri Kurmam tortoise avatar temple, and quiet Bay of Bengal beaches.',
+
+        'route_sequence': [
+            'Sri Suryanarayana Swamy Temple (Arasavalli)',
+            'Sri Kurmanatha Swamy Temple (Srikurmam)',
+            'Kalingapatnam Beach & Lighthouse',
+            'Salihundam Buddhist Heritage Hill',
+            'Sri Mukhalingeswara Swamy Temple (Mukhalingam)'
+        ],
+
+        'tourist_spots': {
+            'temples': [
+                {
+                    'name': 'Sri Suryanarayana Swamy Temple (Arasavalli Sun Temple)',
+                    'landmark': 'Arasavalli, ~3 km from Srikakulam town center',
+                    'desc': 'Ancient 7th-century Sun God temple built by Kalinga King Devendra Varma. It is the premier living Sun temple in India where morning sunlight illuminates the feet of the Lord twice a year.',
+                    'timing': '06:00 AM – 12:30 PM & 03:30 PM – 08:00 PM',
+                    'highlight': 'Early morning Aditya Hrudayam prayers & special Sunday darshan'
+                },
+                {
+                    'name': 'Sri Kurmanatha Swamy Temple (Srikurmam)',
+                    'landmark': 'Srikurmam village, ~14 km from Srikakulam town',
+                    'desc': 'The only temple in the entire world dedicated to Lord Vishnu in His Kurma (Tortoise) Avatar. Features a sacred tortoise sanctuary lake (Swetha Pushkarini) and two Dhwajasthambhams.',
+                    'timing': '06:00 AM – 12:30 PM & 03:00 PM – 08:00 PM',
+                    'highlight': 'Rare Kurma Avatar darshan and feeding sacred tortoises'
+                },
+                {
+                    'name': 'Sri Mukhalingeswara Swamy Temple (Mukhalingam)',
+                    'landmark': 'Jalumuru, on the banks of Vamsadhara River (~45 km from Srikakulam)',
+                    'desc': 'Exquisite 8th-century temple complex built by Eastern Ganga kings featuring beautiful stone carvings and an ancient Shiva Lingam.',
+                    'timing': '06:00 AM – 07:30 PM',
+                    'highlight': 'Historic stone architecture and peaceful riverside ambiance'
+                },
+                {
+                    'name': 'Sri Endala Mallikarjuna Swamy Temple (Ravivalasa)',
+                    'landmark': 'Ravivalasa, Tekkali mandal (~40 km from Srikakulam)',
+                    'desc': 'Unique ancient Shiva temple without a roof, worshiped directly under the open sky (Endala).',
+                    'timing': '06:30 AM – 06:30 PM',
+                    'highlight': 'Open-sky sanctum and special Maha Shivaratri celebrations'
+                }
+            ],
+
+            'hills_viewpoints': [
+                {
+                    'name': 'Kalingapatnam Beach & British Lighthouse',
+                    'landmark': 'Kalingapatnam coastal village (~28 km from Srikakulam)',
+                    'desc': 'Scenic, peaceful beach at the confluence of Vamsadhara River and Bay of Bengal, featuring a historic British-era lighthouse.',
+                    'highlight': 'Panoramic sea view from lighthouse top and relaxing breeze'
+                },
+                {
+                    'name': 'Salihundam Buddhist Heritage Hillock',
+                    'landmark': 'Salihundam, ~18 km from Srikakulam (on Vamsadhara riverbank)',
+                    'desc': 'Ancient 2nd-century BC Buddhist archaeological site with rock stupas, chaityas, and meditation caves on a breezy hillock.',
+                    'highlight': 'Sweeping views over Vamsadhara river and ancient stone stupas'
+                },
+                {
+                    'name': 'Baruva Beach & Estuary',
+                    'landmark': 'Baruva, Sompeta (~85 km from Srikakulam on coastal road)',
+                    'desc': 'Tranquil golden beach lined with lush green coconut groves and old harbor ruins.',
+                    'highlight': 'Quiet seaside strolls and photography'
+                }
+            ],
+
+            'waterfalls': [
+                {
+                    'name': 'Telineelapuram Migratory Bird Sanctuary',
+                    'landmark': 'Near Tekkali, ~60 km from Srikakulam',
+                    'desc': 'Lush wetland sanctuary hosting thousands of migratory painted storks and spot-billed pelicans traveling all the way from Siberia.',
+                    'highlight': 'Birdwatching towers and quiet nature photography'
+                }
+            ],
+
+            'parks_botanical': [
+                {
+                    'name': 'Vamsadhara Riverfront Park',
+                    'landmark': 'Near Old River Bridge, Srikakulam',
+                    'desc': 'Peaceful riverbank promenade and green garden for evening walks and sunset views.',
+                    'highlight': 'Gentle evening river breeze'
+                }
+            ],
+
+            'shopping_malls': [
+                {
+                    'name': 'Srikakulam Main Bazaar & Gandhi Road',
+                    'landmark': 'Central Market Area, Srikakulam',
+                    'desc': 'Traditional local bazaar famous for genuine Srikakulam Bellam Jalebi, Pootharekulu sweets, and handloom cotton sarees.',
+                    'highlight': 'Local sweets and authentic handloom fabrics'
+                }
+            ],
+
+            'fun_zones_waterparks': [
+                {
+                    'name': 'Kalingapatnam Beach Water Activities',
+                    'landmark': 'Kalingapatnam Beach',
+                    'desc': 'Beach horse rides, ATV rides along the sand, and speed boating near the river mouth.',
+                    'highlight': 'Fun family beach sports'
+                }
+            ]
+        },
+
+        'dining_cuisine': {
+            'must_try_dishes': [
+                {
+                    'name': 'Srikakulam Hot Bellam Jalebi',
+                    'type': 'Signature Regional Sweet',
+                    'desc': 'Crispy, juicy sweet prepared with pure organic sugarcane jaggery (bellam) instead of refined sugar, served piping hot.',
+                    'best_at': 'Traditional Sweet Stalls, Old Bus Stand Road'
+                },
+                {
+                    'name': 'Arasavalli Sun Temple Godhuma Halwa Prasadam',
+                    'type': 'Sacred Devotional Prasadam',
+                    'desc': 'Divine wheat halwa cooked in pure ghee and cardamom, famous among pilgrims.',
+                    'best_at': 'Official Temple Prasadam Counter, Arasavalli'
+                },
+                {
+                    'name': 'Traditional Andhra Banana Leaf Thali',
+                    'type': 'Pure Veg Meal',
+                    'desc': 'Hot steamed rice served with freshly made Gongura pickle, Kandi Podi with pure ghee, Gutti Vankaya curry, and Srikakulam Majjiga Pulusu.',
+                    'best_at': 'Hotel Grand Vamsadhara & Sri Suryanarayana Meals'
+                }
+            ],
+            'famous_food_streets': [
+                {
+                    'name': 'Old Bus Stand Road & Rythu Bazaar Lane',
+                    'landmark': 'Central Srikakulam',
+                    'desc': 'Famous for evening hot tiffins, crispy Karam Podi Dosas, and hot filter coffee.'
+                }
+            ]
+        },
+
+        'culture_traditions': {
+            'summary': 'Srikakulam is steeped in ancient Kalinga heritage, known for living sun worship traditions, brass handicrafts, and classical Kuchipudi and folk dance cultures.',
+            'festivals_rituals': [
+                {
+                    'name': 'Ratha Saptami (Surya Jayanti in February)',
+                    'importance': 'The biggest annual festival at Arasavalli Sun Temple celebrating the birth of the Sun God. Over 200,000 pilgrims take holy baths in the temple tank.',
+                    'rituals': 'Surya Namaskaram, Kalyanotsavam, and Maha Ksheerabhishekam with milk.'
+                },
+                {
+                    'name': 'Maha Shivaratri at Mukhalingam & Ravivalasa',
+                    'importance': 'All-night devotional vigilance, sacred dip in Vamsadhara River, and special Rudrabhishekam.',
+                    'rituals': 'Continuous chanting and night darshan.'
+                }
+            ],
+            'art_crafts': 'Ponduru fine Khadi handspun cotton, brass temple bells, and terracotta pottery.'
+        },
+
+        'celebrations_venues': [
+            {
+                'name': 'Hotel Grand Vamsadhara Banquet & Terrace',
+                'map_landmark': 'Main Road, near RTC Bus Complex, Srikakulam',
+                'vibe': 'Top-rated hotel in Srikakulam with spacious air-conditioned banquet halls and rooftop terrace for birthdays and family gatherings.',
+                'features': 'Full catering service, event audio system, and customized party cakes.',
+                'phone': '+91 8942 225 555'
+            },
+            {
+                'name': 'Sunrise Riverside Resort & Lawns',
+                'map_landmark': 'Kalingapatnam Road, near Vamsadhara Bridge, Srikakulam',
+                'vibe': 'Open-air green lawns beside the river, perfect for outdoor birthday celebrations, photography, and evening family dinner.',
+                'features': 'Lawn seating, buffet dinner setup, and music system.',
+                'phone': '+91 8942 278 999'
+            }
+        ]
     }
 }
 
@@ -1285,6 +1455,8 @@ def get_destination_master_guide(destination, state='', days=3):
         matched = DESTINATION_MASTER_REGISTRY.get('tirupati')
     elif any(alias in dest_lower for alias in ['goa', 'panaji', 'madgaon', 'vasco', 'calangute', 'baga', 'anjuna', 'candolim', 'siolim', 'vagator']):
         matched = DESTINATION_MASTER_REGISTRY.get('goa')
+    elif any(alias in dest_lower for alias in ['srikakulam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam']):
+        matched = DESTINATION_MASTER_REGISTRY.get('srikakulam')
     elif any(alias in dest_lower for alias in ['gujarat', 'ahmedabad', 'kutch', 'sasan gir', 'dwarka', 'somnath']):
         matched = DESTINATION_MASTER_REGISTRY.get('gujarat')
 
@@ -1332,35 +1504,124 @@ def get_destination_master_guide(destination, state='', days=3):
     except Exception:
         pass
 
-    a1 = csv_attrs[0] if len(csv_attrs) > 0 else f"{dest_title} Heritage Monument"
-    a2 = csv_attrs[1] if len(csv_attrs) > 1 else f"{dest_title} Scenic Viewpoint"
-    a3 = csv_attrs[2] if len(csv_attrs) > 2 else f"{dest_title} Central Lakefront"
+    # Categorize real CSV attractions into specific categories
+    temple_attrs = []
+    falls_attrs = []
+    hills_attrs = []
+    zoo_attrs = []
+    botanical_attrs = []
+    general_attrs = []
+
+    for attr in csv_attrs:
+        a_low = attr.lower()
+        if any(w in a_low for w in ['temple', 'swamy', 'shrine', 'mandir', 'kovil', 'devasthanam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam', 'jyotirlinga', 'dargah', 'church', 'cathedral', 'stupa', 'monastery', 'peeth', 'veerabhadra']):
+            temple_attrs.append(attr)
+        elif any(w in a_low for w in ['fall', 'falls', 'waterfall', 'waterfalls', 'cascade']):
+            falls_attrs.append(attr)
+        elif any(w in a_low for w in ['hill', 'peak', 'viewpoint', 'point', 'ridge', 'canyon', 'valley', 'cave', 'caves', 'fort', 'overlook']):
+            hills_attrs.append(attr)
+        elif any(w in a_low for w in ['wildlife', 'sanctuary', 'zoo', 'safari', 'national park', 'deer', 'bird']):
+            zoo_attrs.append(attr)
+        elif any(w in a_low for w in ['lake', 'beach', 'river', 'dam', 'reservoir', 'park', 'garden', 'botanical', 'island', 'ghat', 'farm']):
+            botanical_attrs.append(attr)
+        else:
+            general_attrs.append(attr)
+
+    dynamic_temples = []
+    for t in temple_attrs:
+        dynamic_temples.append({
+            'name': t,
+            'landmark': f'{t}, {dest_title}',
+            'desc': f'Famous sacred shrine in {dest_title} visited by pilgrims.',
+            'timing': '06:00 AM – 12:30 PM & 04:00 PM – 08:30 PM'
+        })
+    if not dynamic_temples:
+        cand = general_attrs.pop(0) if general_attrs else f'{dest_title} Historical Temple'
+        dynamic_temples.append({
+            'name': cand,
+            'landmark': f'Temple Road, {dest_title}',
+            'desc': f'Historic temple and spiritual landmark in {dest_title}.',
+            'timing': '06:00 AM – 08:30 PM'
+        })
+
+    dynamic_falls = []
+    for f in falls_attrs:
+        dynamic_falls.append({
+            'name': f,
+            'landmark': f'{f}, near {dest_title}',
+            'desc': f'Natural waterfall cascading through scenic surroundings near {dest_title}.',
+            'highlight': 'Natural freshwater splash, scenic photos'
+        })
+    if not dynamic_falls:
+        dynamic_falls.append({
+            'name': f'{dest_title} Nature Cascades',
+            'landmark': f'Forest Valley, near {dest_title}',
+            'desc': 'Scenic mountain stream waterfall with rocky bathing pools and shaded forest banks.',
+            'highlight': 'Freshwater splash, nature walk'
+        })
+
+    dynamic_hills = []
+    for h in hills_attrs:
+        dynamic_hills.append({
+            'name': h,
+            'landmark': f'{h}, {dest_title}',
+            'desc': f'Scenic viewpoint and natural attraction in {dest_title}.',
+            'highlight': 'Panoramic views, cool breeze'
+        })
+    if not dynamic_hills:
+        cand = general_attrs.pop(0) if general_attrs else f'{dest_title} Sunset Point'
+        dynamic_hills.append({
+            'name': cand,
+            'landmark': f'Hilltop Overlook, {dest_title}',
+            'desc': 'High vantage point offering wide views over the area and sunset.',
+            'highlight': 'Sunset views, evening breeze'
+        })
+
+    dynamic_botanical = []
+    for b in botanical_attrs:
+        dynamic_botanical.append({
+            'name': b,
+            'landmark': f'{b}, {dest_title}',
+            'desc': f'Popular scenic nature and waterfront attraction in {dest_title}.',
+            'highlight': 'Green trees, relaxing walk'
+        })
+    if not dynamic_botanical:
+        cand = general_attrs.pop(0) if general_attrs else f'{dest_title} Central Garden'
+        dynamic_botanical.append({
+            'name': cand,
+            'landmark': f'Park Avenue, {dest_title}',
+            'desc': 'Pleasant green park with shady trees and walking paths.',
+            'highlight': 'Quiet walks, relaxing benches'
+        })
+
+    dynamic_zoo = []
+    for z in zoo_attrs:
+        dynamic_zoo.append({
+            'name': z,
+            'landmark': f'{z}, {dest_title}',
+            'desc': f'Wildlife habitat and nature reserve in {dest_title}.',
+            'highlight': 'Animal watching, birdwatching'
+        })
+    if not dynamic_zoo:
+        dynamic_zoo.append({
+            'name': f'{dest_title} Nature & Wildlife Park',
+            'landmark': f'Forest Reserve Road, {dest_title}',
+            'desc': 'Sprawling wildlife reserve preserving regional deer, birds, and nature.',
+            'highlight': 'Safari cart, birdwatching'
+        })
 
     dynamic_spots = {
-        'temples': [
-            {'name': f'Sri {dest_title} Historical Temple', 'landmark': f'Old Town Heritage Lane, near Clock Tower, {dest_title}', 'desc': 'Revered regional shrine with ornate stone carvings and morning spiritual aarti.', 'timing': '06:00 AM – 08:30 PM'},
-            {'name': f'{dest_title} Hilltop Shrine', 'landmark': f'Ridge Road Overlook, {dest_title}', 'desc': 'Peaceful panoramic vantage point and sacred spiritual retreat.', 'timing': '06:30 AM – 07:00 PM'}
-        ],
-        'hills_viewpoints': [
-            {'name': f'{dest_title} Sunset Ridge Point', 'landmark': f'Valley View Drive, 4 km from Central Station, {dest_title}', 'desc': 'Highest accessible elevation offering 360-degree vistas over the city and surrounding hills.', 'highlight': 'Golden hour sunset, evening breeze'},
-            {'name': a2, 'landmark': f'Scenic Bypass, {dest_title}', 'desc': 'Scenic natural overlook and photography pavilion.', 'highlight': 'Panoramic photos'}
-        ],
-        'waterfalls': [
-            {'name': f'{dest_title} Valley Cascades', 'landmark': f'Forest Reserve Road, 12 km from city center, {dest_title}', 'desc': 'Natural mountain stream waterfall with rocky bathing pools and shaded forest banks.', 'highlight': 'Natural freshwater splash, forest trek'}
-        ],
-        'parks_botanical': [
-            {'name': f'{dest_title} Central Botanical Gardens', 'landmark': f'Civil Lines Road, adjacent to Museum, {dest_title}', 'desc': 'Historic landscaped park with century-old trees, seasonal floral exhibitions, and walking trails.', 'highlight': 'Rose nursery, quiet benches'},
-            {'name': a3, 'landmark': f'Promenade Boulevard, {dest_title}', 'desc': 'Scenic waterfront walking track with paddle-boating and green gardens.', 'highlight': 'Evening lake strolls'}
-        ],
-        'zoo_wildlife': [
-            {'name': f'{dest_title} Zoological & Nature Park', 'landmark': f'Forest Sanctuary Highway, {dest_title}', 'desc': 'Sprawling wildlife reserve preserving regional deer, leopards, aviary, and botanical species.', 'highlight': 'Battery safari cart, birdwatching'}
-        ],
+        'temples': dynamic_temples,
+        'hills_viewpoints': dynamic_hills,
+        'waterfalls': dynamic_falls,
+        'parks_botanical': dynamic_botanical,
+        'zoo_wildlife': dynamic_zoo,
         'shopping_malls': [
-            {'name': f'{dest_title} City Center Mall', 'landmark': f'Main Commercial Avenue, near Metro/Bus Hub, {dest_title}', 'desc': 'Multi-level modern retail hub with department stores, multiplex cinema, and food court.', 'highlight': 'Brand shopping, entertainment'},
-            {'name': f'Old Bazaar & Handicraft Street', 'landmark': f'Heritage Market Chowk, {dest_title}', 'desc': 'Vibrant traditional street bazaar for authentic local textiles, handloom sarees, and souvenir keepsakes.', 'highlight': 'Authentic handicrafts, bargain shopping'}
+            {'name': f'{dest_title} Main Market Mall', 'landmark': f'Station Road, {dest_title}', 'desc': 'Modern retail center with shopping stores, food stalls, and entertainment.', 'highlight': 'Shopping, food court'},
+            {'name': f'{dest_title} Traditional Bazaar', 'landmark': f'Old Market Road, {dest_title}', 'desc': 'Vibrant local market for traditional clothes, handicrafts, and souvenirs.', 'highlight': 'Local handicrafts, clothes'}
         ],
         'fun_zones_waterparks': [
-            {'name': f'{dest_title} Splash Water Park & Fun World', 'landmark': f'Highway Junction, 8 km from town, {dest_title}', 'desc': 'Popular family amusement park with wave pool, spiral water flumes, and adventure rides.', 'highlight': 'Wave pool, thrill slides'}
+            {'name': f'{dest_title} Water & Amusement Park', 'landmark': f'Bypass Road, {dest_title}', 'desc': 'Popular family waterpark with wave pool, slides, and fun rides.', 'highlight': 'Wave pool, water slides'}
         ]
     }
 
@@ -1391,11 +1652,11 @@ def get_destination_master_guide(destination, state='', days=3):
 
     dynamic_dining = {
         'must_try_dishes': [
-            {'name': f'Traditional {dest_title} Special Thali', 'type': 'Vegetarian', 'desc': 'Wholesome regional platter featuring traditional curries, fresh flatbreads, dal, seasonal vegetable preparations, and authentic dessert.', 'best_at': f'Heritage Dining Hall near {h1_addr}'},
-            {'name': f'{dest_title} Street Chaat & Crispy Snacks', 'type': 'Snack', 'desc': 'Freshly prepared savoury roadside street bites seasoned with roasted cumin and tangy tamarind.', 'best_at': 'Main Clock Tower Food Chowk'}
+            {'name': f'Traditional {dest_title} Special Thali', 'type': 'Vegetarian', 'desc': 'Wholesome meal with traditional curries, warm flatbreads, dal, seasonal vegetables, and sweets.', 'best_at': f'Local restaurants near {h1_addr}'},
+            {'name': f'{dest_title} Street Food & Hot Snacks', 'type': 'Snack', 'desc': 'Freshly prepared savoury street snacks, sweets, and hot tea.', 'best_at': f'Main Bazaar Food Street, {dest_title}'}
         ],
         'famous_food_streets': [
-            {'name': f'{dest_title} Heritage Food Street', 'landmark': 'Old Bazaar Street (Evening 06:00 PM – 11:00 PM)', 'specialties': 'Local street delicacies, sweets, fresh fruit juices, and midnight savouries.'}
+            {'name': f'{dest_title} Main Food Street', 'landmark': 'Main Market Road (Evening 06:00 PM – 10:30 PM)', 'specialties': 'Local street delicacies, sweets, fresh juices, and hot snacks.'}
         ]
     }
 
@@ -1425,7 +1686,7 @@ def get_destination_master_guide(destination, state='', days=3):
 
 
 def _build_enthusiastic_plan(dest_title, spots, days_count):
-    """Generates an energetic, enthusiastic day-by-day itinerary maximizing fun and minimizing transit."""
+    """Generates an easy-to-follow, simple everyday English day-by-day itinerary."""
     temples = spots.get('temples', [])
     hills = spots.get('hills_viewpoints', [])
     falls = spots.get('waterfalls', [])
@@ -1438,51 +1699,51 @@ def _build_enthusiastic_plan(dest_title, spots, days_count):
     for d in range(1, days_count + 1):
         day_info = {'day_number': d, 'slots': []}
         if d == 1:
-            day_info['theme'] = 'Spiritual Heritage, Grand City Vistas & Sunset Chill'
+            day_info['theme'] = 'Famous Temples, City Views & Sunset'
             if temples:
-                day_info['slots'].append({'time': '08:30 AM – 11:00 AM', 'title': f"Sacred Darshan at {temples[0]['name']}", 'desc': f"Start your holiday early! Located at {temples[0]['landmark']}. Beat midday queues and experience morning aarti peace.", 'icon': '🛕'})
-            day_info['slots'].append({'time': '12:00 PM – 02:00 PM', 'title': 'Authentic Local Feast & Cultural Stroll', 'desc': 'Savor signature regional cuisine at an authentic heritage eatery during peak heat.', 'icon': '🍽️'})
+                day_info['slots'].append({'time': '08:30 AM – 11:00 AM', 'title': f"Visit {temples[0]['name']}", 'desc': f"Start early in the morning! Located at {temples[0]['landmark']}. Avoid long lines and pray peacefully.", 'icon': '🛕'})
+            day_info['slots'].append({'time': '12:00 PM – 02:00 PM', 'title': 'Tasty Local Lunch & Rest', 'desc': 'Enjoy tasty local food at a good nearby restaurant and rest during the afternoon heat.', 'icon': '🍽️'})
             if parks:
-                day_info['slots'].append({'time': '03:00 PM – 04:30 PM', 'title': f"Botanical Stroll at {parks[0]['name']}", 'desc': f"Shaded peaceful walk at {parks[0]['landmark']}.", 'icon': '🌺'})
+                day_info['slots'].append({'time': '03:00 PM – 04:30 PM', 'title': f"Relax at {parks[0]['name']}", 'desc': f"Pleasant walk among green trees and flowers at {parks[0]['landmark']}.", 'icon': '🌺'})
             if hills:
-                day_info['slots'].append({'time': '05:00 PM – 07:30 PM', 'title': f"Golden Hour Sunset at {hills[0]['name']}", 'desc': f"Head up to {hills[0]['landmark']} for cool breezes and breathtaking panoramic views.", 'icon': '🌅'})
-            day_info['slots'].append({'time': '08:00 PM onwards', 'title': 'Celebratory Group Dinner & Leisure Stroll', 'desc': 'Relax at a rooftop lounge or open-air garden restaurant with live music.', 'icon': '🌙'})
+                day_info['slots'].append({'time': '05:00 PM – 07:30 PM', 'title': f"Sunset View at {hills[0]['name']}", 'desc': f"Head to {hills[0]['landmark']} for cool evening breezes and sunset views.", 'icon': '🌅'})
+            day_info['slots'].append({'time': '08:00 PM onwards', 'title': 'Dinner & Relax', 'desc': 'Have a relaxed dinner at a good nearby restaurant.', 'icon': '🌙'})
 
         elif d == 2:
-            day_info['theme'] = 'Cascading Waterfalls, Nature Trails & Mountain Breezes'
+            day_info['theme'] = 'Waterfalls, Nature & Hill Station'
             if falls:
-                day_info['slots'].append({'time': '08:30 AM – 12:30 PM', 'title': f"Gushing Cascades at {falls[0]['name']}", 'desc': f"Located at {falls[0]['landmark']}. Dip your feet in natural rock streams and enjoy morning freshness.", 'icon': '🌊'})
-            day_info['slots'].append({'time': '01:00 PM – 02:30 PM', 'title': 'Shaded Forest Picnic & Bamboo Delicacies', 'desc': 'Authentic outdoor rustic lunch with fresh regional delicacies.', 'icon': '🍗'})
+                day_info['slots'].append({'time': '08:30 AM – 12:30 PM', 'title': f"Visit Waterfalls at {falls[0]['name']}", 'desc': f"Located at {falls[0]['landmark']}. Dip your feet in the cool water and enjoy the morning freshness.", 'icon': '🌊'})
+            day_info['slots'].append({'time': '01:00 PM – 02:30 PM', 'title': 'Lunch & Short Nature Walk', 'desc': 'Enjoy lunch and an easy walk under the green trees.', 'icon': '🍗'})
             if len(hills) > 1:
-                day_info['slots'].append({'time': '03:30 PM – 06:00 PM', 'title': f"Mountain Ridge Exploration at {hills[1]['name']}", 'desc': f"Located at {hills[1]['landmark']}. Savor hot local tea looking over cloud-filled valleys.", 'icon': '☕'})
-            day_info['slots'].append({'time': '07:00 PM – 10:00 PM', 'title': 'Campfire Circle & Barbecue Night', 'desc': 'Private resort lawn campfire with starry night acoustic music.', 'icon': '🔥'})
+                day_info['slots'].append({'time': '03:30 PM – 06:00 PM', 'title': f"Hill Viewpoint at {hills[1]['name']}", 'desc': f"Located at {hills[1]['landmark']}. Enjoy hot tea or coffee while looking out at the hills.", 'icon': '☕'})
+            day_info['slots'].append({'time': '07:00 PM – 10:00 PM', 'title': 'Campfire & Dinner', 'desc': 'Campfire, music, and a tasty dinner with family or friends.', 'icon': '🔥'})
 
         elif d == 3:
-            day_info['theme'] = 'Wildlife Safari, Animal Encounters & Rolling Countryside'
+            day_info['theme'] = 'Zoo, Animals, Green Farms & Heritage'
             if zoos:
-                day_info['slots'].append({'time': '06:30 AM – 10:30 AM', 'title': f"Wildlife Tracking Safari at {zoos[0]['name']}", 'desc': f"Located at {zoos[0]['landmark']}. Early morning slot when wildlife is actively roaming.", 'icon': '🦁'})
-            day_info['slots'].append({'time': '11:30 AM – 02:30 PM', 'title': 'Rolling Countryside Farms & Agro-Tour', 'desc': 'Drive through agricultural crop fields, organic fruit orchards, and pastoral hamlets.', 'icon': '🌾'})
+                day_info['slots'].append({'time': '06:30 AM – 10:30 AM', 'title': f"Zoo & Wildlife at {zoos[0]['name']}", 'desc': f"Located at {zoos[0]['landmark']}. Visit early in the morning when animals and birds are active and easy to spot.", 'icon': '🦁'})
+            day_info['slots'].append({'time': '11:30 AM – 02:30 PM', 'title': 'Countryside Walk & Green Farms', 'desc': 'Take a calm walk through green farm fields and village sights.', 'icon': '🌾'})
             if len(temples) > 1:
-                day_info['slots'].append({'time': '03:30 PM – 05:30 PM', 'title': f"Ancient Architectural Wonder at {temples[1]['name']}", 'desc': f"Located at {temples[1]['landmark']}.", 'icon': '🏛️'})
-            day_info['slots'].append({'time': '06:30 PM onwards', 'title': 'Night Bazaar & Street Food Trail', 'desc': 'Explore bustling evening bazaars for hot savouries and regional sweets.', 'icon': '🍢'})
+                day_info['slots'].append({'time': '03:30 PM – 05:30 PM', 'title': f"Visit {temples[1]['name']}", 'desc': f"Located at {temples[1]['landmark']}.", 'icon': '🏛️'})
+            day_info['slots'].append({'time': '06:30 PM onwards', 'title': 'Local Evening Street Food & Snacks', 'desc': 'Check out local food stalls for hot snacks and sweets.', 'icon': '🍢'})
 
         elif d == 4:
-            day_info['theme'] = 'Thrilling Waterparks, Shopping Malls & High-Energy Fun'
+            day_info['theme'] = 'Waterpark, Shopping & Fun Zones'
             if funs:
-                day_info['slots'].append({'time': '10:00 AM – 03:30 PM', 'title': f"Water Splash Adventure at {funs[0]['name']}", 'desc': f"Located at {funs[0]['landmark']}. High-speed water flumes, wave pools, and rain dance.", 'icon': '🎢'})
+                day_info['slots'].append({'time': '10:00 AM – 03:30 PM', 'title': f"Waterpark & Fun Rides at {funs[0]['name']}", 'desc': f"Located at {funs[0]['landmark']}. Have fun on the water slides, wave pool, and rides.", 'icon': '🎢'})
             if malls:
-                day_info['slots'].append({'time': '04:30 PM – 07:30 PM', 'title': f"Retail Therapy & Entertainment at {malls[0]['name']}", 'desc': f"Located at {malls[0]['landmark']}. International brands, IMAX cinema, and gaming zones.", 'icon': '🛍️'})
-            day_info['slots'].append({'time': '08:00 PM onwards', 'title': 'Rooftop Party Deck Celebration', 'desc': 'Celebrate with your group at a top-floor party cabana with city lights.', 'icon': '🎉'})
+                day_info['slots'].append({'time': '04:30 PM – 07:30 PM', 'title': f"Shopping & Entertainment at {malls[0]['name']}", 'desc': f"Located at {malls[0]['landmark']}. Shopping stores, food court, and gaming zones.", 'icon': '🛍️'})
+            day_info['slots'].append({'time': '08:00 PM onwards', 'title': 'Group Dinner & Celebration', 'desc': 'Enjoy a special dinner together. Great time for cake cutting if celebrating.', 'icon': '🎉'})
 
         elif d == 5:
-            day_info['theme'] = 'Hidden Natural Gems, Handloom Shopping & Farewell Golden Hour'
-            day_info['slots'].append({'time': '09:00 AM – 11:30 AM', 'title': 'Peaceful Hidden Lakefront or River Crossing', 'desc': 'Escape the crowds for quiet row-boating and birdwatching.', 'icon': '🚣'})
+            day_info['theme'] = 'Boating, Shopping for Gifts & Final Sunset'
+            day_info['slots'].append({'time': '09:00 AM – 11:30 AM', 'title': 'Boating or Lake Walk', 'desc': 'Relax near the water with boating and quiet views.', 'icon': '🚣'})
             if len(malls) > 1:
-                day_info['slots'].append({'time': '01:00 PM – 04:00 PM', 'title': f"Traditional Artisan Handicraft Shopping at {malls[1]['name']}", 'desc': f"Located at {malls[1]['landmark']}. Authentic handwoven textiles, spices, and keepsakes.", 'icon': '🧵'})
-            day_info['slots'].append({'time': '05:00 PM – 07:30 PM', 'title': 'Farewell Panoramic Sunset Overlook', 'desc': 'Watch the golden sun dip below the horizon with group memories and photos.', 'icon': '🌅'})
+                day_info['slots'].append({'time': '01:00 PM – 04:00 PM', 'title': f"Shopping for Local Clothes & Sweets at {malls[1]['name']}", 'desc': f"Located at {malls[1]['landmark']}. Buy local famous clothes, traditional items, and gifts to take home.", 'icon': '🧵'})
+            day_info['slots'].append({'time': '05:00 PM – 07:30 PM', 'title': 'Farewell Sunset & Group Photos', 'desc': 'Take group photos, enjoy the sunset, and complete your trip happily.', 'icon': '🌅'})
         else:
-            day_info['theme'] = f'Day {d} Off-Beat Exploration'
-            day_info['slots'].append({'time': '10:00 AM – 05:00 PM', 'title': 'Slow-Paced Countryside & Cafe Hopping', 'desc': 'Relax in quiet hill gardens, local art galleries, and quaint artisan cafes.', 'icon': '🌿'})
+            day_info['theme'] = f'Day {d} Relaxed Exploration'
+            day_info['slots'].append({'time': '10:00 AM – 05:00 PM', 'title': 'Relaxed Day & Local Cafes', 'desc': 'Visit quiet gardens, try local snacks, and enjoy an easy pace.', 'icon': '🌿'})
 
         plan.append(day_info)
     return plan

@@ -534,7 +534,7 @@ def get_nearby_atms(destination, state=''):
         'city': [
             {
                 'bank': 'ICICI Bank ATM & Branch',
-                'location': f'Main Commercial High Street & Clock Tower Bazaar, {dest_title}',
+                'location': f'Main Commercial High Street & Station Road, {dest_title}',
                 'proximity': 'In the heart of the main shopping & dining district',
                 'open_hours': 'Open 24/7',
                 'features': ['Cash Withdrawal', 'Cash Deposit', 'Full Banking'],
