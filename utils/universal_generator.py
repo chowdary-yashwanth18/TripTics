@@ -160,8 +160,9 @@ def generate_universal_destination(place_name):
                 must_visit = [
                     "Rushikonda Beach", "Visakhapatnam Steel Plant", "R.K Beach", 
                     "Kailasagiri", "Glass Bridge", "Indira Gandhi Zoological Park", 
+                    "Inorbit Mall (Onorbit Mall)", "Sea Harrier Museum",
                     "Yarada Beach", "Dabbilepalem Beach", "Novotel Visakhapatnam", 
-                    "Dolphin Hotel", "CMR Shopping Mall", "Tenneti Park", 
+                    "Dolphin Hotel", "CMR Central Mall", "Tenneti Park", 
                     "Submarine Museum", "Simhachalam Temple", "Dolphin's Nose",
                     "MVP Colony Street Food", "YMCA Night Food Court", "RTC Complex Food Street"
                 ]

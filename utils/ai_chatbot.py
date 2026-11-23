@@ -258,9 +258,18 @@ CURATED_DESTINATIONS = {
             ],
             'fun_zones_waterparks': [
                 "🎢 **Kailasagiri Hilltop Fun Zone & Ropeway**: Titanic viewpoint, circular toy train, and 40-ft Shiva-Parvathi statue overlooking the coastal curve.",
-                "🚢 **INS Kursura Submarine Museum & TU-142 Aircraft Museum** (RK Beach): Real walk-through naval submarine and maritime reconnaissance bomber aircraft directly on the beach.",
+                "🚢 **INS Kursura Submarine & TU-142 Aircraft Museum** (RK Beach): Real walk-through naval submarine and maritime reconnaissance bomber aircraft directly on the beach.",
+                "✈️ **Sea Harrier Museum** (RK Beach Promenade): Real supersonic naval fighter jet on oceanfront glass observation deck.",
                 "🏄 **Rushikonda Beach Water Adventure Sports**: Jet-skiing, speedboats, banana rides, kayaking, and certified surfing school.",
-                "⛲ **VMRDA City Central Park**: 22-acre urban botanical garden with musical dancing fountain and bonsai park."
+                "⛲ **VMRDA City Central Park & VUDA Park**: Musical dancing fountain, roller skating rink, and bonsai garden."
+            ],
+            'shopping_malls': [
+                "🛍️ **Inorbit Mall Visakhapatnam (Onorbit Mall)** (Salagramapuram / Kailasapuram, Port Area): Mega 600,000+ sq ft landmark shopping and entertainment hub with 150+ international/national stores, luxury hypermarket, grand food court, and multiplex.",
+                "🛍️ **CMR Central Mall** (Maddilapalem, NH-16): Premier 5-story shopping mall with INOX multiplex, bowling alley, food court, and fashion brands.",
+                "🛍️ **Visakhapatnam Central (Central Mall)** (Suryabagh / Jagadamba): Multi-floor department store with leading national apparel and lifestyle labels.",
+                "🛍️ **Chitralaya Mall & INOX** (Suryabagh, Jagadamba): Central city mall with multi-screen INOX movie halls and family dining.",
+                "🛍️ **Lepakshi Andhra Handicrafts Emporium** (Near Jagadamba Junction): Authentic GI-tagged Kondapalli toys, Kalamkari hand-printed textiles, and sandalwood artifacts.",
+                "🛍️ **Kurupam Market & Jagadamba Bazaars**: Centuries-old bazaar lane famous for pure gold jewelry and authentic Uppada Jamdani silk sarees."
             ]
         },
 
@@ -1477,7 +1486,7 @@ Please provide an actionable, highly helpful, and well-structured response addre
     ])
 
     is_malls = any(k in query_lower for k in [
-        'mall', 'malls', 'shopping', 'bazaar', 'market', 'buy', 'souvenir', 'handicraft', 'cloth', 'textile'
+        'mall', 'malls', 'shopping', 'bazaar', 'market', 'buy', 'souvenir', 'handicraft', 'cloth', 'textile', 'onorbit', 'inorbit', 'cmr', 'chitralaya', 'central mall'
     ])
 
     is_dining = any(k in query_lower for k in [

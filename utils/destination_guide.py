@@ -552,6 +552,12 @@ DESTINATION_MASTER_REGISTRY = {
                     'landmark': 'Sankaram village, near Anakapalle (~35 km from Vizag center)',
                     'desc': '4th to 9th-century monolithic rock-cut Buddhist stupas, meditative caves, and rock-carved Buddha reliefs perched on twin hills.',
                     'timing': '09:00 AM – 05:00 PM'
+                },
+                {
+                    'name': 'ISKCON Temple Visakhapatnam',
+                    'landmark': 'Sagar Nagar, Beach Road, Visakhapatnam',
+                    'desc': 'Serene beachfront temple dedicated to Lord Krishna and Radha, offering peaceful bhajans, evening aarti, spiritual bookshop, and pure vegetarian prasadam.',
+                    'timing': '04:30 AM – 08:30 PM'
                 }
             ],
             'hills_viewpoints': [
@@ -566,6 +572,18 @@ DESTINATION_MASTER_REGISTRY = {
                     'landmark': 'Gangavaram port approach, 10 km south of Vizag city center',
                     'desc': 'Dramatic 358-meter rocky promontory projecting into the sea resembling a dolphin\'s snout, featuring a powerful coastal lighthouse.',
                     'highlight': 'Breathtaking 360-degree ocean views, historic harbor entrance overlook'
+                },
+                {
+                    'name': 'Ross Hill Harbor & Channel Viewpoint',
+                    'landmark': 'Ross Hill Road, Port Area, Visakhapatnam',
+                    'desc': 'Spectacular elevated harbor overlook capturing giant international cargo vessels navigating the inner harbor entrance channel.',
+                    'highlight': 'Port channel panoramas, massive cargo ship viewing, tri-faith sacred shrines'
+                },
+                {
+                    'name': 'Tenneti Park Cliffside Overlook & Shipwreck',
+                    'landmark': 'Jodugullapalem, Beach Road (below Kailasagiri Hill), Visakhapatnam',
+                    'desc': 'Picturesque cliff park with stone steps descending to the beach, famous for close-up views of the stranded merchant shipwreck Bangladesh MV Maa.',
+                    'highlight': 'Shipwreck photo point, romantic sunset vistas, stepped cliff walk'
                 },
                 {
                     'name': 'Thotlakonda & Bavikonda Coastal Hill Plateaus',
@@ -660,10 +678,28 @@ DESTINATION_MASTER_REGISTRY = {
             ],
             'shopping_malls': [
                 {
+                    'name': 'Inorbit Mall Visakhapatnam (Onorbit Mall)',
+                    'landmark': 'Salagramapuram / Kailasapuram, Port Area, Visakhapatnam',
+                    'desc': 'Mega flagship shopping & entertainment destination developed across 600,000+ sq ft featuring over 150+ international and national fashion stores, luxury hypermarket, grand food court, and multiplex.',
+                    'highlight': 'Flagship lifestyle brands, INOX megaplex, gaming arena, vast dining pavilion'
+                },
+                {
                     'name': 'CMR Central Mall',
                     'landmark': 'Maddilapalem Junction, National Highway 16, Visakhapatnam',
                     'desc': 'Premier 5-story shopping mall with lifestyle departmental stores, INOX multiplex cinemas, multi-cuisine food court, and gaming zone.',
                     'highlight': 'National & international fashion, bowling alley, kids play zone'
+                },
+                {
+                    'name': 'Visakhapatnam Central (Central Mall)',
+                    'landmark': 'Suryabagh, near Jagadamba Junction, Visakhapatnam',
+                    'desc': 'Large multi-level department store offering hundreds of leading fashion labels, cosmetics, travel luggage, and footwear with seasonal deals.',
+                    'highlight': 'Departmental store fashion, branded apparel, central city location'
+                },
+                {
+                    'name': 'Chitralaya Mall & INOX',
+                    'landmark': 'Suryabagh, Jagadamba Centre, Visakhapatnam',
+                    'desc': 'Popular retail and entertainment complex in central Vizag featuring multi-screen INOX movie theaters, family eateries, and apparel outlets.',
+                    'highlight': 'Multiplex movies, casual dining, shopping in city center'
                 },
                 {
                     'name': 'Lepakshi Andhra Handicrafts Emporium',
@@ -676,6 +712,12 @@ DESTINATION_MASTER_REGISTRY = {
                     'landmark': 'Old Post Office Road to Jagadamba Junction, Visakhapatnam',
                     'desc': 'Centuries-old bustling traditional bazaar lane famous for pure gold jewelry, authentic Uppada silk sarees, and local brassware.',
                     'highlight': 'Traditional wedding jewelry, Uppada Jamdani handloom silk'
+                },
+                {
+                    'name': 'Daba Gardens & Waltair Uplands Shopping District',
+                    'landmark': 'Waltair Uplands & Daba Gardens Road, Visakhapatnam',
+                    'desc': 'Vibrant urban high-street shopping lane packed with boutique fashion stores, electronic gadgets, bookstores, and chic cafes.',
+                    'highlight': 'Designer boutiques, books & electronics, seaside apparel'
                 }
             ],
             'fun_zones_waterparks': [
@@ -692,10 +734,28 @@ DESTINATION_MASTER_REGISTRY = {
                     'highlight': 'VR cockpit flight simulator, survival equipment exhibits'
                 },
                 {
+                    'name': 'Sea Harrier Museum',
+                    'landmark': 'Beach Road Promenade (next to TU-142 Museum), Visakhapatnam',
+                    'desc': 'Iconic Indian Navy Sea Harrier supersonic vertical takeoff fighter jet mounted on a glass oceanfront observation deck with cockpit audio tour.',
+                    'highlight': 'Supersonic naval fighter jet, glass deck photo point, naval aviation history'
+                },
+                {
                     'name': 'Rushikonda Beach Water Adventure Sports',
                     'landmark': 'Rushikonda Beach, Marine Drive, Visakhapatnam',
                     'desc': 'Premier coastal water sports center offering jet-skiing, banana boat rides, sea kayaking, scuba diving, and surfing lessons.',
                     'highlight': 'Jet-ski rides, scuba diving, certified surfing school'
+                },
+                {
+                    'name': 'VMRDA Park (VUDA Park) & Musical Dancing Fountain',
+                    'landmark': 'Beach Road, near RK Beach, Visakhapatnam',
+                    'desc': 'Scenic 37-acre beachfront recreational park featuring an illuminated musical dancing water fountain, roller-skating rink, boating, and beach horseback rides.',
+                    'highlight': 'Musical fountain show at 07:00 PM, roller-skating rink, boating'
+                },
+                {
+                    'name': 'Victory at Sea Memorial & Promenade Walk',
+                    'landmark': 'Beach Road Promenade (near Submarine Museum), Visakhapatnam',
+                    'desc': 'Solemn naval war memorial commemorating the 1971 Indo-Pak war victory, featuring captured missiles, naval artillery, and eternal flame.',
+                    'highlight': 'Naval artillery & missile exhibits, illuminated promenade walk'
                 },
                 {
                     'name': 'Matsyadarshini Marine Aquarium',

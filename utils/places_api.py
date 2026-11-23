@@ -21,6 +21,28 @@ from utils.provenance import (
 VERIFIED_ATTRACTIONS_REGISTRY = {
     'visakhapatnam': [
         {
+            'name': 'Inorbit Mall Visakhapatnam (Onorbit Mall)',
+            'address': 'Salagramapuram / Kailasapuram, Port Area, Visakhapatnam',
+            'description': 'Mega flagship shopping & entertainment mall spanning 600,000+ sq ft with 150+ international stores, multiplex, gaming zone, and grand food court.',
+            'entry_fee': 'Free Public Access',
+            'entry_cost_inr': 0,
+            'opening_hours': '10:30 AM – 10:00 PM Daily',
+            'official_url': 'https://www.inorbit.in/',
+            'duration': '2-4 hours',
+            'rating': 4.8
+        },
+        {
+            'name': 'CMR Central Mall',
+            'address': 'Maddilapalem Junction, National Highway 16, Visakhapatnam',
+            'description': 'Popular 5-story shopping mall with INOX multiplex, lifestyle fashion stores, bowling alley, and food court.',
+            'entry_fee': 'Free Public Access',
+            'entry_cost_inr': 0,
+            'opening_hours': '10:00 AM – 10:00 PM Daily',
+            'official_url': 'https://cmrcentral.com/',
+            'duration': '2-3 hours',
+            'rating': 4.5
+        },
+        {
             'name': 'INS Kursura Submarine Museum',
             'address': 'RK Beach Road, Pandurangapuram, Visakhapatnam',
             'description': 'Real decommissioned Soviet-built submarine converted into a museum on the beach sands.',
@@ -29,6 +51,17 @@ VERIFIED_ATTRACTIONS_REGISTRY = {
             'opening_hours': '2:00 PM – 8:30 PM (Closed Mondays)',
             'official_url': 'https://visakhapatnam.ap.gov.in/',
             'duration': '1-2 hours',
+            'rating': 4.7
+        },
+        {
+            'name': 'Sea Harrier Museum',
+            'address': 'Beach Road Promenade (next to TU-142 Museum), Visakhapatnam',
+            'description': 'Iconic Indian Navy Sea Harrier supersonic vertical-takeoff jet mounted on an oceanfront glass deck.',
+            'entry_fee': '₹50 Adults, ₹30 Children',
+            'entry_cost_inr': 50,
+            'opening_hours': '2:00 PM – 8:30 PM (Sundays from 10:30 AM)',
+            'official_url': 'https://visakhapatnam.ap.gov.in/',
+            'duration': '1 hour',
             'rating': 4.7
         },
         {
@@ -43,6 +76,17 @@ VERIFIED_ATTRACTIONS_REGISTRY = {
             'rating': 4.6
         },
         {
+            'name': 'Sri Varaha Lakshmi Narasimha Temple (Simhachalam)',
+            'address': 'Simhachalam Hill, Visakhapatnam',
+            'description': 'Celebrated 11th-century hill shrine where Lord Narasimha is covered with sacred sandalwood paste.',
+            'entry_fee': 'Free (Special Darshan ₹100)',
+            'entry_cost_inr': 0,
+            'opening_hours': '06:00 AM – 09:00 PM Daily',
+            'official_url': 'https://simhachalam.org.in/',
+            'duration': '2-3 hours',
+            'rating': 4.8
+        },
+        {
             'name': 'Rushikonda Beach',
             'address': 'Rushikonda, Bheemili Road, Visakhapatnam',
             'description': 'Blue Flag certified pristine beach famous for golden sands, swimming, and water sports.',
@@ -52,6 +96,17 @@ VERIFIED_ATTRACTIONS_REGISTRY = {
             'official_url': 'https://aptourism.gov.in/',
             'duration': '2-4 hours',
             'rating': 4.5
+        },
+        {
+            'name': 'Indira Gandhi Zoological Park',
+            'address': 'Marine Drive, Yendada, Visakhapatnam',
+            'description': '625-acre natural coastal zoo with open-moated habitats for white tigers, lions, and exotic birds.',
+            'entry_fee': '₹50 Adults, ₹20 Children',
+            'entry_cost_inr': 50,
+            'opening_hours': '09:00 AM – 05:00 PM (Closed Mondays)',
+            'official_url': 'https://vizagzoo.com/',
+            'duration': '3-4 hours',
+            'rating': 4.6
         },
         {
             'name': 'TU-142 Aircraft Museum',
