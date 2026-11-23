@@ -2369,18 +2369,90 @@ function recordResultsScannedPayment(tripId) {
     }
 }
 
-function updateResultsDynamicUpiQr() {
+function setResultsVpaSuffix(suffix) {
+    const vpaInput = document.getElementById('resQrYourVpa');
+    if (!vpaInput) return;
+    let base = vpaInput.value.trim().split('@')[0];
+    if (!base) base = 'yashwanth';
+    vpaInput.value = base + suffix;
+    updateResultsDynamicUpiQr();
+}
+
+function uploadResultsPersonalQrScreenshot(input) {
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const container = document.getElementById('resMyLocalQrContainer');
+        if (container) {
+            container.innerHTML = `<img src="${e.target.result}" alt="My Real PhonePe QR Screenshot" class="img-fluid rounded" style="max-height: 190px; object-fit: contain;">`;
+        }
+        showSpendToast("✓ Your actual PhonePe QR screenshot loaded successfully!");
+    };
+    reader.readAsDataURL(file);
+}
+
+function copyResultsUpiPaymentLink() {
     const amtInput = document.getElementById('resQrItemAmount');
     const nameInput = document.getElementById('resQrItemName');
     const vpaInput = document.getElementById('resQrYourVpa');
     const amt = parseFloat(amtInput ? amtInput.value : 500) || 500;
-    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Trip Share') || 'Trip Share');
-    const vpa = encodeURIComponent((vpaInput ? vpaInput.value.trim() : 'triptics@upi') || 'triptics@upi');
-    const upiString = `upi://pay?pa=${vpa}&pn=${name}&am=${amt}&cu=INR&tn=${name}`;
+    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Yashwanth') || 'Yashwanth');
+    const vpa = (vpaInput ? vpaInput.value.trim() : 'yashwanth@ybl') || 'yashwanth@ybl';
+    const upiString = `upi://pay?pa=${vpa}&pn=${name}&am=${amt}&cu=INR&tn=Trip%20Share`;
     
-    const qrImg = document.getElementById('resDynamicUpiQrImg');
-    if (qrImg) {
-        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}`;
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(upiString).then(() => {
+            showSpendToast("✓ Copied UPI payment link to clipboard!");
+        });
+    } else {
+        alert("Payment Link: " + upiString);
+    }
+}
+
+function updateResultsDynamicUpiQr() {
+    const amtInput = document.getElementById('resQrItemAmount');
+    const nameInput = document.getElementById('resQrItemName');
+    const vpaInput = document.getElementById('resQrYourVpa');
+    
+    const amt = parseFloat(amtInput ? amtInput.value : 500) || 500;
+    const name = (nameInput ? nameInput.value.trim() : 'Yashwanth (Trip Host)') || 'Yashwanth (Trip Host)';
+    const vpa = (vpaInput ? vpaInput.value.trim() : 'yashwanth@ybl') || 'yashwanth@ybl';
+    
+    // Update labels on PhonePe card
+    const cardName = document.getElementById('resCardHostName');
+    const cardVpa = document.getElementById('resCardHostVpa');
+    const cardAmt = document.getElementById('resCardHostAmount');
+    if (cardName) cardName.textContent = name;
+    if (cardVpa) cardVpa.textContent = vpa;
+    if (cardAmt) cardAmt.textContent = '₹' + amt.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
+    const upiString = `upi://pay?pa=${encodeURIComponent(vpa)}&pn=${encodeURIComponent(name)}&am=${amt}&cu=INR&tn=Trip%20Share%20Settlement`;
+    
+    const deepLink = document.getElementById('resDirectPhonePeDeepLink');
+    if (deepLink) {
+        deepLink.href = upiString;
+    }
+    
+    const qrContainer = document.getElementById('resMyLocalQrContainer');
+    if (qrContainer) {
+        qrContainer.innerHTML = '';
+        try {
+            if (typeof QRCode !== 'undefined') {
+                new QRCode(qrContainer, {
+                    text: upiString,
+                    width: 190,
+                    height: 190,
+                    colorDark : "#0f172a",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.M
+                });
+            } else {
+                qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(upiString)}" class="img-fluid rounded" alt="QR Code">`;
+            }
+        } catch(e) {
+            qrContainer.innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=190x190&data=${encodeURIComponent(upiString)}" class="img-fluid rounded" alt="QR Code">`;
+        }
     }
 }
 
@@ -2420,6 +2492,15 @@ function parseAndAddResultSMS(tripId) {
     const fakeEvent = { preventDefault: () => {} };
     handleSmartSpendSubmit(fakeEvent, tripId);
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const resModalEl = document.getElementById('resultsUpiQrModal');
+    if (resModalEl) {
+        resModalEl.addEventListener('shown.bs.modal', function () {
+            setTimeout(updateResultsDynamicUpiQr, 60);
+        });
+    }
+});
 </script>
 
 {# ── Results Real Dynamic UPI QR Code & Merchant Camera Scanner Modal ── #}
@@ -2446,8 +2527,8 @@ function parseAndAddResultSMS(tripId) {
                         </button>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <button class="nav-link rounded-pill fw-bold py-2 small" id="res-settle-group-tab" data-bs-toggle="pill" data-bs-target="#res-tab-group-settlement" type="button" role="tab" onclick="stopResultsCameraScanner()">
-                            <i class="bi bi-qr-code me-1 text-purple"></i> 📱 Show My Settlement QR (Split)
+                        <button class="nav-link rounded-pill fw-bold py-2 small" id="res-settle-group-tab" data-bs-toggle="pill" data-bs-target="#res-tab-group-settlement" type="button" role="tab" onclick="stopResultsCameraScanner(); setTimeout(updateResultsDynamicUpiQr, 60);">
+                            <i class="bi bi-qr-code me-1 text-purple"></i> 📱 Show My Real PhonePe QR (Settlement)
                         </button>
                     </li>
                 </ul>
@@ -2543,40 +2624,104 @@ function parseAndAddResultSMS(tripId) {
                         </div>
                     </div>
 
-                    <!-- Tab 2: Show Group Settlement QR (With Friends) -->
-                    <div class="tab-pane fade text-center" id="res-tab-group-settlement" role="tabpanel">
+                    <!-- Tab 2: Show My Personal PhonePe / Settlement QR (With Friends) -->
+                    <div class="tab-pane fade" id="res-tab-group-settlement" role="tabpanel">
                         <div class="alert alert-warning border-0 rounded-3 py-2 px-3 small text-start d-flex align-items-center gap-2 mb-3">
                             <i class="bi bi-people-fill text-warning fs-5"></i>
                             <div>
-                                <strong>Group Travel Settlement Flow:</strong> Show this QR code to your friends or co-travelers so they can scan it with their PhonePe/GPay app to pay you back their individual share!
+                                <strong>Your Personal Settlement QR:</strong> Show this PhonePe QR code to your friends or co-travelers so they can scan and reimburse you their individual share (<strong>₹{{ trip_diary.per_person_share or '0.00' }}</strong>)!
                             </div>
                         </div>
 
-                        <div class="row g-2 mb-3 text-start justify-content-center">
-                            <div class="col-md-5">
-                                <label class="form-label small fw-bold text-dark mb-1">Settlement Note / Title</label>
-                                <input type="text" id="resQrItemName" class="form-control form-control-sm rounded-pill px-3" value="Trip Group Share Reimbursement" placeholder="e.g. Tirupati Split Share" oninput="updateResultsDynamicUpiQr()">
+                        <!-- User Customization Controls -->
+                        <div class="card border-0 bg-light p-3 rounded-4 mb-3 text-start shadow-xs">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <h6 class="fw-bold mb-0 small text-dark"><i class="bi bi-person-badge me-1 text-primary"></i> Set Your Real UPI Details:</h6>
+                                <span class="badge bg-purple-subtle text-purple border" style="font-size: 0.68rem;">Live Auto-Generate</span>
                             </div>
-                            <div class="col-md-3">
-                                <label class="form-label small fw-bold text-dark mb-1">Your Split Share (₹)</label>
-                                <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="{{ trip_diary.per_person_share or 500 }}" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
+                            <div class="row g-2">
+                                <div class="col-md-4">
+                                    <label class="form-label small fw-bold text-dark mb-1">Your Name</label>
+                                    <input type="text" id="resQrItemName" class="form-control form-control-sm rounded-pill px-3" value="Yashwanth (Trip Host)" placeholder="Your Name" oninput="updateResultsDynamicUpiQr()">
+                                </div>
+                                <div class="col-md-5">
+                                    <label class="form-label small fw-bold text-dark mb-1">Your PhonePe UPI ID (VPA)</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" id="resQrYourVpa" class="form-control rounded-pill px-3" value="yashwanth@ybl" placeholder="e.g. 9876543210@ybl" oninput="updateResultsDynamicUpiQr()">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label class="form-label small fw-bold text-dark mb-1">Split Amount (₹)</label>
+                                    <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="{{ trip_diary.per_person_share or 500 }}" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
+                                </div>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label small fw-bold text-dark mb-1">Your UPI ID (VPA)</label>
-                                <input type="text" id="resQrYourVpa" class="form-control form-control-sm rounded-pill px-3" value="triptics@upi" placeholder="e.g. yourname@ybl" oninput="updateResultsDynamicUpiQr()">
+                            
+                            <div class="d-flex flex-wrap align-items-center justify-content-between mt-2 pt-2 border-top gap-2">
+                                <div class="d-flex align-items-center gap-1">
+                                    <small class="text-muted fw-semibold" style="font-size: 0.72rem;">Quick VPA suffix:</small>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-0" style="font-size: 0.65rem;" onclick="setResultsVpaSuffix('@ybl')">@ybl (PhonePe)</button>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-0" style="font-size: 0.65rem;" onclick="setResultsVpaSuffix('@oksbi')">@oksbi (GPay)</button>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-0" style="font-size: 0.65rem;" onclick="setResultsVpaSuffix('@paytm')">@paytm</button>
+                                </div>
+                                <div>
+                                    <label for="resCustomQrScreenshotInput" class="btn btn-xs btn-outline-primary rounded-pill px-2 py-1 shadow-xs mb-0" style="font-size: 0.72rem; cursor: pointer;">
+                                        <i class="bi bi-image me-1"></i> 📸 Upload My Real PhonePe QR Screenshot
+                                    </label>
+                                    <input type="file" id="resCustomQrScreenshotInput" accept="image/*" class="d-none" onchange="uploadResultsPersonalQrScreenshot(this)">
+                                </div>
                             </div>
                         </div>
 
-                        <div class="p-3 bg-light rounded-4 border d-inline-block shadow-xs mb-3 position-relative">
-                            <img id="resDynamicUpiQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=triptics@upi%26pn=TripTics%20Settlement%26am=500%26cu=INR" 
-                                 alt="Settlement UPI QR Code" width="200" height="200" class="rounded-3 shadow-xs">
-                            <div class="small fw-bold text-dark mt-2 d-flex align-items-center justify-content-center gap-1">
-                                <span class="badge bg-primary text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;">Any UPI App</span>
-                                <span>PhonePe • GPay • Paytm</span>
+                        <!-- Official PhonePe-Style QR Stand Card -->
+                        <div class="text-center mx-auto" style="max-width: 320px;">
+                            <div class="card border-0 shadow-sm rounded-4 overflow-hidden" style="background: #ffffff; border: 2px solid #5f259f !important;">
+                                <!-- PhonePe Header -->
+                                <div class="py-2 px-3 text-white text-center" style="background: linear-gradient(135deg, #5f259f 0%, #3b1464 100%);">
+                                    <div class="d-flex align-items-center justify-content-center gap-2">
+                                        <span class="fs-5">🟣</span>
+                                        <span class="fw-bold tracking-wide" style="font-size: 1.05rem; letter-spacing: 0.5px;">PhonePe</span>
+                                    </div>
+                                    <div class="text-white-50" style="font-size: 0.68rem;">Accepted Here • All UPI Apps Supported</div>
+                                </div>
+
+                                <!-- Card Body with QR Code -->
+                                <div class="p-3">
+                                    <div class="mb-2">
+                                        <h6 class="fw-bold mb-0 text-dark" id="resCardHostName">Yashwanth (Trip Host)</h6>
+                                        <div class="text-primary small fw-semibold" style="font-size: 0.76rem;" id="resCardHostVpa">yashwanth@ybl</div>
+                                        <div class="badge bg-success-subtle text-success fw-bold rounded-pill px-2 py-1 mt-1" style="font-size: 0.74rem;">
+                                            Amount to Pay: <span id="resCardHostAmount">₹{{ trip_diary.per_person_share or '500.00' }}</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Canvas/Image Container for QR Code -->
+                                    <div class="p-2 bg-white rounded-3 border d-inline-flex justify-content-center align-items-center shadow-xs my-1 position-relative" style="min-height: 200px; min-width: 200px;">
+                                        <div id="resMyLocalQrContainer" class="d-flex justify-content-center align-items-center"></div>
+                                    </div>
+
+                                    <!-- NPCI & UPI App Logos Footer -->
+                                    <div class="pt-2 border-top mt-1">
+                                        <div class="d-flex justify-content-center align-items-center gap-1 small text-muted" style="font-size: 0.66rem;">
+                                            <span class="badge bg-light text-dark border">PhonePe</span>
+                                            <span class="badge bg-light text-dark border">GPay</span>
+                                            <span class="badge bg-light text-dark border">Paytm</span>
+                                            <span class="badge bg-light text-dark border">BHIM</span>
+                                        </div>
+                                        <small class="text-muted d-block mt-1" style="font-size: 0.64rem;">Scan with any phone camera or UPI app</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Links -->
+                            <div class="d-flex justify-content-center gap-2 mt-3">
+                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill px-3 shadow-xs" onclick="copyResultsUpiPaymentLink()">
+                                    <i class="bi bi-clipboard me-1"></i> Copy UPI Link
+                                </button>
+                                <a id="resDirectPhonePeDeepLink" href="upi://pay?pa=yashwanth@ybl&pn=Yashwanth&am=500&cu=INR" class="btn btn-sm text-white rounded-pill px-3 shadow-xs d-md-none" style="background: #5f259f;">
+                                    🟣 Open in PhonePe
+                                </a>
                             </div>
                         </div>
-
-                        <p class="text-muted small mb-0">Friends scan this QR directly using PhonePe, Google Pay, or Paytm camera to transfer funds straight to you.</p>
                     </div>
                 </div>
             </div>
