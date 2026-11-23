@@ -50,6 +50,11 @@ def planner():
         trip_type    = 'all'
         budget_style = 'all'
         target_state = request.form.get('target_state', 'all').strip()
+        from utils.hotel_generator import normalize_location
+        if target_state and target_state.lower() not in ['all', 'anywhere in the world']:
+            norm_ts = normalize_location(target_state)
+            if norm_ts and norm_ts != target_state.lower():
+                target_state = norm_ts.title()
         starting_city = request.form.get('starting_city', '').strip()
         travel_date = request.form.get('travel_date', '').strip()
         outbound_transport = (request.form.get('outbound_transport') or 'any').strip() or 'any'
@@ -190,6 +195,10 @@ def hotels():
     location = request.form.get('location', '').strip() if request.method == 'POST' else request.args.get('location', '').strip()
     
     if location:
+        from utils.hotel_generator import normalize_location
+        norm_loc = normalize_location(location)
+        if norm_loc and norm_loc != location.lower():
+            location = norm_loc.title()
         hotel_results = generate_hotels(location)
         from utils.currency import get_currency_info
         from utils.hotel_apps import get_country_hotel_info

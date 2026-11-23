@@ -1479,7 +1479,7 @@ def get_destination_master_guide(destination, state='', days=3):
         guide = dict(matched)
         guide['destination'] = dest_title
         guide['days'] = days_count
-        guide['stays'] = stays[:5]
+        guide['stays'] = stays[:6]
         guide['atms'] = atms
         guide['map_embed_url'] = f"https://maps.google.com/maps?q={urllib.parse.quote_plus(guide.get('map_query', dest_title))}&t=&z=11&ie=UTF8&iwloc=&output=embed"
         guide['enthusiastic_itinerary'] = _build_enthusiastic_plan(dest_title, guide['tourist_spots'], days_count)
@@ -1679,7 +1679,7 @@ def get_destination_master_guide(destination, state='', days=3):
         'dining_cuisine': dynamic_dining,
         'culture_traditions': dynamic_culture,
         'celebrations_venues': dynamic_celebrations,
-        'stays': stays[:5],
+        'stays': stays[:6],
         'atms': atms,
         'enthusiastic_itinerary': _build_enthusiastic_plan(dest_title, dynamic_spots, days_count)
     }

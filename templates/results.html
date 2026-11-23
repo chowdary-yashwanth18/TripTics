@@ -306,6 +306,13 @@
                                                 ⭐ {{ stay.rating }}
                                             </span>
                                         </div>
+                                        {% if stay.badge %}
+                                        <div class="mb-1">
+                                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-semibold py-0 px-2" style="font-size: 0.62rem;">
+                                                {{ stay.badge }}
+                                            </span>
+                                        </div>
+                                        {% endif %}
                                         <div class="text-muted small mb-1"><i class="bi bi-geo-alt-fill text-danger"></i> {{ stay.address }}</div>
                                         <div class="d-flex justify-content-between align-items-center mt-1 pt-1 border-top" style="font-size: 0.7rem;">
                                             <a href="tel:{{ stay.phone }}" class="text-decoration-none text-primary fw-semibold">
@@ -449,7 +456,7 @@
                 </small>
                 {% endif %}
                 <div class="d-flex flex-column gap-2 mt-2">
-                    {% for stay in local_stays[:3] %}
+                    {% for stay in local_stays[:4] %}
                     <div class="p-2 bg-white rounded-3 border shadow-xs d-flex flex-column gap-1">
                         <div class="d-flex justify-content-between align-items-center">
                             <span class="fw-bold text-dark small text-truncate" style="max-width: 68%;">🏨 {{ stay.name }}</span>
@@ -457,6 +464,13 @@
                                 <i class="bi bi-star-fill text-dark me-1"></i> {{ stay.rating }}
                             </span>
                         </div>
+                        {% if stay.badge %}
+                        <div>
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-semibold py-0 px-2" style="font-size: 0.64rem;">
+                                {{ stay.badge }}
+                            </span>
+                        </div>
+                        {% endif %}
                         <div class="d-flex flex-wrap gap-1">
                             {% for fac in stay.facilities[:3] %}
                             <span class="badge bg-light text-secondary border font-normal py-0 px-1" style="font-size: 0.62rem;"><i class="bi {{ fac.icon }}"></i> {{ fac.name }}</span>

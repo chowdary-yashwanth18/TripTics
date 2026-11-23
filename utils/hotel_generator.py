@@ -197,37 +197,54 @@ REAL_HOTELS = {
             "name": "Novotel Visakhapatnam Varun Beach",
             "address": "Beach Road, Visakhapatnam, Andhra Pradesh",
             "outer_img": "https://upload.wikimedia.org/wikipedia/commons/9/9f/Night_view_of_Novotel_Hotel.jpg",
-            "inner_img": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
+            "inner_img": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.9,
+            "badge": "👑 Most Prestigious 5-Star Seafront Landmark",
+            "is_prestigious": True
         },
         {
             "name": "The Park Visakhapatnam",
             "address": "Beach Road, Visakhapatnam, Andhra Pradesh",
             "outer_img": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80",
-            "inner_img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "name": "Dolphin Hotel",
-            "address": "Daba Gardens, Visakhapatnam, Andhra Pradesh",
-            "outer_img": "https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=800&q=80",
-            "inner_img": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80"
+            "inner_img": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.8,
+            "badge": "⭐ Luxury Beachfront Resort",
+            "is_prestigious": True
         },
         {
             "name": "The Gateway Hotel Beach Road",
             "address": "Beach Road, Pandurangapuram, Visakhapatnam",
             "outer_img": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80",
-            "inner_img": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80"
-        },
-        {
-            "name": "Bheemili Resort Managed by Accor",
-            "address": "Bheemili Beach, Visakhapatnam, Andhra Pradesh",
-            "outer_img": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
-            "inner_img": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80"
+            "inner_img": "https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.8,
+            "badge": "⭐ Taj Luxury Sea View Stay",
+            "is_prestigious": True
         },
         {
             "name": "Radisson Blu Resort Rushikonda",
             "address": "Rushikonda Beach Road, Visakhapatnam",
             "outer_img": "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=800&q=80",
-            "inner_img": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80"
+            "inner_img": "https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.8,
+            "badge": "⭐ Hillside Oceanview Luxury",
+            "is_prestigious": True
+        },
+        {
+            "name": "Bheemili Resort Managed by Accor",
+            "address": "Bheemili Beach, Visakhapatnam, Andhra Pradesh",
+            "outer_img": "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=800&q=80",
+            "inner_img": "https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.7,
+            "badge": "⭐ Accor Coastal Haven",
+            "is_prestigious": True
+        },
+        {
+            "name": "Dolphin Hotel",
+            "address": "Daba Gardens, Visakhapatnam, Andhra Pradesh",
+            "outer_img": "https://images.unsplash.com/photo-1568495248636-6432b97bd949?auto=format&fit=crop&w=800&q=80",
+            "inner_img": "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80",
+            "rating": 4.5,
+            "badge": "Classic City Center Hotel"
         }
     ],
 
@@ -804,11 +821,60 @@ REAL_HOTELS = {
 
 # Alias mappings for common search terms
 REAL_HOTELS['vizag'] = REAL_HOTELS['visakhapatnam']
+REAL_HOTELS['vishakapatnam'] = REAL_HOTELS['visakhapatnam']
+REAL_HOTELS['vishakhapatnam'] = REAL_HOTELS['visakhapatnam']
+REAL_HOTELS['visakha'] = REAL_HOTELS['visakhapatnam']
+REAL_HOTELS['waltair'] = REAL_HOTELS['visakhapatnam']
 REAL_HOTELS['araku valley'] = REAL_HOTELS['araku']
 REAL_HOTELS['lambasingi'] = REAL_HOTELS['araku']
+REAL_HOTELS['tirupathi'] = REAL_HOTELS['tirupati']
+REAL_HOTELS['tirumala'] = REAL_HOTELS['tirupati']
+REAL_HOTELS['rajamundry'] = REAL_HOTELS['rajahmundry']
+REAL_HOTELS['rajamahendravaram'] = REAL_HOTELS['rajahmundry']
+REAL_HOTELS['bengaluru'] = REAL_HOTELS['bangalore']
 REAL_HOTELS['new delhi'] = REAL_HOTELS['delhi']
 REAL_HOTELS['japan'] = REAL_HOTELS['tokyo']
 REAL_HOTELS['uae'] = REAL_HOTELS['dubai']
+
+DESTINATION_ALIASES = {
+    'vishakapatnam': 'visakhapatnam',
+    'vishakhapatnam': 'visakhapatnam',
+    'visakhapatanam': 'visakhapatnam',
+    'visakha': 'visakhapatnam',
+    'vizag': 'visakhapatnam',
+    'waltair': 'visakhapatnam',
+    'tirupathi': 'tirupati',
+    'tirumala': 'tirupati',
+    'srikakulam': 'srikakulam',
+    'chicacole': 'srikakulam',
+    'arasavilli': 'srikakulam',
+    'srikurmam': 'srikakulam',
+    'vijayavada': 'vijayawada',
+    'bezawada': 'vijayawada',
+    'rajamundry': 'rajahmundry',
+    'rajamahendravaram': 'rajahmundry',
+    'bangalore': 'bengaluru',
+    'bombay': 'mumbai',
+    'madras': 'chennai',
+    'calcutta': 'kolkata',
+    'trivandrum': 'thiruvananthapuram',
+    'cochin': 'kochi',
+    'calicut': 'kozhikode',
+    'pondicherry': 'puducherry',
+    'banaras': 'varanasi',
+    'kashi': 'varanasi',
+    'benares': 'varanasi',
+}
+
+def normalize_location(name):
+    """Normalizes location aliases to standard canonical names."""
+    if not name:
+        return name
+    n_lower = name.lower().strip()
+    for alias, canon in DESTINATION_ALIASES.items():
+        if alias in n_lower:
+            return canon
+    return n_lower
 
 
 # ==============================================================================
@@ -901,11 +967,15 @@ def generate_hotels(location):
     hash_val = int(hashlib.md5(loc_clean.encode('utf-8')).hexdigest(), 16)
     random.seed(hash_val)
 
-    # 1. Match curated real hotels if registered
+    # 1. Match curated real hotels if registered (with alias resolution)
     selected_hotels = None
+    is_curated_match = False
+    norm_loc = normalize_location(loc_clean)
+
     for key in sorted(REAL_HOTELS.keys(), key=len, reverse=True):
-        if key in loc_clean:
+        if key in norm_loc or key in loc_clean:
             selected_hotels = REAL_HOTELS[key]
+            is_curated_match = True
             break
 
     cat = get_hotel_category(loc_clean)
@@ -984,7 +1054,9 @@ def generate_hotels(location):
         if "Nagavali" in name:
             price = random.randint(1200, 2500)
 
-        rating = round(random.uniform(4.1, 4.9), 1)
+        rating = h.get('rating') or round(random.uniform(4.2, 4.9), 1)
+        badge = h.get('badge')
+        is_prestigious = h.get('is_prestigious', False)
 
         # Select rich, realistic facilities (5 to 7 amenities per stay)
         k_amenities = random.randint(5, 7)
@@ -1047,6 +1119,8 @@ def generate_hotels(location):
             'contact_phone': phone,
             'price': price,
             'rating': rating,
+            'badge': badge,
+            'is_prestigious': is_prestigious,
             'amenities': amenities,
             'facilities': formatted_facs,
             'booking_options': booking_options,
@@ -1055,5 +1129,8 @@ def generate_hotels(location):
             'inner_image_url': inner_img
         })
 
-    hotels.sort(key=lambda x: x['price'])
+    # For curated real hotels, preserve their prestigious priority ranking!
+    # For generic fallback hotels, sort by price
+    if not is_curated_match:
+        hotels.sort(key=lambda x: x['price'])
     return hotels

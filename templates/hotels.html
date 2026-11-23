@@ -161,6 +161,13 @@
             {# ── Card Content ── #}
             <div class="p-4 d-flex flex-column flex-grow-1">
                 <h5 class="fw-bold text-dark mb-1">{{ hotel.name }}</h5>
+                {% if hotel.badge %}
+                <div class="mb-2">
+                    <span class="badge bg-primary-subtle text-primary border border-primary-subtle font-semibold py-1 px-2" style="font-size: 0.72rem;">
+                        {{ hotel.badge }}
+                    </span>
+                </div>
+                {% endif %}
                 <p class="text-muted small mb-2"><i class="bi bi-geo-alt-fill text-danger me-1"></i> {{ hotel.address }}</p>
                 
                 {# Customer Rating & Contact Showcase (Prices removed per official booking policy) #}

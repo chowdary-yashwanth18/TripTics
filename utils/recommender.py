@@ -205,7 +205,8 @@ def recommend_destinations(df, budget, days, travelers, trip_type='all', budget_
 
     # Filter by search string if requested
     if target_state and target_state.lower() != 'all' and target_state.lower() != 'anywhere in the world':
-        search_term = target_state.lower()
+        from utils.hotel_generator import normalize_location
+        search_term = normalize_location(target_state)
         
         # First attempt an exact match to prevent 'Bali' from matching 'Mahabalipuram'
         exact_match_df = df[(df['State'].str.lower() == search_term) | 

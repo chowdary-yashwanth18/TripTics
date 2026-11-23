@@ -156,7 +156,7 @@ def generate_universal_destination(place_name):
                     "Galikonda View Point", "Cheparai Waterfalls", "Madagada Sunrise View Point", 
                     "Kothapalli Waterfalls", "Tribal Museum", "Katiki Waterfalls"
                 ]
-            elif 'visakhapatnam' in title.lower() or 'vizag' in title.lower():
+            elif any(w in title.lower() for w in ['visakhapatnam', 'vishakapatnam', 'vishakhapatnam', 'vizag', 'visakha']):
                 must_visit = [
                     "Rushikonda Beach", "Visakhapatnam Steel Plant", "R.K Beach", 
                     "Kailasagiri", "Glass Bridge", "Indira Gandhi Zoological Park", 
