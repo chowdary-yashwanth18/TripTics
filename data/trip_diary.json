@@ -8,7 +8,19 @@
       "end_date": "2026-11-27",
       "travelers": 2,
       "notes": "Door-to-door Tirupati pilgrimage and Talakona waterfalls trip with family.",
-      "created_at": "2026-11-22T10:00:00"
+      "created_at": "2026-11-22T10:00:00",
+      "status": "In-Transit (Live)",
+      "started_at": "23-Nov 10:25 AM"
+    },
+    {
+      "id": "goa-2026-11-23",
+      "destination": "Goa",
+      "origin": "Bengaluru",
+      "start_date": "2026-11-23",
+      "end_date": "2026-11-26",
+      "travelers": 2,
+      "notes": "3-Day trip to Goa",
+      "created_at": "2026-11-23T10:34:50.503597"
     }
   ],
   "expenses": [
@@ -191,6 +203,18 @@
       "date": "2026-11-22",
       "time": "11:54",
       "notes": "Roadside stall"
+    },
+    {
+      "id": "9243a451",
+      "trip_id": "tirupati-nov24",
+      "title": "Balaji Tiffins",
+      "amount": 240.0,
+      "category": "food",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-23",
+      "time": "10:25",
+      "notes": ""
     }
   ]
 }

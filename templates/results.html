@@ -1003,6 +1003,141 @@
     </div>
 </div>
 
+{# ── Unified Door-to-Door Travel Budget & Live Expense Diary ── #}
+{% if trip_diary %}
+<div class="row mb-4" id="door-to-door-tracker-section">
+    <div class="col-12">
+        <div class="glass-card p-4 rounded-4 shadow-sm border border-success border-opacity-25" style="background: linear-gradient(135deg, rgba(255,255,255,0.98), rgba(240,253,244,0.95));">
+            {# Header with Start / End Trip Buttons #}
+            <div class="d-flex flex-wrap justify-content-between align-items-center pb-3 border-bottom gap-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-circle d-flex align-items-center justify-content-center shadow-sm" style="width: 50px; height: 50px; background: linear-gradient(135deg, #10B981, #059669); color: white; font-size: 1.5rem;">
+                        <i class="bi bi-wallet-fill"></i>
+                    </div>
+                    <div>
+                        <div class="d-flex align-items-center gap-2">
+                            <h4 class="fw-bold text-dark mb-0">Door-to-Door Budget &amp; PhonePe Tracker</h4>
+                            {% if trip_diary.trip.status == 'In-Transit (Live)' %}
+                            <span class="badge bg-success text-white rounded-pill d-inline-flex align-items-center gap-1 px-3 py-1 font-semibold" style="font-size: 0.72rem;">
+                                <span class="spinner-grow spinner-grow-sm text-white" style="width: 0.5rem; height: 0.5rem;"></span>
+                                🟢 Trip in Progress (Tracking Live)
+                            </span>
+                            {% elif trip_diary.trip.status == 'Completed' %}
+                            <span class="badge bg-dark text-white rounded-pill px-3 py-1 font-semibold" style="font-size: 0.72rem;">
+                                🏁 Trip Completed &amp; Budget Settled
+                            </span>
+                            {% else %}
+                            <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill px-3 py-1 font-semibold" style="font-size: 0.72rem;">
+                                💼 Step 1: Pre-Trip Planning
+                            </span>
+                            {% endif %}
+                        </div>
+                        <small class="text-muted" style="font-size: 0.8rem;">
+                            Live door-to-door tracking for <strong>{{ target_location or 'Your Trip' }}</strong> • Departure to Return
+                        </small>
+                    </div>
+                </div>
+
+                {# Start / Finish Trip Controller Buttons #}
+                <div class="d-flex flex-wrap align-items-center gap-2">
+                    {% if trip_diary.trip.status != 'In-Transit (Live)' and trip_diary.trip.status != 'Completed' %}
+                    <form action="{{ url_for('trip_update_status') }}" method="POST" class="d-inline">
+                        <input type="hidden" name="trip_id" value="{{ trip_diary.trip.id }}">
+                        <input type="hidden" name="status" value="In-Transit (Live)">
+                        <button type="submit" class="btn btn-warning rounded-pill px-4 py-2 fw-bold shadow-sm d-flex align-items-center gap-2">
+                            <i class="bi bi-play-circle-fill"></i> ▶️ Start My Trip (Leaving Home Now)
+                        </button>
+                    </form>
+                    {% elif trip_diary.trip.status == 'In-Transit (Live)' %}
+                    <form action="{{ url_for('trip_update_status') }}" method="POST" class="d-inline" onsubmit="return confirm('Have you safely reached back home? This will finalize your budget split.');">
+                        <input type="hidden" name="trip_id" value="{{ trip_diary.trip.id }}">
+                        <input type="hidden" name="status" value="Completed">
+                        <button type="submit" class="btn btn-outline-dark rounded-pill px-3 py-2 fw-bold shadow-sm d-flex align-items-center gap-1">
+                            <i class="bi bi-house-check-fill text-success"></i> 🏁 Reached Back Home (Finish Trip)
+                        </button>
+                    </form>
+                    {% else %}
+                    <form action="{{ url_for('trip_update_status') }}" method="POST" class="d-inline">
+                        <input type="hidden" name="trip_id" value="{{ trip_diary.trip.id }}">
+                        <input type="hidden" name="status" value="In-Transit (Live)">
+                        <button type="submit" class="btn btn-outline-secondary btn-sm rounded-pill px-3 py-1">
+                            <i class="bi bi-arrow-repeat me-1"></i> Re-open Tracking
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+
+            {# 4 Summary Metric Cards #}
+            <div class="row g-2 my-3">
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100">
+                        <span class="text-muted small fw-semibold d-block"><i class="bi bi-lock-fill text-secondary me-1"></i> Pre-Booked Commitments</span>
+                        <h4 class="fw-bold text-dark mt-1 mb-0">₹{{ "{:,.2f}".format(trip_diary.prebooked_total) }}</h4>
+                        <small class="text-muted" style="font-size: 0.68rem;">Trains, Stays &amp; Passes</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100">
+                        <span class="text-muted small fw-semibold d-block"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Live On-Road Spent</span>
+                        <h4 class="fw-bold text-dark mt-1 mb-0">₹{{ "{:,.2f}".format(trip_diary.on_trip_total) }}</h4>
+                        <small class="text-muted" style="font-size: 0.68rem;">PhonePe, Autos, Food &amp; Snacks</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100" style="border-left: 4px solid var(--bs-primary) !important;">
+                        <span class="text-primary small fw-bold d-block"><i class="bi bi-wallet2 me-1"></i> Total Door-to-Door</span>
+                        <h4 class="fw-extrabold text-primary mt-1 mb-0">₹{{ "{:,.2f}".format(trip_diary.grand_total) }}</h4>
+                        <small class="text-muted" style="font-size: 0.68rem;">All-In Trip Cost</small>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100">
+                        <span class="text-success small fw-bold d-block"><i class="bi bi-people-fill me-1"></i> Share ({{ trip_diary.travelers }} Travelers)</span>
+                        <h4 class="fw-bold text-success mt-1 mb-0">₹{{ "{:,.2f}".format(trip_diary.per_person_share) }}</h4>
+                        <small class="text-muted" style="font-size: 0.68rem;">Per-person individual share</small>
+                    </div>
+                </div>
+            </div>
+
+            {# In-transit Logger Row: PhonePe SMS Parser + 1-Tap Quick Buttons #}
+            <div class="row g-3">
+                {# PhonePe SMS Paste Box #}
+                <div class="col-md-6">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100">
+                        <label class="form-label small fw-bold text-dark mb-1">
+                            <i class="bi bi-phone-fill text-primary me-1"></i> Quick PhonePe / UPI SMS Paste Logger (2-Sec Auto Add):
+                        </label>
+                        <div class="input-group input-group-sm mb-2">
+                            <input type="text" class="form-control" id="resultsSmsInput" placeholder="Paste SMS: e.g. Paid Rs. 180 to BALAJI TIFFINS via PhonePe UPI">
+                            <button class="btn btn-primary fw-bold" type="button" onclick="parseAndAddResultSMS('{{ trip_diary.trip.id }}')">
+                                <i class="bi bi-magic me-1"></i> Auto-Add
+                            </button>
+                        </div>
+                        <small class="text-muted d-block" style="font-size: 0.7rem;">Copy any payment SMS/notification from PhonePe or GPay and click Auto-Add!</small>
+                    </div>
+                </div>
+
+                {# 1-Tap Road Buttons #}
+                <div class="col-md-6">
+                    <div class="p-3 bg-white rounded-3 border shadow-xs h-100">
+                        <span class="small fw-bold text-dark mb-1 d-block"><i class="bi bi-hand-index-thumb-fill text-warning me-1"></i> 1-Tap Quick Road Spends:</span>
+                        <div class="d-flex flex-wrap gap-1 mt-1">
+                            <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Filter Coffee & Chai', 40, 'food')">☕ Chai (₹40)</button>
+                            <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Auto / Cab Ride', 120, 'transport')">🛺 Auto (₹120)</button>
+                            <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Banana Leaf Meal', 220, 'food')">🍛 Meal (₹220)</button>
+                            <button type="button" class="btn btn-xs btn-outline-info text-dark rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Puja Flowers & Camphor', 100, 'activities_darshan')">🙏 Flowers (₹100)</button>
+                            <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (₹60)</button>
+                            <button type="button" class="btn btn-xs btn-outline-dark rounded-pill py-1 px-2" onclick="quickAddResult('{{ trip_diary.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (₹200)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {# ── AI Trip Concierge & Day Planner (Visible only after vacation details entered) ── #}
 {% set chat_dest = target_location if target_location else (recommendations[0].Destination if recommendations else (alternatives[0].Destination if alternatives else 'India')) %}
 <div class="row mb-5" id="ai-concierge-section">
@@ -1816,6 +1951,59 @@ function handleFloatingSubmit(e) {
     const query = input.value.trim();
     input.value = '';
     executeAiChat(query);
+}
+
+function quickAddResult(tripId, title, amount, category) {
+    const form = document.createElement('form');
+    form.method = 'POST';
+    form.action = '{{ url_for("trip_add_expense") }}';
+    
+    const inputs = {
+        trip_id: tripId,
+        title: title,
+        amount: amount,
+        category: category,
+        is_prebooked: 'false',
+        payment_mode: 'PhonePe UPI',
+        notes: '1-Tap Quick Road Spend'
+    };
+    
+    for (const [key, val] of Object.entries(inputs)) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = key;
+        input.value = val;
+        form.appendChild(input);
+    }
+    
+    document.body.appendChild(form);
+    form.submit();
+}
+
+function parseAndAddResultSMS(tripId) {
+    const text = document.getElementById('resultsSmsInput').value.trim();
+    if (!text) {
+        alert('Please paste a transaction SMS or PhonePe payment message first.');
+        return;
+    }
+    
+    fetch('{{ url_for("trip_parse_sms") }}', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ sms: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data && data.amount > 0) {
+            quickAddResult(tripId, data.title || 'Travel Expense', data.amount, data.category || 'misc');
+        } else {
+            alert('Could not detect amount from text. Please check the SMS.');
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Error parsing SMS text.');
+    });
 }
 </script>
 

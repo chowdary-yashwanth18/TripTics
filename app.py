@@ -20,16 +20,12 @@ destinations_df = load_destinations()
 
 
 @app.route('/')
-def index():
-    """Home page – renders the landing page."""
-    return render_template('index.html')
-
-
 @app.route('/planner', methods=['GET', 'POST'])
 def planner():
     """
-    GET  → render the trip planner form.
-    POST → validate inputs, run recommendation engine, render results.
+    Unified Trip Planner & Discovery Engine.
+    GET  → render the interactive all-in-one trip planner form.
+    POST → validate inputs, calculate recommendation data, attach master guides & live expense diary, render results.
     """
     if request.method == 'POST':
         states = sorted(destinations_df['State'].unique().tolist())
@@ -144,6 +140,20 @@ def planner():
             rec['master_guide'] = get_destination_master_guide(rec.get('Destination', ''), rec.get('State', ''), days)
             rec['atms'] = rec['master_guide'].get('atms', {})
 
+        # Attach active trip diary & live expense tracking for this destination
+        from utils.trip_tracker import get_all_trips, get_trip_details, create_or_update_trip
+        dest_main = display_location or (recommendation_data['matches'][0]['Destination'] if recommendation_data.get('matches') else 'My Trip')
+        all_trips = get_all_trips()
+        matching_trip = next((t for t in all_trips if t['destination'].lower() == dest_main.lower()), None)
+        if not matching_trip:
+            start_d = travel_date or date.today().isoformat()
+            from datetime import timedelta
+            end_d = (date.today() + timedelta(days=days)).isoformat()
+            new_trip_id = create_or_update_trip(dest_main, start_d, end_d, origin=starting_city, travelers=travelers, notes=f"{days}-Day trip to {dest_main}")
+            trip_diary_details = get_trip_details(new_trip_id)
+        else:
+            trip_diary_details = get_trip_details(matching_trip['id'])
+
         return render_template('results.html',
                                recommendations=recommendation_data['matches'],
                                alternatives=recommendation_data['alternatives'],
@@ -156,6 +166,7 @@ def planner():
                                target_location=display_location,
                                starting_city=starting_city,
                                travel_date=travel_date,
+                               trip_diary=trip_diary_details,
                                currency_info=get_currency_info(actual_state))
 
     states = sorted(destinations_df['State'].unique().tolist())
