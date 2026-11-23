@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect, jsonify
 import os
 from datetime import date, datetime
 from utils.data_loader import load_destinations
@@ -416,20 +416,47 @@ def trip_create():
 @app.route('/trip-diary/add-expense', methods=['POST'])
 def trip_add_expense():
     """Add a pre-booked or live in-transit expense."""
-    from utils.trip_tracker import add_expense
-    trip_id = request.form.get('trip_id', '').strip()
-    title = request.form.get('title', '').strip()
-    amount = float(request.form.get('amount', 0) or 0)
-    category = request.form.get('category', 'misc').strip()
-    is_prebooked = request.form.get('is_prebooked', 'false').lower() in ['true', '1', 'yes']
-    payment_mode = request.form.get('payment_mode', 'UPI / PhonePe').strip()
-    notes = request.form.get('notes', '').strip()
+    from utils.trip_tracker import add_expense, get_trip_details
+    payload = request.get_json(silent=True) if request.is_json else request.form
+    is_ajax = request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest' or 'application/json' in request.headers.get('Accept', '')
+
+    trip_id = (payload.get('trip_id') or '').strip()
+    title = (payload.get('title') or '').strip()
+    try:
+        amount = float(payload.get('amount', 0) or 0)
+    except (ValueError, TypeError):
+        amount = 0.0
+
+    category = (payload.get('category') or 'misc').strip()
+    is_prebooked_val = payload.get('is_prebooked', False)
+    if isinstance(is_prebooked_val, str):
+        is_prebooked = is_prebooked_val.lower() in ['true', '1', 'yes']
+    else:
+        is_prebooked = bool(is_prebooked_val)
+
+    payment_mode = (payload.get('payment_mode') or 'PhonePe UPI').strip()
+    notes = (payload.get('notes') or '').strip()
     
     if not trip_id or not title or amount <= 0:
+        if is_ajax:
+            return jsonify({'success': False, 'error': 'Please enter a valid expense title and amount.'}), 400
         flash('Please enter a valid expense title and amount.', 'warning')
         return redirect(url_for('trip_diary', trip_id=trip_id))
         
-    add_expense(trip_id, title, amount, category=category, is_prebooked=is_prebooked, payment_mode=payment_mode, notes=notes)
+    new_exp = add_expense(trip_id, title, amount, category=category, is_prebooked=is_prebooked, payment_mode=payment_mode, notes=notes)
+    
+    if is_ajax:
+        updated = get_trip_details(trip_id)
+        return jsonify({
+            'success': True,
+            'expense': new_exp,
+            'prebooked_total': updated['prebooked_total'] if updated else 0.0,
+            'on_trip_total': updated['on_trip_total'] if updated else 0.0,
+            'grand_total': updated['grand_total'] if updated else 0.0,
+            'per_person_share': updated['per_person_share'] if updated else 0.0,
+            'travelers': updated['travelers'] if updated else 1
+        })
+
     flash(f'Added ₹{amount:.2f} for "{title}" to your trip diary!', 'success')
     return redirect(url_for('trip_diary', trip_id=trip_id))
 
@@ -437,11 +464,29 @@ def trip_add_expense():
 @app.route('/trip-diary/delete-expense', methods=['POST'])
 def trip_delete_expense():
     """Remove an expense entry."""
-    from utils.trip_tracker import delete_expense
-    exp_id = request.form.get('expense_id', '').strip()
-    trip_id = request.form.get('trip_id', '').strip()
+    from utils.trip_tracker import delete_expense, get_trip_details
+    payload = request.get_json(silent=True) if request.is_json else request.form
+    is_ajax = request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest' or 'application/json' in request.headers.get('Accept', '')
+
+    exp_id = (payload.get('expense_id') or '').strip()
+    trip_id = (payload.get('trip_id') or '').strip()
+    
     if exp_id:
         delete_expense(exp_id)
+    
+    if is_ajax:
+        updated = get_trip_details(trip_id) if trip_id else None
+        return jsonify({
+            'success': True,
+            'deleted_id': exp_id,
+            'prebooked_total': updated['prebooked_total'] if updated else 0.0,
+            'on_trip_total': updated['on_trip_total'] if updated else 0.0,
+            'grand_total': updated['grand_total'] if updated else 0.0,
+            'per_person_share': updated['per_person_share'] if updated else 0.0,
+            'travelers': updated['travelers'] if updated else 1
+        })
+
+    if exp_id:
         flash('Expense removed from diary.', 'info')
     return redirect(url_for('trip_diary', trip_id=trip_id))
 

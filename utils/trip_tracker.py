@@ -440,24 +440,32 @@ def update_trip_status(trip_id, new_status):
 
 
 # ==============================================================================
-# SMART UPI / PHONEPE / GPAY / BANK SMS TEXT PARSER
+# SMART UPI / PHONEPE / GPAY / BANK SMS & NATURAL PHRASE TEXT PARSER
 # ==============================================================================
 def parse_upi_sms_or_text(raw_text):
     """
-    Parses bank transaction SMS / PhonePe / GPay confirmation text.
+    Parses bank transaction SMS / PhonePe / GPay confirmation text,
+    OR natural quick phrases like '150 lunch', '40 chai', 'auto 120', '500'.
     Extracts Amount, Vendor/Title, Category, Payment Mode, and Date.
     """
     text = (raw_text or "").strip()
     if not text:
         return None
 
+    amount = 0.0
+    title = ""
+    lower_text = text.lower()
+
     # 1. Amount Extraction
-    # Matches Rs. 240, Rs 240, INR 350.50, ₹1,200, 240.00 debited
+    # Matches Rs. 240, Rs 240, INR 350.50, ₹1,200, 240.00 debited/paid/sent
     amt_match = re.search(r'(?:Rs\.?|INR|₹)\s*([\d,]+(?:\.\d{1,2})?)', text, re.IGNORECASE)
     if not amt_match:
         amt_match = re.search(r'([\d,]+(?:\.\d{1,2})?)\s*(?:debited|paid|sent)', text, re.IGNORECASE)
+    
+    # If still not matched, check for any standalone number in the text (e.g. "150 lunch", "40 chai", "auto 120", "500")
+    if not amt_match:
+        amt_match = re.search(r'\b([\d,]+(?:\.\d{1,2})?)\b', text)
 
-    amount = 0.0
     if amt_match:
         try:
             amount = float(amt_match.group(1).replace(',', ''))
@@ -466,7 +474,6 @@ def parse_upi_sms_or_text(raw_text):
 
     # 2. Payee / Vendor Extraction
     # Looks for 'to <vendor>', 'at <vendor>', 'VPA <vendor>'
-    title = ""
     vendor_match = re.search(r'(?:to|at|VPA|paid to|sent to)\s+([A-Za-z0-9\s&.\'\-]{2,40}?)(?:\s+(?:on|via|ref|UPI|using|dated|through|from|\.|\n|$))', text, re.IGNORECASE)
     if vendor_match:
         candidate = vendor_match.group(1).strip()
@@ -476,32 +483,39 @@ def parse_upi_sms_or_text(raw_text):
             title = candidate
 
     if not title:
-        # Fallback: first 5-6 words
-        words = text.split()[:5]
-        title = " ".join(words) if words else "Travel Expense"
+        # Strip out the amount, currency signs, and common transaction filler words
+        cleaned = text
+        if amt_match:
+            cleaned = cleaned[:amt_match.start()] + " " + cleaned[amt_match.end():]
+        cleaned = re.sub(r'\b(?:Rs\.?|INR|₹|debited|paid|sent|for|spent|on|at|to)\b', ' ', cleaned, flags=re.IGNORECASE)
+        # remove punctuation / extra symbols
+        cleaned = re.sub(r'[^a-zA-Z0-9\s]', ' ', cleaned)
+        cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+
+        if cleaned:
+            words = cleaned.split()[:5]
+            title = " ".join(words)
+        else:
+            title = f"Quick Spend (₹{amount:,.0f})" if amount > 0 else "Travel Expense"
 
     title = title.title()
 
     # 3. Category Detection
-    lower_text = text.lower()
     cat = 'misc'
-
-    if any(k in lower_text for k in ['restaurant', 'cafe', 'tiffin', 'meals', 'food', 'lunch', 'dinner', 'breakfast', 'snack', 'swiggy', 'zomato', 'bakery', 'juice', 'bhavan', 'mess', 'biryani', 'idli', 'dosa', 'chai', 'tea', 'coffee']):
+    if any(k in lower_text for k in ['restaurant', 'cafe', 'tiffin', 'meals', 'food', 'lunch', 'dinner', 'breakfast', 'snack', 'swiggy', 'zomato', 'bakery', 'juice', 'bhavan', 'mess', 'biryani', 'idli', 'dosa', 'chai', 'tea', 'coffee', 'water', 'tender coconut', 'cool drinks']):
         cat = 'food'
     elif any(k in lower_text for k in ['hotel', 'lodge', 'resort', 'lounge', 'dharamshala', 'inn', 'residency', 'stay', 'oyo', 'room']):
         cat = 'stay_lounge'
     elif any(k in lower_text for k in ['auto', 'cab', 'taxi', 'ola', 'uber', 'rapido', 'bus', 'train', 'irctc', 'flight', 'indigo', 'rtc', 'apsrtc', 'ksrtc', 'toll', 'metro', 'petrol', 'diesel', 'fuel', 'fastag']):
         cat = 'transport'
-    elif any(k in lower_text for k in ['temple', 'devasthanam', 'darshan', 'ttd', 'entry', 'ticket', 'pass', 'museum', 'safari', 'zoo', 'waterfall', 'ropewalk', 'puja', 'pooja', 'archana', 'abhishekam', 'boating']):
+    elif any(k in lower_text for k in ['temple', 'devasthanam', 'darshan', 'ttd', 'entry', 'ticket', 'pass', 'museum', 'safari', 'zoo', 'waterfall', 'ropewalk', 'puja', 'pooja', 'archana', 'abhishekam', 'boating', 'beach', 'park']):
         cat = 'activities_darshan'
-    elif any(k in lower_text for k in ['shopping', 'bazaar', 'mall', 'market', 'mart', 'store', 'silks', 'saree', 'handicraft', 'prasadam', 'sweet', 'laddu', 'gift', 'souvenir']):
+    elif any(k in lower_text for k in ['shopping', 'bazaar', 'mall', 'market', 'mart', 'store', 'silks', 'saree', 'handicraft', 'prasadam', 'sweet', 'laddu', 'gift', 'souvenir', 'clothes']):
         cat = 'shopping'
 
     # 4. Payment Mode Detection
-    mode = 'UPI / Online'
-    if 'phonepe' in lower_text:
-        mode = 'PhonePe UPI'
-    elif 'gpay' in lower_text or 'google pay' in lower_text:
+    mode = 'PhonePe UPI'
+    if 'gpay' in lower_text or 'google pay' in lower_text:
         mode = 'Google Pay (GPay)'
     elif 'paytm' in lower_text:
         mode = 'Paytm UPI'
