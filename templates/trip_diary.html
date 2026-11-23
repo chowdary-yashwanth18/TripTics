@@ -246,14 +246,14 @@
             </div>
         </div>
 
-        {# ── CARD 2: Natural Spend Bar + 1-Tap Quick Spends ── #}
+        {# ── CARD 2: Direct PhonePe Scan & Pay + Natural Spend Bar + 1-Tap Quick Spends ── #}
         <div class="card border-0 shadow-sm rounded-4 mb-3 p-4 bg-white">
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <h6 class="fw-bold text-dark mb-0"><i class="bi bi-magic text-primary me-2"></i> Fast Smart Logger</h6>
-                <small class="text-muted" style="font-size: 0.72rem;">No Reload • Instant</small>
+                <span class="badge bg-primary-subtle text-primary border border-primary-subtle rounded-pill font-semibold" style="font-size: 0.68rem;">0-Friction</span>
             </div>
             <p class="text-muted small mb-2" style="font-size: 0.78rem;">
-                Type naturally like <span class="badge bg-light text-dark border">150 lunch</span>, <span class="badge bg-light text-dark border">40 chai</span>, <span class="badge bg-light text-dark border">120 auto</span>, or paste any SMS:
+                Type in plain words like <span class="badge bg-light text-dark border">150 lunch</span>, <span class="badge bg-light text-dark border">40 chai</span>, <span class="badge bg-light text-dark border">120 auto</span>:
             </p>
 
             <form id="diarySmartSpendForm" onsubmit="handleDiarySmartSpend(event, '{{ details.trip.id }}')" class="mb-3">
@@ -262,7 +262,7 @@
                         <i class="bi bi-currency-rupee text-success"></i>
                     </span>
                     <input type="text" id="diarySmartInput" class="form-control border-0 px-2 py-2 small" 
-                           placeholder="Type spend (e.g. 150 lunch, 40 tea) or paste SMS..." 
+                           placeholder="Type spend (e.g. 150 lunch, 40 tea, 120 auto)..." 
                            autocomplete="off">
                     <button class="btn btn-primary px-3 fw-bold small" type="submit" id="diarySmartBtn">
                         <i class="bi bi-plus-circle me-1"></i> Add
@@ -272,7 +272,7 @@
             </form>
 
             <div class="d-flex flex-wrap gap-1 pt-2 border-top">
-                <span class="small fw-bold text-muted me-1" style="font-size: 0.75rem;">1-Tap Common:</span>
+                <span class="small fw-bold text-muted me-1" style="font-size: 0.75rem;">1-Tap Presets:</span>
                 <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Morning Filter Coffee & Chai', 40, 'food')">☕ Chai (₹40)</button>
                 <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Station Auto / Cab Ride', 120, 'transport')">🛺 Auto (₹120)</button>
                 <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Banana Leaf Thali Meal', 220, 'food')">🍛 Meal (₹220)</button>
@@ -281,7 +281,33 @@
             </div>
         </div>
 
-        {# ── CARD 3: Custom Pre-Booked / Manual Form (Collapsible) ── #}
+        {# ── CARD 3: Why TripTics is Smarter than PhonePe Alone ── #}
+        <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-3" style="border-left: 4px solid #4f46e5 !important;">
+            <h6 class="fw-bold text-dark mb-2 d-flex align-items-center gap-2" style="font-size: 0.85rem;">
+                <i class="bi bi-stars text-warning"></i>
+                <span>Why TripTics is Smarter than PhonePe Alone</span>
+            </h6>
+            <div class="d-flex flex-column gap-2" style="font-size: 0.75rem;">
+                <div class="d-flex align-items-start gap-2">
+                    <span class="badge bg-primary-subtle text-primary rounded-circle p-1" style="font-size: 0.65rem;"><i class="bi bi-link-45deg"></i></span>
+                    <div><strong>Unified Pre-Booked + On-Road:</strong> PhonePe cannot connect your 3-week-old train tickets or hotel booking with today's ₹40 tea. TripTics combines them all from home departure to return.</div>
+                </div>
+                <div class="d-flex align-items-start gap-2">
+                    <span class="badge bg-success-subtle text-success rounded-circle p-1" style="font-size: 0.65rem;"><i class="bi bi-people-fill"></i></span>
+                    <div><strong>Automatic Group Split:</strong> Automatically calculates each person's exact share without pulling out a calculator or arguing after the trip.</div>
+                </div>
+                <div class="d-flex align-items-start gap-2">
+                    <span class="badge bg-warning-subtle text-dark rounded-circle p-1" style="font-size: 0.65rem;"><i class="bi bi-funnel-fill"></i></span>
+                    <div><strong>Pure Vacation Filter:</strong> PhonePe clutters your history with home electricity bills, rent, and groceries. TripTics isolates only your trip.</div>
+                </div>
+                <div class="d-flex align-items-start gap-2">
+                    <span class="badge bg-info-subtle text-dark rounded-circle p-1" style="font-size: 0.65rem;"><i class="bi bi-pie-chart-fill"></i></span>
+                    <div><strong>Visual Category Ratio:</strong> Clear charts showing where your money actually went (Stays, Transport, Food, Sightseeing).</div>
+                </div>
+            </div>
+        </div>
+
+        {# ── CARD 4: Custom Pre-Booked / Manual Form (Collapsible) ── #}
         <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-3">
             <a class="text-decoration-none d-flex justify-content-between align-items-center text-dark" data-bs-toggle="collapse" href="#manualExpenseCollapse" role="button">
                 <span class="small fw-bold"><i class="bi bi-plus-circle text-secondary me-2"></i> Add Custom / Pre-Booked Stay or Pass</span>
