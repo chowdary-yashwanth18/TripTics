@@ -1091,7 +1091,7 @@
                 {# Controller Buttons & Full Ledger Link #}
                 <div class="d-flex flex-wrap align-items-center gap-2">
                     <button type="button" class="btn btn-sm text-white rounded-pill px-3 py-1 fw-bold shadow-xs" style="background: linear-gradient(135deg, #5f259f, #3b1464);" data-bs-toggle="modal" data-bs-target="#resultsUpiQrModal">
-                        <i class="bi bi-qr-code-scan me-1"></i> 🟣 Scan & Pay (PhonePe QR)
+                        <i class="bi bi-camera-fill me-1"></i> 📷 Scan Shopkeeper QR / Pay
                     </button>
                     <a href="{{ url_for('trip_diary', trip_id=trip_diary.trip.id) }}" class="btn btn-outline-success btn-sm rounded-pill px-3 py-1 fw-bold" target="_blank" title="Open full diary with charts, categories, and PDF export">
                         <i class="bi bi-journal-text me-1"></i> Full Diary Ledger ↗
@@ -2186,20 +2186,201 @@ function handleSmartSpendSubmit(e, tripId) {
     });
 }
 
+let resHtml5QrScanner = null;
+
+function playScanSuccessChime() {
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+    } catch(e) {}
+}
+
+function startResultsCameraScanner(tripId) {
+    const readerEl = document.getElementById('res-qr-reader');
+    const placeholder = document.getElementById('res-qr-scanner-placeholder');
+    const stopBtn = document.getElementById('res-stop-cam-btn');
+    if (!readerEl) return;
+
+    if (typeof Html5Qrcode === 'undefined') {
+        alert("Camera scanner library is loading. Please test using the 1-Tap Quick Shopkeeper Stands or photo upload!");
+        return;
+    }
+
+    if (resHtml5QrScanner) {
+        stopResultsCameraScanner();
+    }
+
+    if (placeholder) placeholder.classList.add('d-none');
+    if (stopBtn) stopBtn.classList.remove('d-none');
+
+    resHtml5QrScanner = new Html5Qrcode("res-qr-reader");
+    const config = { fps: 10, qrbox: { width: 220, height: 220 } };
+
+    resHtml5QrScanner.start(
+        { facingMode: "environment" },
+        config,
+        (decodedText, decodedResult) => {
+            playScanSuccessChime();
+            stopResultsCameraScanner();
+            handleResultsScannedUpiString(decodedText, tripId);
+        },
+        (errorMessage) => {}
+    ).catch(err => {
+        console.warn("Camera start error, trying standard camera:", err);
+        resHtml5QrScanner.start(
+            { facingMode: "user" },
+            config,
+            (decodedText, decodedResult) => {
+                playScanSuccessChime();
+                stopResultsCameraScanner();
+                handleResultsScannedUpiString(decodedText, tripId);
+            },
+            (errorMessage) => {}
+        ).catch(cameraErr => {
+            alert("Camera access was not granted or not available. You can test with 1-Tap Shopkeeper Stands or photo upload!");
+            stopResultsCameraScanner();
+        });
+    });
+}
+
+function stopResultsCameraScanner() {
+    const placeholder = document.getElementById('res-qr-scanner-placeholder');
+    const stopBtn = document.getElementById('res-stop-cam-btn');
+    if (resHtml5QrScanner) {
+        try {
+            resHtml5QrScanner.stop().then(() => {
+                resHtml5QrScanner.clear();
+                resHtml5QrScanner = null;
+            }).catch(() => {
+                resHtml5QrScanner = null;
+            });
+        } catch(e) {
+            resHtml5QrScanner = null;
+        }
+    }
+    if (placeholder) placeholder.classList.remove('d-none');
+    if (stopBtn) stopBtn.classList.add('d-none');
+}
+
+function scanResultsQrFile(input, tripId) {
+    if (!input.files || input.files.length === 0) return;
+    const file = input.files[0];
+    if (typeof Html5Qrcode === 'undefined') {
+        alert("Scanner library is loading. Please select a Quick Demo Stand!");
+        return;
+    }
+    const html5QrCode = new Html5Qrcode("res-qr-reader");
+    html5QrCode.scanFile(file, true)
+        .then(decodedText => {
+            playScanSuccessChime();
+            handleResultsScannedUpiString(decodedText, tripId);
+        })
+        .catch(err => {
+            alert("Could not detect a clear QR code in this image. Please try another photo or 1-Tap stands.");
+        });
+}
+
+function handleResultsScannedUpiString(raw, tripId) {
+    let merchantName = "Local Merchant";
+    let vpa = "merchant@upi";
+    let amount = 40;
+    let cat = "food";
+
+    if (raw.includes("upi://") || raw.includes("pa=")) {
+        try {
+            const formatted = raw.startsWith("upi://") ? raw.replace("upi://", "https://upi.fake/") : (raw.startsWith("http") ? raw : "https://upi.fake/?" + raw);
+            const u = new URL(formatted);
+            vpa = u.searchParams.get("pa") || vpa;
+            const pn = u.searchParams.get("pn");
+            if (pn) merchantName = decodeURIComponent(pn);
+            const am = u.searchParams.get("am");
+            if (am && parseFloat(am)) amount = parseFloat(am);
+        } catch(e) {
+            merchantName = raw.slice(0, 30);
+        }
+    } else {
+        merchantName = raw.slice(0, 30);
+    }
+
+    const lower = merchantName.toLowerCase();
+    if (lower.includes('auto') || lower.includes('cab') || lower.includes('taxi') || lower.includes('fuel')) cat = 'transport';
+    else if (lower.includes('hotel') || lower.includes('room') || lower.includes('stay')) cat = 'stay_lounge';
+    else if (lower.includes('darshan') || lower.includes('puja') || lower.includes('ticket') || lower.includes('temple')) cat = 'activities_darshan';
+    else if (lower.includes('shop') || lower.includes('mall') || lower.includes('handicraft') || lower.includes('store') || lower.includes('sweet') || lower.includes('bazaar')) cat = 'shopping';
+
+    setResultsScannedShopkeeper(merchantName, vpa, amount, cat);
+}
+
+function setResultsScannedShopkeeper(name, vpa, amount, cat) {
+    const nameInput = document.getElementById('resScanMerchantName');
+    const amtInput = document.getElementById('resScanMerchantAmount');
+    const catInput = document.getElementById('resScanMerchantCategory');
+    const vpaLabel = document.getElementById('resDetectedVpa');
+
+    if (nameInput) nameInput.value = name;
+    if (amtInput) amtInput.value = amount;
+    if (catInput && cat) catInput.value = cat;
+    if (vpaLabel) vpaLabel.textContent = vpa;
+
+    updateResultsScanDeepLink();
+}
+
+function updateResultsScanDeepLink() {
+    const nameInput = document.getElementById('resScanMerchantName');
+    const amtInput = document.getElementById('resScanMerchantAmount');
+    const vpaLabel = document.getElementById('resDetectedVpa');
+    const deepLink = document.getElementById('resScanDeepLinkBtn');
+
+    const name = nameInput ? encodeURIComponent(nameInput.value.trim() || 'Merchant') : 'Merchant';
+    const amt = amtInput ? (parseFloat(amtInput.value) || 40) : 40;
+    const vpa = vpaLabel ? (vpaLabel.textContent.trim() || 'merchant@upi') : 'merchant@upi';
+
+    if (deepLink) {
+        deepLink.href = `upi://pay?pa=${vpa}&pn=${name}&am=${amt}&cu=INR`;
+    }
+}
+
+function recordResultsScannedPayment(tripId) {
+    const nameInput = document.getElementById('resScanMerchantName');
+    const amtInput = document.getElementById('resScanMerchantAmount');
+    const catInput = document.getElementById('resScanMerchantCategory');
+    const vpaLabel = document.getElementById('resDetectedVpa');
+
+    const title = nameInput ? (nameInput.value.trim() || 'Merchant Payment') : 'Merchant Payment';
+    const amt = amtInput ? (parseFloat(amtInput.value) || 40) : 40;
+    const cat = catInput ? catInput.value : 'food';
+    const vpa = vpaLabel ? vpaLabel.textContent.trim() : 'PhonePe QR';
+
+    quickAddSpendAjax(tripId, title, amt, cat);
+    stopResultsCameraScanner();
+    const modalEl = document.getElementById('resultsUpiQrModal');
+    if (modalEl) {
+        const modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (modalInstance) modalInstance.hide();
+    }
+}
+
 function updateResultsDynamicUpiQr() {
     const amtInput = document.getElementById('resQrItemAmount');
     const nameInput = document.getElementById('resQrItemName');
-    const amt = parseFloat(amtInput ? amtInput.value : 40) || 40;
-    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Trip Spend') || 'Trip Spend');
-    const upiString = `upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=${amt}&cu=INR&tn=${name}`;
+    const vpaInput = document.getElementById('resQrYourVpa');
+    const amt = parseFloat(amtInput ? amtInput.value : 500) || 500;
+    const name = encodeURIComponent((nameInput ? nameInput.value.trim() : 'Trip Share') || 'Trip Share');
+    const vpa = encodeURIComponent((vpaInput ? vpaInput.value.trim() : 'triptics@upi') || 'triptics@upi');
+    const upiString = `upi://pay?pa=${vpa}&pn=${name}&am=${amt}&cu=INR&tn=${name}`;
     
     const qrImg = document.getElementById('resDynamicUpiQrImg');
     if (qrImg) {
         qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=${encodeURIComponent(upiString)}`;
-    }
-    const deepLink = document.getElementById('resDirectPhonePeDeepLink');
-    if (deepLink) {
-        deepLink.href = upiString;
     }
 }
 
@@ -2241,53 +2422,162 @@ function parseAndAddResultSMS(tripId) {
 }
 </script>
 
-{# ── Results Real Dynamic UPI QR Code Modal ── #}
+{# ── Results Real Dynamic UPI QR Code & Merchant Camera Scanner Modal ── #}
 {% if trip_diary %}
 <div class="modal fade" id="resultsUpiQrModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
             <div class="modal-header text-white border-0 py-3 px-4" style="background: linear-gradient(135deg, #5f259f 0%, #3b1464 100%);">
                 <div class="d-flex align-items-center gap-2">
-                    <span class="fs-4">🟣</span>
+                    <span class="fs-4">📷</span>
                     <div>
-                        <h6 class="modal-title fw-bold mb-0 text-white">Scan & Pay via PhonePe / UPI</h6>
-                        <small class="text-white-50" style="font-size: 0.7rem;">Live Scannable Merchant QR • Real PhonePe App</small>
+                        <h6 class="modal-title fw-bold mb-0 text-white">PhonePe / UPI Payments &amp; Camera Scanner</h6>
+                        <small class="text-white-50" style="font-size: 0.72rem;">Scan Shopkeeper QR Stands • Settle Group Vacation Expenses</small>
                     </div>
                 </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close" onclick="stopResultsCameraScanner()"></button>
             </div>
-            <div class="modal-body p-4 text-center">
-                <p class="text-muted small mb-3">
-                    Point your real phone's <strong>PhonePe, Google Pay, or Paytm</strong> camera at this QR code to scan and pay live!
-                </p>
+            <div class="modal-body p-4">
+                <!-- Navigation Tabs -->
+                <ul class="nav nav-pills nav-fill bg-light p-1 rounded-pill mb-3" id="resUpiModalTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active rounded-pill fw-bold py-2 small" id="res-scan-shop-tab" data-bs-toggle="pill" data-bs-target="#res-tab-scan-shopkeeper" type="button" role="tab" onclick="stopResultsCameraScanner()">
+                            <i class="bi bi-camera-fill me-1 text-primary"></i> 📷 Scan Shopkeeper's QR Stand
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link rounded-pill fw-bold py-2 small" id="res-settle-group-tab" data-bs-toggle="pill" data-bs-target="#res-tab-group-settlement" type="button" role="tab" onclick="stopResultsCameraScanner()">
+                            <i class="bi bi-qr-code me-1 text-purple"></i> 📱 Show My Settlement QR (Split)
+                        </button>
+                    </li>
+                </ul>
 
-                <div class="row g-2 mb-3 text-start">
-                    <div class="col-7">
-                        <label class="form-label small fw-bold text-dark mb-1">Item / Merchant Name</label>
-                        <input type="text" id="resQrItemName" class="form-control form-control-sm rounded-pill px-3" value="Filter Coffee & Chai" placeholder="e.g. Chai, Auto, Lunch" oninput="updateResultsDynamicUpiQr()">
-                    </div>
-                    <div class="col-5">
-                        <label class="form-label small fw-bold text-dark mb-1">Amount (₹)</label>
-                        <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="40" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
-                    </div>
-                </div>
+                <div class="tab-content">
+                    <!-- Tab 1: Scan Shopkeeper's QR Stand (Real Merchant Flow) -->
+                    <div class="tab-pane fade show active" id="res-tab-scan-shopkeeper" role="tabpanel">
+                        <div class="alert alert-info border-0 rounded-3 py-2 px-3 small d-flex align-items-center gap-2 mb-3">
+                            <i class="bi bi-info-circle-fill text-primary fs-5"></i>
+                            <div>
+                                <strong>Real-World Merchant Flow:</strong> At stalls, autos, or shops, every merchant has their own PhonePe / BharatPe / GPay QR stand. Point your camera at their counter stand below to auto-detect their UPI ID &amp; record the spend!
+                            </div>
+                        </div>
 
-                <div class="p-3 bg-light rounded-4 border d-inline-block shadow-xs mb-3 position-relative">
-                    <img id="resDynamicUpiQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=triptics@upi%26pn=TripTics%20Ledger%26am=40%26cu=INR%26tn=TripTics%20Vacation" 
-                         alt="PhonePe UPI QR Code" width="200" height="200" class="rounded-3 shadow-xs">
-                    <div class="small fw-bold text-dark mt-2 d-flex align-items-center justify-content-center gap-1">
-                        <span class="badge bg-primary text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;">Any UPI App</span>
-                        <span>PhonePe • GPay • Paytm</span>
-                    </div>
-                </div>
+                        <div class="row g-3 align-items-stretch">
+                            <!-- Left: Live Camera Viewfinder -->
+                            <div class="col-md-6 text-center">
+                                <div class="p-3 bg-dark text-white rounded-4 border shadow-sm position-relative d-flex flex-column align-items-center justify-content-center" style="min-height: 270px;">
+                                    <div id="res-qr-reader" style="width: 100%; max-width: 260px; border-radius: 12px; overflow: hidden;" class="mx-auto"></div>
+                                    <div id="res-qr-scanner-placeholder" class="py-3">
+                                        <i class="bi bi-camera fs-1 text-white-50 mb-2 d-block"></i>
+                                        <p class="small text-white-50 mb-3 px-2">Camera scanner reads any real PhonePe, GPay, or Paytm QR stand in real time</p>
+                                        <button type="button" class="btn btn-primary btn-sm rounded-pill px-4 fw-bold shadow-xs" onclick="startResultsCameraScanner('{{ trip_diary.trip.id }}')">
+                                            <i class="bi bi-camera-video-fill me-1"></i> Start Camera Scanner
+                                        </button>
+                                    </div>
+                                    <button id="res-stop-cam-btn" type="button" class="btn btn-sm btn-outline-light rounded-pill px-3 mt-2 d-none" onclick="stopResultsCameraScanner()">
+                                        <i class="bi bi-stop-circle me-1"></i> Stop Camera
+                                    </button>
+                                </div>
+                                <div class="mt-2 text-muted small text-start">
+                                    <span class="fw-semibold">Or upload photo of shopkeeper's QR:</span>
+                                    <input type="file" id="res-qr-file-input" accept="image/*" class="form-control form-control-sm rounded-pill mt-1" onchange="scanResultsQrFile(this, '{{ trip_diary.trip.id }}')">
+                                </div>
+                            </div>
 
-                <div class="d-flex flex-column gap-2">
-                    <a id="resDirectPhonePeDeepLink" href="upi://pay?pa=triptics@upi&pn=TripTics%20Ledger&am=40&cu=INR&tn=TripTics%20Vacation" class="btn btn-sm text-white rounded-pill py-2 fw-bold shadow-xs d-md-none" style="background: #5f259f;">
-                        🟣 Open Directly in PhonePe App (Mobile Only)
-                    </a>
-                    <button type="button" class="btn btn-success rounded-pill py-2 fw-bold shadow-xs d-flex align-items-center justify-content-center gap-2" onclick="confirmResultsQrPayment('{{ trip_diary.trip.id }}')">
-                        <i class="bi bi-check-circle-fill"></i> ✓ I Have Paid — Record to Trip Ledger
-                    </button>
+                            <!-- Right: Quick Demo Stands + Detected Merchant Form -->
+                            <div class="col-md-6">
+                                <h6 class="fw-bold small text-dark mb-1">⚡ Quick Demo Shopkeeper Stands:</h6>
+                                <p class="text-muted small mb-2" style="font-size: 0.72rem;">Tap any real-world merchant stall to simulate scanning their counter QR:</p>
+                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('Sri Balaji Cafe &amp; Tiffins', 'balajitiffins@ybl', 40, 'food')">
+                                        ☕ Balaji Chai (₹40)
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('City Auto Union Stand', 'ramu.auto@okaxis', 120, 'transport')">
+                                        🛺 Ramu Auto (₹120)
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('Hotel Annapurna Grand', 'annapurna@icici', 380, 'food')">
+                                        🍛 Annapurna Meals (₹380)
+                                    </button>
+                                    <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('Lepakshi Handicrafts Emporium', 'lepakshi@sbi', 450, 'shopping')">
+                                        🛍️ Handicrafts (₹450)
+                                    </button>
+                                </div>
+
+                                <!-- Detected Merchant Details Card -->
+                                <div class="p-3 bg-light rounded-3 border">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <span class="badge bg-success text-white fw-bold px-2 py-1" style="font-size: 0.7rem;">✓ Shopkeeper Detected</span>
+                                        <small class="text-muted" id="resDetectedVpa">balajitiffins@ybl</small>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label class="form-label small fw-bold text-dark mb-1">Merchant / Shop Name</label>
+                                        <input type="text" id="resScanMerchantName" class="form-control form-control-sm rounded-pill px-3 fw-bold" value="Sri Balaji Cafe &amp; Tiffins" oninput="updateResultsScanDeepLink()">
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label small fw-bold text-dark mb-1">Amount Paid (₹)</label>
+                                            <input type="number" id="resScanMerchantAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="40" min="1" step="1" oninput="updateResultsScanDeepLink()">
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label small fw-bold text-dark mb-1">Category</label>
+                                            <select id="resScanMerchantCategory" class="form-select form-select-sm rounded-pill px-3">
+                                                <option value="food" selected>Food &amp; Dining</option>
+                                                <option value="transport">Transit &amp; Auto</option>
+                                                <option value="shopping">Shopping &amp; Gifts</option>
+                                                <option value="activities_darshan">Darshan &amp; Sightseeing</option>
+                                                <option value="stay_lounge">Stays &amp; Lounges</option>
+                                                <option value="other">Miscellaneous</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex flex-column gap-2">
+                                        <a id="resScanDeepLinkBtn" href="upi://pay?pa=balajitiffins@ybl&pn=Sri%20Balaji%20Cafe%20%26%20Tiffins&am=40&cu=INR" class="btn btn-sm text-white rounded-pill py-2 fw-bold shadow-xs d-md-none" style="background: #5f259f;">
+                                            🟣 Pay Now via PhonePe App (Mobile)
+                                        </a>
+                                        <button type="button" class="btn btn-success rounded-pill py-2 fw-bold shadow-xs d-flex align-items-center justify-content-center gap-2" onclick="recordResultsScannedPayment('{{ trip_diary.trip.id }}')">
+                                            <i class="bi bi-check-circle-fill"></i> ✓ Record Spend to Trip Ledger
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 2: Show Group Settlement QR (With Friends) -->
+                    <div class="tab-pane fade text-center" id="res-tab-group-settlement" role="tabpanel">
+                        <div class="alert alert-warning border-0 rounded-3 py-2 px-3 small text-start d-flex align-items-center gap-2 mb-3">
+                            <i class="bi bi-people-fill text-warning fs-5"></i>
+                            <div>
+                                <strong>Group Travel Settlement Flow:</strong> Show this QR code to your friends or co-travelers so they can scan it with their PhonePe/GPay app to pay you back their individual share!
+                            </div>
+                        </div>
+
+                        <div class="row g-2 mb-3 text-start justify-content-center">
+                            <div class="col-md-5">
+                                <label class="form-label small fw-bold text-dark mb-1">Settlement Note / Title</label>
+                                <input type="text" id="resQrItemName" class="form-control form-control-sm rounded-pill px-3" value="Trip Group Share Reimbursement" placeholder="e.g. Tirupati Split Share" oninput="updateResultsDynamicUpiQr()">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label small fw-bold text-dark mb-1">Your Split Share (₹)</label>
+                                <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="{{ trip_diary.per_person_share or 500 }}" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-dark mb-1">Your UPI ID (VPA)</label>
+                                <input type="text" id="resQrYourVpa" class="form-control form-control-sm rounded-pill px-3" value="triptics@upi" placeholder="e.g. yourname@ybl" oninput="updateResultsDynamicUpiQr()">
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-light rounded-4 border d-inline-block shadow-xs mb-3 position-relative">
+                            <img id="resDynamicUpiQrImg" src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=upi://pay?pa=triptics@upi%26pn=TripTics%20Settlement%26am=500%26cu=INR" 
+                                 alt="Settlement UPI QR Code" width="200" height="200" class="rounded-3 shadow-xs">
+                            <div class="small fw-bold text-dark mt-2 d-flex align-items-center justify-content-center gap-1">
+                                <span class="badge bg-primary text-white rounded-pill px-2 py-1" style="font-size: 0.65rem;">Any UPI App</span>
+                                <span>PhonePe • GPay • Paytm</span>
+                            </div>
+                        </div>
+
+                        <p class="text-muted small mb-0">Friends scan this QR directly using PhonePe, Google Pay, or Paytm camera to transfer funds straight to you.</p>
+                    </div>
                 </div>
             </div>
         </div>
