@@ -257,6 +257,18 @@
       "date": "2026-11-23",
       "time": "18:03",
       "notes": ""
+    },
+    {
+      "id": "f410ae14",
+      "trip_id": "tirupati-nov24",
+      "title": "Station Auto / Rapido Ride",
+      "amount": 120.0,
+      "category": "transport",
+      "is_prebooked": false,
+      "payment_mode": "PhonePe UPI",
+      "date": "2026-11-23",
+      "time": "18:33",
+      "notes": ""
     }
   ]
 }

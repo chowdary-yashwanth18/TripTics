@@ -132,28 +132,28 @@
             <div class="col-6 col-lg-3">
                 <div class="card h-100 border-0 p-3 shadow-xs rounded-4 bg-white">
                     <span class="text-muted small fw-semibold"><i class="bi bi-lock-fill text-secondary me-1"></i> Pre-Booked Commitments</span>
-                    <h3 class="fw-bold text-dark mt-2 mb-0">₹{{ "{:,.2f}".format(details.prebooked_total) }}</h3>
+                    <h3 class="fw-bold text-dark mt-2 mb-0" id="live-prebooked-total">₹{{ "{:,.2f}".format(details.prebooked_total) }}</h3>
                     <small class="text-muted mt-1" style="font-size: 0.72rem;">Stays, Lounges, Trains & Passes</small>
                 </div>
             </div>
             <div class="col-6 col-lg-3">
                 <div class="card h-100 border-0 p-3 shadow-xs rounded-4 bg-white">
                     <span class="text-muted small fw-semibold"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Live On-Trip Spent</span>
-                    <h3 class="fw-bold text-dark mt-2 mb-0">₹{{ "{:,.2f}".format(details.on_trip_total) }}</h3>
+                    <h3 class="fw-bold text-dark mt-2 mb-0" id="live-onroad-total">₹{{ "{:,.2f}".format(details.on_trip_total) }}</h3>
                     <small class="text-muted mt-1" style="font-size: 0.72rem;">Autos, Food, Darshan & Shopping</small>
                 </div>
             </div>
             <div class="col-6 col-lg-3">
                 <div class="card h-100 border-0 p-3 shadow-xs rounded-4 bg-white" style="border-left: 4px solid var(--bs-primary) !important;">
                     <span class="text-primary small fw-semibold"><i class="bi bi-wallet2 me-1"></i> Total Door-to-Door</span>
-                    <h3 class="fw-extrabold text-primary mt-2 mb-0">₹{{ "{:,.2f}".format(details.grand_total) }}</h3>
+                    <h3 class="fw-extrabold text-primary mt-2 mb-0" id="live-grand-total">₹{{ "{:,.2f}".format(details.grand_total) }}</h3>
                     <small class="text-muted mt-1" style="font-size: 0.72rem;">Entire Trip Investment</small>
                 </div>
             </div>
             <div class="col-6 col-lg-3">
                 <div class="card h-100 border-0 p-3 shadow-xs rounded-4 bg-white">
                     <span class="text-muted small fw-semibold"><i class="bi bi-people-fill text-success me-1"></i> Share ({{ details.travelers }} Travelers)</span>
-                    <h3 class="fw-bold text-success mt-2 mb-0">₹{{ "{:,.2f}".format(details.per_person_share) }}</h3>
+                    <h3 class="fw-bold text-success mt-2 mb-0" id="live-share-total">₹{{ "{:,.2f}".format(details.per_person_share) }}</h3>
                     <small class="text-muted mt-1" style="font-size: 0.72rem;">Per-person individual split</small>
                 </div>
             </div>
@@ -184,106 +184,163 @@
 
     {# ── Left Column: In-Transit Expense Loggers (PhonePe SMS & 1-Tap) ── #}
     <div class="col-lg-5">
-        {# ── Smart PhonePe / UPI / SMS Paste Logger ── #}
-        <div class="card border-0 shadow-sm rounded-4 mb-3 overflow-hidden">
-            <div class="card-header bg-primary text-white py-3 px-4 border-0 d-flex justify-content-between align-items-center">
-                <h6 class="fw-bold mb-0"><i class="bi bi-phone-fill me-2"></i> Smart UPI / PhonePe Paste Logger</h6>
-                <span class="badge bg-light text-primary rounded-pill font-semibold" style="font-size: 0.68rem;">Instant 2-Sec</span>
+        {# ── Floating PhonePe Live Capture Alert Toast Banner ── #}
+        <div id="phonepe-live-alert" class="position-fixed top-0 start-50 translate-middle-x p-3 d-none" style="z-index: 2050; max-width: 500px; width: 92%; transition: all 0.3s ease;">
+            <div class="card border-0 shadow-lg rounded-4 text-white overflow-hidden" style="background: linear-gradient(135deg, #5f259f 0%, #2b0b54 100%); border: 1.5px solid rgba(255,255,255,0.2) !important;">
+                <div class="p-3 d-flex align-items-center gap-3">
+                    <div class="rounded-circle bg-white p-2 d-flex align-items-center justify-content-center shadow-sm" style="width: 44px; height: 44px; flex-shrink: 0;">
+                        <span class="fs-4">🟣</span>
+                    </div>
+                    <div class="flex-grow-1">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <span class="badge bg-white text-dark fw-bold rounded-pill" style="font-size: 0.65rem;">PHONEPE AUTO-CAPTURED</span>
+                            <small class="text-white-50" style="font-size: 0.68rem;">Live Sync</small>
+                        </div>
+                        <h6 class="mb-0 fw-bold text-white mt-1" id="phonepe-alert-title">Paid ₹40.00 to Ramesh Chai Stall</h6>
+                        <small class="text-white-75" style="font-size: 0.72rem;">⚡ Automatically added to trip budget • No manual typing!</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" style="font-size: 0.7rem;" onclick="hidePhonePeAlert()"></button>
+                </div>
             </div>
-            <div class="card-body p-4 bg-light">
-                <p class="text-muted small mb-2">
-                    Copy any transaction SMS or PhonePe / GPay message from your phone and paste it below:
+        </div>
+
+        {# ── CARD 1: Hands-Free PhonePe Auto-Sync (Automated Live Tracking) ── #}
+        <div class="card border-0 shadow-sm rounded-4 mb-3 overflow-hidden border-start border-4 border-success">
+            <div class="card-header bg-white py-3 px-4 border-0 d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="spinner-grow spinner-grow-sm text-success" style="width: 0.65rem; height: 0.65rem;"></span>
+                    <h6 class="fw-bold mb-0 text-dark">PhonePe / UPI Auto-Sync</h6>
+                </div>
+                <span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill font-semibold px-2 py-1" style="font-size: 0.68rem;">🟢 Auto-Capture Active</span>
+            </div>
+            <div class="card-body p-4 pt-1">
+                <p class="text-muted small mb-3" style="font-size: 0.8rem;">
+                    <strong>Never worry about remembering to log expenses:</strong> Whenever you pay via PhonePe, GPay, or Paytm, payments are automatically detected and added to your trip ledger in real time!
                 </p>
-                <div class="mb-2">
-                    <textarea class="form-control form-control-sm rounded-3" id="smsInput" rows="2" placeholder="e.g. Paid Rs. 240.00 to BALAJI TIFFINS on 24-Nov via PhonePe UPI"></textarea>
+
+                <!-- Live Auto-Detection Simulator -->
+                <div class="p-3 bg-light rounded-4 border">
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                        <span class="small fw-bold text-dark"><i class="bi bi-lightning-charge-fill text-warning me-1"></i> Test Live PhonePe Payment Detection:</span>
+                        <span class="badge bg-secondary-subtle text-secondary" style="font-size: 0.65rem;">0 Clicks Needed</span>
+                    </div>
+                    <p class="text-muted small mb-2" style="font-size: 0.72rem;">Tap below to test how PhonePe payments are captured automatically:</p>
+                    <div class="d-flex flex-wrap gap-2">
+                        <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Sharma Filter Coffee & Chai', 40, 'food')">
+                            ⚡ ☕ Paid ₹40 Chai
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Station Auto Ride', 120, 'transport')">
+                            ⚡ 🛺 Paid ₹120 Auto
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Balaji Bhavan Meal Thali', 220, 'food')">
+                            ⚡ 🍛 Paid ₹220 Lunch
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-info text-dark rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Fresh Coconut Water', 60, 'food')">
+                            ⚡ 🥥 Paid ₹60 Snacks
+                        </button>
+                        <button type="button" class="btn btn-xs btn-outline-danger rounded-pill py-1 px-3 fw-semibold shadow-xs" onclick="simulatePhonePeSync('{{ details.trip.id }}', 'Temple Puja Flowers & Camphor', 100, 'activities_darshan')">
+                            ⚡ 🙏 Paid ₹100 Puja
+                        </button>
+                    </div>
                 </div>
-                <button type="button" class="btn btn-sm btn-primary w-100 rounded-pill py-2 fw-semibold shadow-xs" onclick="parseAndFillSMS()">
-                    <i class="bi bi-magic me-1"></i> Parse & Quick-Add
-                </button>
             </div>
         </div>
 
-        {# ── 1-Tap Quick On-The-Road Loggers ── #}
+        {# ── CARD 2: Natural Spend Bar + 1-Tap Quick Spends ── #}
         <div class="card border-0 shadow-sm rounded-4 mb-3 p-4 bg-white">
-            <h6 class="fw-bold text-dark mb-2"><i class="bi bi-hand-index-thumb-fill text-warning me-2"></i> 1-Tap Common Road Expenses</h6>
-            <p class="text-muted small mb-3">Traveling right now? Log common treats in one click:</p>
-            <div class="d-flex flex-wrap gap-2 mb-3">
-                <button type="button" class="btn btn-sm btn-outline-warning text-dark rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Morning Filter Coffee & Chai', 40, 'food')">
-                    ☕ Chai / Coffee (₹40)
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-primary rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Station Auto / Rapido Ride', 120, 'transport')">
-                    🛺 Auto / Cab (₹120)
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-success rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Banana Leaf Thali Meal', 220, 'food')">
-                    🍛 Meal / Lunch (₹220)
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-info text-dark rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Temple Flowers & Camphor', 100, 'activities_darshan')">
-                    🙏 Puja Flowers (₹100)
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Cold Coconut Water & Snacks', 60, 'food')">
-                    🥥 Coconut / Snacks (₹60)
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-dark rounded-pill py-1 px-3 shadow-xs" onclick="quickAdd('Tirupati Laddu Prasadam Tokens', 200, 'shopping')">
-                    🛍️ Prasadam / Sweets (₹200)
-                </button>
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h6 class="fw-bold text-dark mb-0"><i class="bi bi-magic text-primary me-2"></i> Fast Smart Logger</h6>
+                <small class="text-muted" style="font-size: 0.72rem;">No Reload • Instant</small>
+            </div>
+            <p class="text-muted small mb-2" style="font-size: 0.78rem;">
+                Type naturally like <span class="badge bg-light text-dark border">150 lunch</span>, <span class="badge bg-light text-dark border">40 chai</span>, <span class="badge bg-light text-dark border">120 auto</span>, or paste any SMS:
+            </p>
+
+            <form id="diarySmartSpendForm" onsubmit="handleDiarySmartSpend(event, '{{ details.trip.id }}')" class="mb-3">
+                <div class="input-group shadow-xs rounded-pill overflow-hidden border">
+                    <span class="input-group-text bg-white border-0 ps-3 text-muted">
+                        <i class="bi bi-currency-rupee text-success"></i>
+                    </span>
+                    <input type="text" id="diarySmartInput" class="form-control border-0 px-2 py-2 small" 
+                           placeholder="Type spend (e.g. 150 lunch, 40 tea) or paste SMS..." 
+                           autocomplete="off">
+                    <button class="btn btn-primary px-3 fw-bold small" type="submit" id="diarySmartBtn">
+                        <i class="bi bi-plus-circle me-1"></i> Add
+                    </button>
+                </div>
+                <div id="diarySpendFeedback" class="small mt-1 px-2 d-none"></div>
+            </form>
+
+            <div class="d-flex flex-wrap gap-1 pt-2 border-top">
+                <span class="small fw-bold text-muted me-1" style="font-size: 0.75rem;">1-Tap Common:</span>
+                <button type="button" class="btn btn-xs btn-outline-warning text-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Morning Filter Coffee & Chai', 40, 'food')">☕ Chai (₹40)</button>
+                <button type="button" class="btn btn-xs btn-outline-primary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Station Auto / Cab Ride', 120, 'transport')">🛺 Auto (₹120)</button>
+                <button type="button" class="btn btn-xs btn-outline-success rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Banana Leaf Thali Meal', 220, 'food')">🍛 Meal (₹220)</button>
+                <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Coconut Water & Snacks', 60, 'food')">🥥 Snacks (₹60)</button>
+                <button type="button" class="btn btn-xs btn-outline-dark rounded-pill py-1 px-2" onclick="quickAddAjax('{{ details.trip.id }}', 'Prasadam / Sweets', 200, 'shopping')">🛍️ Prasadam (₹200)</button>
             </div>
         </div>
 
-        {# ── Custom Expense Entry Form ── #}
-        <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
-            <h6 class="fw-bold text-dark mb-3"><i class="bi bi-plus-circle-fill text-success me-2"></i> Custom Expense Entry</h6>
-            <form action="{{ url_for('trip_add_expense') }}" method="POST" id="expenseForm">
-                <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
-                <div class="mb-2">
-                    <label class="form-label small fw-bold text-dark mb-1">Expense Title / Vendor</label>
-                    <input type="text" class="form-control form-control-sm" name="title" id="formTitle" required placeholder="e.g. Hotel Bhimas, Uber ride, Dinner...">
-                </div>
-                <div class="row g-2 mb-2">
-                    <div class="col-6">
-                        <label class="form-label small fw-bold text-dark mb-1">Amount (₹)</label>
-                        <input type="number" step="0.01" class="form-control form-control-sm" name="amount" id="formAmount" required placeholder="0.00">
+        {# ── CARD 3: Custom Pre-Booked / Manual Form (Collapsible) ── #}
+        <div class="card border-0 shadow-sm rounded-4 p-3 bg-white mb-3">
+            <a class="text-decoration-none d-flex justify-content-between align-items-center text-dark" data-bs-toggle="collapse" href="#manualExpenseCollapse" role="button">
+                <span class="small fw-bold"><i class="bi bi-plus-circle text-secondary me-2"></i> Add Custom / Pre-Booked Stay or Pass</span>
+                <i class="bi bi-chevron-down text-muted small"></i>
+            </a>
+            <div class="collapse pt-3" id="manualExpenseCollapse">
+                <form action="{{ url_for('trip_add_expense') }}" method="POST" id="expenseForm">
+                    <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
+                    <div class="mb-2">
+                        <label class="form-label small fw-bold text-dark mb-1">Expense Title / Vendor</label>
+                        <input type="text" class="form-control form-control-sm" name="title" id="formTitle" required placeholder="e.g. Hotel Bhimas, IRCTC train ticket...">
                     </div>
-                    <div class="col-6">
-                        <label class="form-label small fw-bold text-dark mb-1">Category</label>
-                        <select class="form-select form-select-sm" name="category" id="formCategory">
-                            <option value="transport">🚆 Transport & Transit</option>
-                            <option value="stay_lounge">🏨 Stays & Lounges</option>
-                            <option value="food" selected>🍲 Food & Dining</option>
-                            <option value="activities_darshan">🛕 Darshan & Sightseeing</option>
-                            <option value="shopping">🛍️ Shopping & Prasadam</option>
-                            <option value="misc">⚡ General & Misc</option>
-                        </select>
+                    <div class="row g-2 mb-2">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-dark mb-1">Amount (₹)</label>
+                            <input type="number" step="0.01" class="form-control form-control-sm" name="amount" id="formAmount" required placeholder="0.00">
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-dark mb-1">Category</label>
+                            <select class="form-select form-select-sm" name="category" id="formCategory">
+                                <option value="transport">🚆 Transport & Transit</option>
+                                <option value="stay_lounge">🏨 Stays & Lounges</option>
+                                <option value="food" selected>🍲 Food & Dining</option>
+                                <option value="activities_darshan">🛕 Darshan & Sightseeing</option>
+                                <option value="shopping">🛍️ Shopping & Prasadam</option>
+                                <option value="misc">⚡ General & Misc</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div class="row g-2 mb-2">
-                    <div class="col-6">
-                        <label class="form-label small fw-bold text-dark mb-1">Payment Method</label>
-                        <select class="form-select form-select-sm" name="payment_mode" id="formPaymentMode">
-                            <option value="PhonePe UPI" selected>PhonePe UPI</option>
-                            <option value="Google Pay (GPay)">Google Pay (GPay)</option>
-                            <option value="Paytm UPI">Paytm UPI</option>
-                            <option value="Debit Card">Debit / Credit Card</option>
-                            <option value="IRCTC Online">IRCTC Online</option>
-                            <option value="Cash">Cash</option>
-                            <option value="Other">Other</option>
-                        </select>
+                    <div class="row g-2 mb-2">
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-dark mb-1">Payment Method</label>
+                            <select class="form-select form-select-sm" name="payment_mode" id="formPaymentMode">
+                                <option value="PhonePe UPI" selected>PhonePe UPI</option>
+                                <option value="Google Pay (GPay)">Google Pay (GPay)</option>
+                                <option value="Paytm UPI">Paytm UPI</option>
+                                <option value="Debit Card">Debit / Credit Card</option>
+                                <option value="IRCTC Online">IRCTC Online</option>
+                                <option value="Cash">Cash</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label small fw-bold text-dark mb-1">When Booked?</label>
+                            <select class="form-select form-select-sm" name="is_prebooked" id="formIsPrebooked">
+                                <option value="false">⚡ In-Transit (Live on Trip)</option>
+                                <option value="true" selected>💼 Pre-Booked (Stays, Lounges, Trains)</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-6">
-                        <label class="form-label small fw-bold text-dark mb-1">When Booked?</label>
-                        <select class="form-select form-select-sm" name="is_prebooked" id="formIsPrebooked">
-                            <option value="false" selected>⚡ In-Transit (Live on Trip)</option>
-                            <option value="true">💼 Pre-Booked (Stays, Lounges, Trains)</option>
-                        </select>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted mb-1">Notes (Optional)</label>
+                        <input type="text" class="form-control form-control-sm" name="notes" id="formNotes" placeholder="e.g. AC chair car, breakfast included...">
                     </div>
-                </div>
-                <div class="mb-3">
-                    <label class="form-label small text-muted mb-1">Notes (Optional)</label>
-                    <input type="text" class="form-control form-control-sm" name="notes" id="formNotes" placeholder="e.g. AC chair car, breakfast included...">
-                </div>
-                <button type="submit" class="btn btn-success btn-sm w-100 rounded-pill py-2 fw-bold shadow-xs">
-                    <i class="bi bi-check-circle-fill me-1"></i> Save to Trip Diary
-                </button>
-            </form>
+                    <button type="submit" class="btn btn-outline-success btn-sm w-100 rounded-pill py-2 fw-bold">
+                        <i class="bi bi-check-circle-fill me-1"></i> Save Pre-Booked / Custom Item
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
 
@@ -322,11 +379,7 @@
                         </div>
                         <div class="text-end d-flex align-items-center gap-2">
                             <span class="fw-bold text-dark fs-6">₹{{ "{:,.2f}".format(exp.amount) }}</span>
-                            <form action="{{ url_for('trip_delete_expense') }}" method="POST" onsubmit="return confirm('Remove this expense?');" class="d-inline">
-                                <input type="hidden" name="expense_id" value="{{ exp.id }}">
-                                <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
-                                <button type="submit" class="btn btn-xs btn-outline-danger border-0 p-1" title="Delete entry"><i class="bi bi-trash"></i></button>
-                            </form>
+                            <button type="button" class="btn btn-xs btn-outline-danger border-0 p-1" title="Delete entry" onclick="deleteDiaryExpenseAjax('{{ details.trip.id }}', '{{ exp.id }}')"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
                     {% endfor %}
@@ -349,15 +402,14 @@
                     </h6>
                     <small class="text-muted" style="font-size: 0.72rem;">Live expenses logged from minute of departure till reaching home</small>
                 </div>
-                <span class="badge bg-warning-subtle text-dark font-semibold px-2 py-1 rounded-pill">
+                <span class="badge bg-warning-subtle text-dark font-semibold px-2 py-1 rounded-pill" id="on-trip-badge-count">
                     {{ details.on_trip_expenses|length }} items • ₹{{ "{:,.2f}".format(details.on_trip_total) }}
                 </span>
             </div>
             <div class="card-body p-3">
-                {% if details.on_trip_expenses %}
-                <div class="list-group list-group-flush gap-2">
+                <div class="list-group list-group-flush gap-2 {% if not details.on_trip_expenses %}d-none{% endif %}" id="on-trip-expenses-list">
                     {% for exp in details.on_trip_expenses %}
-                    <div class="list-group-item d-flex justify-content-between align-items-center p-3 rounded-3 border shadow-xs bg-white">
+                    <div class="list-group-item d-flex justify-content-between align-items-center p-3 rounded-3 border shadow-xs bg-white" id="diary-exp-{{ exp.id }}">
                         <div class="d-flex align-items-center gap-3">
                             <span class="fs-4">{{ details.categories_meta[exp.category].icon if exp.category in details.categories_meta else '📌' }}</span>
                             <div>
@@ -374,21 +426,15 @@
                         </div>
                         <div class="text-end d-flex align-items-center gap-2">
                             <span class="fw-bold text-success fs-6">₹{{ "{:,.2f}".format(exp.amount) }}</span>
-                            <form action="{{ url_for('trip_delete_expense') }}" method="POST" onsubmit="return confirm('Remove this expense?');" class="d-inline">
-                                <input type="hidden" name="expense_id" value="{{ exp.id }}">
-                                <input type="hidden" name="trip_id" value="{{ details.trip.id }}">
-                                <button type="submit" class="btn btn-xs btn-outline-danger border-0 p-1" title="Delete entry"><i class="bi bi-trash"></i></button>
-                            </form>
+                            <button type="button" class="btn btn-xs btn-outline-danger border-0 p-1" title="Delete entry" onclick="deleteDiaryExpenseAjax('{{ details.trip.id }}', '{{ exp.id }}')"><i class="bi bi-trash"></i></button>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
-                {% else %}
-                <div class="text-center py-4 text-muted small">
+                <div class="text-center py-4 text-muted small {% if details.on_trip_expenses %}d-none{% endif %}" id="diary-empty-msg">
                     <i class="bi bi-wallet fs-3 d-block mb-1"></i>
-                    No live expenses logged yet. Use the 1-Tap buttons or paste your UPI SMS when traveling!
+                    No live expenses logged yet. Payments made via PhonePe will automatically appear here!
                 </div>
-                {% endif %}
             </div>
         </div>
 
@@ -461,57 +507,232 @@
 </div>
 
 <script>
-const GRAND_TOTAL = {{ details.grand_total }};
+let GRAND_TOTAL = {{ details.grand_total }};
 
-function updateSplit() {
-    const count = parseInt(document.getElementById('splitCount').value) || 1;
-    const share = GRAND_TOTAL / Math.max(1, count);
-    document.getElementById('splitResult').innerText = '₹' + share.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+function formatInr(val) {
+    return '₹' + Number(val || 0).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function quickAdd(title, amount, category) {
-    document.getElementById('formTitle').value = title;
-    document.getElementById('formAmount').value = amount;
-    document.getElementById('formCategory').value = category;
-    document.getElementById('formIsPrebooked').value = 'false';
-    document.getElementById('formPaymentMode').value = 'PhonePe UPI';
-    document.getElementById('expenseForm').submit();
-}
+function updateDiaryTotals(data) {
+    if (!data) return;
+    const prebookedEl = document.getElementById('live-prebooked-total');
+    const onroadEl = document.getElementById('live-onroad-total');
+    const grandEl = document.getElementById('live-grand-total');
+    const shareEl = document.getElementById('live-share-total');
 
-function parseAndFillSMS() {
-    const text = document.getElementById('smsInput').value.trim();
-    if (!text) {
-        alert('Please paste a transaction SMS or UPI payment text first.');
-        return;
+    if (prebookedEl && data.prebooked_total !== undefined) prebookedEl.textContent = formatInr(data.prebooked_total);
+    if (onroadEl && data.on_trip_total !== undefined) onroadEl.textContent = formatInr(data.on_trip_total);
+    if (grandEl && data.grand_total !== undefined) {
+        grandEl.textContent = formatInr(data.grand_total);
+        GRAND_TOTAL = data.grand_total;
     }
+    if (shareEl && data.per_person_share !== undefined) shareEl.textContent = formatInr(data.per_person_share);
+    updateSplit();
+
+    const badgeCount = document.getElementById('on-trip-badge-count');
+    if (badgeCount && data.on_trip_total !== undefined) {
+        badgeCount.textContent = `Live Spent • ${formatInr(data.on_trip_total)}`;
+    }
+}
+
+let phonepeTimeout = null;
+function showPhonePeAlert(title, amount) {
+    const alertBox = document.getElementById('phonepe-live-alert');
+    const titleEl = document.getElementById('phonepe-alert-title');
+    if (!alertBox || !titleEl) return;
     
+    titleEl.textContent = `Paid ₹${Number(amount).toLocaleString('en-IN')} to ${title}`;
+    alertBox.classList.remove('d-none');
+    
+    if (phonepeTimeout) clearTimeout(phonepeTimeout);
+    phonepeTimeout = setTimeout(() => {
+        alertBox.classList.add('d-none');
+    }, 5500);
+}
+
+function hidePhonePeAlert() {
+    const alertBox = document.getElementById('phonepe-live-alert');
+    if (alertBox) alertBox.classList.add('d-none');
+}
+
+function showDiaryToast(msg, isSuccess = true) {
+    const fb = document.getElementById('diarySpendFeedback');
+    if (!fb) return;
+    fb.className = `small mt-2 px-2 fw-semibold ${isSuccess ? 'text-success' : 'text-danger'}`;
+    fb.innerHTML = isSuccess ? `<i class="bi bi-check-circle-fill me-1"></i> ${msg}` : `<i class="bi bi-exclamation-triangle-fill me-1"></i> ${msg}`;
+    fb.classList.remove('d-none');
+    setTimeout(() => {
+        fb.classList.add('d-none');
+    }, 4500);
+}
+
+function appendOnTripItem(tripId, exp) {
+    const list = document.getElementById('on-trip-expenses-list');
+    const emptyMsg = document.getElementById('diary-empty-msg');
+    if (emptyMsg) emptyMsg.classList.add('d-none');
+    if (list) {
+        list.classList.remove('d-none');
+        const item = document.createElement('div');
+        item.id = `diary-exp-${exp.id}`;
+        item.className = 'list-group-item d-flex justify-content-between align-items-center p-3 rounded-3 border shadow-xs bg-white';
+        item.innerHTML = `
+            <div class="d-flex align-items-center gap-3">
+                <span class="fs-4">⚡</span>
+                <div>
+                    <h6 class="mb-0 fw-bold small text-dark">${exp.title}</h6>
+                    <div class="text-muted" style="font-size: 0.72rem;">
+                        <span class="badge bg-success-subtle text-success me-1">Auto-Captured</span>
+                        <span><i class="bi bi-clock me-1"></i>${exp.date || 'Today'} ${exp.time || ''}</span>
+                        • <span>${exp.payment_mode || 'PhonePe UPI'}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="text-end d-flex align-items-center gap-2">
+                <span class="fw-bold text-success fs-6">₹${Number(exp.amount).toFixed(2)}</span>
+                <button type="button" class="btn btn-xs btn-outline-danger border-0 p-1" title="Delete entry" onclick="deleteDiaryExpenseAjax('${tripId}', '${exp.id}')">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </div>
+        `;
+        list.prepend(item);
+    }
+}
+
+function simulatePhonePeSync(tripId, title, amount, category) {
+    fetch('{{ url_for("trip_auto_sync_payment") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            trip_id: tripId,
+            title: title,
+            amount: amount,
+            category: category,
+            payment_mode: 'PhonePe UPI'
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            updateDiaryTotals(data);
+            showPhonePeAlert(title, amount);
+            if (data.expense) appendOnTripItem(tripId, data.expense);
+        } else {
+            alert(data.error || 'Auto-sync failed');
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+function quickAddAjax(tripId, title, amount, category) {
+    simulatePhonePeSync(tripId, title, amount, category);
+}
+
+function handleDiarySmartSpend(e, tripId) {
+    e.preventDefault();
+    const input = document.getElementById('diarySmartInput');
+    const text = input ? input.value.trim() : '';
+    if (!text) return;
+
+    const btn = document.getElementById('diarySmartBtn');
+    if (btn) btn.disabled = true;
+
     fetch('{{ url_for("trip_parse_sms") }}', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sms: text })
     })
     .then(res => res.json())
-    .then(data => {
-        if (data && data.amount > 0) {
-            document.getElementById('formTitle').value = data.title || 'Travel Expense';
-            document.getElementById('formAmount').value = data.amount;
-            document.getElementById('formCategory').value = data.category || 'misc';
-            document.getElementById('formPaymentMode').value = data.payment_mode || 'PhonePe UPI';
-            document.getElementById('formIsPrebooked').value = 'false';
-            document.getElementById('formNotes').value = 'Auto-parsed from transaction SMS';
-            
-            // Highlight form
-            const formCard = document.getElementById('expenseForm');
-            formCard.scrollIntoView({ behavior: 'smooth' });
-            alert(`✅ Parsed ₹${data.amount} to "${data.title}" (${data.category_name}). Click "Save to Trip Diary" to confirm!`);
+    .then(parsed => {
+        if (btn) btn.disabled = false;
+        if (parsed && parsed.amount > 0) {
+            fetch('{{ url_for("trip_auto_sync_payment") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    trip_id: tripId,
+                    title: parsed.title || 'Travel Expense',
+                    amount: parsed.amount,
+                    category: parsed.category || 'misc',
+                    payment_mode: parsed.payment_mode || 'PhonePe UPI'
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    if (input) input.value = '';
+                    updateDiaryTotals(data);
+                    showPhonePeAlert(parsed.title, parsed.amount);
+                    if (data.expense) appendOnTripItem(tripId, data.expense);
+                    showDiaryToast(`✓ Captured ₹${parsed.amount} for ${parsed.title}`);
+                } else {
+                    showDiaryToast(data.error || 'Failed to add', false);
+                }
+            });
         } else {
-            alert('Could not detect amount from text. Please enter details manually.');
+            showDiaryToast('Could not detect amount. Type like "150 lunch" or "40 chai".', false);
         }
     })
     .catch(err => {
+        if (btn) btn.disabled = false;
         console.error(err);
-        alert('Error parsing SMS text.');
+        showDiaryToast('Error processing spend text.', false);
     });
+}
+
+function deleteDiaryExpenseAjax(tripId, expId) {
+    if (!confirm('Remove this expense from your trip diary?')) return;
+    
+    fetch('{{ url_for("trip_delete_expense") }}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            trip_id: tripId,
+            expense_id: expId
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            updateDiaryTotals(data);
+            const row = document.getElementById(`diary-exp-${expId}`);
+            if (row) row.remove();
+            showDiaryToast('Expense removed and budget recalculated.');
+        }
+    })
+    .catch(err => console.error(err));
+}
+
+function updateSplit() {
+    const splitInput = document.getElementById('splitCount');
+    if (!splitInput) return;
+    const count = parseInt(splitInput.value) || 1;
+    const share = GRAND_TOTAL / Math.max(1, count);
+    const splitEl = document.getElementById('splitResult');
+    if (splitEl) splitEl.innerText = '₹' + share.toLocaleString('en-IN', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+}
+
+// Backward compatibility helpers
+function quickAdd(title, amount, category) {
+    quickAddAjax('{{ details.trip.id }}', title, amount, category);
+}
+
+function parseAndFillSMS() {
+    const text = document.getElementById('smsInput') ? document.getElementById('smsInput').value.trim() : '';
+    if (!text) {
+        alert('Please paste a transaction SMS or UPI payment text first.');
+        return;
+    }
+    const fakeEvent = { preventDefault: () => {} };
+    handleDiarySmartSpend(fakeEvent, '{{ details.trip.id }}');
 }
 </script>
 {% endblock %}

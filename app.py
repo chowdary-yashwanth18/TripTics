@@ -520,5 +520,73 @@ def trip_parse_sms():
     return parsed or {'error': 'Could not parse transaction SMS'}
 
 
+@app.route('/api/trip-diary/auto-sync-payment', methods=['POST'])
+def trip_auto_sync_payment():
+    """
+    Automated background webhook endpoint for PhonePe, GPay, and Android notification sync.
+    Receives raw payment notifications or structured transaction events,
+    automatically detects amount, merchant, and category, and logs them into the trip ledger hands-free.
+    """
+    from utils.trip_tracker import add_expense, get_trip_details, parse_upi_sms_or_text, get_all_trips
+    data = request.get_json(silent=True) or request.form
+
+    trip_id = (data.get('trip_id') or '').strip()
+    if not trip_id:
+        all_trips = get_all_trips()
+        trip_id = all_trips[0]['id'] if all_trips else 'sample_trip'
+
+    raw_text = (data.get('text') or data.get('sms') or data.get('notification') or '').strip()
+    try:
+        amount = float(data.get('amount', 0) or 0)
+    except (ValueError, TypeError):
+        amount = 0.0
+
+    title = (data.get('title') or data.get('merchant') or '').strip()
+    category = (data.get('category') or '').strip()
+    payment_mode = (data.get('payment_mode') or 'PhonePe UPI').strip()
+
+    if raw_text:
+        parsed = parse_upi_sms_or_text(raw_text)
+        if parsed:
+            if amount <= 0:
+                amount = parsed.get('amount', 0.0)
+            if not title:
+                title = parsed.get('title', '')
+            if not category or category == 'misc':
+                category = parsed.get('category', 'misc')
+            if not payment_mode or payment_mode == 'PhonePe UPI':
+                payment_mode = parsed.get('payment_mode', 'PhonePe UPI')
+
+    if not title:
+        title = f"PhonePe Merchant Payment" if amount > 0 else "Travel Spend"
+    if not category:
+        category = 'misc'
+
+    if amount <= 0:
+        return jsonify({'success': False, 'error': 'Could not detect payment amount'}), 400
+
+    new_exp = add_expense(
+        trip_id,
+        title,
+        amount,
+        category=category,
+        is_prebooked=False,
+        payment_mode=payment_mode,
+        notes='⚡ Automatically captured via PhonePe Auto-Sync'
+    )
+    updated = get_trip_details(trip_id)
+
+    return jsonify({
+        'success': True,
+        'auto_captured': True,
+        'expense': new_exp,
+        'prebooked_total': updated['prebooked_total'] if updated else 0.0,
+        'on_trip_total': updated['on_trip_total'] if updated else 0.0,
+        'grand_total': updated['grand_total'] if updated else 0.0,
+        'per_person_share': updated['per_person_share'] if updated else 0.0,
+        'travelers': updated['travelers'] if updated else 1
+    })
+
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000, debug=True, use_reloader=False)
