@@ -2208,6 +2208,7 @@ function startResultsCameraScanner(tripId) {
     const readerEl = document.getElementById('res-qr-reader');
     const placeholder = document.getElementById('res-qr-scanner-placeholder');
     const stopBtn = document.getElementById('res-stop-cam-btn');
+    const snapBtn = document.getElementById('res-snap-cam-btn');
     if (!readerEl) return;
 
     if (typeof Html5Qrcode === 'undefined') {
@@ -2221,9 +2222,22 @@ function startResultsCameraScanner(tripId) {
 
     if (placeholder) placeholder.classList.add('d-none');
     if (stopBtn) stopBtn.classList.remove('d-none');
+    if (snapBtn) snapBtn.classList.remove('d-none');
 
-    resHtml5QrScanner = new Html5Qrcode("res-qr-reader");
-    const config = { fps: 10, qrbox: { width: 220, height: 220 } };
+    resHtml5QrScanner = new Html5Qrcode("res-qr-reader", {
+        experimentalFeatures: {
+            useBarCodeDetectorIfSupported: true
+        },
+        verbose: false
+    });
+    
+    const config = {
+        fps: 20,
+        qrbox: (viewfinderWidth, viewfinderHeight) => {
+            const edge = Math.floor(Math.min(viewfinderWidth, viewfinderHeight) * 0.95);
+            return { width: edge, height: edge };
+        }
+    };
 
     resHtml5QrScanner.start(
         { facingMode: "environment" },
@@ -2235,7 +2249,7 @@ function startResultsCameraScanner(tripId) {
         },
         (errorMessage) => {}
     ).catch(err => {
-        console.warn("Camera start error, trying standard camera:", err);
+        console.warn("Camera start error, trying user/front camera:", err);
         resHtml5QrScanner.start(
             { facingMode: "user" },
             config,
@@ -2255,6 +2269,7 @@ function startResultsCameraScanner(tripId) {
 function stopResultsCameraScanner() {
     const placeholder = document.getElementById('res-qr-scanner-placeholder');
     const stopBtn = document.getElementById('res-stop-cam-btn');
+    const snapBtn = document.getElementById('res-snap-cam-btn');
     if (resHtml5QrScanner) {
         try {
             resHtml5QrScanner.stop().then(() => {
@@ -2269,6 +2284,64 @@ function stopResultsCameraScanner() {
     }
     if (placeholder) placeholder.classList.remove('d-none');
     if (stopBtn) stopBtn.classList.add('d-none');
+    if (snapBtn) snapBtn.classList.add('d-none');
+}
+
+function scanResultsCurrentFrame(tripId) {
+    const video = document.querySelector("#res-qr-reader video");
+    if (!video) {
+        showSpendToast("Camera is not active yet.", false);
+        return;
+    }
+
+    if ('BarcodeDetector' in window) {
+        const barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] });
+        barcodeDetector.detect(video).then(barcodes => {
+            if (barcodes && barcodes.length > 0) {
+                playScanSuccessChime();
+                stopResultsCameraScanner();
+                handleResultsScannedUpiString(barcodes[0].rawValue, tripId);
+                return;
+            } else {
+                showSpendToast("Hold phone steady 15-20cm away from camera and lower screen brightness.", false);
+            }
+        }).catch(err => console.warn(err));
+        return;
+    }
+
+    const canvas = document.createElement("canvas");
+    canvas.width = video.videoWidth || 640;
+    canvas.height = video.videoHeight || 480;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.toBlob(blob => {
+        if (!blob) return;
+        const file = new File([blob], "snapshot.png", { type: "image/png" });
+        const reader = new Html5Qrcode("res-qr-reader", { experimentalFeatures: { useBarCodeDetectorIfSupported: true } });
+        reader.scanFile(file, true).then(decodedText => {
+            playScanSuccessChime();
+            stopResultsCameraScanner();
+            handleResultsScannedUpiString(decodedText, tripId);
+        }).catch(() => {
+            showSpendToast("Tip: Reduce phone brightness to ~40% and hold steady 20cm away.", false);
+        });
+    }, "image/png");
+}
+
+function applyResultsManualUpi() {
+    const input = document.getElementById('resManualUpiInput');
+    if (!input || !input.value.trim()) return;
+    const val = input.value.trim();
+    let vpa = val;
+    let name = "PhonePe Merchant";
+    if (!vpa.includes('@')) {
+        vpa = val + "@ybl";
+    }
+    if (vpa.startsWith('9705322741')) {
+        name = "Yashwanth (PhonePe)";
+    }
+    setResultsScannedShopkeeper(name, vpa, 50, 'other');
+    showSpendToast(`✓ Detected: ${name} (${vpa})`);
 }
 
 function scanResultsQrFile(input, tripId) {
@@ -2555,12 +2628,20 @@ document.addEventListener('DOMContentLoaded', function() {
                                             <i class="bi bi-camera-video-fill me-1"></i> Start Camera Scanner
                                         </button>
                                     </div>
-                                    <button id="res-stop-cam-btn" type="button" class="btn btn-sm btn-outline-light rounded-pill px-3 mt-2 d-none" onclick="stopResultsCameraScanner()">
-                                        <i class="bi bi-stop-circle me-1"></i> Stop Camera
-                                    </button>
+                                    <div class="d-flex gap-2 justify-content-center mt-2">
+                                        <button id="res-snap-cam-btn" type="button" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold d-none shadow-xs" onclick="scanResultsCurrentFrame('{{ trip_diary.trip.id }}')">
+                                            <i class="bi bi-camera-fill me-1"></i> 📸 Scan Frame Now
+                                        </button>
+                                        <button id="res-stop-cam-btn" type="button" class="btn btn-sm btn-outline-light rounded-pill px-3 d-none" onclick="stopResultsCameraScanner()">
+                                            <i class="bi bi-stop-circle me-1"></i> Stop Camera
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="small text-warning-emphasis bg-warning-subtle p-2 rounded-3 mt-2 text-start shadow-xs" style="font-size: 0.72rem;">
+                                    <i class="bi bi-lightbulb-fill text-warning me-1"></i><strong>Phone Screen Tip:</strong> Lower phone screen brightness slightly (to ~40%) and hold it 15-20cm steady away from webcam to avoid glare!
                                 </div>
                                 <div class="mt-2 text-muted small text-start">
-                                    <span class="fw-semibold">Or upload photo of shopkeeper's QR:</span>
+                                    <span class="fw-semibold">Or upload photo / screenshot of QR:</span>
                                     <input type="file" id="res-qr-file-input" accept="image/*" class="form-control form-control-sm rounded-pill mt-1" onchange="scanResultsQrFile(this, '{{ trip_diary.trip.id }}')">
                                 </div>
                             </div>
@@ -2569,7 +2650,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="col-md-6">
                                 <h6 class="fw-bold small text-dark mb-1">⚡ Quick Demo Shopkeeper Stands:</h6>
                                 <p class="text-muted small mb-2" style="font-size: 0.72rem;">Tap any real-world merchant stall to simulate scanning their counter QR:</p>
-                                <div class="d-flex flex-wrap gap-1 mb-3">
+                                <div class="d-flex flex-wrap gap-1 mb-2">
+                                    <button type="button" class="btn btn-xs text-white rounded-pill px-2 py-1 shadow-xs fw-bold" style="background: #5f259f;" onclick="setResultsScannedShopkeeper('Yashwanth (PhonePe Account)', '9705322741@ybl', 50, 'other')">
+                                        📱 My PhonePe (+91 9705322741)
+                                    </button>
                                     <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('Sri Balaji Cafe &amp; Tiffins', 'balajitiffins@ybl', 40, 'food')">
                                         ☕ Balaji Chai (₹40)
                                     </button>
@@ -2582,6 +2666,13 @@ document.addEventListener('DOMContentLoaded', function() {
                                     <button type="button" class="btn btn-xs btn-outline-secondary rounded-pill px-2 py-1 shadow-xs" onclick="setResultsScannedShopkeeper('Lepakshi Handicrafts Emporium', 'lepakshi@sbi', 450, 'shopping')">
                                         🛍️ Handicrafts (₹450)
                                     </button>
+                                </div>
+
+                                <!-- Quick Phone / UPI ID Search Bar -->
+                                <div class="input-group input-group-sm mb-2 shadow-xs">
+                                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-phone text-primary"></i></span>
+                                    <input type="text" id="resManualUpiInput" class="form-control border-start-0" placeholder="Type Phone or UPI ID (e.g. 9705322741@ybl)" value="9705322741@ybl">
+                                    <button type="button" class="btn btn-primary fw-bold px-3" onclick="applyResultsManualUpi()">Apply</button>
                                 </div>
 
                                 <!-- Detected Merchant Details Card -->
