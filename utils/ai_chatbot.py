@@ -1195,6 +1195,7 @@ Here are the most sacred and widely visited temples in **Bengaluru**:
   * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 05:00 PM – 08:30 PM.
   * 🙏 **Sacred Significance:** Unique natural rock-cut cave temple of Lord Shiva where sunlight passes between Nandi's horns to illuminate the inner Shiva Lingam on Makar Sankranti day.""",
 
+
     'tirupati': """### 🛕 Most Famous & Visited Temples in & around Tirupati
 
 Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Tirupati**:
@@ -1420,6 +1421,26 @@ Here are the most sacred, famous, and widely visited temples and shrines in **Go
 }
 
 
+def is_non_temple_landmark(name):
+    low = (name or '').lower()
+    sacred_words = ['temple', 'mandir', 'gudi', 'shrine', 'swamy', 'devasthanam', 'kovil', 'jyotirlinga', 'dargah', 'cathedral', 'basilica', 'gurudwara', 'matha', 'peeth']
+    if any(sw in low for sw in sacred_words):
+        if not any(re.search(rf'\b{b}\b', low) for b in ['mall', 'circus', 'amusement', 'resort', 'hotel', 'restaurant']):
+            return False
+            
+    non_temple_patterns = [
+        r'\bcharminar\b', r'\bfort\b', r'\bpalace\b', r'\bmonument\b', r'\bmuseum\b',
+        r'\bfilm city\b', r'\bgate\b', r'\bminar\b', r'\bmemorial\b', r'\bbridge\b',
+        r'\btower\b', r'\bplanetarium\b', r'\blake\b', r'\bsagar\b', r'\bdam\b',
+        r'\bbeach\b', r'\bfalls?\b', r'\bwaterfalls?\b', r'\bpark\b', r'\bzoo\b',
+        r'\bmarket\b', r'\bbazaar\b', r'\bmall\b', r'\bcircus\b', r'\baquarium\b',
+        r'\bstadium\b', r'\bstudio\b', r'\bpromenade\b', r'\bdrive\b', r'\bpoint\b',
+        r'\bgarden\b', r'\bresort\b', r'\bsafari\b', r'\bsanctuary\b', r'\bridge\b',
+        r'\bvalley\b', r'\btaj mahal\b', r'\bindia gate\b', r'\bgateway of india\b',
+        r'\bred fort\b', r'\bhawa mahal\b', r'\bamber fort\b'
+    ]
+    return any(re.search(p, low) for p in non_temple_patterns)
+
 def _format_temples_for_chatbot(destination, guide=None, profile=None):
     """Formats verified temples, sacred shrines and devotional pilgrimage details."""
     dest_title = (destination or 'Your Destination').title()
@@ -1434,21 +1455,11 @@ def _format_temples_for_chatbot(destination, guide=None, profile=None):
         if key in dest_lower or dest_lower in key:
             return content
         
-    # Strictly filter out any monuments, forts, palaces, parks, minars, etc.
-    NON_TEMPLE_KEYWORDS = [
-        'charminar', 'fort', 'palace', 'monument', 'museum', 'film city', 'gate', 
-        'minar', 'memorial', 'bridge', 'tower', 'planetarium', 'lake', 'sagar', 
-        'dam', 'beach', 'falls', 'waterfall', 'park', 'zoo', 'market', 'bazaar', 
-        'mall', 'circus', 'aquarium', 'stadium', 'studio', 'promenade', 'drive', 
-        'point', 'garden', 'resort', 'safari', 'sanctuary', 'ridge', 'valley', 'cave',
-        'taj mahal', 'india gate', 'gateway of india', 'red fort', 'hawa mahal', 'amber fort'
-    ]
-
     raw_temples = (guide or {}).get('tourist_spots', {}).get('temples', [])
     temples = []
     for t in raw_temples:
-        t_name = t.get('name', '').lower()
-        if not any(bad in t_name for bad in NON_TEMPLE_KEYWORDS):
+        t_name = t.get('name', '')
+        if not is_non_temple_landmark(t_name):
             temples.append(t)
 
     # 3. If temples is empty or filtered out, check NATIONWIDE_TEMPLE_DATABASE

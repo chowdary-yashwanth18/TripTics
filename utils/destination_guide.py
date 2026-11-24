@@ -14,6 +14,7 @@ Provides a comprehensive destination master guide for any travel location:
 """
 
 import os
+import re
 import urllib.parse
 from utils.atm_service import get_nearby_atms
 from utils.hotel_generator import generate_hotels
@@ -28,6 +29,26 @@ NON_TEMPLE_KEYWORDS = [
     'mall', 'circus', 'aquarium', 'stadium', 'studio', 'promenade', 'drive', 
     'point', 'garden', 'resort', 'safari', 'sanctuary', 'ridge', 'valley', 'cave'
 ]
+
+def is_non_temple_landmark(name):
+    low = (name or '').lower()
+    sacred_words = ['temple', 'mandir', 'gudi', 'shrine', 'swamy', 'devasthanam', 'kovil', 'jyotirlinga', 'dargah', 'cathedral', 'basilica', 'gurudwara', 'matha', 'peeth']
+    if any(sw in low for sw in sacred_words):
+        if not any(re.search(rf'\b{b}\b', low) for b in ['mall', 'circus', 'amusement', 'resort', 'hotel', 'restaurant']):
+            return False
+            
+    non_temple_patterns = [
+        r'\bcharminar\b', r'\bfort\b', r'\bpalace\b', r'\bmonument\b', r'\bmuseum\b',
+        r'\bfilm city\b', r'\bgate\b', r'\bminar\b', r'\bmemorial\b', r'\bbridge\b',
+        r'\btower\b', r'\bplanetarium\b', r'\blake\b', r'\bsagar\b', r'\bdam\b',
+        r'\bbeach\b', r'\bfalls?\b', r'\bwaterfalls?\b', r'\bpark\b', r'\bzoo\b',
+        r'\bmarket\b', r'\bbazaar\b', r'\bmall\b', r'\bcircus\b', r'\baquarium\b',
+        r'\bstadium\b', r'\bstudio\b', r'\bpromenade\b', r'\bdrive\b', r'\bpoint\b',
+        r'\bgarden\b', r'\bresort\b', r'\bsafari\b', r'\bsanctuary\b', r'\bridge\b',
+        r'\bvalley\b', r'\btaj mahal\b', r'\bindia gate\b', r'\bgateway of india\b',
+        r'\bred fort\b', r'\bhawa mahal\b', r'\bamber fort\b'
+    ]
+    return any(re.search(p, low) for p in non_temple_patterns)
 
 # ==============================================================================
 # NATIONWIDE AUTHENTIC TEMPLE DATABASE (True Sanctums & Verified Mandirs)
@@ -1960,13 +1981,10 @@ def get_destination_master_guide(destination, state='', days=3):
 
     for attr in csv_attrs:
         a_low = attr.lower()
-        if any(w in a_low for w in ['charminar', 'monument', 'memorial', 'gate', 'minar', 'palace', 'mahal', 'tomb', 'ruin', 'citadel', 'film city', 'museum', 'jantar mantar']):
+        if is_non_temple_landmark(attr):
             heritage_attrs.append(attr)
-        elif any(w in a_low for w in ['temple', 'swamy', 'shrine', 'mandir', 'kovil', 'devasthanam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam', 'jyotirlinga', 'dargah', 'church', 'cathedral', 'stupa', 'monastery', 'peeth', 'veerabhadra']):
-            if not any(bad in a_low for bad in ['charminar', 'fort', 'palace', 'museum', 'film city', 'minar', 'gate', 'lake', 'falls', 'mall', 'park', 'zoo']):
-                temple_attrs.append(attr)
-            else:
-                heritage_attrs.append(attr)
+        elif any(w in a_low for w in ['temple', 'swamy', 'shrine', 'mandir', 'kovil', 'devasthanam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam', 'jyotirlinga', 'dargah', 'church', 'cathedral', 'stupa', 'monastery', 'peeth', 'veerabhadra', 'gudi']):
+            temple_attrs.append(attr)
         elif any(w in a_low for w in ['fall', 'falls', 'waterfall', 'waterfalls', 'cascade']):
             falls_attrs.append(attr)
         elif any(w in a_low for w in ['hill', 'peak', 'viewpoint', 'point', 'ridge', 'canyon', 'valley', 'cave', 'caves', 'fort', 'overlook']):

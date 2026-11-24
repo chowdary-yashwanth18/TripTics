@@ -249,7 +249,7 @@ def confirm_booking():
 def api_attractions():
     """Fetches real-world attractions using Google Places API."""
     from utils.places_api import get_tourist_attractions
-    location = request.args.get('location', '')
+    location = (request.args.get('location') or request.args.get('destination') or '').strip()
     if not location:
         return {'attractions': [], 'error': 'No location provided'}, 400
         
@@ -288,7 +288,7 @@ def api_photo():
 def api_rides():
     """Generates localized ride options and distance-based prices for a location."""
     from utils.rides import generate_ride_options
-    location = request.args.get('location', '')
+    location = (request.args.get('location') or request.args.get('destination') or '').strip()
     pickup = request.args.get('pickup', 'Current Location / Hotel')
     dropoff = request.args.get('dropoff', '')
     distance_km = request.args.get('distance_km', None)
@@ -304,7 +304,7 @@ def api_rides():
 def api_weather():
     """Fetches genuine weather forecast or historical seasonal climate normals."""
     from utils.weather_service import get_weather_forecast
-    location = request.args.get('location', '').strip()
+    location = (request.args.get('location') or request.args.get('destination') or request.args.get('q') or '').strip()
     target_date = request.args.get('date', '').strip()
     if not location:
         return {'error': 'Location is required'}, 400
@@ -330,7 +330,7 @@ def api_currency():
 def api_atms():
     """Returns nearby ATMs for railway stations, bus stands, and airports."""
     from utils.atm_service import get_nearby_atms
-    dest = request.args.get('location', '').strip()
+    dest = (request.args.get('location') or request.args.get('destination') or request.args.get('q') or '').strip()
     state = request.args.get('state', '').strip()
     return get_nearby_atms(dest, state)
 
@@ -339,7 +339,7 @@ def api_atms():
 def api_destination_guide():
     """Returns complete destination master guide, route map, spots, dishes, culture, and celebration venues."""
     from utils.destination_guide import get_destination_master_guide
-    dest = request.args.get('location', '').strip()
+    dest = (request.args.get('location') or request.args.get('destination') or request.args.get('q') or '').strip()
     state = request.args.get('state', '').strip()
     days = int(request.args.get('days', 3) or 3)
     return get_destination_master_guide(dest, state, days)
