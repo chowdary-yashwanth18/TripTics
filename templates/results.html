@@ -161,6 +161,29 @@
                                     </div>
                                     {% endif %}
 
+                                    <!-- Heritage Monuments & Historic Forts -->
+                                    {% if guide.tourist_spots.heritage_monuments %}
+                                    <div class="accordion-item border rounded-2 mb-1">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed py-2 px-3 fw-bold small text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHeritage-{{ dest_id }}">
+                                                🏛️ Heritage Monuments & Historic Forts ({{ guide.tourist_spots.heritage_monuments|length }})
+                                            </button>
+                                        </h2>
+                                        <div id="collapseHeritage-{{ dest_id }}" class="accordion-collapse collapse" data-bs-parent="#spotsAccordion-{{ dest_id }}">
+                                            <div class="accordion-body p-2" style="font-size: 0.72rem;">
+                                                {% for item in guide.tourist_spots.heritage_monuments %}
+                                                <div class="mb-2 pb-1 border-bottom">
+                                                    <div class="fw-bold text-dark">{{ item.name }}</div>
+                                                    <div class="text-muted small"><i class="bi bi-geo-alt-fill text-danger"></i> {{ item.landmark }}</div>
+                                                    <div class="text-secondary">{{ item.desc }}</div>
+                                                    {% if item.highlight %}<div class="text-primary small fw-medium"><i class="bi bi-star-fill text-warning"></i> {{ item.highlight }}</div>{% endif %}
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+
                                     <!-- Hills & Viewpoints -->
                                     {% if guide.tourist_spots.hills_viewpoints %}
                                     <div class="accordion-item border rounded-2 mb-1">
@@ -2717,10 +2740,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     <!-- Tab 2: Show My Personal PhonePe / Settlement QR (With Friends) -->
                     <div class="tab-pane fade" id="res-tab-group-settlement" role="tabpanel">
+                        {% set calculated_share = (trip_diary.per_person_share if trip_diary and trip_diary.per_person_share > 0 else ((recommendations[0].Total_Cost // travelers if recommendations else (alternatives[0].Total_Cost // travelers if alternatives else 500)))) %}
                         <div class="alert alert-warning border-0 rounded-3 py-2 px-3 small text-start d-flex align-items-center gap-2 mb-3">
                             <i class="bi bi-people-fill text-warning fs-5"></i>
                             <div>
-                                <strong>Your Personal Settlement QR:</strong> Show this PhonePe QR code to your friends or co-travelers so they can scan and reimburse you their individual share (<strong>₹{{ trip_diary.per_person_share or '0.00' }}</strong>)!
+                                <strong>Your Personal Settlement QR:</strong> Show this PhonePe QR code to your friends or co-travelers so they can scan and reimburse you their individual share (<strong>₹{{ "{:,.2f}".format(calculated_share) }}</strong>)!
                             </div>
                         </div>
 
@@ -2743,7 +2767,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label small fw-bold text-dark mb-1">Split Amount (₹)</label>
-                                    <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="{{ trip_diary.per_person_share or 500 }}" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
+                                    <input type="number" id="resQrItemAmount" class="form-control form-control-sm rounded-pill px-3 fw-bold text-success" value="{{ calculated_share|int }}" min="1" step="1" oninput="updateResultsDynamicUpiQr()">
                                 </div>
                             </div>
                             
@@ -2781,7 +2805,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                         <h6 class="fw-bold mb-0 text-dark" id="resCardHostName">Yashwanth (Trip Host)</h6>
                                         <div class="text-primary small fw-semibold" style="font-size: 0.76rem;" id="resCardHostVpa">yashwanth@ybl</div>
                                         <div class="badge bg-success-subtle text-success fw-bold rounded-pill px-2 py-1 mt-1" style="font-size: 0.74rem;">
-                                            Amount to Pay: <span id="resCardHostAmount">₹{{ trip_diary.per_person_share or '500.00' }}</span>
+                                            Amount to Pay: <span id="resCardHostAmount">₹{{ "{:,.2f}".format(calculated_share) }}</span>
                                         </div>
                                     </div>
 

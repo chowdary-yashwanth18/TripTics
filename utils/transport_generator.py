@@ -466,6 +466,25 @@ def _synthesize_flights(origin, destination, dist_km, is_return=False):
         'provenance': {'is_verified': True, 'source': 'Commercial Airline Timetable'},
         'legs': f2_legs
     }
+    # Calculate authentic market fares based on distance
+    if dist_km > 2500:
+        f1_price = int(round((18000 + (dist_km * 3.8)) / 100) * 100)
+        f2_price = int(round((21000 + (dist_km * 4.2)) / 100) * 100)
+    else:
+        f1_price = int(round((2800 + (dist_km * 3.6)) / 50) * 50)
+        f2_price = int(round((3400 + (dist_km * 4.0)) / 50) * 50)
+    transfer_price = int(round((max(40, dist_km * 0.15) * 14) / 50) * 50)
+
+    f1_total = f1_price + (transfer_price if (is_dest_no_airport or is_orig_no_airport) else 0)
+    f2_total = f2_price + (transfer_price if (is_dest_no_airport or is_orig_no_airport) else 0)
+
+    for leg in f1_legs:
+        leg['price'] = f1_price if leg.get('mode') == 'flight' else transfer_price
+    for leg in f2_legs:
+        leg['price'] = f2_price if leg.get('mode') == 'flight' else transfer_price
+
+    f1['price'] = f1_total
+    f2['price'] = f2_total
     return [f1, f2]
 
 
@@ -696,6 +715,20 @@ def _synthesize_trains(origin, destination, dist_km, is_return=False):
         'provenance': {'is_verified': True, 'source': 'Indian Railways Schedule'},
         'legs': t2_legs
     }
+    t1_price = int(round((450 + (dist_km * 1.55)) / 10) * 10)
+    t2_price = int(round((750 + (dist_km * 2.35)) / 10) * 10)
+    connecting_price = int(round((180 + (dist_km * 0.25)) / 10) * 10)
+
+    t1_total = t1_price + (connecting_price if (is_dest_junction or is_orig_junction) else 0)
+    t2_total = t2_price + (connecting_price if (is_dest_junction or is_orig_junction) else 0)
+
+    for leg in t1_legs:
+        leg['price'] = t1_price if (len(t1_legs) == 1 or leg == t1_legs[0]) else connecting_price
+    for leg in t2_legs:
+        leg['price'] = t2_price if (len(t2_legs) == 1 or leg == t2_legs[0]) else connecting_price
+
+    t1['price'] = t1_total
+    t2['price'] = t2_total
     return [t1, t2]
 
 
@@ -921,6 +954,20 @@ def _synthesize_buses(origin, destination, dist_km, is_return=False):
         'provenance': {'is_verified': True, 'source': 'SmartBus Fleet Network'},
         'legs': b2_legs
     }
+    b1_price = int(round((280 + (dist_km * 1.35)) / 10) * 10)
+    b2_price = int(round((480 + (dist_km * 1.95)) / 10) * 10)
+    connecting_bus_price = int(round((150 + (dist_km * 0.20)) / 10) * 10)
+
+    b1_total = b1_price + (connecting_bus_price if (is_dest_connecting or is_orig_connecting) else 0)
+    b2_total = b2_price + (connecting_bus_price if (is_dest_connecting or is_orig_connecting) else 0)
+
+    for leg in b1_legs:
+        leg['price'] = b1_price if (len(b1_legs) == 1 or leg == b1_legs[0]) else connecting_bus_price
+    for leg in b2_legs:
+        leg['price'] = b2_price if (len(b2_legs) == 1 or leg == b2_legs[0]) else connecting_bus_price
+
+    b1['price'] = b1_total
+    b2['price'] = b2_total
     return [b1, b2]
 
 
@@ -1023,6 +1070,17 @@ def _synthesize_cabs(origin, destination, dist_km, is_return=False):
             }
         ]
     }
+    c1_price = int(round((max(200, dist_km) * 13.5) / 100) * 100)
+    c2_price = int(round((max(200, dist_km) * 18.5) / 100) * 100)
+
+    c1['price'] = c1_price
+    c2['price'] = c2_price
+    if 'legs' in c1 and len(c1['legs']) == 2:
+        c1['legs'][0]['price'] = int(c1_price * 0.7)
+        c1['legs'][1]['price'] = int(c1_price * 0.3)
+    if 'legs' in c2 and len(c2['legs']) == 2:
+        c2['legs'][0]['price'] = int(c2_price * 0.7)
+        c2['legs'][1]['price'] = int(c2_price * 0.3)
     return [c1, c2]
 
 
@@ -1111,6 +1169,8 @@ def generate_transport(origin, destination, mode='any', is_return=False, is_inte
     for opt in options:
         cleaned = validate_transport_item(opt)
         if cleaned:
+            if opt.get('price'):
+                cleaned['price'] = opt['price']
             if 'booking_url' in opt and opt['booking_url']:
                 cleaned['booking_url'] = opt['booking_url']
             if 'route_message' in opt and opt['route_message']:

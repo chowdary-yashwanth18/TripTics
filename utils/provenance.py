@@ -133,6 +133,20 @@ def validate_transport_item(item):
                     "price": validate_numeric(leg.get("price"), min_val=0, default=0)
                 })
 
+    # Ensure no leg has a 0 price if the overall ticket has a valid price
+    if price > 0 and valid_legs:
+        has_zero = any(l.get("price", 0) <= 0 for l in valid_legs)
+        if has_zero:
+            if len(valid_legs) == 1:
+                valid_legs[0]["price"] = price
+            elif len(valid_legs) == 2:
+                valid_legs[0]["price"] = int(round(price * 0.7))
+                valid_legs[1]["price"] = price - valid_legs[0]["price"]
+            else:
+                share = int(round(price / len(valid_legs)))
+                for l in valid_legs:
+                    l["price"] = share
+
     provenance = item.get("provenance")
     if not isinstance(provenance, dict):
         provenance = create_provenance_meta("TripTics Verified Transit", LEVEL_VERIFIED_SCHEDULE)

@@ -19,7 +19,7 @@ app.jinja_env.globals.update(generate_hotels=generate_hotels)
 destinations_df = load_destinations()
 
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 @app.route('/planner', methods=['GET', 'POST'])
 def planner():
     """
@@ -146,18 +146,40 @@ def planner():
             rec['atms'] = rec['master_guide'].get('atms', {})
 
         # Attach active trip diary & live expense tracking for this destination
-        from utils.trip_tracker import get_all_trips, get_trip_details, create_or_update_trip
+        from utils.trip_tracker import get_all_trips, get_trip_details, create_or_update_trip, add_expense
         dest_main = display_location or (recommendation_data['matches'][0]['Destination'] if recommendation_data.get('matches') else 'My Trip')
         all_trips = get_all_trips()
         matching_trip = next((t for t in all_trips if t['destination'].lower() == dest_main.lower()), None)
+        start_d = travel_date or date.today().isoformat()
+        from datetime import timedelta
+        end_d = (date.today() + timedelta(days=days)).isoformat()
         if not matching_trip:
-            start_d = travel_date or date.today().isoformat()
-            from datetime import timedelta
-            end_d = (date.today() + timedelta(days=days)).isoformat()
-            new_trip_id = create_or_update_trip(dest_main, start_d, end_d, origin=starting_city, travelers=travelers, notes=f"{days}-Day trip to {dest_main}")
-            trip_diary_details = get_trip_details(new_trip_id)
+            trip_id_to_use = create_or_update_trip(dest_main, start_d, end_d, origin=starting_city, travelers=travelers, notes=f"{days}-Day trip to {dest_main}")
         else:
-            trip_diary_details = get_trip_details(matching_trip['id'])
+            trip_id_to_use = matching_trip['id']
+
+        trip_diary_details = get_trip_details(trip_id_to_use)
+
+        # Pre-seed verified commitments if this trip diary has no logged expenses yet
+        if trip_diary_details and trip_diary_details.get('grand_total', 0) == 0:
+            top_rec = (recommendation_data.get('matches') or recommendation_data.get('alternatives') or [None])[0]
+            if top_rec:
+                ob_opts = top_rec.get('Outbound_Options', [])
+                if ob_opts:
+                    ob = ob_opts[0]
+                    ob_price = float(ob.get('price', 0))
+                    if ob_price > 0:
+                        add_expense(trip_id=trip_id_to_use, title=f"Outbound {ob.get('mode', 'Transit').title()}: {ob.get('name', 'Direct')}", amount=ob_price * travelers, category="transport", is_prebooked=True, payment_mode="Confirmed Online Booking", date_val=start_d, time_val="08:00")
+                rt_opts = top_rec.get('Return_Options', [])
+                if rt_opts:
+                    rt = rt_opts[0]
+                    rt_price = float(rt.get('price', 0))
+                    if rt_price > 0:
+                        add_expense(trip_id=trip_id_to_use, title=f"Return {rt.get('mode', 'Transit').title()}: {rt.get('name', 'Direct')}", amount=rt_price * travelers, category="transport", is_prebooked=True, payment_mode="Confirmed Online Booking", date_val=end_d, time_val="18:00")
+                hotel_total = float(top_rec.get('Hotel_Cost', 0) or 0)
+                if hotel_total > 0:
+                    add_expense(trip_id=trip_id_to_use, title=f"Hotel Accommodation ({days} Nights)", amount=hotel_total, category="stay_lounge", is_prebooked=True, payment_mode="Confirmed Reservation", date_val=start_d, time_val="12:00")
+                trip_diary_details = get_trip_details(trip_id_to_use)
 
         return render_template('results.html',
                                recommendations=recommendation_data['matches'],
@@ -336,6 +358,7 @@ def api_atms():
 
 
 @app.route('/api/destination-guide')
+@app.route('/guide')
 def api_destination_guide():
     """Returns complete destination master guide, route map, spots, dishes, culture, and celebration venues."""
     from utils.destination_guide import get_destination_master_guide
@@ -346,14 +369,15 @@ def api_destination_guide():
 
 
 @app.route('/api/chatbot', methods=['POST'])
+@app.route('/api/chat', methods=['POST'])
 def api_chatbot():
     """
     AI Travel Concierge & Day Planner API.
     Helps tourists plan their day, order of visiting sights, chill spots, and party/celebration venues.
     """
     data = request.get_json(silent=True) or request.form
-    user_message = data.get('message', '').strip()
-    destination = data.get('destination', '').strip()
+    user_message = (data.get('message') or data.get('query') or data.get('text') or data.get('prompt') or '').strip()
+    destination = (data.get('destination') or data.get('location') or data.get('city') or '').strip()
     days = int(data.get('days', 1) or 1)
     travelers = int(data.get('travelers', 1) or 1)
     budget = int(data.get('budget', 0) or 0)
@@ -420,7 +444,7 @@ def trip_add_expense():
     payload = request.get_json(silent=True) if request.is_json else request.form
     is_ajax = request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest' or 'application/json' in request.headers.get('Accept', '')
 
-    trip_id = (payload.get('trip_id') or '').strip()
+    trip_id = str(payload.get('trip_id') or '').strip()
     title = (payload.get('title') or '').strip()
     try:
         amount = float(payload.get('amount', 0) or 0)
@@ -468,8 +492,8 @@ def trip_delete_expense():
     payload = request.get_json(silent=True) if request.is_json else request.form
     is_ajax = request.is_json or request.headers.get('X-Requested-With') == 'XMLHttpRequest' or 'application/json' in request.headers.get('Accept', '')
 
-    exp_id = (payload.get('expense_id') or '').strip()
-    trip_id = (payload.get('trip_id') or '').strip()
+    exp_id = str(payload.get('expense_id') or '').strip()
+    trip_id = str(payload.get('trip_id') or '').strip()
     
     if exp_id:
         delete_expense(exp_id)
@@ -513,7 +537,7 @@ def trip_parse_sms():
     """API endpoint to parse PhonePe / UPI / Bank SMS text."""
     from utils.trip_tracker import parse_upi_sms_or_text
     data = request.get_json(silent=True) or request.form
-    raw_sms = data.get('sms', '').strip()
+    raw_sms = (data.get('sms') or data.get('sms_text') or data.get('text') or data.get('message') or '').strip()
     if not raw_sms:
         return {'error': 'No SMS text provided'}, 400
     parsed = parse_upi_sms_or_text(raw_sms)
@@ -530,7 +554,7 @@ def trip_auto_sync_payment():
     from utils.trip_tracker import add_expense, get_trip_details, parse_upi_sms_or_text, get_all_trips
     data = request.get_json(silent=True) or request.form
 
-    trip_id = (data.get('trip_id') or '').strip()
+    trip_id = str(data.get('trip_id') or '').strip()
     if not trip_id:
         all_trips = get_all_trips()
         trip_id = all_trips[0]['id'] if all_trips else 'sample_trip'

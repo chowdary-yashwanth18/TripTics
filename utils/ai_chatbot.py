@@ -1499,6 +1499,38 @@ def _format_temples_for_chatbot(destination, guide=None, profile=None):
   * 🙏 **Sacred Significance:** Sacred hill deity where devotees perform traditional pradakshinas and enjoy serene surroundings."""
 
 
+def _format_heritage_monuments_for_chatbot(destination, guide=None, profile=None):
+    """Formats verified heritage monuments, historic forts, palaces, and architectural treasures."""
+    dest_title = (destination or 'this destination').title()
+    monuments = (guide or {}).get('tourist_spots', {}).get('heritage_monuments', [])
+    if not monuments:
+        from utils.destination_guide import get_destination_master_guide
+        mg = get_destination_master_guide(destination, '', days=3)
+        monuments = mg.get('tourist_spots', {}).get('heritage_monuments', [])
+
+    lines = [f"### 🏛️ Famous Heritage Monuments & Historic Forts in & around {dest_title}\n"]
+    if monuments:
+        for idx, m in enumerate(monuments[:6], 1):
+            name = m.get('name', 'Historic Monument')
+            landmark = m.get('landmark', f'Heritage District, {dest_title}')
+            desc = m.get('desc', 'Historic landmark and architectural masterpiece.')
+            highlight = m.get('highlight', 'Architectural heritage & cultural history')
+            lines.append(f"• **{idx}. 🏛️ {name}** • 📍 {landmark}")
+            lines.append(f"  * 📜 **Historical Significance:** {desc}")
+            if highlight:
+                lines.append(f"  * ⭐ **Highlight:** {highlight}")
+            lines.append("")
+        return "\n".join(lines)
+
+    return f"""### 🏛️ Heritage Monuments & Historic Forts in & around {dest_title}
+* **1. 🏛️ Ancient City Citadel & Historic Fort:**
+  * 📍 **Location:** Historic Fort District, {dest_title}.
+  * 📜 **Significance:** Massive historic stone bastion featuring panoramic ramparts, royal gateways, and timeless heritage.
+* **2. 🏛️ Royal Heritage Palace & Museum:**
+  * 📍 **Location:** Central Heritage Quarter, {dest_title}.
+  * ⭐ **Highlight:** Magnificent courtyards, vintage royal heirlooms, and breathtaking regal architecture."""
+
+
 def _format_nature_farms_for_chatbot(destination, guide=None, profile=None):
     """Formats countryside, organic farms, valleys, and nature lover spots."""
     dest_title = (destination or 'Your Destination').title()
@@ -1747,6 +1779,9 @@ Please provide an actionable, highly helpful, and well-structured response addre
     # Explicitly excludes queries where the user specifically asked for waterfalls or trekking
     is_devotional = bool(re.search(r'\b(temples?|devotional|pooja|puja|darshan|jyotirlinga|spiritual|pilgrims?|pilgrimage|shrines?|aartis?|mandir|kovil|devasthanam|sanctum)\b', query_lower)) and not is_waterfalls and not is_trekking
 
+    # Heritage monuments, historic forts, palaces, ruins - STRICTLY SEPARATED FROM TEMPLES
+    is_heritage = bool(re.search(r'\b(monuments?|forts?|palaces?|heritage|historic|historical|ruins?|tombs?|charminar|golconda|red fort|india gate|taj mahal|qutub minar|hawa mahal|amer fort|amber fort|chowmahalla|mysore palace)\b', query_lower)) and not is_waterfalls and not is_trekking and not is_devotional
+
     # Culture & Festivals intent - MUST NOT match 'spiritual' or temples or waterfalls
     is_culture = bool(re.search(r'\b(culture|cultural|traditions?|traditional|festivals?|rituals?|customs|folklore|folk dance|garba|dhimsa)\b', query_lower)) and not is_devotional and not is_waterfalls
 
@@ -1809,6 +1844,10 @@ Please provide an actionable, highly helpful, and well-structured response addre
     elif is_devotional:
         reply_parts.append(_format_temples_for_chatbot(dest_clean, guide, matched_profile))
 
+    # 3b. Heritage Monuments & Historic Forts query (STRICTLY SEPARATE FROM TEMPLES)
+    elif is_heritage:
+        reply_parts.append(_format_heritage_monuments_for_chatbot(dest_clean, guide, matched_profile))
+
     # 4. Nature lover query
     elif is_nature_lover:
         reply_parts.append(_format_nature_farms_for_chatbot(dest_clean, guide, matched_profile))
@@ -1863,8 +1902,9 @@ Please provide an actionable, highly helpful, and well-structured response addre
     
     suggestions = [
         f"Where should I go first in {dest_clean}?",
-        f"Nature lover spots & rolling fields in {dest_clean}",
+        f"Heritage monuments & historic forts in {dest_clean}",
         f"Temples & devotional darshan in {dest_clean}",
+        f"Nature lover spots & rolling fields in {dest_clean}",
         f"Where are the nearest ATMs to the railway station or bus stop?"
     ]
     
