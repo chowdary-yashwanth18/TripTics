@@ -19,6 +19,106 @@ from utils.atm_service import get_nearby_atms
 from utils.hotel_generator import generate_hotels
 
 # ==============================================================================
+# NON-TEMPLE KEYWORDS (Monuments, Forts, Palaces, etc. that can NEVER be Temples)
+# ==============================================================================
+NON_TEMPLE_KEYWORDS = [
+    'charminar', 'fort', 'palace', 'monument', 'museum', 'film city', 'gate', 
+    'minar', 'memorial', 'bridge', 'tower', 'planetarium', 'lake', 'sagar', 
+    'dam', 'beach', 'falls', 'waterfall', 'park', 'zoo', 'market', 'bazaar', 
+    'mall', 'circus', 'aquarium', 'stadium', 'studio', 'promenade', 'drive', 
+    'point', 'garden', 'resort', 'safari', 'sanctuary', 'ridge', 'valley', 'cave'
+]
+
+# ==============================================================================
+# NATIONWIDE AUTHENTIC TEMPLE DATABASE (True Sanctums & Verified Mandirs)
+# ==============================================================================
+NATIONWIDE_TEMPLE_DATABASE = {
+    'hyderabad': [
+        {
+            'name': 'Birla Mandir (Sri Venkateswara Swamy Temple)',
+            'landmark': 'Naubat Pahad, Hill Fort Road, Khairatabad, Hyderabad (overlooking Hussain Sagar Lake)',
+            'desc': 'Exquisite white Rajasthani marble temple of Lord Venkateswara perched atop Naubat Pahad offering tranquil meditation, evening chants, and panoramic city vistas.',
+            'timing': '07:00 AM – 12:00 PM & 03:00 PM – 09:00 PM',
+            'highlight': 'Pure white marble sanctum, peaceful evening aarti, 360-degree city overlook'
+        },
+        {
+            'name': 'Chilkur Balaji Temple ("Visa Balaji")',
+            'landmark': 'Chilkur Village, Gandipet (~25 km from city on Osman Sagar banks)',
+            'desc': 'Ancient 500-year-old temple of Lord Balaji renowned across India. Devotees make 11 pradakshinas for prayers and 108 upon fulfillment; accepts zero cash/hundi donations.',
+            'timing': '06:00 AM – 08:00 PM (Best in early mornings)',
+            'highlight': '11 & 108 sacred pradakshinas, no VIP fees, peaceful lake surroundings'
+        },
+        {
+            'name': 'Yadadri Sri Lakshmi Narasimha Swamy Temple',
+            'landmark': 'Yadagirigutta hill (~60 km from Hyderabad on Warangal NH-163)',
+            'desc': 'Telangana\'s supreme hill shrine, a newly sculpted all-granite Dravidian architectural wonder carved from Krishna Shila stone dedicated to Lord Narasimha.',
+            'timing': '04:00 AM – 09:30 PM',
+            'highlight': 'Majestic stone pillars, golden vimana gopuram, sacred cave sanctum'
+        },
+        {
+            'name': 'Shri Jagannath Temple',
+            'landmark': 'Road No. 12, Banjara Hills, Hyderabad',
+            'desc': 'Stunning modern red sandstone temple built in authentic Kalinga architecture replicating the famous Puri Jagannath shrine.',
+            'timing': '06:00 AM – 12:00 PM & 05:00 PM – 09:00 PM',
+            'highlight': 'Red sandstone carvings, peaceful sanctum, annual Ratha Yatra'
+        },
+        {
+            'name': 'Karmanghat Hanuman Temple',
+            'landmark': 'Karmanghat, Inner Ring Road, Hyderabad',
+            'desc': 'Historic 12th-century Kakatiya-era shrine revered across the state for powerful Tuesday and Saturday Hanuman pujas and miraculous healing vows.',
+            'timing': '06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM',
+            'highlight': 'Ancient Kakatiya heritage, divine Hanuman aarti'
+        },
+        {
+            'name': 'Peddamma Gudi',
+            'landmark': 'Road No. 36, Jubilee Hills, Hyderabad (near Metro Station)',
+            'desc': 'Highly revered mother goddess temple in Jubilee Hills, the vibrant epicenter of Hyderabad\'s traditional annual Bonalu festival.',
+            'timing': '06:00 AM – 01:00 PM & 03:00 PM – 08:30 PM',
+            'highlight': 'Traditional Bonalu festivities, sacred kumkum archana'
+        }
+    ],
+    'bangalore': [
+        {'name': 'Sri Radha Krishna Temple (ISKCON Bangalore)', 'landmark': 'Hare Krishna Hill, Rajajinagar, Bengaluru', 'desc': 'Grand neo-classical Dravidian temple complex dedicated to Radha Krishna with majestic gopurams.', 'timing': '04:15 AM – 05:00 AM, 07:15 AM – 01:00 PM & 04:00 PM – 08:30 PM'},
+        {'name': 'Bull Temple (Nandi Temple & Dodda Ganesha)', 'landmark': 'Bugle Rock Park, Basavanagudi, Bengaluru', 'desc': 'Historic 16th-century monolithic granite Nandi statue carved out of a single boulder by Kempe Gowda.', 'timing': '06:00 AM – 08:00 PM'},
+        {'name': 'Gavi Gangadhareshwara Cave Temple', 'landmark': 'Gavipuram, Kempegowda Nagar, Bengaluru', 'desc': 'Famous 9th-century monolithic rock-cut cave temple of Lord Shiva where sun rays illuminate the Shivalinga on Makara Sankranti.', 'timing': '06:00 AM – 12:30 PM & 05:00 PM – 08:00 PM'}
+    ],
+    'chennai': [
+        {'name': 'Kapaleeshwarar Temple', 'landmark': 'Mylapore, Chennai', 'desc': 'Ancient 7th-century Dravidian temple dedicated to Lord Shiva and Goddess Karpagambal with an iconic 37-meter rainbow gopuram.', 'timing': '05:30 AM – 12:00 PM & 05:00 PM – 09:00 PM'},
+        {'name': 'Parthasarathy Temple', 'landmark': 'Triplicane, Chennai', 'desc': '8th-century Vaishnavite temple built by the Pallavas dedicated to Lord Krishna as the divine charioteer of Arjuna.', 'timing': '06:00 AM – 12:30 PM & 04:00 PM – 09:00 PM'},
+        {'name': 'Marundeeswarar Temple', 'landmark': 'Thiruvanmiyur, Chennai (Near ECR Beach Road)', 'desc': 'Historic Chola temple of Shiva as the divine healer (Marundeeswarar) visited by sage Valmiki.', 'timing': '06:00 AM – 12:00 PM & 04:00 PM – 09:00 PM'}
+    ],
+    'delhi': [
+        {'name': 'Swaminarayan Akshardham Temple', 'landmark': 'NH 24, Pramukh Swami Maharaj Marg, East Delhi', 'desc': 'Colossal Hindu temple complex carved in pink sandstone and white marble showcasing ancient Indian arts and spirituality.', 'timing': '09:30 AM – 08:00 PM (Closed Mondays)'},
+        {'name': 'Lotus Temple (Bahá\'í House of Worship)', 'landmark': 'Kalkaji, South Delhi', 'desc': 'Architectural masterpiece crafted in the shape of a pure white blooming lotus flower, open to all faiths for silent meditation.', 'timing': '09:00 AM – 07:00 PM (Closed Mondays)'},
+        {'name': 'Birla Mandir (Laxminarayan Temple)', 'landmark': 'Mandir Marg, near Gole Market, Central Delhi', 'desc': 'Inaugurated by Mahatma Gandhi in 1939 with the condition that all castes be allowed entry, dedicated to Lord Vishnu and Goddess Lakshmi.', 'timing': '04:30 AM – 01:30 PM & 02:30 PM – 09:00 PM'}
+    ],
+    'mumbai': [
+        {'name': 'Shree Siddhivinayak Ganapati Temple', 'landmark': 'SK Bole Marg, Prabhadevi, Mumbai', 'desc': 'World-renowned 200-year-old temple of Lord Ganesha with a golden dome visited by millions of devotees seeking blessings.', 'timing': '05:30 AM – 10:00 PM'},
+        {'name': 'Mahalaxmi Temple', 'landmark': 'Bhulabhai Desai Road, Mahalaxmi, Mumbai (Facing Arabian Sea)', 'desc': 'Historic coastal goddess shrine dedicated to Tridevi (Mahalakshmi, Mahakali, Mahasaraswati) adorned with gold and diamond ornaments.', 'timing': '06:00 AM – 10:00 PM'},
+        {'name': 'Babulnath Shiva Temple', 'landmark': 'Near Girgaon Chowpatty, Malabar Hill, Mumbai', 'desc': 'Ancient 12th-century Shiva temple perched on a small hillock resembling Mount Kailash.', 'timing': '05:00 AM – 10:00 PM'}
+    ],
+    'jaipur': [
+        {'name': 'Govind Dev Ji Temple', 'landmark': 'City Palace Complex, Jalebi Chowk, Jaipur', 'desc': 'Revered presiding deity of Jaipur; the murti of Lord Krishna was originally installed in Vrindavan by Bajranabh.', 'timing': '04:30 AM – 12:00 PM & 05:45 PM – 09:00 PM'},
+        {'name': 'Birla Mandir (Laxmi Narayan Temple)', 'landmark': 'Below Moti Dungri Hill, Tilak Nagar, Jaipur', 'desc': 'Pure white marble architectural marvel illuminated beautifully at night beneath the ancient Moti Dungri Fort.', 'timing': '06:00 AM – 12:00 PM & 04:00 PM – 09:00 PM'}
+    ],
+    'kolkata': [
+        {'name': 'Dakshineswar Kali Temple', 'landmark': 'Dakshineswar, on the banks of Hooghly River, Kolkata', 'desc': 'Famed 19th-century Navaratna temple where mystic saint Sri Ramakrishna Paramahamsa served as priest and experienced divine visions of Mother Bhavatarini.', 'timing': '06:00 AM – 12:30 PM & 03:30 PM – 08:30 PM'},
+        {'name': 'Kalighat Kali Temple', 'landmark': 'Kalighat, South Kolkata', 'desc': 'One of the 51 sacred Shakti Peethas where the right toe of Goddess Sati is believed to have fallen; a vibrant center of Tantric Shakta worship.', 'timing': '05:00 AM – 02:00 PM & 05:00 PM – 10:30 PM'}
+    ],
+    'amritsar': [
+        {'name': 'Sri Harmandir Sahib (The Golden Temple)', 'landmark': 'Golden Temple Road, Atta Mandi, Amritsar', 'desc': 'The supreme spiritual and cultural center of Sikhism, surrounded by the sacred Amrit Sarovar lake and open to all humanity 24 hours a day.', 'timing': 'Open 24 Hours (Guru Granth Sahib Prakash at 04:00 AM)'},
+        {'name': 'Durgiana Temple', 'landmark': 'Near Hathi Gate, Amritsar', 'desc': 'Historic Hindu temple built in the architectural style of the Golden Temple in the middle of a sacred lake.', 'timing': '06:00 AM – 10:00 PM'}
+    ],
+    'mysore': [
+        {'name': 'Sri Chamundeshwari Temple', 'landmark': 'Chamundi Hill Summit (~13 km from Mysore city)', 'desc': 'Revered Shakti Peetha atop the 1,000-meter Chamundi Hills dedicated to Goddess Chamundeshwari who slew the demon Mahishasura.', 'timing': '07:30 AM – 02:00 PM, 03:30 PM – 06:00 PM & 07:30 PM – 09:00 PM'}
+    ],
+    'vijayawada': [
+        {'name': 'Kanaka Durga Temple (Sri Durga Malleswara Swamy)', 'landmark': 'Indrakeeladri Hill, overlooking Krishna River, Vijayawada', 'desc': 'Second largest temple in Andhra Pradesh, self-manifested (Swayambhu) abode of Goddess Kanaka Durga atop Indrakeeladri Hill.', 'timing': '04:00 AM – 09:00 PM'},
+        {'name': 'Mangalagiri Sri Panakala Lakshmi Narasimha Swamy Temple', 'landmark': 'Mangalagiri Hill (~13 km from Vijayawada)', 'desc': 'Unique ancient hill temple where the presiding Lord Narasimha drinks sweet jaggery water (panakam) directly from the conch.', 'timing': '07:00 AM – 03:00 PM'}
+    ]
+}
+
+# ==============================================================================
 # DEEP DOMAIN KNOWLEDGE REGISTRY FOR POPULAR DESTINATIONS
 # ==============================================================================
 DESTINATION_MASTER_REGISTRY = {
@@ -1485,6 +1585,289 @@ DESTINATION_MASTER_REGISTRY = {
                 'phone': '+91 8942 278 999'
             }
         ]
+    },
+
+    # ── HYDERABAD (Birla Mandir, Charminar, Golconda, Ramoji, Hussain Sagar, Chilkur) ──
+    'hyderabad': {
+        'destination': 'Hyderabad',
+        'title': 'Hyderabad — City of Pearls, Nizami Grandeur, Historic Charminar & Sacred Mandirs',
+        'map_query': 'Hyderabad, Telangana, India',
+        'summary': 'Historic capital of Telangana, globally celebrated for the iconic 16th-century Charminar, acoustic marvel Golconda Fort, serene white marble Birla Mandir, Ramoji Film City, and royal Hyderabadi Dum Biryani.',
+
+        'route_sequence': [
+            'Birla Mandir & Naubat Pahad Hilltop (Morning Peace)',
+            'Hussain Sagar Lake & Giant Buddha Statue',
+            'Charminar & Laad Bazaar (Heritage Old City)',
+            'Golconda Fort (16th-Century Acoustic Citadel)',
+            'Chilkur Balaji Temple (Visa Balaji)',
+            'Ramoji Film City (World\'s Largest Film Studio)'
+        ],
+
+        'tourist_spots': {
+            'temples': [
+                {
+                    'name': 'Birla Mandir (Sri Venkateswara Swamy Temple)',
+                    'landmark': 'Naubat Pahad, Hill Fort Road, Khairatabad, Hyderabad (overlooking Hussain Sagar Lake)',
+                    'desc': 'Exquisite white Rajasthani marble temple of Lord Venkateswara perched atop the 280-foot high Naubat Pahad. Consecrated by the Ramakrishna Mission, offering tranquil meditation, evening chants, and panoramic city vistas.',
+                    'timing': '07:00 AM – 12:00 PM & 03:00 PM – 09:00 PM',
+                    'highlight': 'Pure white marble sanctum, peaceful evening aarti, 360-degree city overlook'
+                },
+                {
+                    'name': 'Chilkur Balaji Temple ("Visa Balaji")',
+                    'landmark': 'Chilkur Village, Gandipet (~25 km from city center on Osman Sagar banks)',
+                    'desc': 'Ancient 500-year-old temple of Lord Balaji renowned across India. Devotees make 11 pradakshinas (circumambulations) for their prayers and 108 upon fulfillment. Accepts zero cash/hundi donations and offers no VIP queues.',
+                    'timing': '06:00 AM – 08:00 PM (Best in early mornings)',
+                    'highlight': '11 & 108 sacred pradakshinas, no VIP fees, peaceful lake surroundings'
+                },
+                {
+                    'name': 'Yadadri Sri Lakshmi Narasimha Swamy Temple',
+                    'landmark': 'Yadagirigutta hill (~60 km from Hyderabad on Warangal NH-163)',
+                    'desc': 'Telangana\'s supreme hill shrine, a newly sculpted all-granite Dravidian architectural wonder carved from Krishna Shila stone dedicated to Lord Narasimha.',
+                    'timing': '04:00 AM – 09:30 PM',
+                    'highlight': 'Majestic stone pillars, golden vimana gopuram, sacred cave sanctum'
+                },
+                {
+                    'name': 'Shri Jagannath Temple',
+                    'landmark': 'Road No. 12, Banjara Hills, Hyderabad',
+                    'desc': 'Stunning modern architectural marvel constructed from red sandstone imported from Odisha, replicating the sanctum of the world-famous Puri Jagannath temple.',
+                    'timing': '06:00 AM – 12:00 PM & 05:00 PM – 09:00 PM',
+                    'highlight': 'Intricate red sandstone carvings, annual Ratha Yatra, peaceful sanctum'
+                },
+                {
+                    'name': 'Karmanghat Hanuman Temple',
+                    'landmark': 'Karmanghat, Inner Ring Road, Hyderabad',
+                    'desc': 'Historic 12th-century Kakatiya-era shrine revered across the state for powerful Tuesday and Saturday Hanuman pujas and miraculous healing vows.',
+                    'timing': '06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM',
+                    'highlight': 'Ancient Kakatiya heritage, divine Hanuman aarti'
+                },
+                {
+                    'name': 'Peddamma Gudi',
+                    'landmark': 'Road No. 36, Jubilee Hills, Hyderabad (near Metro Station)',
+                    'desc': 'Highly revered mother goddess temple in Jubilee Hills, the vibrant epicenter of Hyderabad\'s traditional annual Bonalu festival.',
+                    'timing': '06:00 AM – 01:00 PM & 03:00 PM – 08:30 PM',
+                    'highlight': 'Traditional Bonalu festivities, sacred kumkum archana'
+                }
+            ],
+
+            'heritage_monuments': [
+                {
+                    'name': 'Charminar',
+                    'landmark': 'Charminar Road, Old City, Hyderabad',
+                    'desc': 'Global iconic symbol of Hyderabad built in 1591 CE by Sultan Muhammad Quli Qutb Shah. Features four grand 48.7-meter stucco minarets, massive granite arches, and an upper mosque, surrounded by the vibrant Laad Bazaar.',
+                    'timing': '09:30 AM – 05:30 PM',
+                    'highlight': 'Historic 16th-century monument, panoramic second-floor balcony, bustling bangle bazaar'
+                },
+                {
+                    'name': 'Golconda Fort',
+                    'landmark': 'Ibrahim Bagh, Hyderabad (~11 km from city center)',
+                    'desc': 'Magnificent 16th-century medieval fortified citadel famous for its acoustic clapping dome (a hand-clap at Fateh Darwaza echoes at the hilltop Bala Hissar 1 km away), royal palaces, and historic diamond vaults.',
+                    'timing': '09:00 AM – 05:30 PM (Sound & Light Show at 06:30 PM)',
+                    'highlight': 'Acoustic clapping dome, hilltop Bala Hissar panoramic view, evening sound & light show'
+                },
+                {
+                    'name': 'Qutub Shahi Tombs',
+                    'landmark': 'Ibrahim Bagh, near Golconda Fort, Hyderabad',
+                    'desc': 'Grand domed mausoleums set in landscaped Mughal gardens, resting place of the seven historic Qutub Shahi rulers.',
+                    'timing': '09:30 AM – 06:30 PM',
+                    'highlight': 'Indo-Islamic stone architecture, tranquil garden pavilions'
+                },
+                {
+                    'name': 'Chowmahalla Palace',
+                    'landmark': 'Motigalli, near Charminar, Old City, Hyderabad',
+                    'desc': 'Opulent official residence of the Nizams of Hyderabad featuring the grand Khilwat Mubarak durbar hall with 19 Belgian crystal chandeliers and vintage car collection.',
+                    'timing': '10:00 AM – 05:00 PM (Closed Fridays)',
+                    'highlight': 'Belgian crystal chandeliers, royal Nizam artifacts, vintage Rolls Royce'
+                }
+            ],
+
+            'hills_viewpoints': [
+                {
+                    'name': 'Naubat Pahad & Birla Mandir Hilltop',
+                    'landmark': 'Hill Fort Road, Khairatabad, Hyderabad',
+                    'desc': 'Elevated 280-foot granite hillock offering cool evening breezes and 360-degree panoramic views of Hussain Sagar Lake, Secretariat, and twin cities.',
+                    'highlight': 'Panoramic lake view, evening illuminated city skyline'
+                },
+                {
+                    'name': 'Bala Hissar Summit (Golconda Fort)',
+                    'landmark': 'Summit of Golconda Fort, Hyderabad (380 stone steps)',
+                    'desc': 'The highest vantage point of Golconda Fort overlooking the entire city of Hyderabad from heritage battlements.',
+                    'highlight': 'Historic stone battlements, expansive city view'
+                },
+                {
+                    'name': 'Moula Ali Hill & Dargah',
+                    'landmark': 'Moula Ali, Secunderabad (484 stone steps)',
+                    'desc': 'Dramatic dome-shaped granite monolith hill offering panoramic sunrise and sunset views over the Deccan plateau.',
+                    'highlight': 'Panoramic sunset breeze, heritage hill climb'
+                }
+            ],
+
+            'waterfalls': [
+                {
+                    'name': 'Ethipothala Waterfalls',
+                    'landmark': 'Near Nagarjuna Sagar (~150 km from Hyderabad, popular weekend road trip)',
+                    'desc': 'Spectacular 70-foot mountain stream waterfall cascading into a natural crocodile breeding lagoon.',
+                    'highlight': 'Evening colored floodlights, scenic river valley'
+                },
+                {
+                    'name': 'Mallela Theertham Waterfalls',
+                    'landmark': 'Nallamala Forest range (~170 km from Hyderabad towards Srisailam)',
+                    'desc': 'Charming 150-foot natural forest waterfall cascading through dense Nallamala woods into a sacred rocky bathing pool.',
+                    'highlight': 'Forest nature walk, pure freshwater splash'
+                }
+            ],
+
+            'parks_botanical': [
+                {
+                    'name': 'Hussain Sagar Lake & Giant Buddha Statue',
+                    'landmark': 'Tank Bund & Necklace Road, Hyderabad',
+                    'desc': 'Heart-shaped historic lake built in 1563 CE featuring the world\'s tallest monolithic statue of Gautama Buddha (18 meters) standing on Gibraltar Rock, reached via speedboats.',
+                    'highlight': 'Ferry boat ride to Buddha statue, evening musical laser show at Lumbini Park'
+                },
+                {
+                    'name': 'KBR National Park (Kasu Brahmananda Reddy Park)',
+                    'landmark': 'Jubilee Hills Check Post, Hyderabad',
+                    'desc': 'Sprawling 390-acre urban national park and jungle reserve with pristine shaded walking tracks, peacocks, and lush Deccan flora.',
+                    'highlight': 'Morning jungle walk, spotting dancing peacocks'
+                },
+                {
+                    'name': 'Sanjeevaiah Park & Lumbini Park',
+                    'landmark': 'Necklace Road, Hyderabad',
+                    'desc': 'Lush waterfront parks with rose gardens, tall rock fountain cascades, and children\'s play lawns.',
+                    'highlight': 'Musical dancing water fountain, lakeside promenade'
+                }
+            ],
+
+            'zoo_wildlife': [
+                {
+                    'name': 'Nehru Zoological Park',
+                    'landmark': 'Mir Alam Tank, Bahadurpura, Hyderabad (~16 km from station)',
+                    'desc': 'One of India\'s largest zoos (380 acres) home to over 1,500 species with a Lion Safari, Tiger Safari, nocturnal animal house, toy train, and natural boating lake.',
+                    'highlight': 'Lion & Tiger Safari vehicle tour, toy train ride, butterfly park'
+                }
+            ],
+
+            'shopping_malls': [
+                {
+                    'name': 'Laad Bazaar & Chudi Bazaar (Heritage Pearl Market)',
+                    'landmark': 'Right adjacent to Charminar, Old City, Hyderabad',
+                    'desc': 'Centuries-old historic bazaar world-famous for handcrafted glittering lac bangles, authentic Hyderabadi pearls, bridal Zardozi embroidery, and Ittar perfumes.',
+                    'highlight': 'Authentic lac bangles, certified Basra pearls, traditional street shopping'
+                },
+                {
+                    'name': 'Inorbit Mall Cyberabad',
+                    'landmark': 'Mindspace, Hitec City, Madhapur, Hyderabad',
+                    'desc': 'Premier 5-story shopping, dining, and lifestyle mall overlooking Durgam Cheruvu lake, featuring international brands, multi-cuisine food courts, and multiplex.',
+                    'highlight': 'Lake view dining terrace, premium lifestyle retail, gaming zone'
+                },
+                {
+                    'name': 'Sarath City Capital Mall',
+                    'landmark': 'Gachibowli - Miyapur Road, Whitefields, Kondapur, Hyderabad',
+                    'desc': 'One of the largest retail shopping malls in India featuring over 400 national and international brands, AMB Cinemas, indoor snow world, and food street.',
+                    'highlight': 'Massive indoor retail, AMB Cinemas, family entertainment center'
+                }
+            ],
+
+            'fun_zones_waterparks': [
+                {
+                    'name': 'Ramoji Film City',
+                    'landmark': 'Anaspur Village, Hayathnagar, NH-65, Hyderabad (~30 km from city)',
+                    'desc': 'Guinness World Record holder for the world\'s largest film studio complex (2,000 acres). Features movie sets, live stunt shows, wild west stunt towns, Eureka entertainment palaces, and Japanese gardens.',
+                    'highlight': 'Vintage bus studio tour, live action stunt shows, movie set replicas'
+                },
+                {
+                    'name': 'Wonderla Amusement Park',
+                    'landmark': 'Outer Ring Road, Exit 13, Raviryal, Hyderabad',
+                    'desc': 'Premier world-class amusement and water park featuring 43 high-thrill roller coasters, massive wave pools, and water slides.',
+                    'highlight': 'High-thrill roller coasters, water slides, wave pool with rain disco'
+                },
+                {
+                    'name': 'Jalavihar Water Park',
+                    'landmark': 'Necklace Road, on the banks of Hussain Sagar Lake, Hyderabad',
+                    'desc': 'Lakeside family water amusement park with wave pool, children\'s water playground, and water pendulum.',
+                    'highlight': 'Wave pool, family water fun, central city location'
+                }
+            ]
+        },
+
+        'dining_cuisine': {
+            'must_try_dishes': [
+                {
+                    'name': 'Authentic Hyderabadi Dum Biryani (Mutton & Chicken)',
+                    'type': 'Non-Vegetarian / Specialty',
+                    'desc': 'World-famous slow-cooked basmati rice and marinated meat infused with pure saffron, cardamom, caramelized onions, and spices cooked under slow dough-sealed "dum". Served with spicy Mirchi ka Salan and creamy Dahi ki Chutney.',
+                    'best_at': 'Bawarchi (RTC Crossroads), Paradise (Secunderabad), Shah Ghouse (Tolichowki/Charminar), Shadab (Madina)'
+                },
+                {
+                    'name': 'Irani Chai with Hot Osmania Biscuits',
+                    'type': 'Signature Beverage & Snack',
+                    'desc': 'Rich, creamy slow-brewed tea prepared with condensed milk served alongside traditional melt-in-mouth sweet-and-salty Osmania biscuits.',
+                    'best_at': 'Nimrah Cafe & Bakery (directly facing Charminar), Cafe Niloufer (Lakdikapul)'
+                },
+                {
+                    'name': 'Double ka Meetha & Qubani ka Meetha',
+                    'type': 'Royal Dessert',
+                    'desc': 'Nizami royal desserts made of golden-fried bread soaked in saffron milk and cardamom rabri (Double ka Meetha) and stewed dried apricots served with vanilla cream (Qubani ka Meetha).',
+                    'best_at': 'Hotel Shadab (Old City) and Grand Hotel (Abids)'
+                },
+                {
+                    'name': 'Traditional Telangana Vegetarian Thali',
+                    'type': 'Vegetarian',
+                    'desc': 'Hot steamed rice served with freshly made Gongura pickle, Kandi Podi with pure ghee, Gutti Vankaya curry, Pachi Pulusu, and sweet Poornam Boorelu.',
+                    'best_at': 'Chutneys (Banjara Hills / Hitec City) & Subbayya Gari Hotel (Kondapur)'
+                }
+            ],
+            'famous_food_streets': [
+                {
+                    'name': 'Charminar & Madina Food Street',
+                    'landmark': 'Charminar Old City (06:00 PM – 02:00 AM)',
+                    'desc': 'Bustling night food lane famous for hot Malai Bun, Mutton Biryani, Haleem, Kebabs, Falooda, and hot Irani Chai.'
+                },
+                {
+                    'name': 'Sindhi Colony Food Street',
+                    'landmark': 'Sindhi Colony, PG Road, Secunderabad',
+                    'desc': 'Famous youth street food destination offering varieties of Dosa, Pav Bhaji, Chaat, Sandwiches, and Pizza.'
+                }
+            ]
+        },
+
+        'culture_traditions': {
+            'summary': 'Hyderabad embodies a celebrated 400-year Ganga-Jamuni Tehzeeb harmoniously blending Nizami regal elegance, ancient Telugu traditions, Urdu poetry, and vibrant Deccan folklore.',
+            'festivals_rituals': [
+                {
+                    'name': 'Bonalu Mahankali Festival (July / August)',
+                    'importance': 'Telangana\'s historic state festival honoring Mother Goddess Mahankali. Women carry decorated brass and earthen pots (Bonam) with turmeric, neem, and rice on their heads accompanied by Pothuraju performers and vibrant thottelu processions.',
+                    'rituals': 'Offerings of Bonam pots at Golconda Fort, Ujjaini Mahankali Temple (Secunderabad), and Lal Darwaza.'
+                },
+                {
+                    'name': 'Bathukamma Floral Festival (Navaratri / Dussehra)',
+                    'importance': 'Vibrant cultural festival of flowers celebrated by women across Hyderabad, arranging seasonal flowers into conical towers honoring Goddess Gauri.',
+                    'rituals': 'Evening folk songs and circular dancing around flower Bathukammas, followed by immersion in water bodies.'
+                },
+                {
+                    'name': 'Ramzan & Eid-ul-Fitr Street Celebrations',
+                    'importance': 'Night food bazaars, Haleem preparation in clay bhattis throughout the holy month, and illuminated heritage streets around Charminar.',
+                    'rituals': 'Taraweeh prayers, sharing authentic Haleem, and Eid shopping in Laad Bazaar.'
+                }
+            ],
+            'art_crafts': 'World-famous Bidriware metal crafts inlaid with pure silver, authentic Hyderabadi natural pearl jewelry, and Pochampally Ikat silk handlooms.'
+        },
+
+        'celebrations_venues': [
+            {
+                'name': 'Taj Falaknuma Palace Royal Lawns & Terraces',
+                'map_landmark': 'Engine Bowli, Falaknuma, Hyderabad (~5 km from Charminar)',
+                'vibe': 'Historic scorpion-shaped royal palace of the Nizam perched 2,000 feet above the city, offering world-class luxury banquet terraces for unforgettable birthdays and anniversaries.',
+                'features': 'Royal palace horse carriage arrival, fine Nizami dining, customized celebratory cakes, and live Sufi music.',
+                'phone': '+91 40 6629 8585'
+            },
+            {
+                'name': 'Novotel Hitec City Poolside & Celebration Cabanas',
+                'map_landmark': 'Hitec City, Near Cyber Towers, Madhapur, Hyderabad',
+                'vibe': 'Spacious open-air poolside lawns and private cabanas in Hyderabad\'s tech hub, ideal for youth birthdays, group celebrations, and family parties.',
+                'features': 'Private poolside cabanas, personal DJ audio system, barbecue live grill, and celebratory party platters.',
+                'phone': '+91 40 6682 4422'
+            }
+        ]
     }
 }
 
@@ -1507,7 +1890,9 @@ def get_destination_master_guide(destination, state='', days=3):
 
     # Find curated match with aliases
     matched = None
-    if any(alias in dest_lower for alias in ['vizag', 'visakhapatnam', 'vishakapatnam', 'vishakhapatnam', 'visakha']):
+    if any(alias in dest_lower for alias in ['hyderabad', 'secunderabad', 'cyberabad', 'bhagyanagar', 'golconda', 'charminar']):
+        matched = DESTINATION_MASTER_REGISTRY.get('hyderabad')
+    elif any(alias in dest_lower for alias in ['vizag', 'visakhapatnam', 'vishakapatnam', 'vishakhapatnam', 'visakha']):
         matched = DESTINATION_MASTER_REGISTRY.get('visakhapatnam')
     elif any(alias in dest_lower for alias in ['araku', 'borra']):
         matched = DESTINATION_MASTER_REGISTRY.get('araku')
@@ -1566,6 +1951,7 @@ def get_destination_master_guide(destination, state='', days=3):
 
     # Categorize real CSV attractions into specific categories
     temple_attrs = []
+    heritage_attrs = []
     falls_attrs = []
     hills_attrs = []
     zoo_attrs = []
@@ -1574,8 +1960,13 @@ def get_destination_master_guide(destination, state='', days=3):
 
     for attr in csv_attrs:
         a_low = attr.lower()
-        if any(w in a_low for w in ['temple', 'swamy', 'shrine', 'mandir', 'kovil', 'devasthanam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam', 'jyotirlinga', 'dargah', 'church', 'cathedral', 'stupa', 'monastery', 'peeth', 'veerabhadra']):
-            temple_attrs.append(attr)
+        if any(w in a_low for w in ['charminar', 'monument', 'memorial', 'gate', 'minar', 'palace', 'mahal', 'tomb', 'ruin', 'citadel', 'film city', 'museum', 'jantar mantar']):
+            heritage_attrs.append(attr)
+        elif any(w in a_low for w in ['temple', 'swamy', 'shrine', 'mandir', 'kovil', 'devasthanam', 'arasavilli', 'arasavalli', 'srikurmam', 'kurmam', 'mukhalingam', 'jyotirlinga', 'dargah', 'church', 'cathedral', 'stupa', 'monastery', 'peeth', 'veerabhadra']):
+            if not any(bad in a_low for bad in ['charminar', 'fort', 'palace', 'museum', 'film city', 'minar', 'gate', 'lake', 'falls', 'mall', 'park', 'zoo']):
+                temple_attrs.append(attr)
+            else:
+                heritage_attrs.append(attr)
         elif any(w in a_low for w in ['fall', 'falls', 'waterfall', 'waterfalls', 'cascade']):
             falls_attrs.append(attr)
         elif any(w in a_low for w in ['hill', 'peak', 'viewpoint', 'point', 'ridge', 'canyon', 'valley', 'cave', 'caves', 'fort', 'overlook']):
@@ -1596,13 +1987,17 @@ def get_destination_master_guide(destination, state='', days=3):
             'timing': '06:00 AM – 12:30 PM & 04:00 PM – 08:30 PM'
         })
     if not dynamic_temples:
-        cand = general_attrs.pop(0) if general_attrs else f'{dest_title} Historical Temple'
-        dynamic_temples.append({
-            'name': cand,
-            'landmark': f'Temple Road, {dest_title}',
-            'desc': f'Historic temple and spiritual landmark in {dest_title}.',
-            'timing': '06:00 AM – 08:30 PM'
-        })
+        # Check nationwide temple database first (covering major cities)
+        known = NATIONWIDE_TEMPLE_DATABASE.get(dest_clean.lower())
+        if known:
+            dynamic_temples.extend(known[:4])
+        else:
+            dynamic_temples.append({
+                'name': f'Sri {dest_title} Presiding Town Devasthanam',
+                'landmark': f'Central Temple Road, {dest_title}',
+                'desc': f'Historic Hindu temple and spiritual landmark in {dest_title}.',
+                'timing': '06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM'
+            })
 
     dynamic_falls = []
     for f in falls_attrs:
@@ -1670,8 +2065,18 @@ def get_destination_master_guide(destination, state='', days=3):
             'highlight': 'Safari cart, birdwatching'
         })
 
+    dynamic_heritage = []
+    for h in heritage_attrs:
+        dynamic_heritage.append({
+            'name': h,
+            'landmark': f'{h}, {dest_title}',
+            'desc': f'Historic heritage monument and iconic architectural landmark in {dest_title}.',
+            'highlight': 'Historic architecture, cultural heritage, photography'
+        })
+
     dynamic_spots = {
         'temples': dynamic_temples,
+        'heritage_monuments': dynamic_heritage,
         'hills_viewpoints': dynamic_hills,
         'waterfalls': dynamic_falls,
         'parks_botanical': dynamic_botanical,

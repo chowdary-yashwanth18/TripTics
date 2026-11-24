@@ -51,6 +51,16 @@
       "travelers": 2,
       "notes": "2-Day trip to Visakhapatnam",
       "created_at": "2026-11-23T11:41:29.659747"
+    },
+    {
+      "id": "hyderabad-2026-11-24",
+      "destination": "Hyderabad",
+      "origin": "Bengaluru",
+      "start_date": "2026-11-24",
+      "end_date": "2026-11-27",
+      "travelers": 2,
+      "notes": "3-Day trip to Hyderabad",
+      "created_at": "2026-11-24T10:11:27.961563"
     }
   ],
   "expenses": [

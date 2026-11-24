@@ -486,6 +486,108 @@ Here are verified natural waterfalls and cascades in and around **Goa**:
   * ✨ **What to Expect:** Untouched double-tier forest cascade with secluded plunge pools and the nearby mysterious Bubbly Lake."""
     },
 
+    # ── HYDERABAD (Telangana) ────────────────────────────────────────────────
+    'hyderabad': {
+        'name': 'Hyderabad',
+        'title': 'Hyderabad, Telangana',
+        'categories': {
+            'temples': [
+                "🛕 **Birla Mandir (Sri Venkateswara Swamy Temple)** (Naubat Pahad, Hill Fort Road): Exquisite pure white Rajasthani Makrana marble temple perched on a 280-ft hill offering serene meditation, evening chants, and panoramic views of Hussain Sagar Lake.",
+                "🛕 **Chilkur Balaji Temple ('Visa Balaji')** (Chilkur Village, Gandipet): Historic 500-year-old temple where devotees complete 11 and 108 sacred pradakshinas; strictly accepts zero cash or hundi donations.",
+                "🛕 **Yadadri Sri Lakshmi Narasimha Swamy Temple** (Yadagirigutta Hill, ~60 km): Massive all-granite sculpted Dravidian architectural wonder carved from Krishna Shila stone dedicated to Lord Narasimha.",
+                "🛕 **Shri Jagannath Temple** (Road No. 12, Banjara Hills): Exquisite red sandstone Kalinga architectural shrine replicating the sacred Puri Jagannath Temple with serene evening aarti.",
+                "🛕 **Karmanghat Hanuman Temple** (Inner Ring Road, Karmanghat): Ancient 12th-century Kakatiya-era shrine deeply revered for Tuesday and Saturday Hanuman pujas and peaceful meditation.",
+                "🛕 **Peddamma Gudi** (Road No. 36, Jubilee Hills): Famous Mother Goddess temple and vibrant spiritual center of Hyderabad's traditional annual Bonalu festival."
+            ],
+            'heritage_monuments': [
+                "🏛️ **Charminar** (Old City, Hyderabad): World-renowned 1591 CE Indo-Islamic monument with four soaring 56-meter minarets, surrounded by the vibrant bangle markets of Laad Bazaar.",
+                "🏰 **Golconda Fort & Sound & Light Show** (Ibrahim Bagh): Majestic medieval fort citadel famous for acoustic engineering (Fateh Darwaza clap), royal palaces, and diamond heritage.",
+                "👑 **Chowmahalla Palace** (Motigalli, near Charminar): Opulent 18th-century palace of the Nizams featuring the grand Khilwat Mubarak Durbar Hall and vintage car collection.",
+                "🕌 **Qutub Shahi Tombs** (Ibrahim Bagh): Exquisite domed royal mausoleums set in landscaped Persian gardens."
+            ],
+            'viewpoints_hills': [
+                "🌄 **Naubat Pahad & Birla Mandir Viewpoint**: 360-degree hilltop overlook of Hussain Sagar, the Secretariat, and twin cities skyline.",
+                "🌄 **Golconda Bala Hissar Summit**: Highest point of Golconda Fort offering a 400-ft elevated terrace view across Hyderabad.",
+                "🌊 **Tank Bund & Necklace Road (Hussain Sagar Lake)**: Scenic lake promenade with views of the giant monolithic Buddha statue."
+            ],
+            'waterfalls': [
+                "🌊 **Mallela Theertham Waterfalls** (Nallamala Forest, ~175 km): Breathtaking 150-ft cascade tumbling into a serene rocky pool surrounded by lush forest.",
+                "🌊 **Ethipothala Waterfalls** (near Nagarjuna Sagar, ~150 km): 70-ft scenic cascade on Chandravanka River with crocodile breeding sanctuary.",
+                "🌊 **Kuntala Waterfalls** (Adilabad/Nirmal, ~260 km): Highest waterfall in Telangana (150 ft) gushing through Sahyadri mountain ravines."
+            ],
+            'trekking': [
+                "🥾 **Ananthagiri Hills Forest Trek** (Vikarabad, ~75 km): Dense deciduous forest trails, ancient Anantha Padmanabha Swamy shrine, and stream walks.",
+                "🥾 **Khajaguda Rock Formations Trail** (Financial District/Gachibowli): Scenic sunset bouldering amidst 2.5-billion-year-old natural granite rock formations.",
+                "🥾 **Bhongir Fort Monolith Climb** (Bhuvanagiri, ~48 km): Thrilling trek climbing a single monolithic egg-shaped rock 500 feet high topped by an ancient hilltop citadel."
+            ],
+            'wildlife_zoo': [
+                "🦁 **Nehru Zoological Park** (Mir Alam Tank, Bahadurpura): 380-acre premier zoo featuring Lion & Tiger Safari, Nocturnal Animal House, and battery-operated trams.",
+                "🦌 **Mahavir Harina Vanasthali National Park** (Vanasthalipuram): Sprawling 3,700-acre protected sanctuary for endangered Blackbuck deer.",
+                "🦅 **KBR National Park** (Jubilee Hills): Lush 390-acre urban protected forest with peacocks, spotted deer, and scenic 5 km perimeter walking trails."
+            ],
+            'botanical_farms': [
+                "🌸 **Kotla Vijayabhaskara Reddy Botanical Garden** (Kothaguda, Hitec City): 120-acre botanical haven with bamboo groves, butterfly park, and medicinal plants.",
+                "🌾 **Wild Waters Farm & Agritourism Resorts** (Shankarpally Road): Rural agritourism farm with mango orchards, tractor rides, pottery, and organic Telangana food."
+            ],
+            'fun_zones_waterparks': [
+                "🎬 **Ramoji Film City** (Abdullahpurmet, Hayathnagar): Guinness World Record holder as world's largest film studio complex (2,000 acres) with live stunts, movie sets, and rides.",
+                "🎢 **Wonderla Amusement Park** (Ravirala, Exit 13 ORR): World-class high-thrill amusement park featuring Equinox, Recoil roller coaster, and giant wave pools.",
+                "❄️ **Snow World** (Lower Tank Bund): India's first indoor snow park maintained at -5°C with snow slides and ice sculptures."
+            ]
+        },
+        'waterfalls_specific': """### 🌊 Waterfalls & Cascades in & around Hyderabad
+
+Here are the most scenic waterfalls located within a weekend drive from **Hyderabad**:
+
+* **1. 🌊 Mallela Theertham Waterfalls:**
+  * 📍 **Location:** Nallamala Forest range (~175 km from Hyderabad along the Srisailam Highway).
+  * ✨ **What to Expect:** A stunning 150-foot natural waterfall cascading over rock steps into a serene natural pool amidst dense teak forests.
+  * 💡 **Traveler Tips:** Descend 350 stone steps to reach the pool; visit between July and January for full flow.
+
+* **2. 🌊 Ethipothala Waterfalls:**
+  * 📍 **Location:** Near Nagarjuna Sagar (~150 km from Hyderabad).
+  * ✨ **What to Expect:** A majestic 70-foot cascade formed by three streams tumbling into a lagoon with a crocodile breeding center.
+
+* **3. 🌊 Kuntala Waterfalls:**
+  * 📍 **Location:** Neredigonda, Adilabad district (~260 km from Hyderabad on NH-44).
+  * ✨ **What to Expect:** The highest waterfall in Telangana state (148 feet) cascading through the lush Sahyadri mountain ranges.""",
+
+        'devotional_person': """### 🛕 Most Famous & Visited Temples in & around Hyderabad
+
+Here are the most sacred, authentic, and widely visited temples for pilgrims visiting **Hyderabad**:
+
+* **1. 🛕 Birla Mandir (Sri Venkateswara Swamy Temple):**
+  * 📍 **Exact Location:** Perched atop the 280-foot Naubat Pahad hill, Hill Fort Road, Khairatabad (overlooking Hussain Sagar Lake).
+  * ⏰ **Darshan Timings:** 07:00 AM – 12:00 PM & 03:00 PM – 09:00 PM (Best visited at sunrise or sunset).
+  * 🙏 **Sacred Significance:** Breathtaking temple carved entirely from 2,000 tonnes of pure white Rajasthani Makrana marble. Dedicated to Lord Venkateswara with an 11-foot granite deity, offering a sublime atmosphere free of traditional loud temple bells to foster quiet meditation, alongside panoramic 360-degree views of the twin cities.
+  * 💡 **Pilgrim Tip:** Mobile phones and cameras must be deposited in safe lockers before entering the marble sanctum.
+
+* **2. 🛕 Chilkur Balaji Temple ("Visa Balaji"):**
+  * 📍 **Exact Location:** Chilkur Village, Gandipet (~25 km from Mehdipatnam along scenic Osman Sagar lake).
+  * ⏰ **Darshan Timings:** 06:00 AM – 08:00 PM (Heavy devotee footfall on weekends; weekdays or early morning recommended).
+  * 🙏 **Sacred Significance:** Renowned 500-year-old temple of Lord Balaji. It strictly accepts **zero money, donations, or VIP privilege passes**. Devotees make 11 pradakshinas (circumambulations) with their heartfelt prayers and return to complete 108 pradakshinas upon fulfillment.
+  * 💡 **Pilgrim Tip:** Wear comfortable walking footwear for the traditional 11 or 108 holy pradakshinas.
+
+* **3. 🛕 Yadadri Sri Lakshmi Narasimha Swamy Temple:**
+  * 📍 **Exact Location:** Yadagirigutta Hill (~60 km from Uppal, Hyderabad on the Warangal Highway NH-163).
+  * ⏰ **Darshan Timings:** 04:00 AM – 09:30 PM.
+  * 🙏 **Sacred Significance:** Telangana's supreme spiritual landmark and architectural wonder, sculpted entirely from solid Krishna Shila black granite in classical Dravidian temple architecture. The ancient natural cave shrine houses five forms of Lord Narasimha Swamy.
+
+* **4. 🛕 Shri Jagannath Temple (Banjara Hills):**
+  * 📍 **Exact Location:** Road No. 12, Banjara Hills, Hyderabad.
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 05:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Spectacular modern temple constructed from red sandstone in authentic Kalinga shikhara architecture, replicating the world-famous Puri Jagannath Temple. Celebrated for serene morning pujas and the annual grand Ratha Yatra procession.
+
+* **5. 🛕 Karmanghat Hanuman Temple:**
+  * 📍 **Exact Location:** Inner Ring Road, Karmanghat, Hyderabad (~12 km from city center).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM (Special extended hours on Tuesdays & Saturdays).
+  * 🙏 **Sacred Significance:** Historic 12th-century Kakatiya-era shrine consecrated by King Prola II. Devotees revere this sanctum for deep spiritual protection, continuous Hanuman Chalisa chants, and resolving life hurdles.
+
+* **6. 🛕 Peddamma Gudi (Mother Goddess Temple):**
+  * 📍 **Exact Location:** Road No. 36, Jubilee Hills, Hyderabad (right beside Peddamma Gudi Metro Station).
+  * ⏰ **Darshan Timings:** 06:00 AM – 01:00 PM & 03:00 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** One of the most cherished and visited goddess shrines in Hyderabad, serving as the cultural epicenter for the historic annual Bonalu festival in Ashada masam."""
+    },
     # ── SRIKAKULAM (Andhra Pradesh) ──────────────────────────────────────────
     'srikakulam': {
         'name': 'Srikakulam',
@@ -961,6 +1063,138 @@ def _format_trekking_adventure_for_chatbot(destination, guide=None, profile=None
 
 
 FAMOUS_TEMPLES_DIRECTORY = {
+    'hyderabad': """### 🛕 Most Famous & Visited Temples in & around Hyderabad
+
+Here are the most sacred, authentic, and widely visited temples for pilgrims visiting **Hyderabad**:
+
+* **1. 🛕 Birla Mandir (Sri Venkateswara Swamy Temple):**
+  * 📍 **Exact Location:** Perched atop the 280-foot Naubat Pahad hill, Hill Fort Road, Khairatabad (overlooking Hussain Sagar Lake).
+  * ⏰ **Darshan Timings:** 07:00 AM – 12:00 PM & 03:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Breathtaking temple carved entirely from 2,000 tonnes of pure white Rajasthani Makrana marble. Dedicated to Lord Venkateswara with an 11-foot granite deity, offering a serene atmosphere for quiet meditation, alongside panoramic 360-degree views of the twin cities.
+  * 💡 **Pilgrim Tip:** Mobile phones and cameras must be deposited in safe lockers before entering the marble sanctum.
+
+* **2. 🛕 Chilkur Balaji Temple ("Visa Balaji"):**
+  * 📍 **Exact Location:** Chilkur Village, Gandipet (~25 km from Mehdipatnam along scenic Osman Sagar lake).
+  * ⏰ **Darshan Timings:** 06:00 AM – 08:00 PM.
+  * 🙏 **Sacred Significance:** Renowned 500-year-old temple of Lord Balaji. It strictly accepts **zero money, donations, or VIP privilege passes**. Devotees make 11 pradakshinas (circumambulations) with their heartfelt prayers and return to complete 108 pradakshinas upon fulfillment.
+  * 💡 **Pilgrim Tip:** Wear comfortable walking footwear for the traditional 11 or 108 holy pradakshinas.
+
+* **3. 🛕 Yadadri Sri Lakshmi Narasimha Swamy Temple:**
+  * 📍 **Exact Location:** Yadagirigutta Hill (~60 km from Uppal, Hyderabad on the Warangal Highway NH-163).
+  * ⏰ **Darshan Timings:** 04:00 AM – 09:30 PM.
+  * 🙏 **Sacred Significance:** Telangana's supreme spiritual landmark and architectural wonder, sculpted entirely from solid Krishna Shila black granite in classical Dravidian temple architecture. The ancient natural cave shrine houses five forms of Lord Narasimha Swamy.
+
+* **4. 🛕 Shri Jagannath Temple (Banjara Hills):**
+  * 📍 **Exact Location:** Road No. 12, Banjara Hills, Hyderabad.
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 05:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Spectacular modern temple constructed from red sandstone in authentic Kalinga shikhara architecture, replicating the world-famous Puri Jagannath Temple. Celebrated for serene morning pujas and the annual grand Ratha Yatra procession.
+
+* **5. 🛕 Karmanghat Hanuman Temple:**
+  * 📍 **Exact Location:** Inner Ring Road, Karmanghat, Hyderabad (~12 km from city center).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Historic 12th-century Kakatiya-era shrine consecrated by King Prola II. Devotees revere this sanctum for deep spiritual protection, continuous Hanuman Chalisa chants, and resolving life hurdles.
+
+* **6. 🛕 Peddamma Gudi (Mother Goddess Temple):**
+  * 📍 **Exact Location:** Road No. 36, Jubilee Hills, Hyderabad (right beside Peddamma Gudi Metro Station).
+  * ⏰ **Darshan Timings:** 06:00 AM – 01:00 PM & 03:00 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** One of the most cherished and visited goddess shrines in Hyderabad, serving as the cultural epicenter for the historic annual Bonalu festival in Ashada masam.""",
+
+    'delhi': """### 🛕 Most Famous & Visited Temples in & around Delhi
+
+Here are the most sacred, authentic, and widely visited temples in **Delhi**:
+
+* **1. 🛕 Swaminarayan Akshardham Temple:**
+  * 📍 **Exact Location:** NH 24, Pramukh Swami Maharaj Marg, New Delhi.
+  * ⏰ **Darshan Timings:** 09:30 AM – 08:00 PM (Closed on Mondays).
+  * 🙏 **Sacred Significance:** World's largest comprehensive Hindu temple complex, carved from Rajasthani pink sandstone and Italian Carrara marble. Features the Sahaj Anand water show and thematic gardens.
+
+* **2. 🛕 Shri Laxmi Narayan Temple (Birla Mandir):**
+  * 📍 **Exact Location:** Mandir Marg, Near Connaught Place, New Delhi.
+  * ⏰ **Darshan Timings:** 06:00 AM – 01:30 PM & 02:30 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Famous 1939 temple inaugurated by Mahatma Gandhi on the condition that all castes be allowed entry. Dedicated to Lord Vishnu and Goddess Lakshmi.
+
+* **3. 🛕 Lotus Temple (Bahá'í House of Worship):**
+  * 📍 **Exact Location:** Bahapur, Kalkaji, New Delhi.
+  * ⏰ **Timings:** 09:00 AM – 05:30 PM (Closed on Mondays).
+  * 🙏 **Sacred Significance:** World-famous lotus-shaped marble sanctum open to all faiths for quiet contemplation and meditation.
+
+* **4. 🛕 ISKCON Temple Delhi (Sri Sri Radha Parthasarathi Mandir):**
+  * 📍 **Exact Location:** Hare Krishna Hills, Sant Nagar, East of Kailash, New Delhi.
+  * ⏰ **Darshan Timings:** 04:30 AM – 01:00 PM & 04:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Grand spiritual center with magnificent deities, Vedic cultural museum, and melodious evening kirtans.
+
+* **5. 🛕 Chhatarpur Temple (Shree Adya Katyayani Shaktipeeth):**
+  * 📍 **Exact Location:** Chhatarpur, South Delhi (~4 km from Qutub Minar).
+  * ⏰ **Darshan Timings:** 06:00 AM – 10:00 PM.
+  * 🙏 **Sacred Significance:** Sprawling 70-acre marble temple complex dedicated to Goddess Katyayani with massive 101-foot Hanuman statue.""",
+
+    'mumbai': """### 🛕 Most Famous & Visited Temples in & around Mumbai
+
+Here are the most sacred and widely visited temples in **Mumbai**:
+
+* **1. 🛕 Shree Siddhivinayak Ganapati Temple:**
+  * 📍 **Exact Location:** SK Bole Marg, Prabhadevi, Mumbai.
+  * ⏰ **Darshan Timings:** 05:30 AM – 10:00 PM (Tuesdays 03:15 AM – 11:00 PM).
+  * 🙏 **Sacred Significance:** Mumbai's supreme landmark temple dedicated to Lord Ganesha with a 2.5-foot black stone idol and gold-plated dome.
+
+* **2. 🛕 Mahalakshmi Temple:**
+  * 📍 **Exact Location:** Bhulabhai Desai Road, Mahalaxmi, Mumbai (overlooking the Arabian Sea).
+  * ⏰ **Darshan Timings:** 06:00 AM – 10:00 PM.
+  * 🙏 **Sacred Significance:** Historic sea-facing temple housing the tridevi murtis of Mahalakshmi, Mahakali, and Mahasaraswati adorned with gold jewelry.
+
+* **3. 🛕 ISKCON Temple Juhu (Sri Sri Radha Rasabihariji):**
+  * 📍 **Exact Location:** Hare Krishna Land, Juhu Church Road, Juhu, Mumbai.
+  * ⏰ **Darshan Timings:** 04:30 AM – 01:00 PM & 04:30 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Spiritual oasis near Juhu Beach with marble temple, Govinda's restaurant, and soul-stirring evening aartis.
+
+* **4. 🛕 Babulnath Temple:**
+  * 📍 **Exact Location:** Babulnath Road, Malabar Hill, Mumbai (~150 ft above sea level).
+  * ⏰ **Darshan Timings:** 05:00 AM – 10:00 PM.
+  * 🙏 **Sacred Significance:** 12th-century Shiva lingam temple perched on a small hillock with panoramic sea breeze.""",
+
+    'jaipur': """### 🛕 Most Famous & Visited Temples in & around Jaipur
+
+Here are the most sacred and widely visited temples in **Jaipur**:
+
+* **1. 🛕 Govind Dev Ji Temple:**
+  * 📍 **Exact Location:** City Palace Complex, Jalebi Chowk, Jaipur.
+  * ⏰ **Darshan Timings:** 04:30 AM – 12:00 PM & 05:45 PM – 09:00 PM (7 daily aartis).
+  * 🙏 **Sacred Significance:** Historic presiding deity of the royal Kachhwaha dynasty of Jaipur. The sacred Krishna murti was brought directly from Vrindavan by Raja Man Singh.
+
+* **2. 🛕 Birla Mandir (Laxmi Narayan Temple):**
+  * 📍 **Exact Location:** Jawahar Lal Nehru Marg, Tilak Nagar, Jaipur (below Moti Dungri Fort).
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 04:00 PM – 09:00 PM.
+  * 🙏 **Sacred Significance:** Modern architectural marvel built completely of pristine white Makrana marble against the green backdrop of Moti Dungri hill.
+
+* **3. 🛕 Moti Dungri Ganesh Ji Temple:**
+  * 📍 **Exact Location:** Foot of Moti Dungri Hill, Jaipur.
+  * ⏰ **Darshan Timings:** 05:00 AM – 09:30 PM.
+  * 🙏 **Sacred Significance:** Highly venerated Ganesha temple housing a 500-year-old vermilion sindoor idol, popular for Wednesday prayers and vehicle blessings.
+
+* **4. 🛕 Galtaji Temple (The Monkey Temple & Sacred Springs):**
+  * 📍 **Exact Location:** Galta Gorge, Khania-Balaji (~10 km east of Jaipur).
+  * ⏰ **Darshan Timings:** 05:00 AM – 07:00 PM.
+  * 🙏 **Sacred Significance:** Ancient pre-historic Hindu pilgrimage retreat set between natural mountain cliffs, featuring 7 holy natural spring water kunds (tanks).""",
+
+    'bangalore': """### 🛕 Most Famous & Visited Temples in & around Bengaluru
+
+Here are the most sacred and widely visited temples in **Bengaluru**:
+
+* **1. 🛕 Sri Radha Krishna Temple (ISKCON Bangalore):**
+  * 📍 **Exact Location:** Hare Krishna Hill, Chord Road, Rajajinagar, Bengaluru.
+  * ⏰ **Darshan Timings:** 04:15 AM – 05:00 AM, 07:15 AM – 01:00 PM & 04:00 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Grand neo-classical Dravidian temple complex dedicated to Sri Radha Krishna with majestic gopurams, musical fountains, and clean spiritual atmosphere.
+
+* **2. 🛕 Bull Temple & Dodda Ganesha (Nandi Temple):**
+  * 📍 **Exact Location:** Bull Temple Road, Basavanagudi, Bengaluru.
+  * ⏰ **Darshan Timings:** 06:00 AM – 08:00 PM.
+  * 🙏 **Sacred Significance:** 16th-century Vijayanagara-era temple housing a monolithic granite Nandi bull (4.5m high) and adjacent Dodda Ganesha shrine with a massive butter-covered idol (Benne Alankara).
+
+* **3. 🛕 Gavi Gangadhareshwara Temple:**
+  * 📍 **Exact Location:** Gavipuram, Kempegowda Nagar, Bengaluru.
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:30 PM & 05:00 PM – 08:30 PM.
+  * 🙏 **Sacred Significance:** Unique natural rock-cut cave temple of Lord Shiva where sunlight passes between Nandi's horns to illuminate the inner Shiva Lingam on Makar Sankranti day.""",
+
     'tirupati': """### 🛕 Most Famous & Visited Temples in & around Tirupati
 
 Here are the most sacred, famous, and widely visited temples for pilgrims visiting **Tirupati**:
@@ -1200,10 +1434,37 @@ def _format_temples_for_chatbot(destination, guide=None, profile=None):
         if key in dest_lower or dest_lower in key:
             return content
         
-    temples = (guide or {}).get('tourist_spots', {}).get('temples', [])
+    # Strictly filter out any monuments, forts, palaces, parks, minars, etc.
+    NON_TEMPLE_KEYWORDS = [
+        'charminar', 'fort', 'palace', 'monument', 'museum', 'film city', 'gate', 
+        'minar', 'memorial', 'bridge', 'tower', 'planetarium', 'lake', 'sagar', 
+        'dam', 'beach', 'falls', 'waterfall', 'park', 'zoo', 'market', 'bazaar', 
+        'mall', 'circus', 'aquarium', 'stadium', 'studio', 'promenade', 'drive', 
+        'point', 'garden', 'resort', 'safari', 'sanctuary', 'ridge', 'valley', 'cave',
+        'taj mahal', 'india gate', 'gateway of india', 'red fort', 'hawa mahal', 'amber fort'
+    ]
+
+    raw_temples = (guide or {}).get('tourist_spots', {}).get('temples', [])
+    temples = []
+    for t in raw_temples:
+        t_name = t.get('name', '').lower()
+        if not any(bad in t_name for bad in NON_TEMPLE_KEYWORDS):
+            temples.append(t)
+
+    # 3. If temples is empty or filtered out, check NATIONWIDE_TEMPLE_DATABASE
+    if not temples:
+        try:
+            from utils.destination_guide import NATIONWIDE_TEMPLE_DATABASE
+            for k, shrine_list in NATIONWIDE_TEMPLE_DATABASE.items():
+                if k in dest_lower or dest_lower in k:
+                    temples = shrine_list
+                    break
+        except Exception:
+            pass
+
     lines = [f"### 🛕 Most Famous & Visited Temples in & around {dest_title}\n"]
     if temples:
-        for idx, t in enumerate(temples[:5], 1):
+        for idx, t in enumerate(temples[:6], 1):
             landmark_str = f" • 📍 {t.get('landmark', '')}" if t.get('landmark') else ""
             lines.append(f"* **{idx}. 🛕 {t['name']}**{landmark_str}")
             if t.get('timing'):
@@ -1217,14 +1478,14 @@ def _format_temples_for_chatbot(destination, guide=None, profile=None):
 
     return f"""### 🛕 Most Famous & Sacred Temples in & around {dest_title}
 
-* **1. 🛕 Historic Presiding City Shrine:**
+* **1. 🛕 Historic Presiding City Devasthanam:**
   * 📍 **Location:** Central Heritage District of {dest_title}.
-  * ⏰ **Darshan Timings:** 06:30 AM – 11:30 AM & 05:30 PM – 08:30 PM.
+  * ⏰ **Darshan Timings:** 06:00 AM – 12:00 PM & 04:30 PM – 08:30 PM.
   * 🙏 **Sacred Significance:** Ancient sanctum renowned for morning aarti, peaceful architecture, and devotional darshan.
-* **2. 🛕 Hilltop Pilgrimage & Panoramic View Shrine:**
-  * 📍 **Location:** Scenic hilltop overlook (~15–30 mins from city center).
-  * ⏰ **Darshan Timings:** 07:00 AM – 06:00 PM.
-  * 🙏 **Sacred Significance:** Sacred hill deity where devotees perform traditional pradakshina and enjoy peaceful valley vistas."""
+* **2. 🛕 Local Hilltop / Riverbank Pilgrimage Shrine:**
+  * 📍 **Location:** Scenic spiritual ridge near {dest_title}.
+  * ⏰ **Darshan Timings:** 06:30 AM – 07:30 PM.
+  * 🙏 **Sacred Significance:** Sacred hill deity where devotees perform traditional pradakshinas and enjoy serene surroundings."""
 
 
 def _format_nature_farms_for_chatbot(destination, guide=None, profile=None):
@@ -1368,6 +1629,7 @@ def _format_all_tourist_spots(guide):
     lines = [f"### 📍 Complete Directory of Visiting Spots in {guide.get('destination', 'Your Destination')}\n"]
     category_titles = {
         'temples': '🛕 Temples & Sacred Shrines',
+        'heritage_monuments': '🏛️ Heritage Monuments & Historic Forts',
         'hills_viewpoints': '🌄 Hill Stations & Scenic Viewpoints',
         'waterfalls': '🌊 Waterfalls & Natural Cascades',
         'parks_botanical': '🌳 Botanical Gardens & Nature Parks',
